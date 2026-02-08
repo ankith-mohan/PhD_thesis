@@ -1,0 +1,505 @@
+\chapter{Pretty bad measurement} \label{ch:PBM}
+
+Preparing and measuring quantum states are the two pillars of quantum computing. 
+As an example, quantum state tomography is the task of identifying which quantum state a device is preparing given (many) samples~\cite{christandl2012reliable, torlai2018neural, gross2010quantum, qi2013quantum, ahmed2021quantum, mahler2013adaptive, schwemmer2015systematic}
+which has been experimentally tested~\cite{cramer2010efficient, stricker2022experimental, rambach2021robust, rippe2008experimental, mallet2011quantum}. 
+In other words, one wishes to find the best measurement(s) to perform in order to learn the state with the fewest number of samples. 
+
+Another task central to quantum computing is the \emph{quantum state discrimination problem} where one is tasked with identifying which state they have been given \emph{from a fixed set of quantum states}. 
+This is a naturally occurring setting which has been studied in the context of quantum algorithms~\cite{radhakrishnan2009random, hayashi2006quantum}, quantum cryptography~\cite{van2002unambiguous, cabello2000quantum, ambainis2001new, sikora2017simple}, quantum machine learning~\cite{sentis2016quantum, sentis2017exact}, among many others (see~\cite{Bae_2015} for a survey).  
+
+The quantum state discrimination problem can be phrased as a game between Alice and Bob. 
+Alice has a finite set of quantum states $\{ \rho_1, \ldots, \rho_n \}$ and a fixed probability distribution $(p_1, \ldots, p_n)$, both of which are known to Bob. 
+Alice then samples $i$ with probability $p_i$ and prepares and sends $\rho_i$ to Bob. 
+Bob wins the game if he correctly identifies the state by sending the correct index, $i$, back to Alice. 
+This game is illustrated in Fig.~\ref{fig:ch4_PBM-fig1}.  
+\begin{figure}[h] 
+    \centering
+    \includegraphics[scale=0.75]{figs/ch4_PBM/qsd_figure.pdf}
+    \caption{Alice prepares $\rho_i \in \{ \rho_1, \ldots, \rho_n \}$ and sends it to Bob. 
+    Bob wins the game if he correctly identifies the index $i$.}
+    \label{fig:ch4_PBM-fig1}
+\end{figure}
+
+One can easily show that Bob can win this game perfectly if and only if the states have orthogonal supports, i.e., $\inner{\rho_i}{\rho_j} = 0$ for all $i \neq j$. 
+When this is not the case, Bob may wish to maximize his probability of winning. 
+Suppose he measures with the POVM $\{M_1, \ldots, M_n\}$ and on outcome $j$ he guesses the state was $\rho_j$. 
+Then, given state $\rho_j$, he guesses ``I think the state is $\rho_i$'' with probability 
+$\inner{M_i}{\rho_j}$.  
+In this case, he wins the game with probability 
+%\begin{equation} 
+$\sum_{i=1}^n p_i \inner{M_i}{\rho_i}$.  
+%\end{equation} 
+If Bob wishes to maximize this probability, then he is tasked with finding the best POVM $\{M_1, \dots, M_n\}$, known as the \emph{minimum error} measurement, and we define the best probability for Bob as 
+\begin{equation}
+    \label{eq:ch4_PBM-P_best} 
+    \Pbest = \text{max} \; \sum_{i=1}^n p_i \inner{M_i}{\rho_i}.
+\end{equation} 
+
+Given a problem instance, one can numerically solve for the best POVM using semidefinite programming~\cite{cvx}. 
+Unfortunately, characterizing such POVMs is a difficult task known only to be possible in special cases, e.g., for $n=2$ the case of two states~\cite{helstrom1969quantum}, for $n$ arbitrary qubit states given with equal \emph{a priori} probabilities~\cite{deconinck2010qubit}, for geometrically uniform states~\cite{eldar2004optimal}, and mirror symmetric states~\cite{andersson2002minimum}.  
+Therefore, it is important to find generic classes of measurements which have a simple form and \emph{approximate} $\Pbest$. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Quantum state exclusion} \label{sec:ch4_PBM-QSE}
+
+The quantum state \emph{exclusion} problem is similar to quantum state discrimination except that Bob wishes to guess a state \emph{which was not sent}. 
+For example, if Alice sends $\rho_1$ to Bob and Bob responds with ``Alice, you did not send $\rho_3$'' then he would win the game in that case. 
+The work in \cite{bandyopadhyay2014conclusive} studies this task in detail and its relationship to the PBR game~\cite{pusey2012reality}. 
+Quantum state exclusion is illustrated in Fig.~\ref{fig:ch4_PBM-fig2}.  
+\begin{figure}[h] 
+    \centering
+    \includegraphics[scale=0.75]{figs/ch4_PBM/qse_figure.pdf}
+    \caption{Alice prepares $\rho_i \in \{ \rho_1, \ldots, \rho_n \}$ and sends it to Bob. 
+    Bob wins the game if he correctly \emph{excludes} an index $j \neq i$.}
+    \label{fig:ch4_PBM-fig2}
+\end{figure} 
+
+Unlike quantum state discrimination, it is much more difficult to determine when Bob has a perfect strategy to perfectly win this game, i.e., when he can exclude a state without error. 
+If this is the case, we say that the states are \emph{antidistinguishable} which has been the topic of recent research~\cite{havlivcek2020simple, russo2023inner, leifer2020noncontextuality, mishra2023optimal, uola2020all, johnston2023tight}. 
+
+If Bob wishes to find the measurement which best excludes a state, he wishes to minimize the probability of making an incorrect guess.
+More precisely, if Bob measures $\rho_i$ with the POVM $\{M_1, \ldots, M_N\}$, he makes an \emph{incorrect guess} with probability $\inner{M_i}{\rho_i}$.  
+Thus, he wishes to \emph{minimize} 
+%\begin{equation} 
+$\sum_{i=1}^n p_i \inner{M_i}{\rho_i}$.  
+%\end{equation} 
+
+Notice that this is the exact opposite of what he wishes to do in the quantum state discrimination problem where he wants to maximize this quantity, see Eq.~\eqref{eq:ch4_PBM-P_best}. 
+Thus, if Bob wants to exclude a state, his best measurement is also the \emph{worst} measurement for discrimination. 
+Therefore, we define 
+\begin{equation}
+    \label{eq:ch4_PBM-P_worst}
+    \Pworst = \text{min} \; \sum_{i=1}^k p_i \inner{M_i}{\rho_i}. 
+\end{equation}
+
+It is worth noting that the viewpoint of Bob trying to lose the quantum state discrimination game is interesting in its own right. 
+Indeed, Bob cannot always lose this game with certainty, even if he wants to, and understanding when this is the case, and more generally, understanding the above quantity gives insights into the very nature of quantum information. 
+
+
+The pretty good measurement (PGM), first discussed in~\cite{belavkin1975optimaldist, belavkin1975optimal, hughston1993complete}, is a way to approximate the best possible measurement. 
+Sometimes PGM is optimal, some nice examples being for the hidden subgroup problem~\cite{bacon2005optimal, moore2005distinguishing}, for the quantum change point problem~\cite{sentis2016quantum}, and in port-based teleportation~\cite{leditzky2022optimality}.  
+Generally speaking, for problems with a large amount of symmetry, the PGM seems to perform well. 
+
+This brings us to the main question of this chapter:
+\begin{center}
+\textit{Is there an analogue of the pretty good measurement for approximating $\Pworst$?} 
+\end{center}
+
+We now review PGMs which helps us give an answer to the above question. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{The pretty good measurement (PGM)} \label{sec:ch4_PBM-PGM}
+
+Also known as the square root measurement, the pretty good measurement is the POVM $\{G_1, \dots, G_n\}$, where each measurement operator is defined as  
+\begin{equation}
+    \label{eq:ch4_PBM-PGM_ops}
+    G_i = P^{-1/2} \bigg( p_i \rho_i \bigg) P^{-1/2} \; \text{ where } \; 
+    P = \sum_{i=1}^n p_i \rho_i.
+\end{equation} 
+If Bob uses the PGM for quantum state discrimination, he wins with probability 
+\begin{align} 
+\PPGM 
+& = \sum_{i=1}^n p_i \inner{G_i}{\rho_i} = \sum_{i=1}^n p_i^2 \tr(P^{-1/2} \rho_i P^{-1/2} \rho_i). \label{eq:ch4_PBM-P_PGM} 
+\end{align} 
+We now present a theorem which compares $\PPGM$ to the blind guessing probability, i.e., $1/n$. 
+%To the best of our knowledge, comparing $\PPGM$ to the blind guessing probability, i.e., $1/k$, is not known except in trivial cases. 
+%This brings us to our first main result (which we prove in the appendix). 
+
+\begin{thm}{\cite{renes2017better}} \label{thm:ch4_PBM-PGM}
+For any set of states $\{ \rho_1, \ldots, \rho_n \}$ and probability distribution $(p_1, \ldots, p_n)$, we have 
+\begin{equation} 
+\PPGM \geq \frac{1}{n} + \frac{(1 - n \Pbest)^2}{n (n - 1)} 
+\end{equation}
+where $1/n$ can be interpreted as the blind guessing probability. 
+Moreover, if $\PPGM = 1/n$, then we have $\rho_i = \rho_j$ and $p_i = p_j = 1/n$ for all $i \neq j$. 
+\end{thm} 
+
+%We prove a slightly weaker version of this theorem in Section~\ref{sec:ch4_PBM-thm_1_pf} using the concept of \emph{offsets}, discussed in the next section.
+
+We now discuss our first step towards defining a pretty bad measurement. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Purposely messing up measurements with offsets} \label{sec:ch4_PBM-offsets}
+
+Suppose that one is given a decent measurement for state discrimination and one wishes to make it perform worse. 
+Then one way to do this is to take the outcome of this measurement and \emph{change the answer}. 
+To this end, suppose we start with a POVM $\{M_1, \ldots, M_n\}$ and an \emph{offset parameter} $s$. 
+We define the offset measurement $\{M^s_1, \ldots, M^s_n\}$ as 
+\begin{equation} 
+M^s_i = M_{i \oplus s} 
+\end{equation} 
+where we use the notation $\oplus$ to denote cyclic addition, e.g., $5 \oplus 1 = 1$ when $k = 5$. 
+Conceptually, an offset should mess up a good measurement and, conversely, could have the ability to improve a bad measurement. 
+We have the need to quantify how well these offset measurements perform, thus we define 
+\begin{equation} 
+\alpha_s = \sum_{i=1}^n p_i \inner{M^s_i}{\rho_i} = \sum_{i=1}^n p_i \inner{M_{i \oplus s}}{\rho_i}.  
+\end{equation} 
+It turns out that all of these quantities are related to each other via the equality 
+\begin{equation}\label{eq:ch4_PBM-EqA3} 
+\sum_{s=0}^{n-1} \alpha_s = 1 
+\end{equation} 
+which is easily seen by noting that, for any fixed $i$, $\{M_i, M_{i \oplus 1}, \ldots, M_{i \oplus (n-1)}\}$ yields a valid POVM, and thus $\sum_{s=0}^{n-1} M_{i \oplus s} = \id$.
+
+We now prove a slightly weaker version of Theorem~\ref{thm:ch4_PBM-PGM}. \amnote{Is this the right place to put this proof?}
+
+\subsection{Proof of a slightly weaker version of Theorem~\ref{thm:ch4_PBM-PGM}} \label{ss:ch4_PBM-thm_pf}
+
+Given the quantum states $\{\rho_1, \ldots, \rho_n\}$ and the probability distribution $(p_1, \ldots, p_n)$,  
+define $P = \sum_{i=1}^n p_i \rho_i$ and the POVM $\{G_1, \ldots, G_n\}$ where $G_i = P^{-1/2} \left( p_i \rho_i \right) P^{-1/2}$ as in Eq.~\eqref{eq:ch4_PBM-PGM_ops}. 
+Moreover, define the $n$-dimensional vector $r$ where 
+\begin{equation} 
+r_i = \| P^{-1/4} \left( p_i \rho_i \right) P^{-1/4}\|_F.  
+\end{equation} 
+The proof begins as follows. 
+First, we establish that $\PPGM = \| r \|_2^2$. 
+Second, we bound $\| r \|_1 \geq 1$. 
+Then showing $\PPGM \geq 1/n$ follows by Cauchy-Schwarz.  
+
+%\bigskip 
+
+To see that $\| r \|_2^2 = \PPGM$, we have 
+\begin{equation}
+    \begin{aligned} 
+        \| r \|_2^2 
+        & = \sum_{i=1}^n r_i^2 
+        = \sum_{i=1}^n \| P^{-1/4} \left( p_i \rho_i \right) P^{-1/4} \|_F^2
+        = \sum_{i=1}^k \tr \left( P^{-1/4} \left( p_i \rho_i \right) P^{-1/2} \left( p_i \rho_i \right) P^{-1/4} \right) \\
+        & = \sum_{i=1}^k p_i \ \tr \left( \rho_i \ P^{-1/2} \left( p_i \rho_i \right) \ P^{-1/2} \right)
+        = \sum_{i=1}^k p_i \ \tr \left( \rho_i G_i \right)
+        = \PPGM.  
+    \end{aligned}
+\end{equation} 
+
+We now bound the following quantity:  
+\begin{equation}
+    \begin{aligned} 
+        p_i \ \inner{G_{i \oplus s}}{\rho_i}
+        & = p_i \ \tr( P^{-1/2} (p_{i \oplus s} \rho_{i \oplus s})\ P^{-1/2} \ \rho_i ) \\
+        & = \tr\left( P^{-1/4} \left( p_{i \oplus s} \rho_{i \oplus s} \right) P^{-1/4} P^{-1/4} \left( p_i \rho_i \right) P^{-1/4} \right) \\ 
+        & \leq \| P^{-1/4} \left( p_{i \oplus s} \rho_{i \oplus s} \right) P^{-1/4} \|_F \|  P^{-1/4} \left( p_i \rho_i \right) P^{-1/4} \|_F \label{eq:ch4_PBM-temp} \\ 
+        & = r_{i \oplus s} \cdot r_i. 
+    \end{aligned}
+\end{equation}
+
+This bound is useful in showing $1 \leq \| r \|_1$. 
+Using Eq.~\eqref{eq:ch4_PBM-EqA3}, we have 
+\begin{equation}
+    \begin{aligned}
+        1 = \sum_{s=0}^{n-1} \alpha_s & = \sum_{s=0}^{n-1} \sum_{i=1}^n p_i \ \inner{G_{i \oplus s}}{\rho_i}
+         \leq \sum_{s=0}^{n-1} \sum_{i=1}^n r_{i \oplus s} \cdot r_i
+         = \left( \sum_{i=1}^n r_i \right)^2 
+         = \| r \|_1^2 
+    \end{aligned} 
+\end{equation}
+noting the last equality holds since $r_i \geq 0$ for all $i$. 
+
+%\bigskip 
+
+Let $e$ be the $n$-dimensional all-ones vector and note that $\| r \|_1 = \inner{r}{e}$. 
+Then by the Cauchy-Schwarz inequality (for vectors), we have 
+\begin{equation} \label{eq:ch4_PBM-lastline}
+1 \leq \| r \|_1 = \inner{r}{e} \leq \| r \|_2 \| e \|_2 = \sqrt{\PPGM} \cdot \sqrt{n} 
+\end{equation} 
+proving that $\PPGM \geq 1/n$.%, as desired. 
+
+%\bigskip
+
+Now, if we have that $\PPGM = 1/n$, we must have equality throughout~\eqref{eq:ch4_PBM-lastline}. 
+This means that the vector $r$ must be proportional to $e$ and $\| r \|_1 = 1$. 
+These together imply that $r_i = 1/n$ for all $i$ which further implies that $P^{-1/4} (p_i \rho_i) P^{-1/4} \neq 0$ for all $i$, as well as $p_i \neq 0$ for all $i$. 
+
+We further require inequality Eq.~\eqref{eq:ch4_PBM-temp} to hold with equality, i.e., we must saturate Cauchy-Schwarz \emph{at every $i$ and $i \oplus s$}. 
+This can only be true if there exists $\lambda_{i,j} \neq 0$ such that 
+\begin{align}
+    P^{-1/4} (p_i \rho_i) P^{-1/4} = \lambda_{i,j} P^{-1/4} (p_{j} \rho_{j}) P^{-1/4}   
+\end{align} 
+for all $i$ and $j$. 
+Multiplying both sides by $P^{1/4}$, we have 
+\begin{align} \label{thanos}
+    p_i \rho_i = \lambda_{i,j} p_{j} \rho_{j}. 
+\end{align} 
+Taking the trace of both sides, we get 
+\begin{align}
+    \lambda_{i,j} = \frac{p_i}{p_j}. 
+\end{align} 
+From Eq.~\eqref{thanos}, we have $\rho_i = \rho_j$ for all $i$ and $j$. 
+
+All that remains to prove is that $p_i = 1/n$  for all $i$. 
+Recall that $r_i = 1/n$ for all $i$. 
+Thus, we have 
+\begin{align} 
+1
+ = \frac{r_i}{r_j} 
+ = \frac{\| P^{-1/4} (p_i \rho_i) P^{-1/4} \|_F}{\| P^{-1/4} (p_j \rho_j) P^{-1/4} \|_F} 
+ = \frac{p_i}{p_j} \frac{\| P^{-1/4} \rho_i P^{-1/4} \|_F}{\| P^{-1/4} \rho_j P^{-1/4} \|_F} 
+ = \frac{p_i}{p_j} 
+\end{align}  
+where the last equality holds since $\rho_i = \rho_j$ for all $i$ and $j$. 
+Thus, $p_i = 1/n$ for all $i$, as required.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{The pretty bad measurement (PBM).} \label{sec:ch4_PBM-PBM}
+
+We now define the counterpart to the PGM which now approximates $\Pworst$ instead. 
+Our approach is quite simple and borrows much of the elegance from the PGM. 
+We define it below and then give some interpretations of it. 
+\begin{defn} 
+Let $\{G_1, \ldots, G_n\}$ be the pretty good measurement. 
+The pretty bad measurement (PBM) is defined as the POVM $\{B_1, \ldots, B_n\}$ where 
+\begin{equation} 
+B_i = \frac{1}{n-1} \bigg( \id - G_i \bigg).  
+\end{equation} 
+\end{defn} 
+
+One way to interpret the PBM is by viewing it as the PGM with a uniformly random offset. 
+In other words, 
+\begin{align} 
+B_i & = \frac{1}{n-1} \sum_{s=1}^{n-1} G^s_i 
+\end{align} 
+noting that we omit the $s=0$ index since $G_i^0 = G_i$.  
+With this, we can calculate the success probability of the PBM as 
+\begin{align} 
+\PPBM 
+= \sum_{i=1}^n p_i \, \tr(\rho_i B_i)
+= \frac{1}{n-1} \sum_{s=1}^{n-1} \sum_{i=1}^n p_i \tr(\rho_i G^s_i)
+= \frac{1}{n-1} \sum_{s=1}^{n-1} \alpha_s. \label{eq:ch4_PBM-JohnWick}
+\end{align} 
+Since $\alpha_0 = \PPGM$, as this is the no-offset success probability, we have the following equation which follows directly from Eq.~\eqref{eq:ch4_PBM-EqA3}  
+\begin{equation}
+\PPGM + (n-1) \PPBM = 1. \label{eq:ch4_PBM-PGM_PBM} 
+\end{equation} 
+
+By combining with Theorem~\ref{thm:ch4_PBM-PGM}, we have our main result, below, which is the counterpart to the PGM bound, Theorem~\ref{thm:ch4_PBM-PGM}. 
+
+\begin{thm} \label{thm:ch4_PBM-PBM}
+For any set of states $\{ \rho_1, \ldots, \rho_n \}$ and probability distribution $(p_1, \ldots, p_n)$, we have 
+\begin{equation} 
+\PPBM \leq \frac{1}{n} - \frac{(1 - n \Pbest)^2}{n (n - 1)^2}. 
+\end{equation} 
+Moreover, if $\PPBM = 1/n$, then we have $\rho_i = \rho_j$ and $p_i = p_j = 1/n$ for all $i \neq j$. 
+\end{thm} 
+
+As a consequence of our discussion so far, we have 
+\begin{equation}
+\Pbest \geq \PPGM \geq \frac{1}{n} \geq \PPBM \geq \Pworst.
+\label{eq:ch4_PBM-AllInequalities}
+\end{equation} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Another interpretation}  
+
+There is another way to interpret the PBM which is as the PGM \emph{in a different setting}.  
+For the set of states 
+$\{ \rho_1, \ldots, \rho_n \}$ with probabilities 
+$(p_1, \ldots, p_n)$, define a new problem instance 
+$\{ \wt{\rho}_1, \ldots, \wt{\rho}_n \}$ with probabilities 
+$(\wt{p}_1, \ldots, \wt{p}_n)$ 
+where 
+\begin{equation} 
+\wt{\rho}_i 
+= \frac{1}{1-p_i} \sum_{j \neq i} p_j \rho_j 
+\quad \text{ and } \quad
+\wt{p}_i 
+= \frac{1-p_i}{n-1} 
+\end{equation} 
+assuming $p_i \neq 1$ for all $i$. 
+We can think of $\wt{\rho}_i$ as averaging over all of the $\rho_j$s with different indices. 
+Thus, by guessing $i$ accurately in the tilde setting one is actually guessing poorly in the original setting.  
+Before analyzing the PGM in the tilde setting, notice that 
+\begin{equation}
+\wt{p}_i \wt{\rho}_i 
+= \frac{1}{n-1} \sum_{j \neq i} p_j \rho_j 
+= \frac{1}{n-1} (P - p_i \rho_i)  
+\end{equation}
+recalling the definition of $P$ from Eq.~\eqref{eq:ch4_PBM-PGM_ops}. 
+%From here, we have 
+We also have that 
+%\begin{equation}
+$\wt{P} 
+= \sum_{i=1}^n \wt{p}_i \wt{\rho}_i 
+= P$.   
+%\end{equation}
+Denoting the PGM in the tilde setting as $\{ \wt{G}_1, \ldots, \wt{G}_n \}$, we can calculate that   
+\begin{equation*} 
+\wt{G}_i 
+= \wt{P}^{-1/2} \bigg( \wt{p}_i \wt{\rho}_i \bigg) \wt{P}^{-1/2}   
+= B_i. 
+\end{equation*}
+Thus, one can view the PBM as the PGM if the problem instance is changed accordingly.  
+
+%\smallskip 
+\paragraph{Remark.} We note that the mixing of POVM elements considered above is studied more generally in the context of \emph{reverse channels} and \emph{reverse observables}
+which have been used in the study of compatibility~\cite{filippov2017necessary}.  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\medskip 
+\section{Illustrative examples}  
+
+Consider the three trine states, defined as 
+\begin{equation}
+    \begin{aligned} 
+        \ket{\psi_1} = \ket{0}, &\quad
+        \ket{\psi_2} = \cos(2\pi/3) \ket{0} + \sin(2\pi/3) \ket{1}, \\
+        \ket{\psi_3} &= \cos(4\pi/3) \ket{0} + \sin(4\pi/3) \ket{1}. 
+    \end{aligned} 
+\end{equation}
+These are shown in Fig.~\ref{fig:ch4_PBM-trine}, along with the five quantities of interest.
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.5]{figs/ch4_PBM/trine_states.pdf}
+    \caption{If given a trine state, each with equal probability, we have $\Pbest = \PPGM = 2/3$, 
+    $\mathcal{P}_{\text{Random}} = 1/3$ being the blind guessing probability, and $\PPBM = 1/6$ approximating $\Pworst = 0$. 
+    The pretty good measurement is given by the POVM $G_i = \frac{2}{3} \kb{\psi_i}$,
+    the pretty bad measurement is given by the POVM $B_i = \frac{1}{3} \sum_{j \neq i} \kb{\psi_j}$,
+    and the worst measurement is given by $W_i = \frac{2}{3} \kb{\psi_i^{\perp}}$, where $\kb{\psi_i^{\perp}}$ is a $\pi/2$-rotation of $\ket{\psi_i}$.}
+    \label{fig:ch4_PBM-trine}
+\end{figure}
+
+We remark that this example sees the PGM being a perfect approximation of $\Pbest$ while the PBM is a decent, but not perfect, approximation of $\Pworst$. 
+It is an interesting question to see in which cases the PBM is the worst measurement. 
+The above example suggests that this is indeed tricky to answer since it does not coincide with the settings where the PGM is the best measurement. 
+ 
+If the set of states is antidistinguishable, that is, if ${\Pworst = 0}$, then if $\PPBM = \Pworst$, then by Eq.~\eqref{eq:ch4_PBM-PGM_PBM}, we must have $\PPGM = 1$.  
+In this case, the states must have orthogonal supports and we have 
+\begin{equation} 
+\Pbest = \PPGM = 1 \; \text{ and } \; \PPBM = \Pworst = 0. 
+\end{equation} 
+
+On the other hand, if the set of states is maximally indistinguishable, i.e, $\rho_i = \rho_j$ and $p_i = p_j = 1/n$, for all $i \neq j$, then we have 
+\begin{equation} \label{eq:ch4_PBM-allthesame}
+    \Pbest = \PPGM = \frac{1}{n} = \PPBM = \Pworst. 
+\end{equation} 
+What is interesting in the above two examples is that PBM being the worst measurement implies that PGM is the best measurement. 
+This is actually true in general, which we state below% and prove in the appendix
+, however the trine state example shows that the converse is not true. 
+
+\begin{lm}
+If $\PPBM = \Pworst$, then $\PPGM = \Pbest$.  
+\end{lm} 
+\begin{proof}
+Suppose $\PPBM = \Pworst$. 
+Consider the \emph{best} measurement $\{ M_1, \ldots, M_n \}$ and its random offset measurement probabilities $\alpha_s$. 
+With this, we have $\alpha_0 = \Pbest$ and note that $\alpha_s \geq \Pworst = \PPBM$ for all $s$. 
+By Eq.~\eqref{eq:ch4_PBM-EqA3} we get
+\begin{align}
+1 
+ = \sum_{s = 0}^{n-1} \alpha_s 
+ = \Pbest + \sum_{s = 1}^{n-1} \alpha_s 
+ \geq \Pbest + \sum_{s = 1}^{n-1} \PPBM 
+ \geq \PPGM + (n-1) \PPBM 
+ = 1  
+\end{align}
+where the last equality holds by Eq.~\eqref{eq:ch4_PBM-PGM_PBM}. 
+Thus, we have equality throughout, proving that $\PPGM = \Pbest$.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\medskip 
+\section{Numerical simulations.} 
+
+We have discussed how the PGM always performs no worse than blind guessing and consequently proved that the PBM always performs no better than blind guessing.
+To get a better idea of how these two probabilities compare, we calculate them on many randomly generated examples. 
+To generate random states, we can use the Bloch sphere to define a parameterized qubit $\rho(\theta, \phi)$ as 
+\begin{equation*}
+    \rho(\theta, \phi) = \frac{1}{2} \mathds{1} + \frac{\sin(\theta)\cos(\phi)}{2} X + \frac{\sin(\theta)\sin(\phi)}{2}Y + \frac{\cos(\theta)}{2}Z 
+\end{equation*}
+where $X$, $Y$, and $Z$ are the Pauli operators and ${\theta, \phi \in (0, 2\pi)}$ are real parameters which we randomly generate. 
+We generate $1000$ random qubit instances $\{ \rho_1, \ldots, \rho_n \}$ for $n=2$ in Fig.~\ref{fig:ch4_PBM-pgm_vs_pbm_two_states} and for $n=6$ in Fig.~\ref{fig:ch4_PBM-pgm_vs_pbm_six_states}, each with randomly generated probabilities $(p_1, \ldots, p_n)$. % as well.  
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.3]{figs/ch4_PBM/pgm_vs_pbm_two_states_rand_probs.jpg}
+    \caption{ 
+    Computing PGM and PBM for $1000$ instances of $2$ randomly chosen qubits (also with randomly chosen probabilities).  
+    Notice that PGM always performs better than $1/2$ and PBM always performs worse than $1/2$. %(although they sometimes get close). 
+    }
+    \label{fig:ch4_PBM-pgm_vs_pbm_two_states}
+\end{figure}
+
+\begin{figure}[h]
+    \centering 
+    \includegraphics[scale=0.3]{figs/ch4_PBM/pgm_vs_pbm_six_states_rand_probs.jpg}
+    \caption{
+    Computing PGM and PBM for $1000$ instances of $6$ randomly chosen qubits (also with randomly chosen probabilities).   
+        We notice that $\PPGM$ seemingly clusters around $\frac{2}{n}$ and $\PPBM$ seemingly clusters around $\frac{n-2}{n(n-1)}$ for small values of $n$, with $n=6$ illustrated here. 
+    } 
+    \label{fig:ch4_PBM-pgm_vs_pbm_six_states}
+\end{figure} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\medskip 
+\section{Application: Quantum anomaly detection/avoidance.} 
+
+Suppose Alice promises to send Bob $n$ copies of a state $\rho$. 
+However, she has a faulty device which is known to produce one copy of an anomaly (read: a \emph{pretty bad state}) $\sigma$ at some point in this sequence. 
+Upon receiving the $n$ states, Bob wants to identify a state \emph{which is not faulty}, i.e., not $\sigma$. 
+
+Our approach is to cast this as a discrimination problem with the states $\rho_i = \rho^{\otimes (i-1)}\ \otimes\ \sigma\ \otimes\ \rho^{\otimes (n-i)}$, for $i \in \{ 1, \ldots, n \}$, and to use the pretty bad measurement. 
+Note that $\rho_i$ is simply $k$ copies of $\rho$, but with $\sigma$ in the $i$-th spot. 
+In the traditional discrimination task, Bob is trying to guess where the anomaly has occurred.
+However, this is overkill if we just want to find a place where it \emph{did not occur}. 
+Thus, taking the perspective of state exclusion makes more sense here. 
+In other words, we do want to determine where the anomaly occurred as much as where it \emph{did not occur}. 
+We focus on these two concepts in the following example and graphs. 
+
+As an example, we consider the case where Alice promises to send to Bob $7$ copies of the state $\rho = \ketbra{0}{0}$ but an anomaly occurs creating the state $\sigma = \ketbra{\psi}{\psi}$ where $\ket{\psi} = \gamma \ket{0} + \sqrt{1 - \gamma^2} \ket{1}$ for some fixed parameter $\gamma \in [0,1]$ known to both Alice and Bob. 
+FIG.~\ref{fig:ch4_PBM-anomaly_7} illustrates the probabilities $\Pbest$, $\PPGM$, $\PPBM$, $\Pworst$ and the blind guessing probability $1/n$, as a function of $\gamma$, below. 
+For anomaly detection, \cite{llorens2023quantum, skotiniotis2018identification} showed that PGM is indeed the optimal measurement. Moreover they provide a closed-form expression for the optimal success probability. Therefore, using Eq.~\eqref{eq:ch4_PBM-PGM_PBM} we also have an expression for $\PPBM$.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.75]{figs/ch4_PBM/anomaly_7-1.pdf}
+    \caption{ 
+    Probabilities for the quantum state discrimination task defined by the states  
+    $\ket{\psi_i} = \ket{0}^{\otimes{i-1}} \otimes \ket{\psi} \otimes \ket{0}^{\otimes{7-i}}$, where $\ket{\psi} = \gamma \ket{0} + \sqrt{1 - \gamma^2} \ket{1}$ and $i \in \{ 1, \ldots, 7 \}$.  
+    Observe that while $\PPGM = \Pbest$ for all values of $\gamma$, $\PPBM$ departs from the worst probability around $\gamma = 0.4$. 
+    All of these probabilities coincide at $\gamma = 1$ since all the states are the same in this case (see Eq.~(\ref{eq:ch4_PBM-allthesame})).  
+    }
+    \label{fig:ch4_PBM-anomaly_7}
+\end{figure}
+
+Recall that in the anomaly avoidance problem, we want to identify a state that did not occur. 
+Since PBM is trying to minimize $\sum_{i=1}^n \frac{1}{n} \inner{M_i}{\rho_i}$, what PBM is approximating in the context of anomaly avoidance is the minimum average error. 
+In this case, the probability of \emph{success} using PBM is $1 - \PPBM$. 
+In Fig.~\ref{fig:ch4_PBM-anomaly_7_success}, we compare this probability to that given by PGM which approximates the best average identification probability.  
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.75]{figs/ch4_PBM/anomaly_7_success-3.pdf}
+    \caption{ 
+    Given one of the states $\ket{\psi_i} = \ket{0}^{\otimes{i-1}} \otimes \ket{\psi} \otimes \ket{0}^{\otimes{7-i}}$, where $\ket{\psi} = \gamma \ket{0} + \sqrt{1 - \gamma^2} \ket{1}$, ranging over $i \in \{ 1, \ldots, 7 \}$, each with equal probability, we plot the probability of successfully avoiding the anomaly $\ket{\psi}$ via PBM and also the probability of successfully identifying $\ket{\psi}$ via PGM. 
+    Notice that $\PPGM$ decreases rapidly starting around $\gamma = 0.2$, converging to the blind identification guessing  probability of $1/7$ when $\gamma = 1$. 
+    On the other hand, $1 - \PPBM$ decreases at a much slower pace converging to the blind excluding probability of $6/7$ when $\gamma = 1$. 
+    We remark that the exclusion probability is much larger than the identification probability, which is to be expected. 
+    } 
+    \label{fig:ch4_PBM-anomaly_7_success}
+\end{figure} 
+
+\begin{comment}
+\medskip 
+\paragraph{Conclusions.} 
+In this work we introduced the pretty bad measurement as a means to approximate the worst guessing probability for quantum state discrimination and compared it to the pretty good measurement. 
+We showed that they have an intricate relationship and proved that each compare favorably to simply randomly guessing. 
+Finally, we examined the quantum anomaly detection/avoidance problem and gave an illustrative example showing how these measurements perform for detecting/avoiding parameterized quantum states. 
+
+\medskip 
+\paragraph{Acknowledgements.} 
+The authors thank Iman Marvian, Vincent Russo, Nathaniel Johnston, and Santiago Llorens for useful discussions. 
+This research was funded in part by the Commonwealth of Virginia’s Commonwealth Cyber Initiative (CCI) under grant number~{467714}. 
+
+%\bibliographystyle{alpha}
+%\bibliography{PBM_arxiv_v2}
+
+%\appendix  
+\end{comment}
+
+

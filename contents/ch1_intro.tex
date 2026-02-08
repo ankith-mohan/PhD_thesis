@@ -1,0 +1,142 @@
+\chapter{Introduction} \label{ch:introduction}
+
+Things to cover.
+\begin{itemize}
+    \item Pretty good measurement
+\end{itemize}
+
+\section{Background}
+
+Things to cover.
+\begin{enumerate}
+    \item Semidefinite programming
+    \item Dual SDP
+    \item Cone programming
+    \item States
+    \item Measurements
+    \item Channels
+    \item Separable operators
+\end{enumerate}
+
+\section{Linear algebra background}  
+
+We can view $\tr(XY)$ as an inner product on Hermitian matrices (called the Hilbert-Schmidt inner product) and the Frobenius norm is defined as the norm that this inner product induces, i.e., 
+\begin{equation} 
+\| X \|_F = \sqrt{\tr(X^2)}. 
+\end{equation} 
+
+The key component in the proof of our main result, Theorem 1, is the Cauchy-Schwarz inequality for Hermitian matrices, i.e., 
+\begin{equation} 
+|\tr(XY)| \leq \| X \|_F \| Y \|_F 
+\end{equation} 
+with equality if and only if $X$ and $Y$ are linearly dependent. 
+Therefore, if \emph{nonzero} Hermitian $X$ and $Y$ satisfy 
+\begin{equation} 
+\tr(XY) = \| X \|_F \| Y \|_F 
+\end{equation} 
+then there must exist $\lambda \neq 0$ such that $X = \lambda Y$.
+%\amnote{Cauchy-Bunyakovsky-Schwarz inequality}
+
+\section{Background}\label{sec:bg}
+
+In this section, we introduce some background material relevant to this work.
+
+\subsection{Mathematical background} 
+       
+The \emph{Gram matrix} $G$ of a set of vectors $\{v_1, \dots, v_N\}$ is a Hermitian positive semidefinite matrix whose entries are given by $G_{ij} = \inner{v_i}{v_j}$.
+We use the notation $A \succeq B$ meaning that $A - B$ is positive semidefinite and $A \succ B$ meaning that $A - B$ is positive definite. 
+
+\bigskip
+
+An $N \times N$ \emph{Toeplitz matrix} $T$ is a matrix with entries satisfying  
+\begin{equation}
+    T_{i, j} = T_{i + 1, j + 1} \text{ for all } i, j = \{1, \dots, N-1\}.
+\end{equation}
+
+This Toeplitz matrix can be written as
+\begin{align*}
+    T = 
+        \begin{pmatrix}
+            t_0 & t_{-1} & t_{-2} & \cdots & t_{-(N - 1)} \\
+            t_1 & t_0 & t_{-1} & \cdots & t_{-(N - 2)} \\
+            t_2 & t_1 & t_0 & \cdots & t_{-(N - 3)} \\
+            \vdots & \vdots & \vdots & \ddots & \vdots \\
+            t_{N - 1} & t_{N - 2} & t_{N - 3} & \cdots & t_0
+        \end{pmatrix},
+\end{align*}
+noting the constant superdiagonals.
+Since each diagonal of the Toeplitz matrix has the same value, we can alternately express $T$ as
+\begin{align}
+    \label{eq:Toep_mat}
+    T = \sum_{k = -(N-1)}^{N-1} t_k \Theta_{k},
+\end{align}
+where $\Theta_k$ is an $N \times N$ Toeplitz matrix with ones on the $k$-th diagonal and zeros elsewhere.
+Here, $k = 0$ indicates the principal diagonal, $k > 0$ denotes the sub-diagonals, and $k < 0$ corresponds to the super-diagonals.
+Note that a Toeplitz matrix is not necessarily square. 
+
+%\highlight{begin\{new\}}
+
+%An $N \times N$ \emph{circulant matrix} $C$ is a particular kind of a Toeplitz matrix where each row is composed of the same elements and each row is rotated one element to the right relative to the preceding row.
+
+%The circulant matrix can be expressed as
+%\begin{align*}
+%    C = 
+%        \begin{pmatrix}
+%            c_0 & c_{N-1} & c_{N-2} & \cdots & c_1 \\
+%            c_1 & c_0 & c_{N-1} & \cdots & c_2 \\
+%            c_2 & c_1 & c_0 & \cdots & c_3 \\
+%            \vdots & \vdots & \vdots & \ddots & \vdots \\
+%            c_{N-1} & c_{N-2} & c_{N-3} & \cdots & c_0
+%        \end{pmatrix}.
+%\end{align*}
+%This matrix can be fully specified by a single vector $c = (c_0, c_1, \cdots, c_{N-1})$ which appears as the first column (or row) of $C$.
+%Let $P$ be the cyclic permutation matrix given by
+%\begin{align*}
+%    P = 
+%        \begin{pmatrix}
+%            0 & 0 & \cdots & 0 & 1 \\
+%            1 & 0 & \cdots & 0 & 0 \\
+%            \vdots & \vdots & \vdots & \ddots & \vdots \\
+%            0 & 0 & \cdots & 1 & 0
+%        \end{pmatrix}.
+%\end{align*}
+%Then we can write $C$ as $C = c_0 I + c_1 P + c_2 P^2 + \cdots + c_{n-1} P^{n-1}$.
+%Observe that $P^\top C P = P$.
+
+%\begin{comment}
+%If each $c_i$ is a $B \times B$ matrix, then the $NB \times NB$ matrix $C$ is said to be a \emph{block circulant matrix}.
+%In this case, we have that $S^\top C S = C$ where $S = P_N \otimes I_B$ is the block shift operator.
+%Additionally, if each $c_i$ is a $B \times B$ circulant matrix, then $C$ is called a \emph{block circulant matrix with circulant blocks} (BCCB).
+%If $C$ is BCCB then it also satisfies $T^\top C T = C$ where $T = I_N \otimes P_B$ is the within-block shift operator.
+%\end{comment}
+
+%A \emph{discrete Fourier matrix} of order $N$, $F$ is a $N \times N$ matrix with entries $F_{jk} = \exp(2 \pi i/N)$.
+%For a circulant matrix $C$, it can be shown that $C = F^\dag \Lambda_C F$ where $\Lambda_C = \sum_{k=0}^{N-1} \lambda_k(C) \ketbra{k}$ are the eigenvalues of $C$.
+%If $C$ is BCCB, then it can be shown that $C = (F_N \otimes F_B)^\dag \Lambda_C (F_N \otimes F_B)$.
+
+%\highlight{end\{new\}}
+
+%\bigskip
+
+\emph{Semidefinite programming} is an area of convex optimization where the goal is to optimize a linear function of a positive semidefinite matrix $X$ over affine constraints. 
+A semidefinite program (abbreviated as SDP) can be written in standard form
+    \begin{equation*}    
+        \begin{aligned}
+            \alpha = \min \quad & \inner{C}{X} \\
+            \suchthat \quad & \inner{A_i}{X} = b_i,\ i \in \{1, \dots, m\} \\
+            & X \succcurlyeq 0,
+        \end{aligned}
+    \end{equation*}
+where the matrices $C$ and $A_i$ are Hermitian and $b_i$ are real. 
+Every SDP has a dual which is an SDP itself and is defined as 
+    \begin{equation}
+        \label{eq:power_rangers_SPD}
+        \begin{aligned}
+            \beta = \max \quad & \inner{b}{y} \\
+            \suchthat \quad & \sum_{i=1}^m y_i A_i \preccurlyeq C \\
+            & y \in \mathbb{R}^m.  
+        \end{aligned}
+    \end{equation}     
+We have that $\alpha \leq \beta$, a fact known as weak duality. 
+If both $\alpha$ and $\beta$ are finite and one has a feasible solution where the inequalities are strict (known as strict feasibility), then $\alpha = \beta$. 
+This condition is known as strong duality. 

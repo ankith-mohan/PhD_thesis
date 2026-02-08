@@ -1,0 +1,225 @@
+\usetikzlibrary{quantikz}
+\usetikzlibrary{angles,quotes} % for pic
+\contourlength{1.3pt}
+\tikzset{>=latex} % for LaTeX arrow head
+\tikzstyle{vector}=[->,very thick]
+\tikzstyle{mydashed}=[dash pattern=on 2pt off 2pt]
+\def\tick#1#2{\draw[thick] (#1) ++ (#2:0.1) --++ (#2-180:0.2)} 
+\tikzstyle{startstop} = [rectangle, rounded corners, minimum width=2.5cm, minimum height=1cm, text centered, draw=black, fill=red!30, text width=2cm]
+\tikzstyle{process} = [rectangle, minimum width=2.5cm, minimum height=1cm, text centered, draw=black, fill=blue!30, text width=2cm]
+\tikzstyle{arrow} = [thick,->,>=stealth]
+
+\newcommand{\betamat}{\boldsymbol\beta}
+\newcommand{\rhomat}{\boldsymbol\rho}
+\newcommand{\sigmamat}{\boldsymbol\sigma}
+\newcommand{\ximat}{\boldsymbol\xi}
+\newcommand{\taumat}{\boldsymbol\tau}
+\newcommand{\psivec}{\psi}
+\newcommand{\phivec}{\phi}
+\newcommand{\Pimat}{\boldsymbol\Pi}
+
+\newcommand{\Amat}{\mathbf{A}}
+\newcommand{\Bmat}{\mathbf{B}}
+\newcommand{\Cmat}{\mathbf{C}}
+\newcommand{\Dmat}{\mathbf{D}}
+\newcommand{\Emat}{\mathbf{E}}
+\newcommand{\Hmat}{\mathbf{H}}
+\newcommand{\Kmat}{\mathbf{K}}
+\newcommand{\Lmat}{\mathbf{L}}
+\newcommand{\Pmat}{\mathbf{P}}
+\newcommand{\Qmat}{\mathbf{Q}}
+\newcommand{\Umat}{\mathbf{U}}
+\newcommand{\Wmat}{\mathbf{W}}
+\newcommand{\Xmat}{\mathbf{X}}
+\newcommand{\Ymat}{\mathbf{Y}}
+\newcommand{\Zmat}{\mathbf{Z}}
+
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\D}{\mathcal{D}}
+\newcommand{\K}{\mathcal{K}} 
+\newcommand{\T}{\textup{T}} 
+%\newcommand{\U}{\mathcal{U}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\Y}{\mathcal{Y}} 
+\newcommand{\Ocomp}{\mathcal{O}}
+
+\newcommand{\Pos}{\mathrm{Pos}}
+\newcommand{\Pd}{\mathrm{Pd}}
+\newcommand{\Herm}{\mathrm{Herm}}
+\newcommand{\Sep}{\mathrm{Sep}}
+\newcommand{\SepD}{\mathrm{SepD}}
+\newcommand{\SymExt}{\mathrm{SymExt}}
+\newcommand{\BosSymExt}{\mathrm{BosSymExt}}
+\newcommand{\PPT}{\mathrm{PPT}}
+\newcommand{\realign}{\mathrm{realign}}
+\newcommand{\veccmd}{\mathrm{vec}}
+\newcommand{\mean}{\mathrm{mean}}
+
+\newcommand{\kb}[1]{| #1 \rangle \langle #1 |}
+
+\newcommand{\id}{\mathds{1}}
+\newcommand{\Rspace}{\mathbb{R}}
+\newcommand{\Cspace}{\mathbb{C}}
+
+\newcommand{\zerovec}{\mathbf{0}}
+\newcommand{\avec}{\mathbf{a}}
+\newcommand{\cvec}{\mathbf{c}} 
+\newcommand{\evec}{\mathbf{e}}
+\newcommand{\xvec}{\mathbf{x}}
+
+\newcommand{\Sset}{\mathcal{S}}
+\newcommand{\suchthat}{\textrm{s.t.}} 
+
+\newcommand{\POVM}{\mathcal{M}}
+\newcommand{\aPOVM}{\mathcal{N}}
+
+\newcommand{\Iset}{\mathcal{I}}
+\newcommand{\Xspace}{\mathcal{X}}
+\newcommand{\Yspace}{\mathcal{Y}}
+
+\newcommand{\rvline}{\hspace*{-\arraycolsep}\vline\hspace*{-\arraycolsep}}
+
+\newcommand{\bvec}{\mathbf{b}}
+\newcommand{\gvec}{\mathbf{g}}
+\newcommand{\pvec}{\mathbf{p}}
+\newcommand{\qvec}{\mathbf{q}}
+\newcommand{\rvec}{\mathbf{r}}
+\newcommand{\tvec}{\mathbf{t}}
+\newcommand{\uvec}{\mathbf{u}}
+\newcommand{\vvec}{\mathbf{v}}
+
+\newcommand{\Fmat}{\mathbf{F}}
+\newcommand{\Gmat}{\mathbf{G}}
+\newcommand{\Jmat}{\mathbf{J}}
+\newcommand{\Mmat}{\mathbf{M}}
+\newcommand{\Nmat}{\mathbf{N}}
+\newcommand{\Smat}{\mathbf{S}}
+\newcommand{\Tmat}{\mathbf{T}}
+\newcommand{\Vmat}{\mathbf{V}}
+
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\complex}{\mathbb{C}} 
+
+\newtheorem{defn}{Definition}
+\newtheorem{thm}{Theorem}
+\newtheorem{lm}{Lemma}
+\newtheorem{cor}{Corollary}
+\newtheorem{ex}{Example}
+
+\newtheorem{innercustomthm}{Theorem}
+\newenvironment{customthm}[1]
+  {\renewcommand\theinnercustomthm{#1}\innercustomthm}
+  {\endinnercustomthm}
+
+\newcommand{\inner}[2]{\left\langle #1, #2 \right\rangle}
+%\newcommand{\ketbra}[2]{| #1\rangle \langle #2|}
+%\newcommand{\ket}[1]{| #1 \rangle}
+%\newcommand{\bra}[1]{\langle #1 |}
+\newcommand{\prob}{\mathcal{P}}
+
+%\newcommand{\tr}{\mathrm{Tr}} 
+\newcommand{\best}{\mathrm{Best}}
+\newcommand{\worst}{\mathrm{Worst}}
+\newcommand{\Pbest}{\prob_{\best}} 
+\newcommand{\Pworst}{\prob_{\worst}} 
+\newcommand{\PGM}{\mathrm{PGM}} 
+\newcommand{\PBM}{\mathrm{PBM}}
+\newcommand{\PPGM}{\prob_{\PGM}} 
+\newcommand{\PPBM}{\prob_{\PBM}} 
+\newcommand{\F}{\mathrm{F}} 
+\newcommand{\wt}[1]{\widetilde{#1}}
+
+\newcommand{\local}{\mathrm{local}} 
+\newcommand{\greedy}{\mathrm{greedy}}
+\newcommand{\adaptive}{\mathrm{adaptive}} 
+\newcommand{\glo}{\mathrm{global}}  
+\newcommand{\ploc}{P^*_{\local}} 
+\newcommand{\pada}{P^*_{\adaptive}} 
+\newcommand{\pglo}{P^*_{\glo}} 
+
+\newcommand{\MAJ}{\mathrm{MAJ}}
+\newcommand{\MAJn}{\MAJ_n}
+\newcommand{\OR}{\mathrm{OR}}
+\newcommand{\ORn}{\OR_n}
+\newcommand{\AND}{\mathrm{AND}}
+\newcommand{\ANDn}{\AND_n}
+\newcommand{\XOR}{\mathrm{XOR}}
+\newcommand{\XORn}{\XOR_n}
+\newcommand{\junta}{\mathrm{Junta}}
+\newcommand{\juntank}{\junta_{n,k}}
+\newcommand{\thresh}{\mathrm{Thresh}}
+\newcommand{\threshnk}{\thresh_{n,k}}  
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{lemma}[theorem]{Lemma} 
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{observation}[theorem]{Observation}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{question}[theorem]{Question}
+\newtheorem{example}[theorem]{Example} 
+\newtheorem{fact}[theorem]{Fact}  
+
+\newcommand{\tinyspace}{\mspace{1mu}}
+\newcommand{\microspace}{\mspace{0.5mu}}
+\renewcommand{\det}{\operatorname{det}}
+\newcommand{\fid}{\operatorname{F}}
+\newcommand{\im}{\operatorname{im}}  
+
+\newcommand{\bb}[1]{\mathbb{#1}}
+\newcommand{\cl}[1]{\mathcal{#1}}
+\newcommand\iprod[2]{\ensuremath{\langle#1|#2\rangle}}
+\newcommand\oprod[2]{\ensuremath{|#1\rangle\langle#2|}}
+\newcommand\ave[1]{\ensuremath{\langle #1\rangle}}
+\newcommand\range{\mathop{\rm range}\nolimits}
+\newcommand\argmax{\mathop{\rm argmax}\nolimits}
+\newcommand\trho{\tilde{\rho}}
+\newcommand\tsigma{\tilde{\sigma}}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\newcommand{\Ik}{\mathcal{I}_k^n} 
+\newcommand{\conv}{\mathrm{conv}}
+
+\newcommand\tV{\tilde{V}}
+\newcommand\prsect[1]{\vspace{.3em}\noindent{\em #1.---\/}}
+\newcommand{\defeq}{\stackrel{\smash{\textnormal{\tiny def}}}{=}}
+
+%\renewcommand{\T}{{\scriptscriptstyle\mathsf{T}}}
+\newcommand{\dom}{\mathsf{dom}}
+
+\def\I{\mathbb{I}} 
+\def\O{\mathbb{O}} 
+\def\C{\mathbb{C}}
+\def\N{\mathbb{N}}
+\def\Q{\mathbb{Q}}
+\def\R{\mathbb{R}}
+\def\F{\mathbb{F}}
+
+\def\B{\mathcal{B}}
+\def\D{\mathcal{D}}
+\def\Lin{\mathcal{L}}
+\def\M{\mathcal{M}}
+\def\S{\mathcal{S}}
+\def\U{\mathcal{U}}
+\def\V{\mathcal{V}}
+\def\W{\mathcal{W}}
+\def\X{\mathcal{X}}
+\def\Y{\mathcal{Y}}
+
+\def\Lin{\operatorname{L}}
+\def\Pos{\operatorname{Pos}}
+\def\Density{\operatorname{D}}
+\def\Herm{\operatorname{Herm}}
+\def\Unitary{\operatorname{U}}
+
+\newcommand{\kb}[1]{\ket{#1} \bra{#1}}
+\newcommand{\bk}[1]{\bra{#1} \ket{#1}} 
+\newcommand{\bit}{\{ 0, 1 \}}  
+\newcommand{\trit}{\{ 0, 1, ? \}}  
+\renewcommand{\tr}{\operatorname{Tr}}
+
+\endinput

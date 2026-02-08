@@ -1,0 +1,355 @@
+\appendix
+
+	% Add your appendices here. You must leave the appendices enclosed in the appendices environment in order for the table of contents to be correct.
+	
+\begin{appendices}
+\chapter{Appendices I} \label{app:appendix_one}
+\section{A1} \label{ase:app_one_sect_1}
+
+\section{Gram matrices and heuristics for multiple changepoints}
+
+In this appendix we describe the scenarios for at most two and three changepoints. 
+
+\subsection{At most two changepoints}\label{sec:2CP}
+
+When dealing with the scenario where at most two changepoints can occur, Bob must focus on the following states
+\begin{equation}
+    \label{eq:2CP}
+    \begin{aligned}
+        \ket{\tau_{c_1 c_2}} &\coloneqq \ket{\tau_{c_1 c_2 N \cdots N}} = \ket{\psi}^{\otimes c_1}\ \otimes \ket{\phi_1}^{\otimes (c_2 - c_1)}\ \otimes \ket{\phi_2}^{\otimes (N - c_2)}, \quad (c_1, c_2) \in \Iset_N.
+    \end{aligned}
+\end{equation}
+
+Note here that
+\begin{align}
+    \ket{\tau_{c_1}} \coloneqq \ket{\tau_{c_1 N}} = \ket{\psi}^{\otimes c_1}\ \otimes \ket{\phi_1}^{\otimes (N - c_1)}
+\end{align}
+denotes the sequences corresponding to a single changepoint and
+\begin{align}
+    \ket{\tau_N} \coloneqq \ket{\tau_{N N}} = \ket{\psi}^{\otimes N} 
+\end{align}
+indicates the sequence with no changepoint.
+
+\paragraph{Gram matrix.}
+
+The Gram matrix can be computed using the formula,
+
+\begin{align}
+    \label{eq:T_ijkl}
+    (T_{2CP})_{ij,kl} =
+    \begin{cases}
+        \gamma_1^{|i-j|}\ \gamma_2^{|j-k|}\ \gamma_{12}^{|k-l|}, &j < k \\
+        \gamma_1^{|i-k|}\ \gamma_{12}^{|j-l|},\ \hspace{30pt} &\text{otherwise}
+    \end{cases} 
+\end{align}
+where we have assumed for simplicity that the overlaps, $\gamma_1, \gamma_2$ and $\gamma_{12}$ are all non-negative real numbers. 
+We proved that this assumption is without loss of generality in the one changepoint case (Lemma~\ref{lem:T_sym_Toep}), assuming it here makes the technical analysis a bit tidier. 
+
+When represented as a matrix, we obtain a symmetric block matrix as illustrated in Eq.~(\ref{eq:T_2CP}).
+\begin{align}
+    \label{eq:T_2CP}
+    T_{2CP} =
+    \begin{pmatrix}
+        T_{11} & T_{12} & T_{13} & \cdots & T_{1,N-2} & T_{1,N-1} & \rvline & T_{1N} \\
+        T_{12}^\top & T_{11}^{(1)} & T_{12}^{(1)} & \cdots & T_{1,N-3}^{(1)} & T_{1,N-2}^{(1)} & \rvline & T_{2N} \\
+        T_{13}^\top & T_{12}^{(1)\top} & T_{11}^{(2)} & \cdots & T_{1,N-4}^{(2)} & T_{1, N-3}^{(2)} & \rvline & T_{3N} \\
+        \vdots & \vdots & \vdots & \ddots & \vdots & \vdots & \rvline & \vdots \\
+        T_{1,N-2}^\top & T_{1,N-3}^{(1)\top} & T_{1,N-4}^{(2)\top} & \cdots & T_{11}^{(N-2)} & T_{12}^{(N-2)} & \rvline & T_{N-2,N} \\
+        T_{1,N-1}^\top & T_{1,N-2}^{(1)\top} & T_{1,N-3}^{(2)\top} & \cdots & T_{12}^{(N-2)\top} & T_{11}^{(N-1)} & \rvline & T_{N-1,N} \\
+        \hline
+        T_{1N}^\top & T_{2N}^\top & T_{3N}^\top & \cdots & T_{N-2,N}^\top & T_{N-1,N}^\top & \rvline & 1 \\
+    \end{pmatrix}. 
+\end{align}
+Each block, denoted by $T_{ik}$, is an $(N-i) \times (N-k)$ Toeplitz matrix.
+The block $T_{11}$ is a symmetric Toeplitz matrix where each entry $(T_{11})_{jl} = \gamma_{12}^{|j-l|}$.
+The notation $T_{ik}^{(n)}$ indicates the matrix obtained by discarding the \emph{last} $n$ rows and the \emph{last} $n$ columns from $T_{ik}$.
+
+\paragraph{Heuristic solution.}
+
+Exploiting this structure, we consider a heuristic approach by restricting the solution $X'_{2CP}$ to have a similar structure
+\begin{align}
+    \label{eq:X_2CP}
+    X'_{2CP} =
+    \begin{pmatrix}
+        X_{11} & X_{12} & X_{13} & \cdots & X_{1,N-2} & X_{1,N-1} & \rvline & \\
+        X_{12}^\top & X_{11}^{(1)} & X_{12}^{(1)} & \cdots & X_{1,N-3}^{(1)} & X_{1,N-2}^{(1)} & \rvline & \\
+        X_{13}^\top & X_{12}^{(1)\top} & X_{11}^{(2)} & \cdots & X_{1,N-4}^{(2)} & X_{1,N-3}^{(2)} & \rvline \\
+        \vdots & \vdots & \vdots & \ddots & \vdots & \vdots & \rvline & x_N \\
+        X_{1,N-2}^\top & X_{1,N-3}^{(1)\top} & X_{1,N-4}^{(2)\top} & \cdots & X_{11}^{(N-2)} & X_{12}^{(N-2)} & \rvline & \\
+        X_{1,N-1}^\top & X_{1,N-2}^{(1)\top} & X_{1,N-3}^{(2)\top} & \cdots & X_{12}^{(N-2)\top} & X_{11}^{(N-1)} & \rvline & \\
+        \hline
+         &  &  & x_N^\top &  &  & \rvline & z \\ 
+    \end{pmatrix},
+\end{align}
+where $X_{ik}$ is an $(N-i) \times (N-k)$ Toeplitz matrix.
+The matrix $X_{11}$ is a symmetric Toeplitz matrix.
+The remaining blocks $X_{ik}^{(n)}$ follow the same convention as its counterpart $T_{ik}^{(n)}$. 
+Here $z$ denotes the last entry of the vector $x_N$.
+
+\subsection{At most three changepoints} \label{sec:3CP}
+
+If we have at most three changepoints, Bob has to consider the following states
+\begin{equation}
+    \label{eq:3CP}
+    \begin{aligned}
+        \ket{\tau_{c_1 c_2 c_3}} &\coloneqq \ket{\tau_{c_1 c_2 c_3 N \cdots N}} = \ket{\psi}^{\otimes c_1}\ \otimes \ket{\phi_1}^{\otimes (c_2 - c_1)}\ \otimes \ket{\phi_2}^{\otimes (c_3 - c_2)}\ \otimes \ket{\phi_3}^{\otimes (N - c_3)}, \quad (c_1, c_2, c_3) \in \Iset_N.
+    \end{aligned}
+\end{equation}
+Note here that
+\begin{align}
+    \ket{\tau_{c_1 c_2}} \coloneqq \ket{\tau_{c_1 c_2 N}} = \ket{\psi}^{\otimes c_1}\ \otimes \ket{\phi_1}^{\otimes (c_2 - c_1)}\ \otimes \ket{\phi_2}^{\otimes (N - c_2)}
+\end{align}
+is the sequence for at most two changepoints,
+\begin{align}
+    \ket{\tau_{c_1}} \coloneqq \ket{\tau_{c_1 N N}} = \ket{\psi}^{\otimes c_1}\ \otimes \ket{\phi_1}^{\otimes (N - c_1)}
+\end{align}
+denotes the sequences corresponding to a single changepoint and
+\begin{align}
+    \ket{\tau_N} \coloneqq \ket{\tau_{N N N}} = \ket{\psi}^{\otimes N} 
+\end{align}
+indicates the sequence with no changepoint.
+
+\paragraph{Gram matrix.}
+
+\begin{align}
+    T_{ijk,lmn} =
+    \begin{cases}
+        \gamma_1^{|i-l|}\ \gamma_{12}^{|j-k|}\ \gamma_{13}^{|k-m|} \gamma_{23}^{|m-n|},\ \hspace{30pt} l \le j \le k \le m \\
+        \gamma_1^{|i-l|}\ \gamma_{12}^{|j-m|}\ \gamma_{23}^{|k-n|},\ \hspace{60pt} l \le j \le n \text{ and } k > m \\
+        \gamma_1^{|i-l|}\ \gamma_{12}^{|m-n|}\ \gamma_{13}^{|n-j|},\ \hspace{60pt} l \le m \le n < j \le k \\
+        \gamma_1^{|i-j|}\ \gamma_2^{|j-l|}\ \gamma_{12}^{|l-k|}\ \gamma_{13}^{|k-m|}\ \gamma_{23}^{|m-n|},\ j < l \le k \le m \\
+        \gamma_1^{|i-j|}\ \gamma_2^{|j-l|}\ \gamma_{12}^{|l-m|},\ \hspace{62pt} j < l \le k \text{ and } k > m \\
+        \gamma_1^{|i-j|}\ \gamma_2^{|j-k|}\ \gamma_3^{|k-l|}\ \gamma_{13}^{|l-m|}\ \gamma_{23}^{|m-n|},\ j \le k < l
+    \end{cases}. 
+\end{align}
+
+In this formula, we assume that $i \le l$.
+It is straightforward to compute the other entries since the block matrix is symmetric.
+
+The Gram matrix can be depicted as the block matrix denoted in Eq.~(\ref{eq:T_3CP}).
+\begin{align}
+    \label{eq:T_3CP}
+    T_{3CP} =
+    \begin{pmatrix}
+        V_{11} & V_{12} & V_{13} & \cdots & V_{1,N-2} & V_{1,N-1} & \rvline & V_{1N} \\
+        V_{12}^\top & V_{11}^{[1]} & V_{12}^{[1]} & \cdots & V_{1,N-3}^{[1]} & V_{1,N-2}^{[1]} & \rvline & V_{2N} \\
+        V_{13}^\top & V_{12}^{[1]\top} & V_{11}^{[2]} & \cdots & V_{1,N-4}^{[2]} & V_{1, N-3}^{[2]} & \rvline & V_{3N} \\
+        \vdots & \vdots & \vdots & \ddots & \vdots & \vdots & \rvline & \vdots \\
+        V_{1,N-2}^\top & V_{1,N-3}^{[1]\top} & V_{1,N-4}^{[2]\top} & \cdots & V_{11}^{[N-3]} & V_{12}^{[N-3]} & \rvline & V_{N-2,N} \\
+        V_{1,N-1}^\top & V_{1,N-2}^{[1]\top} & V_{1,N-3}^{[2]\top} & \cdots & V_{12}^{[N-3]\top} & V_{11}^{[N-2]} & \rvline & V_{N-1,N} \\
+        \hline
+        V_{1N}^\top & V_{2N}^\top & V_{3N}^\top & \cdots & V_{N-2,N}^\top & V_{N-1,N}^\top & \rvline & 1 \\
+    \end{pmatrix}. 
+\end{align}
+Each block $V_{ik}$ is a matrix containing $(N-i) \times (N-k)$ blocks.
+The notation $V_{ik}^{[m]}$ indicates the block matrix obtained by discarding the blocks along the \emph{first} $m$ rows and the \emph{first} $m$ columns of $V_{ik}$.
+
+Determining the matrices along the \emph{first} row and the \emph{last} column of $T_{3CP}$ is sufficient to construct the entire matrix.
+Eqs.~\eqref{eq:V_11}-\eqref{eq:V_2N} describe how to construct each of the matrices $V_{1k}$ and $V_{iN}$ for $i, k \in \{1, \dots, N-1\}$.
+Each block in this block matrix $S_{ij,kl}$ is constructed in the same manner as was used by $T_{ik}$ in Section~\ref{sec:2CP}.
+The matrix $S_{12,12}$ is symmetric Toeplitz where each entry is given as $(S_{12,12})_{jl} = \gamma_{23}^{|j-l|}$.
+We therefore have the following matrices
+
+\begin{align}
+    \label{eq:V_11}
+    V_{11} =
+    \begin{pmatrix}
+        S_{12,12} & S_{12,13} & S_{12,14} & \cdots & S_{12,1,N-2} & S_{12,1,N-1} & \rvline & S_{12,1N} \\
+        S_{12,13}^\top & S_{12,12}^{(1)} & S_{12,13}^{(1)} & \cdots & S_{12,1,N-3}^{(1)} & S_{12,1,N-2}^{(1)} & \rvline & S_{13,1N} \\
+        S_{12,14}^\top & S_{12,13}^{(1)\top} & S_{12,12}^{(2)} & \cdots & S_{12,1,N-4}^{(2)} & S_{12,1,N-3}^{(2)} & \rvline & S_{14,1N} \\
+        \vdots & \vdots & \vdots & \ddots & \vdots & \vdots & \rvline & \vdots \\
+        S_{12,1,N-2}^\top & S_{12,1,N-3}^{(1)\top} & S_{12,1,N-4}^{(2)\top} & \cdots & S_{12,12}^{(N-4)} & S_{12,13}^{(N-4)} & \rvline & S_{1,N-2,1N} \\
+        S_{12,1,N-1}^\top & S_{12,1,N-2}^{(1)\top} & S_{12,1,N-3}^{(2)\top} & \cdots & S_{12,13}^{(N-4)\top} & S_{12,12}^{(N-3)} & \rvline & S_{1,N-1,1N} \\
+        \hline
+        S_{12,1N}^\top & S_{13,1N}^\top & S_{14,1N}^\top & \cdots & S_{1,N-2,1N}^\top & S_{1,N-1,1N} & \rvline & 1 \\
+    \end{pmatrix}
+\end{align}
+
+\begin{align}
+    \label{eq:V_12}
+    V_{12} =
+    \begin{pmatrix}
+        S_{12,23} & S_{12,24} & S_{12,25} & \cdots & S_{12,2,N-2} & S_{12,2,N-1} & \rvline & S_{12,2N} \\
+        S_{13,23} & S_{12,23}^{(1)} & S_{12,24}^{(1)} & \cdots & S_{12,2,N-3}^{(1)} & S_{12,2,N-2}^{(1)} & \rvline & S_{13,2N} \\
+        S_{12,23}^{(1)\top} & S_{13,23}^{(1)} & S_{12,23}^{(2)} & \cdots & S_{12,2,N-4}^{(2)} & S_{12,2,N-3}^{(2)} & \rvline & S_{14,2N} \\
+        \vdots & \vdots & \vdots & \ddots & \vdots & \vdots & \rvline & \vdots \\
+        S_{12,2,N-3}^{(1)\top} & S_{12,2,N-4}^{(2)\top} & S_{12,2,N-5}^{(2)\top} & \cdots & S_{13,23}^{(N-5)} & S_{12,23}^{(N-5)} & \rvline & S_{1,N-2,2N} \\
+        S_{12,2,N-2}^{(1)\top} & S_{12,2,N-3}^{(2)\top} & S_{12,2,N-4}^{(2)\top} & \cdots & S_{12,23}^{(N-5)\top} & S_{13,23}^{(N-4)} & \rvline & S_{1,N-1,2N} \\
+        \hline
+        S_{13,2N}^\top & S_{14,2N}^\top & S_{15,2N}^\top & \cdots & S_{1,N-2,2N}^\top & S_{1,N-1,2N}^\top & \rvline & S_{1N,2N}
+    \end{pmatrix}
+\end{align}
+
+\begin{align}
+    \label{eq:V_13}
+    V_{13} = 
+    \begin{pmatrix}
+        S_{12,34} & S_{12,35} & S_{12,36} & \cdots & S_{12,3,N-2} & S_{12,3,N-1} & \rvline & S_{12,3N} \\
+        S_{13,34} & S_{12,34}^{(1)} & S_{12,35}^{(1)} & \cdots & S_{12,3,N-3}^{(1)} & S_{12,3,N-2}^{(1)} & \rvline & S_{13,3N} \\
+        S_{14,34} & S_{13,34}^{(1)} & S_{12,34}^{(1)} & \cdots & S_{12,3,N-4}^{(2)} & S_{12,3,N-3}^{(2)} & \rvline & S_{14,3N} \\
+        \vdots & \vdots & \vdots & \ddots & \vdots & \vdots & \rvline & \vdots \\
+        S_{12,3,N-4}^{(2)\top} & S_{12,3,N-5}^{(3)\top} & S_{12,3,N-6}^{(4)\top} & \cdots & S_{14,34}^{(N-6)} & S_{13,34}^{(N-6)} & \rvline & S_{1,N-2,3N} \\
+        S_{12,3,N-3}^{(2)\top} & S_{12,3,N-4}^{(3)\top} & S_{12,3,N-5}^{(4)\top} & \cdots & S_{13,34}^{(N-6)\top} & S_{14,34}^{(N-5)} & \rvline & S_{1,N-1,3N} \\
+        \hline
+        S_{14,3N}^\top & S_{15,3N}^\top & S_{16,3N}^\top & \cdots & S_{1,N-2,3N}^\top & S_{1,N-1,3N}^\top & \rvline & S_{1N,3N}
+    \end{pmatrix}
+\end{align}
+
+\begin{align}
+    \label{eq:V_1N_2}
+    V_{1,N-2} =
+    \begin{pmatrix}
+        S_{12,N-2,N-1} & \rvline & S_{12,N-2,N} \\
+        S_{13,N-2,N-1} & \rvline & S_{13,N-2,N} \\
+        S_{14,N-2,N-1} & \rvline & S_{14,N-2,N} \\
+        \vdots & \rvline & \vdots \\
+        S_{1,N-2,N-2,N-1} & \rvline & S_{1,N-2,N-2,N} \\
+        S_{1,N-1,N-2,N-1} & \rvline & S_{1,N-1,N-2,N} \\
+        S_{1N,N-2,N-1} & \rvline & S_{1N,N-2,N} \\
+    \end{pmatrix}
+    \quad
+    V_{1,N-1} = 
+    \begin{pmatrix}
+        S_{12,N-1,N} \\
+        S_{13,N-1,N} \\
+        S_{14,N-1,N} \\
+        \vdots \\
+        S_{1,N-2,N-1,N} \\
+        S_{1,N-1,N-1,N} \\
+        S_{1N,N-1,N} \\
+    \end{pmatrix}
+    \quad
+    V_{1N} =
+    \begin{pmatrix}
+        S_{12,NN} \\
+        S_{13,NN} \\
+        S_{14,NN} \\
+        \vdots \\
+        S_{1,N-2,NN} \\
+        S_{1,N-1,NN} \\
+        S_{1N,NN} \\
+    \end{pmatrix}
+\end{align}
+
+\begin{align}
+    \label{eq:V_2N}
+    V_{2N} =
+    \begin{pmatrix}
+        S_{23,NN} \\
+        S_{24,NN} \\
+        \vdots \\
+        S_{2,N-2,NN} \\
+        S_{2,N-1,NN} \\
+        S_{2N,NN} \\
+    \end{pmatrix},
+    \
+    V_{3N} =
+    \begin{pmatrix}
+        S_{34,NN} \\
+        \vdots \\
+        S_{3,N-2,NN} \\
+        S_{3,N-1,NN} \\
+        S_{3N,NN} \\
+    \end{pmatrix},
+    \
+    V_{N-2,N} =
+    \begin{pmatrix}
+        S_{N-2,N-1,NN} \\
+        S_{N-2,N,NN}
+    \end{pmatrix},
+    \
+    V_{N-1,N} =
+    \begin{pmatrix}
+        S_{N-1,N,NN}
+    \end{pmatrix}.
+\end{align}
+
+\paragraph{Heuristic approach.}
+
+We once again exploit the Toeplitz-like structure of the Gram matrix and restrict the solution $X_{3CP}$ to have a similar structure as below
+\begin{align}
+    \label{eq:X_3CP}
+    X'_{3CP} =
+    \begin{pmatrix}
+        Y_{11} & Y_{12} & Y_{13} & \cdots & Y_{1,N-2} & Y_{1,N-1} & \rvline & \\
+        Y_{12}^\top & Y_{11}^{[1]} & Y_{12}^{[1]} & \cdots & Y_{1,N-3}^{[1]} & Y_{1,N-2}^{[1]} & \rvline & \\
+        Y_{13}^\top & Y_{12}^{[1]\top} & Y_{11}^{[2]} & \cdots & Y_{1,N-4}^{[2]} & Y_{1,N-3}^{[2]} & \rvline \\
+        \vdots & \vdots & \vdots & \ddots & \vdots & \vdots & \rvline & y_N \\
+        Y_{1,N-2}^\top & Y_{1,N-3}^{[1]\top} & Y_{1,N-4}^{[2]\top} & \cdots & Y_{11}^{[N-3]} & Y_{12}^{[N-3]} & \rvline & \\
+        Y_{1,N-1}^\top & Y_{1,N-2}^{[1]\top} & Y_{1,N-3}^{[2]\top} & \cdots & Y_{12}^{[N-3]\top} & Y_{11}^{[N-2]} & \rvline & \\
+        \hline
+         &  &  & y_N^\top &  &  & \rvline & z \\
+    \end{pmatrix}
+\end{align}
+
+\begin{align}
+    \label{eq:Y_11}
+    Y_{11} =
+    \begin{pmatrix}
+        W_{12,12} & W_{12,13} & W_{12,14} & \cdots & W_{12,1,N-2} & W_{12,1,N-1} & \rvline & \\
+        W_{12,13}^\top & W_{12,12}^{(1)} & W_{12,13}^{(1)} & \cdots & W_{12,1,N-3}^{(1)} & W_{12,1,N-2}^{(1)} & \rvline & \\
+        W_{12,14}^\top & W_{12,13}^{(1)\top} & W_{12,12}^{(2)} & \cdots & W_{12,1,N-4}^{(2)} & W_{12,1,N-3}^{(2)} & \rvline & \\
+        \vdots & \vdots & \vdots & \ddots & \vdots & \vdots & \rvline & w_{1N} \\
+        W_{12,1,N-2}^\top & W_{12,1,N-3}^{(1)\top} & W_{12,1,N-4}^{(2)\top} & \cdots & W_{12,12}^{(N-4)} & W_{12,13}^{(N-4)} & \rvline & \\
+        W_{12,1,N-1}^\top & W_{12,1,N-2}^{(1)\top} & W_{12,1,N-3}^{(2)\top} & \cdots & W_{12,13}^{(N-4)\top} & W_{12,12}^{(N-3)} & \rvline & \\
+        \hline
+         &  &  & w_{1N}^\top &  &  & \rvline & z_{1N} \\
+    \end{pmatrix}
+\end{align}
+
+\begin{align}
+    \label{eq:Y_12}
+    Y_{12} =
+    \begin{pmatrix}
+        W_{12,23} & W_{12,24} & W_{12,25} & \cdots & W_{12,2,N-2} & W_{12,2,N-1} & \rvline & \\
+        W_{13,23} & W_{12,23}^{(1)} & W_{12,24}^{(1)} & \cdots & W_{12,2,N-3}^{(1)} & W_{12,2,N-2}^{(1)} & \rvline &  \\
+        W_{12,23}^{(1)\top} & W_{13,23}^{(1)} & W_{12,23}^{(2)} & \cdots & W_{12,2,N-4}^{(2)} & W_{12,2,N-3}^{(2)} & \rvline &  \\
+        \vdots & \vdots & \vdots & \ddots & \vdots & \vdots & \rvline & w_{2N} \\
+        W_{12,2,N-3}^{(1)\top} & W_{12,2,N-4}^{(2)\top} & W_{12,2,N-5}^{(2)\top} & \cdots & W_{13,23}^{(N-5)} & W_{12,23}^{(N-4)} & \rvline &  \\
+        W_{12,2,N-2}^{(1)\top} & W_{12,2,N-3}^{(2)\top} & W_{12,2,N-4}^{(2)\top} & \cdots & W_{12,23}^{(N-4)\top} & W_{13,23}^{(N-4)} & \rvline &  \\
+        \hline
+         &  &  & w_{2N}^\top &  &  & \rvline & z_{2N} \\
+    \end{pmatrix}
+\end{align}
+
+\begin{align}
+    \label{eq:Y_13}
+    Y_{13} =
+    \begin{pmatrix}
+        W_{12,34} & W_{12,35} & W_{12,36} & \cdots & W_{12,3,N-2} & W_{12,3,N-1} & \rvline &  \\
+        W_{13,34} & W_{12,34}^{(1)} & W_{12,35}^{(1)} & \cdots & W_{12,3,N-3}^{(1)} & W_{12,3,N-2}^{(1)} & \rvline &  \\
+        W_{14,34} & W_{13,34}^{(1)} & W_{12,34}^{(1)} & \cdots & W_{12,3,N-4}^{(2)} & W_{12,3,N-3}^{(2)} & \rvline &  \\
+        \vdots & \vdots & \vdots & \ddots & \vdots & \vdots & \rvline & w_{3N} \\
+        W_{12,3,N-4}^{(2)\top} & W_{12,3,N-5}^{(3)\top} & W_{12,3,N-6}^{(4)\top} & \cdots & W_{14,34}^{(N-6)} & W_{13,34}^{(N-6)} & \rvline &  \\
+        W_{12,3,N-3}^{(2)\top} & W_{12,3,N-4}^{(3)\top} & W_{12,3,N-5}^{(4)\top} & \cdots & W_{13,34}^{(N-6)\top} & W_{14,34}^{(N-5)} & \rvline &  \\
+        \hline
+         &  &  & w_{3N}^\top &  &  & \rvline & z_{3N}
+    \end{pmatrix}
+\end{align}
+
+\begin{align}
+    \label{eq:Y_1N_2}
+    Y_{1,N-2} =
+    \begin{pmatrix}
+        W_{12,N-2,N-1} & \rvline &  \\
+        W_{13,N-2,N-1} & \rvline &  \\
+        W_{14,N-2,N-1} & \rvline &  \\
+        \vdots & \rvline & w_{N-2,N} \\
+        W_{1,N-2,N-2,N-1} & \rvline &  \\
+        W_{1,N-1,N-2,N-1} & \rvline &  \\
+        W_{1N,N-2,N-1} & \rvline &  \\
+    \end{pmatrix},
+\end{align}
+
+where $Y_{1,N-1}$ is a vector of size $N-1$, while $y_N$ is a vector of size $N + \frac{N (N-1) (N-2)}{6}$.
+
+\subsection{At most $P$ changepoints}
+
+Observe that $T_{11}$ in Eq.~\eqref{eq:T_2CP} is constructed in the exact same manner as $T_{1CP}$ used in the one changepoint case.
+Similarly, $V_{11}$ in Eq.~\eqref{eq:T_3CP} follows the same construction as $T_{2CP}$ described in Eq.~\eqref{eq:T_2CP}.
+Therefore, we guess that a heuristic solution $X'$ to solve the general case can be constructed by exploiting the structure of the corresponding Gram matrix in a similar manner as the cases we examined.
+
+
+\section{A2} \label{ase:app_one_sect_2}
+% \chapter{Second Appendix} \label{app:appendix_two}
+\end{appendices}
