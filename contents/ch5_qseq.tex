@@ -96,7 +96,7 @@ Such a strategy effectively extracts classical information from each subsystem a
 In this work, we focus on a simple type of strategy:
 a fixed local strategy that applies a predetermined measurement to each subsystem, independent of all of the previous outcomes, thus requiring neither classical nor quantum memory. 
 A natural fixed local strategy to consider is the one which aims to optimally distinguish between $\ket{\psi_0}$ and $\ket{\psi_1}$ at each position. 
-Thus, given any Boolean function $f$, this strategy learns each bit optimally, constructs a guess for the encoded string, and evaluates $f(x)$. This can also be seen as a \emph{non-adaptive greedy} strategy\footnote{\newstuff{Note, however, that this notion of greediness does not always yield local measurements that are optimal for computing the overall function value. This is more evident for unbalanced functions, such as AND and OR.}}.
+Thus, given any Boolean function $f$, this strategy learns each bit optimally, constructs a guess for the encoded string, and evaluates $f(x)$. This can also be seen as a \emph{non-adaptive greedy} strategy\footnote{Note, however, that this notion of greediness does not always yield local measurements that are optimal for computing the overall function value. This is more evident for unbalanced functions, such as AND and OR.}.
 One might be tempted to think that this naive and simple strategy would perform rather poorly when compared with a global measurement. 
 Our first result shows that, remarkably, this strategy performs rather well---but first we establish some notation.
 \begin{definition}
@@ -136,16 +136,16 @@ The next result identifies a class of functions that satisfies this.
     where $b_0, b_1, \ldots, b_n \in \{0, 1\}$, for all $s \in (0,1)$.
 \end{restatable}
 
-The functions of the form in \cref{eq:affine} are called \emph{affine Boolean functions}. 
+The functions of the form in Eq.~\eqref{eq:affine} are called \emph{affine Boolean functions}. 
 For affine functions, both the globally optimal success probability (via the Helstrom bound) and the greedy success probability can be computed in closed form. 
 A direct calculation using properties of the trace norm shows that they are equal for all $s \in (0,1)$. 
 See Section~\ref{sec:easy-proofs} for details.
 
-Our final result shows that this class is essentially the only one for which the greedy strategy is optimal, establishing a converse to \cref{thm:sufficient}.
+Our final result shows that this class is essentially the only one for which the greedy strategy is optimal, establishing a converse to Eq.~\eqref{thm:sufficient}.
 
 \begin{restatable}[Necessity]{theorem}{necessity}
     \label{thm:necessary}
-    For learning a Boolean function $f:\{0,1\}^n \to \{0,1\}$, if the greedy strategy is globally optimal, then $f$ must be an affine Boolean function of the form in \cref{eq:affine} for all but finitely many values of $s \in (0,1)$.
+    For learning a Boolean function $f:\{0,1\}^n \to \{0,1\}$, if the greedy strategy is globally optimal, then $f$ must be an affine Boolean function of the form in Eq.~\eqref{eq:affine} for all but finitely many values of $s \in (0,1)$.
 \end{restatable}
 
 \begin{restatable}[Sufficiency]{theorem}{sufficient}
@@ -162,7 +162,7 @@ Our final result shows that this class is essentially the only one for which the
 
 \begin{restatable}[Necessity]{theorem}{necessity}
     \label{thm:necessary}
-    For all but finitely many values of $s \in (0,1)$, if the greedy strategy is globally optimal for learning a Boolean function $f:\{0,1\}^n \to \{0,1\}$, then $f$ must be an affine Boolean function of the form in \cref{eq:affine}.
+    For all but finitely many values of $s \in (0,1)$, if the greedy strategy is globally optimal for learning a Boolean function $f:\{0,1\}^n \to \{0,1\}$, then $f$ must be an affine Boolean function of the form in Eq.~\eqref{eq:affine}.
 \end{restatable}
 
 Together, Theorems~\ref{thm:sufficient} and~\ref{thm:necessary} provide a complete characterization: affine Boolean functions are precisely those for which memoryless measurement strategies suffice for optimal learning. 
@@ -234,7 +234,7 @@ Averaging over the uniform distribution on inputs, the greedy success probabilit
 
 \subsection{Lower bounding the greedy strategy via the PGM}
 
-Now consider applying the PGM to distinguish the Boolean ensemble in \cref{eq:boolean-ensemble}. 
+Now consider applying the PGM to distinguish the Boolean ensemble in Eq.~\eqref{eq:boolean-ensemble}. 
 The average state is
 \begin{equation}
     \begin{aligned}
@@ -276,7 +276,7 @@ The success probability of the PGM is therefore
     \begin{align}
         P(n,f,s,\mathrm{PGM}) &= p_0 \Tr(M_{\sigma_0}^{\text{PGM}} \sigma_0) + p_1 \Tr(M_{\sigma_1}^{\text{PGM}} \sigma_1) \\
         &= \frac{|S_0|}{2^n} \sum_{y \in S_0} \Tr(M_y \sigma_0) + \frac{|S_1|}{2^n} \sum_{y \in S_1} \Tr(M_y \sigma_1) \\
-        &= P(n,f,s,\greedy) \qquad \text{(by \cref{eq:local_success})}
+        &= P(n,f,s,\greedy) \qquad \text{(by Eq.~\eqref{eq:local_success})}
     \end{align}
 \end{subequations} 
 This completes the proof.
@@ -284,7 +284,7 @@ This completes the proof.
 
 The proof of Theorem~\ref{thm:PGM} follows immediately.
 \begin{proof}[Proof of Theorem~\ref{thm:PGM}]
-    From Theorem~\ref{thm:barnum-knill} and \cref{eq:local=pgm} we have 
+    From Theorem~\ref{thm:barnum-knill} and Eq.~\eqref{eq:local=pgm} we have 
     \begin{equation}
         P^2(n,f,s,\glo) \leq P(n,f,s,\mathrm{PGM})= P(n,f,s,\greedy)
     \end{equation} 
@@ -527,12 +527,12 @@ Equating the $(1,2)$-blocks yields
     \Gamma' Z = X \Gamma'.
 \end{equation}
 
-We substitute the second equation of \cref{eq:block}, $\Gamma' = XY + YZ$, into \cref{eq:key} and simplify to get
+We substitute the second equation of Eq.~\eqref{eq:block}, $\Gamma' = XY + YZ$, into Eq.~\eqref{eq:key} and simplify to get
 \begin{equation}
     YZ^2 = X^2 Y.
 \end{equation}
 
-Applying the other two equations of \cref{eq:block}, we have
+Applying the other two equations of Eq.~\eqref{eq:block}, we have
 \begin{equation}
     Y(\Gamma_1 - Y^{*}Y) = (\Gamma_0 - YY^{*})Y,
 \end{equation}
@@ -575,7 +575,7 @@ First, by comparing the number of monic terms in corresponding matrix entries, w
 
 \begin{proof}
 The statement for constant functions is trivial, so we assume that the function is not constant. 
-By \cref{eq:inner-product-hamming}, every entry of the matrices $\Gamma_0$, $\Gamma_1$, and $\Gamma'$ is a monic monomial in $s = \braket{\psi_0}{\psi_1}$.  
+By Eq.~\eqref{eq:inner-product-hamming}, every entry of the matrices $\Gamma_0$, $\Gamma_1$, and $\Gamma'$ is a monic monomial in $s = \braket{\psi_0}{\psi_1}$.  
 Thus, every term in $ \Gamma_0 \Gamma' $ is a sum of $ |S_0| $ monic monomials, and every term in $ \Gamma' \Gamma_1 $ is a sum of $ |S_1| $ monic monomials.
 
 If the function is not balanced, i.e., $ |S_0| \neq |S_1| $, then the elements of $ \Gamma_0 \Gamma' $ and $ \Gamma' \Gamma_1 $ cannot coincide, except possibly for finitely many values of $ s $.
@@ -620,7 +620,7 @@ By equating coefficients of powers of $s$ in the polynomial identity we show tha
 
     This is a polynomial identity in $s$. 
     For this to hold for all but finitely many values of $s \in (0,1)$, the coefficients of each power $s^L$ on both sides must agree. 
-    This gives us \cref{eq:counting-equality} for each $L$.
+    This gives us Eq.~\eqref{eq:counting-equality} for each $L$.
 \end{proof}
 
 \subsection{Necessity of the Affine Structure}
@@ -688,7 +688,7 @@ Then, by construction,
 \begin{equation}
     f(x_1,\dots,x_n) = g(x_1,\dots,x_{i-1},x_{i+1},\dots,x_n) \oplus x_i,
 \end{equation}
-which proves \cref{eq:function-xor}.
+which proves Eq.~\eqref{eq:function-xor}.
 \end{proof}
 
 The recursive structure revealed in Theorem~\ref{thm:function-form} allows us to apply induction to completely characterize optimal functions by proving Theorem \ref{thm:necessary}.
@@ -735,7 +735,7 @@ f(x_1,\dots,x_n) = g(x_1,\dots,x_{i-1},x_{i+1},\dots,x_n) \oplus x_i.
 \begin{lemma}
     \label{lem:reduced-optimality}
     Let $G_0$ (resp.\ $G_1$) be the Gram matrix of the states corresponding to inputs of $g$ that map to $0$ (resp.\ $1$), and let $G'$ be the cross-Gram matrix. 
-    If the greedy strategy is optimal for $f$ and $f$ has the form \cref{eq:function-xor}, then $G_0 G' = G' G_1$.
+    If the greedy strategy is optimal for $f$ and $f$ has the form Eq.~\eqref{eq:function-xor}, then $G_0 G' = G' G_1$.
 \end{lemma}
 
 \begin{proof}
@@ -772,7 +772,7 @@ $x_i=0$, we obtain
         \end{pmatrix}.
 \end{equation}
 
-We now compute both sides of \cref{eq:gamma-comm-proof}.
+We now compute both sides of Eq.~\eqref{eq:gamma-comm-proof}.
 First,
 \begin{equation}
     \Gamma_0 \Gamma' =
@@ -812,13 +812,13 @@ Returning to the main proof: by Lemma~\ref{lem:reduced-optimality} and the induc
     g(x_1,\dots,x_{i-1},x_{i+1},\dots,x_n) = b_0 \oplus \bigoplus_{j \neq i} b_j x_j.
 \end{equation}
 
-Substituting into \cref{eq:function-xor}:
+Substituting into Eq.~\eqref{eq:function-xor}:
 \begin{equation}
     f(x_1,\dots,x_n) = b_0 \oplus \bigoplus_{j \neq i} b_j x_j \oplus x_i = b_0 \oplus \bigoplus_{j=1}^n b_j x_j,
 \end{equation}
 where we set $b_i = 1$ and $b_j$ for $j \neq i$ come from $g$.
 
-This is precisely the affine form \cref{eq:affine}, completing the induction and the proof.
+This is precisely the affine form Eq.~\eqref{eq:affine}, completing the induction and the proof.
 \end{proof}
 
 We briefly outline the essential steps of the proof for the reader's convenience. The proof uses an equivalent condition for the optimality of the PGM given by Lemma \ref{lem:pgmopt}. 
@@ -898,12 +898,12 @@ Let $P_{\text{opt}}$ denote the optimal success probability and $P_{\text{PGM}}$
 
 This bound ensures that the PGM always achieves a success probability at least as large as the square of the optimal probability, guaranteeing near-optimal performance. Moreover, in many cases of interest, the PGM is exactly optimal \cite{mochon2006family,dalla2015optimality,eldar2001quantum}.
 
-%For our problem of Boolean function evaluation, we will establish in Theorem~\ref{thm:pgm-local} that the PGM operators defined by \cref{eq:pgm-operators} decompose exactly as the measurement operators of the fixed greedy strategy. This remarkable structural property will be central to our characterization of when local measurements suffice.
+%For our problem of Boolean function evaluation, we will establish in Theorem~\ref{thm:pgm-local} that the PGM operators defined by Eq.~\eqref{eq:pgm-operators} decompose exactly as the measurement operators of the fixed greedy strategy. This remarkable structural property will be central to our characterization of when local measurements suffice.
 \end{comment}
 %===============================================================================
 \section{The Gram Matrices of the Boolean Ensemble} \label{app:boolean-grams}
 
-To apply the PGM optimality criterion from Lemma~\ref{lem:pgmopt}, we must compute the generalized Gram matrix $G$ for the Boolean ensemble (\cref{eq:boolean-ensemble}). We begin by constructing explicit purifications of the mixed states $\sigma_0$ and $\sigma_1$.
+To apply the PGM optimality criterion from Lemma~\ref{lem:pgmopt}, we must compute the generalized Gram matrix $G$ for the Boolean ensemble (Eq.~\eqref{eq:boolean-ensemble}). We begin by constructing explicit purifications of the mixed states $\sigma_0$ and $\sigma_1$.
 
 For each $i \in \{0,1\}$, a purification of $\sigma_i$ is given by
 \begin{equation}
@@ -911,7 +911,7 @@ For each $i \in \{0,1\}$, a purification of $\sigma_i$ is given by
 \end{equation}
 where the auxiliary system $B'$ has dimension $|S_i|$, and the states $\{\ket{y}_{B'}\}_{y \in S_i}$ form an orthonormal basis of $B'$. Here, $B$ denotes the physical $n$-qubit system containing the state $\ket{\psi_y}$, while $B'$ is the purifying system that tracks which element of $S_i$ was selected.
 
-Recall from \cref{eq:gengram} that the generalized Gram matrix is defined as
+Recall from Eq.~\eqref{eq:gengram} that the generalized Gram matrix is defined as
 \begin{equation}
     G_{X'B'} := \sum_{x,x'} \sqrt{p_x p_{x'}} \ketbra{x}{x'}_{X'} \otimes \Tr_B\left(\ketbra{\xi_x}{\xi_{x'}}_{BB'}\right),
 \end{equation}
@@ -1023,7 +1023,7 @@ meaning $Q_{n+1}$ can be viewed as two copies of $Q_k$ connected by a perfect ma
 \end{figure}
 \vspace{0.2cm}
 \noindent
-The following Lemma characterizes balanced partitions of the hypercube satisfying the path-counting symmetry \cref{eq:count-condition} which are precisely those obtained by flipping a single coordinate.
+The following Lemma characterizes balanced partitions of the hypercube satisfying the path-counting symmetry Eq.~\eqref{eq:count-condition} which are precisely those obtained by flipping a single coordinate.
 \hypercubeflip*
 
 We prove Lemma \ref{lem:hypercube-flip} via induction on $n$. The following lemma establishes that the two parts must have adjacent vertices.
@@ -1076,10 +1076,10 @@ Assume the claim holds for all dimensions $2 \leq t \leq n$. Consider $Q_{n+1}$.
 
 By Lemma~\ref{lem:min-dist}, choose vertices $x \in A$ and $y \in B$ with $d(x,y) = 1$. Let $i \in [n+1]$ be the unique coordinate in which $x$ and $y$ differ.
 
-Using the Cartesian product decomposition $Q_{n+1} \cong Q_n \square K_2$ from \cref{eq:cart-prod}, consider an $n$-dimensional sub-cube $H \subseteq Q_{n+1}$ that contains the edge $xy$. Within $G$, the induced partition $A \cap V(H)$ and $B \cap V(H)$ still satisfies the counting condition (iii) for all pairs of vertices in $H$. By the induction hypothesis applied to $H \cong Q_n$, we get that membership in $A \cap V(H)$ and $B \cap V(H)$ is related by flipping the $i$-th bit.
+Using the Cartesian product decomposition $Q_{n+1} \cong Q_n \square K_2$ from Eq.~\eqref{eq:cart-prod}, consider an $n$-dimensional sub-cube $H \subseteq Q_{n+1}$ that contains the edge $xy$. Within $G$, the induced partition $A \cap V(H)$ and $B \cap V(H)$ still satisfies the counting condition (iii) for all pairs of vertices in $H$. By the induction hypothesis applied to $H \cong Q_n$, we get that membership in $A \cap V(H)$ and $B \cap V(H)$ is related by flipping the $i$-th bit.
 
 Now consider a 4-cycle (2-dimensional sub-cube) $x$--$y$--$z$--$w$--$x$ in $Q_{n+1}$ with $z, w \notin V(H)$.
-Since $x \in A$ and $y \in B$, applying \cref{eq:counting-equality} with $L=2$, we get $z$ and $w$ to lie in opposite partitions. Note that $z$ and $w$ differ only in the $i$-th coordinate. By the cartesian product structure, there exists another sub-cube $M \cong Q_k$ containing the edge edge $zw$ and is disjoint from $H$. Thus, applying the induction hypothesis again, we conclude that the same coordinate $i$ implements the flip globally onall vertices, i.e., for every $v \in V(Q_{n+1})$,
+Since $x \in A$ and $y \in B$, applying Eq.~\eqref{eq:counting-equality} with $L=2$, we get $z$ and $w$ to lie in opposite partitions. Note that $z$ and $w$ differ only in the $i$-th coordinate. By the cartesian product structure, there exists another sub-cube $M \cong Q_k$ containing the edge edge $zw$ and is disjoint from $H$. Thus, applying the induction hypothesis again, we conclude that the same coordinate $i$ implements the flip globally onall vertices, i.e., for every $v \in V(Q_{n+1})$,
 \begin{equation}
 v \in A \quad\Longleftrightarrow\quad v^{(i)} \in B.
 \end{equation}
