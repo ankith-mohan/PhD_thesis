@@ -3,14 +3,16 @@
 	% Add your appendices here. You must leave the appendices enclosed in the appendices environment in order for the table of contents to be correct.
 	
 \begin{appendices}
-\chapter{Appendices I} \label{app:appendix_one}
-\section{A1} \label{ase:app_one_sect_1}
+%\chapter{Appendices I} \label{app:appendix_one}
+%\section{A1} \label{ase:app_one_sect_1}
 
-\section{Gram matrices and heuristics for multiple changepoints}
+\chapter{Gram matrices and heuristics for multiple changepoints} \label{app:heuristics}
 
 In this appendix we describe the scenarios for at most two and three changepoints. 
 
-\subsection{At most two changepoints}\label{sec:2CP}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{At most two changepoints}\label{sec:2CP}
 
 When dealing with the scenario where at most two changepoints can occur, Bob must focus on the following states
 \begin{equation}
@@ -86,7 +88,9 @@ The matrix $X_{11}$ is a symmetric Toeplitz matrix.
 The remaining blocks $X_{ik}^{(n)}$ follow the same convention as its counterpart $T_{ik}^{(n)}$. 
 Here $z$ denotes the last entry of the vector $x_N$.
 
-\subsection{At most three changepoints} \label{sec:3CP}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{At most three changepoints} \label{sec:3CP}
 
 If we have at most three changepoints, Bob has to consider the following states
 \begin{equation}
@@ -343,13 +347,15 @@ We once again exploit the Toeplitz-like structure of the Gram matrix and restric
 
 where $Y_{1,N-1}$ is a vector of size $N-1$, while $y_N$ is a vector of size $N + \frac{N (N-1) (N-2)}{6}$.
 
-\subsection{At most $P$ changepoints}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{At most $P$ changepoints}
 
 Observe that $T_{11}$ in Eq.~\eqref{eq:T_2CP} is constructed in the exact same manner as $T_{1CP}$ used in the one changepoint case.
 Similarly, $V_{11}$ in Eq.~\eqref{eq:T_3CP} follows the same construction as $T_{2CP}$ described in Eq.~\eqref{eq:T_2CP}.
 Therefore, we guess that a heuristic solution $X'$ to solve the general case can be constructed by exploiting the structure of the corresponding Gram matrix in a similar manner as the cases we examined.
 
 
-\section{A2} \label{ase:app_one_sect_2}
+%\section{A2} \label{ase:app_one_sect_2}
 % \chapter{Second Appendix} \label{app:appendix_two}
 \end{appendices}

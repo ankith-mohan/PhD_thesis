@@ -1,40 +1,5 @@
 \chapter{Quantum heuristics for optimizing large separable operators}\label{ch:Sep}
 
-Entanglement is at the heart of many quantum problems and applications~\cite{horodecki2009quantum}.   
-Even though it has been studied for a long time now, entanglement is still a mysterious resource and understanding its power and limitations is an interesting area of research.  
-Given a quantum state, determining whether it is entangled or separable (i.e., not entangled) is called the \emph{separability problem}.  
-More precisely, for a density operator acting on the bipartite space $\A \otimes \B$, we wish to decide whether it belongs to the set of separable states, defined as 
-\begin{equation} 
-\SepD(\A: \B) = \mathrm{conv} \; \{ \rho \otimes \sigma \} 
-\label{eq:ch2_SEP-SepIntro}
-\end{equation} 
-where $\mathrm{conv}$ denotes the convex hull (the set of all convex combinations), $\rho$ ranges over density operators on $\A$, and $\sigma$ ranges over density operators on $\B$. 
-This problem is known to be NP-hard in general~\cite{gurvits2004classical,gharibian2010strong}. 
-If $\dim(\A) \cdot \dim(\B) \leq 6$, then it turns out that this problem has a finite-sized semidefinite programming formulation~\cite{horodecki1996necessary} while for all other cases, it was shown that no finite-sized semidefinite program exists~\cite{fawzi2021set}. 
-
-In this work, we also look at the set of separable \emph{operators} which is  defined as  
-\begin{equation} 
-\Sep(\A: \B) = \mathrm{conv} \; \{ X \otimes Y \} 
-\label{eq:ch2_SEP-Sep}
-\end{equation} 
-where $X$ is a positive semidefinite operator acting on $\A$ and $Y$ is a positive semidefinite operator acting on $\B$. 
-We note that $\Sep(\A: \B)$ and $\SepD(\A: \B)$ differ only in the fact that the latter has a unit trace constraint. 
-
-A general linear optimization over the set of separable operators takes the form 
-\begin{equation} \label{eq:ch2_SEP-Sep_opt_operator} 
-\text{maximize } \Big\{ \inner{X}{C} : \Xi(X) = B, X \in \Sep(\A:\B) \Big\} 
-\end{equation} 
-where $C$ and $B$ are Hermitian matrices, $\Xi$ is a hermiticity-preserving linear map, and $\inner{A}{B}$ denotes the Hilbert-Schmidt inner product between two operators $A$ and $B$, which is defined as $\Tr(A^* B)$.  
-While we consider the general problem above in this work, we often focus on the special case of linear optimization over the set of separable \emph{states} taking the form 
-\begin{equation} \label{eq:ch2_SEP-Sep_opt} 
-\text{maximize } \Big\{ \inner{\tau}{C} : \tau \in \SepD(\A:\B) \Big\}.  
-\end{equation} 
-Despite having a diverse array of applications~\cite{ioannou2007computational, brandao2011quasipolynomial, gharibian2013qma, chailloux2012complexity, hayden2013two, li2014quantum, consiglio2022variational, jeronimo2023power}, 
-this problem is hard for two key reasons.   
-For one, even if one were to exhibit a purported optimal solution, verifying its separability could be (NP) hard. 
-Also, it suffers from the curse of dimensionality. 
-In particular, when $\A$ and $\B$ represent $n$-qubit spaces, then $\tau \in \SepD$ has dimension $2^{2n}$ which renders many numerical computations infeasible. 
-
 In this chapter, we address both of these issues by combining semidefinite programming techniques with quantum heuristics. 
 Firstly, by using semidefinite programming-based algorithms, one can solve small instances (i.e., when $\dim(\A)$ and $\dim(\B)$ are small) with reasonable levels of success. 
 Secondly, we introduce a heuristic algorithm to  reduce the dimension of the optimization problem. 

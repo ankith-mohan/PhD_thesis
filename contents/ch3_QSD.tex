@@ -1,19 +1,5 @@
 \chapter{A dimension-reduced framework for generalized quantum state discrimination with quantum data}\label{ch:QSD}
 
-Quantum state discrimination is a central task in quantum information processing.
-Quantum key distribution~\cite{ko2018advanced}, two-party cryptography~\cite{aharonov2000quantum, ambainis2001new, sikora2017simple}, the hidden subgroup problem~\cite{hayashi2008quantum}, and dimension witnessing~\cite{strubi2013measuring}, among many others, can all be formulated in terms of this problem, which can be described as the following two-party game.
-Alice chooses a state from a fixed set of states and sends it to Bob who wishes to identify the state. 
-Here we assume that both Alice and Bob know the set of states and the a priori probabilities before the game commences.
-
-For Bob to determine his state perfectly, the necessary and sufficient condition is that the states in the set must be pairwise orthogonal.
-However this need not be the case and, in such circumstances, Bob may wish to optimize some desired figure of merit, e.g., the average probability of correctly identifying the state.
-Several other figures of merit exist depending on the desired application.
-For example, Bob may wish to only guess when he knows he will be correct, called unambiguous state discrimination.
-Each figure of merit could correspond to adopting a different strategy which would in turn lead to different behaviour.  
-We discuss several variants in this work and refer the interested reader to the following reviews~\cite{chefles2000quantum, bergou200411, bergou2007quantum, barnett2009quantum, bergou2010discrimination}. 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \section{Our setting}
 
 We now discuss the quantum state discrimination problem.
