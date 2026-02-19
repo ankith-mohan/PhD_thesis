@@ -1,52 +1,309 @@
 \chapter{Introduction} \label{ch:introduction}
 
-Things to cover.
-\begin{itemize}
-    \item Pretty good measurement
-\end{itemize}
+This thesis can be viewed in two parts.
+The first part is the work I have done on the separability problem while the second part is the work I have done on several aspects of the quantum state discrimination problem.
+The work on the separability problem was done with Tobias Haug, Kishor Bharti and Jamie Sikora.
+My work on the quantum state discrimination problem first looks at a generalized framework for this problem and how its dimension can be reduced.
+This was done with Jamie Sikora and Sarvagya Upadhyay.
+Next, we introduce a measurement called the \emph{pretty bad measurement} for a variant of the state discrimination problem called the state exclusion problem.
+This is based on work done with Caleb McIrvin and Jamie Sikora.
+Lastly, we view the problem of learning Boolean functions from the lens of the state discrimination problem.
+This was done with Tathagata Gupta, Shayeef Munshir, Jamie Sikora, Vincent Russo and Alice Zheng.
 
-\section{Background}
+We first introduce the problems considered in this thesis followed by our contributions.
+We then discuss the relevant background on linear algebra, quantum information and semidefinite programming.
 
-Things to cover.
-\begin{enumerate}
-    \item Semidefinite programming
-    \item Dual SDP
-    \item Cone programming
-    \item States
-    \item Measurements
-    \item Channels
-    \item Separable operators
-\end{enumerate}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Overview}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Linear algebra background}  
+\amnote{Short note on the impact of semidefinite programs for quantum information.}
 
-We can view $\tr(XY)$ as an inner product on Hermitian matrices (called the Hilbert-Schmidt inner product) and the Frobenius norm is defined as the norm that this inner product induces, i.e., 
-\begin{equation} 
-\| X \|_F = \sqrt{\tr(X^2)}. 
+\subsection{Separability problem}
+
+Entanglement is at the heart of many quantum problems and applications~\cite{horodecki2009quantum}.   
+Even though it has been studied for a long time now, entanglement is still a mysterious resource and understanding its power and limitations is an interesting area of research.  
+Given a quantum state, determining whether it is entangled or separable (i.e., not entangled) is called the \emph{separability problem}.
+This problem is known to be NP-hard in general~\cite{gurvits2004classical,gharibian2010strong}. 
+In the general case we could consider the entanglement of a multipartite state, but we restrict our attention to the bipartite case.
+If the product of the dimensions of the two systems is at most $6$, %$\dim(\A) \cdot \dim(\B) \leq 6$, 
+then it turns out that this problem has a finite-sized semidefinite programming formulation~\cite{horodecki1996necessary} while for all other cases, it was shown that no finite-sized semidefinite program exists~\cite{fawzi2021set}. 
+We discuss semidefinite programming in Section~\ref{ss:ch1_intro-SDP}.
+
+\amnote{Introduce PPT, symmetric extensions and realignment here.}
+
+Despite having a diverse array of applications~\cite{ioannou2007computational, brandao2011quasipolynomial, gharibian2013qma, chailloux2012complexity, hayden2013two, li2014quantum, consiglio2022variational, jeronimo2023power}, 
+this problem is hard for two key reasons.   
+For one, even if one were to exhibit a purported optimal solution, verifying its separability could be (NP) hard. 
+Also, it suffers from the curse of dimensionality. 
+In particular, when the two systems are $n$-qubit spaces, then we are dealing with a problem that %$\tau \in \SepD$ 
+has dimension $2^{2n}$ which renders many numerical computations infeasible. 
+
+In Chapter~\ref{ch:Sep}, we address both of these issues by combining semidefinite programming techniques with quantum heuristics. 
+Firstly, by using semidefinite programming-based algorithms, one can solve small instances (i.e., when the dimensions of the two systems are small) with reasonable levels of success. 
+Secondly, we introduce a heuristic algorithm to  reduce the dimension of the optimization problem. 
+We discuss when this pre-processing step can be run on a quantum co-processor, thereby alleviating the curse of dimensionality. 
+In a sense, we do not need to perform any vector-represented calculations, the interactions are done on a quantum mechanical level and the desired quantities can be inferred from measurement statistics. 
+We combine both of these methods, allowing us to optimize over separable states of large dimensions. 
+
+We note that even though our algorithm is heuristics-based, it maintains an important feature which is that it always returns a feasible solution.\footnote{Interestingly, even if the quantum processing part of our method is noisy, it still returns a feasible solution.} 
+Thus, in the event that our algorithm does not perform well,\footnote{Due to assumed complexity theoretical barriers (P $\neq$ NP), this is likely the case eventually for any such algorithm.} it still exhibits a feasible solution which could still be of value depending on the application. 
+
+As an application, we approximate the separable state that has the greatest energy with respect to a fixed Hamiltonian, whose energy we call the \emph{separable ground energy}.\footnote{Note that since we are maximizing throughout the discussions in this work, we think of the largest eigenvalue as the ground energy. 
+This convention is without loss of generality since one can replace the Hamiltonian $H$ with $-H$ if one prefers to minimize.} 
+We show that this approximation can be used to characterize the amount of entanglement in the groundspace of the Hamiltonian. 
+We give a full study of our algorithm for the case of the one-dimensional Ising Hamiltonian with numerics for up to $28$ qubits.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Quantum state discrimination}
+
+Quantum state discrimination is a central task in quantum information processing.
+Quantum key distribution~\cite{ko2018advanced}, two-party cryptography~\cite{aharonov2000quantum, van2002unambiguous, cabello2000quantum, ambainis2001new, sikora2017simple}, the hidden subgroup problem~\cite{hayashi2008quantum}, quantum algorithms~\cite{radhakrishnan2009random, hayashi2006quantum}, and dimension witnessing~\cite{strubi2013measuring}, among many others, can all be formulated in terms of this problem, which can be described as the following two-party game.
+%The quantum state discrimination problem can be phrased as a game between Alice and Bob. 
+Alice has a finite set of quantum states $\{ \rho_1, \ldots, \rho_n \}$ and a fixed probability distribution $\{ p_1, \ldots, p_n \}$, both of which are known to Bob. 
+Alice then samples $i$ with probability $p_i$ and prepares and sends $\rho_i$ to Bob. 
+Bob wins the game if he correctly identifies the state by sending the correct index, $i$, back to Alice. 
+This game is illustrated in Fig.~\ref{fig:ch4_PBM-fig1}.  
+\begin{figure}[h] 
+    \centering
+    \includegraphics[scale=0.75]{figs/ch4_PBM/qsd_figure.pdf}
+    \caption{Alice prepares $\rho_i \in \{ \rho_1, \ldots, \rho_n \}$ and sends it to Bob. 
+    Bob wins the game if he correctly identifies the index $i$.}
+    \label{fig:ch4_PBM-fig1}
+\end{figure}
+
+%Alice chooses a state from a fixed set of states and sends it to Bob who wishes to identify the state. 
+%Here we assume that both Alice and Bob know the set of states and the a priori probabilities before the game commences.
+
+For Bob to determine his state perfectly, the necessary and sufficient condition is that the states in the set must be pairwise orthogonal.
+However this need not be the case and, in such circumstances, Bob may wish to optimize some desired figure of merit, e.g., the average probability of correctly identifying the state.
+
+This has fueled nearly five decades of work \cite{helstrom1969quantum}, producing extensive catalogs of state ensembles and their optimal discrimination probabilities \cite{sun2001optimum,sugimoto2010complete,herzog2004minimum,herzog2005optimum,herzog2015optimal}. 
+
+Two paradigms have received particular attention: minimum-error discrimination \cite{bae2013structure} where the learner outputs a guess with the goal of minimizing the overall probability of error, and unambiguous discrimination \cite{ivanovic1987differentiate, dieks1988overlap, peres1988differentiate} which forbids incorrect guesses altogether at the cost of allowing inconclusive outcomes. 
+Despite decades of study, closed-form solutions are known only for some particular ensembles in both paradigms \cite{jaeger1995optimal,barnett2009quantum}. 
+However, the optimal discrimination probability for an arbitrary ensemble can be efficiently obtained as the output of a semidefinite program \cite{eldar2003designing,eldar2003semidefinite}.
+
+Several other figures of merit exist depending on the desired application.
+For example, Bob may wish to only guess when he knows he will be correct, called unambiguous state discrimination.
+Each figure of merit could correspond to adopting a different strategy which would in turn lead to different behavior.  
+We discuss several variants in this thesis and refer the interested reader to the following reviews~\cite{chefles1998quantum, chefles2000quantum, bergou2004discrimination, bergou2007quantum, barnett2009quantum, bergou2010discrimination, Bae_2015}. 
+
+In Chapter~\ref{ch:QSD} we consider a generalized framework encompassing these variants.
+Observe that if we have $n$ states each of dimension $d$ with $\ell$ possible guesses, then we are solving an SDP of dimension $d \ell$.
+We show how this problem can be reduced to solving an SDP of dimension $n \ell$.
+As an application, we characterize optimal identification probabilities for quantum changepoint problems in several regimes, including multiple-changepoint settings that were previously computationally inaccessible.
+
+\begin{comment}
+Preparing and measuring quantum states are the two pillars of quantum computing. 
+As an example, quantum state tomography is the task of identifying which quantum state a device is preparing given (many) samples~\cite{christandl2012reliable, torlai2018neural, gross2010quantum, qi2013quantum, ahmed2021quantum, mahler2013adaptive, schwemmer2015systematic}
+which has been experimentally tested~\cite{cramer2010efficient, stricker2022experimental, rambach2021robust, rippe2008experimental, mallet2011quantum}. 
+In other words, one wishes to find the best measurement(s) to perform in order to learn the state with the fewest number of samples.
+
+Another task central to quantum computing is the \emph{quantum state discrimination problem} where one is tasked with identifying which state they have been given \emph{from a fixed set of quantum states}. 
+This is a naturally occurring setting which has been studied in the context of quantum algorithms~\cite{radhakrishnan2009random, hayashi2006quantum}, quantum cryptography~\cite{van2002unambiguous, cabello2000quantum, ambainis2001new, sikora2017simple}, quantum machine learning~\cite{sentis2016quantum, sentis2017exact}, among many others (see~\cite{Bae_2015} for a survey).
+\end{comment}
+
+\subsubsection{Pretty good measurement}
+
+Consider the case where Bob wishes to maximize the average probability of correctly identifying the state. 
+Suppose he measures with the POVM $\{M_1, \ldots, M_n\}$ and on outcome $j$ he guesses the state was $\rho_j$. 
+Then, given state $\rho_j$, he guesses ``I think the state is $\rho_i$'' with probability 
+$\inner{M_i}{\rho_j}$.  
+In this case, he wins the game with probability 
+%\begin{equation} 
+$\sum_{i=1}^n p_i \inner{M_i}{\rho_i}$.  
+%\end{equation} 
+If Bob wishes to maximize this probability, then he is tasked with finding the best POVM $\{M_1, \dots, M_n\}$, known as the \emph{minimum error} measurement, and we define the best probability for Bob as 
+\begin{equation}
+    \label{eq:ch4_PBM-P_best} 
+    \Pbest = \text{max} \; \sum_{i=1}^n p_i \inner{M_i}{\rho_i}.
 \end{equation} 
 
-The key component in the proof of our main result, Theorem 1, is the Cauchy-Schwarz inequality for Hermitian matrices, i.e., 
+Given a problem instance, one can numerically solve for the best POVM using semidefinite programming~\cite{cvx}. 
+Unfortunately, characterizing such POVMs is a difficult task known only to be possible in special cases, e.g., for $n=2$ the case of two states~\cite{helstrom1969quantum}, for $n$ arbitrary qubit states given with equal \emph{a priori} probabilities~\cite{deconinck2010qubit}, for geometrically uniform states~\cite{eldar2004optimal}, and mirror symmetric states~\cite{andersson2002minimum}.  
+Therefore, it is important to find generic classes of measurements which have a simple form and \emph{approximate} $\Pbest$.
+
+The pretty good measurement (PGM), first discussed in~\cite{belavkin1975optimaldist, belavkin1975optimal, hughston1993complete}, is a way to approximate the best possible measurement. 
+Sometimes PGM is optimal, some nice examples being for the hidden subgroup problem~\cite{bacon2005optimal, moore2005distinguishing}, for the quantum change point problem~\cite{sentis2016quantum}, and in port-based teleportation~\cite{leditzky2022optimality}.  
+Generally speaking, for problems with a large amount of symmetry, the PGM seems to perform well. 
+
+\subsubsection{Quantum state exclusion}
+
+The quantum state \emph{exclusion} problem is similar to quantum state discrimination except that Bob wishes to guess a state \emph{which was not sent}. 
+For example, if Alice sends $\rho_1$ to Bob and Bob responds with ``Alice, you did not send $\rho_3$'' then he would win the game in that case. 
+The work in \cite{bandyopadhyay2014conclusive} studies this task in detail and its relationship to the PBR game~\cite{pusey2012reality}. 
+Quantum state exclusion is illustrated in Fig.~\ref{fig:ch4_PBM-fig2}.  
+\begin{figure}[h] 
+    \centering
+    \includegraphics[scale=0.75]{figs/ch4_PBM/qse_figure.pdf}
+    \caption{Alice prepares $\rho_i \in \{ \rho_1, \ldots, \rho_n \}$ and sends it to Bob. 
+    Bob wins the game if he correctly \emph{excludes} an index $j \neq i$.}
+    \label{fig:ch4_PBM-fig2}
+\end{figure} 
+
+Unlike quantum state discrimination, it is much more difficult to determine when Bob has a perfect strategy to perfectly win this game, i.e., when he can exclude a state without error. 
+If this is the case, we say that the states are \emph{antidistinguishable} which has been the topic of recent research~\cite{havlivcek2020simple, russo2023inner, leifer2020noncontextuality, mishra2023optimal, uola2020all, johnston2023tight}. 
+
+If Bob wishes to find the measurement which best excludes a state, he wishes to minimize the probability of making an incorrect guess.
+More precisely, if Bob measures $\rho_i$ with the POVM $\{M_1, \ldots, M_N\}$, he makes an \emph{incorrect guess} with probability $\inner{M_i}{\rho_i}$.  
+Thus, he wishes to \emph{minimize} 
+%\begin{equation} 
+$\sum_{i=1}^n p_i \inner{M_i}{\rho_i}$.  
+%\end{equation} 
+
+Notice that this is the exact opposite of what he wishes to do in the quantum state discrimination problem where he wants to maximize this quantity, see Eq.~\eqref{eq:ch4_PBM-P_best}. 
+Thus, if Bob wants to exclude a state, his best measurement is also the \emph{worst} measurement for discrimination. 
+Therefore, we define 
+\begin{equation}
+    \label{eq:ch4_PBM-P_worst}
+    \Pworst = \text{min} \; \sum_{i=1}^n p_i \inner{M_i}{\rho_i}. 
+\end{equation}
+
+It is worth noting that the viewpoint of Bob trying to lose the quantum state discrimination game is interesting in its own right. 
+Indeed, Bob cannot always lose this game with certainty, even if he wants to, and understanding when this is the case, and more generally, understanding the above quantity gives insights into the very nature of quantum information.
+
+Chapter~\ref{ch:PBM} addresses the following question:
+\begin{center}
+\textit{Is there an analogue of the pretty good measurement for approximating $\Pworst$?} 
+\end{center}
+
+\subsubsection{Memoryless regime}
+
+Suppose there are two known quantum states, $\ket{\psi}$ and $\ket{\phi}$, and a learner receives a sequence of the form
+\begin{equation}
+    \ket{\psi}\ket{\phi}\ket{\psi}\cdots\ket{\psi} .
+\end{equation}
+While each position is known to be either $\ket{\psi}$ or $\ket{\phi}$, the identity of each state is unknown. 
+Can one determine whether the number of $\ket{\psi}$ states exceeds the number of $\ket{\phi}$ states, or whether the total number of $\ket{\psi}$ states is even? 
+These examples highlight a basic task: learning coarse-grained properties of a quantum sequence without determining the sequence itself.
+
+Chapter~\ref{ch:qseq} studies this problem in two contrasting resource regimes. 
+In the \emph{full-memory} setting the entire (finite) sequence may be stored so that an optimal joint measurement can be performed upon receiving all of the states. 
+In the \emph{memoryless} setting, neither quantum nor classical memory is available and each state must be measured immediately, using only predetermined local measurements. 
+This work investigates which Boolean properties can still be learned optimally under such stringent memory constraints.
+
+Motivated by this, we initiate a study of learning Boolean properties of quantum sequences. 
+In a classical information-processing/computation setup, data are represented by bit strings, and computing Boolean functions of these strings, such as the $\mathsf{XOR}$ is elementary; the main challenges lie instead in algorithmic efficiency and robustness of protocols. 
+In the quantum setting, by contrast, computing even a simple function becomes non-trivial when no classical description of the data is available. 
+We consider which properties can be optimally learned using memoryless measurement strategies, and which fundamentally require joint measurements across the sequence. 
+The paradigm we focus on is minimum-error, where the learner might obtain an incorrect value for the property of the sequence and their goal is to minimize this error, and we completely characterize the Boolean functions for which fixed local measurements are optimal.
+
+Many information-processing and quantum-computing protocols involve discriminating sequences of quantum states. 
+The well known BB84 quantum key distribution scheme is an example where Alice sends Bob qubits chosen at random from the set $\{\ket{0}, \ket{1}, \ket{+}, \ket{-}\}$ \cite{bennett2014quantum}. 
+From Bob's perspective, the received signal is a quantum sequence whose individual components are drawn from this set. 
+The central question in such scenarios concerns the resources required to optimally discriminate the given sequence, which might vary significantly across different sequence types. 
+For example, when discriminating two pure states given a finite number of copies, adaptive local strategies that make limited use of classical memory to condition later measurements based on earlier outcomes achieve the same performance as optimal joint measurements, whereas memoryless strategies generally do so only asymptotically \cite{acin2005multiple}. 
+However, for two mixed states, joint measurements can strictly outperform all local strategies even in the asymptotic limit \cite{calsamiglia2010local}. 
+In the quantum change-point detection problem, joint measurements provide an advantage in the minimum-error paradigm \cite{sentis2016quantum}, while for unambiguous detection the optimality of local versus global strategies depends on the overlap between the two states \cite{sentis2017exact}. 
+For identification of symmetric, pure states, online strategies have been proposed that often achieve optimality using classical memory to store only the last obtained measurement outcome \cite{sentis2022online}.
+
+More recently, for problems where the goal is to identify the entire sequence composed of independently prepared states, it has been shown that memoryless strategies are optimal in the sense that they achieve the same performance as joint measurements, for both minimum-error and unambiguous discrimination \cite{gupta2024unambiguous,gupta2024optimal}. 
+This observation naturally raises the question of whether such equivalence persists when the discrimination task seeks to learn only specific properties or coarse-grained features of the sequence, rather than its exact identity.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Contributions}
+
+We discuss the contributions of this thesis.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Background}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+In this section, we establish the relevant notations and background for this thesis.
+We first review concepts in linear algebra and convex analysis.
+Then, we discuss topics in quantum information and semidefinite programming.
+
+\subsection{Notations}
+
+An \emph{alphabet} is a finite and non-empty set of \emph{symbols}.
+Some examples of alphabets that are frequently used in this thesis are the set of $n$-bit strings $\{0,1\}^n$ and $\{1, \cdots, n\}$ also denoted by $[n]$ for a fixed positive integer $n$.
+A \emph{complex Euclidean space}, denoted by $\C^n$ is an $n$-dimensional vector space over the field of complex numbers $\C$, equipped with the inner product $\inner{u}{v} = \sum_{i=1}^n \bar{u}_i v_i$ for $u, v \in \C^n$, where $\bar{u}_i$ denotes the complex conjugate.
+We will denote complex Euclidean spaces by the letters $\A, \B, \X$ and $\Y$.
+
+\subsection{Linear algebra}
+
+The $p$-\emph{norm} for each $u \in \C^n$ is defined as
+\begin{equation}
+    \|u\|_p = \left( \sum_{i=1}^n |u(a)|^p \right)^{\frac{1}{p}}
+\end{equation}
+for every positive integer $p$ and
+\begin{equation}
+    \|u\|_\infty = \max \{ |u(a)|\ :\ a \in [n] \}.
+\end{equation}
+
+For complex Euclidean spaces $\X$ and $\Y$, we denote the set of all \emph{linear operators} from $\X$ to $\Y$ by $\mathrm{L}(\X, \Y)$.
+We will use $\mathrm{L}(\X)$ as a shorthand for $\mathrm{L}(\X, \X)$.
+For every operator $A \in \mathrm{L}(\X, \Y)$, we define its \emph{adjoint} operator $A^* \in \mathrm{L}(\Y, \X)$ as the unique operator satisfying $\inner{v}{Au} = \inner{A^*v}{u}$.
+This is computed as $A^* = \overline{A^\top}$ where $A^\top$ is the transpose of $A$ and $\bar{A}$ is the entry-wise conjugate of $A$.
+
+Suppose $A_1 \in \mathrm{L}(\X_1, \Y_1), \cdots, A_n \in \mathrm{L}(\X_n, \Y_n)$ for complex Euclidean spaces $\X_1, \cdots, \X_n$, $\Y_1, \cdots, \Y_n$.
+The \emph{tensor product} $A_1 \otimes \cdots \otimes A_n \in \mathrm{L}(\X_1 \otimes \cdots \otimes \X_n, \Y_1 \otimes \cdots \otimes \Y_n)$ of these operators is the unique operator satisfying $(A_1 \otimes \cdots \otimes A_n)(u_1 \otimes \cdots \otimes u_n) = A_1 u_1 \otimes \cdots \otimes A_n u_n$ for all choices of $u_1 \in \X_1, \cdots, u_n \in \X_n$.
+
+An operator $X \in \mathrm{L}(\X)$ is \emph{invertible} if there exists an operator $Y \in \mathrm{L}(\X)$ such that $YX = \id$.
+When such a $Y$ exists it is necessarily unique and is denoted by $X^{-1}$.
+Then it must also satisfy $X X^{-1} = \id$.
+The \emph{Moore-Penrose pseudoinverse} of $X \in \mathrm{L}(\X, \Y)$ is the operator $X^+ \in \mathrm{L}(\Y, \X)$ for which the following holds:
+\begin{enumerate}
+    \item $X\ X^+\ X = X$,
+    \item $X^+\ X\ X^+ = X^+$, and
+    \item $X\ X^+$ and $X^+\ X$ are both Hermitian.
+\end{enumerate}
+
+The \emph{trace} of $X \in \mathrm{L}(\X)$ is defined as $\tr(X) = \sum_{i=1}^n X(i, i)$.
+The trace function satisfies $\tr(AB) = \tr(BA)$ for all $A \in \mathrm{L}(\X, \Y)$ and $B \in \mathrm{L}(\Y, \X)$.
+This is called the \emph{cyclic property} of trace.
+This function gives us an inner product on $\mathrm{L}(\X, \Y)$ as $\inner{A}{B} = \tr(A^* B)$ for all $A, B \in \mathrm{L}(\X, \Y)$.
+
+We denote the largest and smallest eigenvalue of an operator $M \in \mathrm{L}(\X)$ by $\lambda_{\mathrm{max}}(M)$ and $\lambda_{\mathrm{min}}(M)$ respectively.
+An operator $X \in \mathrm{L}(\X)$ is said to be \emph{Hermitian} if it satisfies $X = X^*$.
+We denote the set of all Hermitian operators on $\X$ as $\Herm(\X)$.
+The eigenvalues of a Hermitian operator are real and thus can be ordered in either the increasing or decreasing order.
+An operator $Y \in \mathrm{L}(\Y)$ is said to be \emph{positive semidefinite} if admits the decomposition $Y = X^* X$ for $X \in \mathrm{L}(\Y)$.
+The set of all positive semidefinite operators on $\Y$ are denoted as $\Pos(\Y)$.
+Every positive semidefinite operator is Hermitian.
+The notation $P \geq 0$ is used to indicate that $P$ is positive semidefinite.
+For operators $A, B \in \Herm(\X)$, $A \geq B$ is used to denote that $A-B$ is positive semidefinite.
+An operator $U \in \mathrm{L}(\X)$ is an \emph{unitary} operator if it preserves the Euclidean norm, i.e., $\|Ux\| = \|x\|$ for all $x \in \X$.
+These operators preserve inner products as well, i.e., $\inner{Ux}{Uy} = \inner{x}{y}$ for all $x, y \in \X$.
+They satisfy the equation $U^* U = U U^* = \id$ and are invertible.
+
+For a positive semidefinite operator $P$, the operator $P^{1/2}$ is the unique positive semidefinite operator satisfying $P^{1/2}\ P^{1/2} = P$.
+
+For an operator $X \in \mathrm{L}(\X, \Y)$ and a real number $p \geq 1$, we define the \emph{Schatten $p$-norm} as
+\begin{equation}
+    \| X \|_p = \left( \Tr((A^* A)^\frac{p}{2}) \right)^\frac{1}{p}
+\end{equation}
+
+The Schatten $1$-norm is also referred to as the \emph{trace} norm and the Schatten $2$-norm is referred to as the \emph{Frobenius} norm.
+
+%The Frobenius norm is defined as the norm that this inner product induces, i.e., 
+%\begin{equation} 
+%\| X \|_F = \sqrt{\tr(X^2)}. 
+%\end{equation}
+The Cauchy-Schwarz inequality for Hermitian matrices, i.e., 
 \begin{equation} 
-|\tr(XY)| \leq \| X \|_F \| Y \|_F 
+|\inner{X}{Y}| \leq \| X \|_F \| Y \|_F 
 \end{equation} 
 with equality if and only if $X$ and $Y$ are linearly dependent. 
 Therefore, if \emph{nonzero} Hermitian $X$ and $Y$ satisfy 
 \begin{equation} 
-\tr(XY) = \| X \|_F \| Y \|_F 
+\inner{X}{Y} = \| X \|_F \| Y \|_F 
 \end{equation} 
 then there must exist $\lambda \neq 0$ such that $X = \lambda Y$.
-%\amnote{Cauchy-Bunyakovsky-Schwarz inequality}
 
-\section{Background}\label{sec:bg}
+The set of all linear maps of the form $\Phi: \mathrm{L}(\X) \to \mathrm{L}(\Y)$ is denoted by $\mathrm{T}(\X, \Y)$.
+The \emph{adjoint} of a map $\Phi \in \mathrm{T}(\X, \Y)$ is defined to be the unique map $\Phi^* \in \mathrm{T}(\Y, \X)$ that satisfies $\inner{\Phi^*(Y)}{X} = \inner{Y}{\Phi(X)}$ for all $X \in \mathrm{L}(\X)$ and $Y \in \mathrm{L}(\Y)$.
+Tensor product of these maps are defined in a manner similar to the way we defined it for operators earlier. 
+We use the shorthand $T(\X)$ for $T(\X, \X)$.
+The \emph{partial trace} map, denoted by $\Tr_\X \in T(\X \otimes \Y, \Y)$, defined as $\Tr_\X = \Tr \otimes \id_{L(\Y)}$.
+This satisfies $(\Tr \otimes \id_{L(\Y)})(X \otimes Y) = \Tr(X) Y$ for all $X \in L(\X)$ and $Y \in L(\Y)$.
+The map $\Tr_\Y \in T(\X \otimes \Y, \X)$.
+A map $\Phi \in T(\X, \Y)$ is \emph{Hermiticity-preserving} if it satisfies that $\Phi(X) \in \Herm(\Y)$ for all $X \in \Herm(\X)$.
 
-In this section, we introduce some background material relevant to this work.
-
-\subsection{Mathematical background} 
-       
 The \emph{Gram matrix} $G$ of a set of vectors $\{v_1, \dots, v_N\}$ is a Hermitian positive semidefinite matrix whose entries are given by $G_{ij} = \inner{v_i}{v_j}$.
-We use the notation $A \succeq B$ meaning that $A - B$ is positive semidefinite and $A \succ B$ meaning that $A - B$ is positive definite. 
-
-\bigskip
 
 An $N \times N$ \emph{Toeplitz matrix} $T$ is a matrix with entries satisfying  
 \begin{equation}
@@ -72,53 +329,104 @@ Since each diagonal of the Toeplitz matrix has the same value, we can alternatel
 \end{align}
 where $\Theta_k$ is an $N \times N$ Toeplitz matrix with ones on the $k$-th diagonal and zeros elsewhere.
 Here, $k = 0$ indicates the principal diagonal, $k > 0$ denotes the sub-diagonals, and $k < 0$ corresponds to the super-diagonals.
-Note that a Toeplitz matrix is not necessarily square. 
+Note that a Toeplitz matrix is not necessarily square.
 
-%\highlight{begin\{new\}}
+A set $\mathcal{C}$ is \emph{convex} if, for all $u, v \in \mathcal{C}$ and $\lambda \in [0, 1]$, it holds that
+\begin{equation*}
+    \lambda u + (1 - \lambda) v \in \mathcal{C}.
+\end{equation*}
+A set $\K$ is a \emph{cone} if, for all choices of $u \in \K$ and $\lambda \geq 0$, we have that $\lambda u \in \K$.
+A \emph{convex cone} is a cone that is also convex.
+%We say that $\K$ is a convex cone if it is convex and also closed under nonnegative scaling, meaning that if $x \in \K$ then $\lambda x \in \K$ for all $\lambda \geq 0$. 
+A cone program is the study of optimizing a linear function over a variable in a convex cone $\K$ subject to affine constraints. 
+In standard form, we can write one as 
+\begin{equation} 
+    \text{maximize } \Big\{ \inner{X}{A} : \Xi(X) = B, \; X \in \K \Big\} 
+\end{equation} 
+where $\Xi$ is a hermiticity-preserving linear map, and $A$ and $B$ are Hermitian.
+The \emph{convex hull} of $\A$, denoted $\conv(\A)$, is the intersection of all convex sets containing $\A$.
 
-%An $N \times N$ \emph{circulant matrix} $C$ is a particular kind of a Toeplitz matrix where each row is composed of the same elements and each row is rotated one element to the right relative to the preceding row.
+An order-$r$ \emph{Krylov subspace} generated by an $n \times n$ matrix $A$ and an $n$-dimensional vector $b$ is the set of vectors
+\begin{equation*}
+    \K_r(A, b) = \mathrm{span} \left\{ b, A b, A^2 b, \cdots, A^{r-1} b \right\}.
+\end{equation*}
+Let $r_0 = \dim \mathrm{span} \left\{ b, A b, A^2 b, \cdots \right\}$.
+We have that $\left\{ b, A b, A^2 b, \cdots, A^{r-1} b \right\}$ are linearly independent unless $r > r_0$.
 
-%The circulant matrix can be expressed as
-%\begin{align*}
-%    C = 
-%        \begin{pmatrix}
-%            c_0 & c_{N-1} & c_{N-2} & \cdots & c_1 \\
-%            c_1 & c_0 & c_{N-1} & \cdots & c_2 \\
-%            c_2 & c_1 & c_0 & \cdots & c_3 \\
-%            \vdots & \vdots & \vdots & \ddots & \vdots \\
-%            c_{N-1} & c_{N-2} & c_{N-3} & \cdots & c_0
-%        \end{pmatrix}.
-%\end{align*}
-%This matrix can be fully specified by a single vector $c = (c_0, c_1, \cdots, c_{N-1})$ which appears as the first column (or row) of $C$.
-%Let $P$ be the cyclic permutation matrix given by
-%\begin{align*}
-%    P = 
-%        \begin{pmatrix}
-%            0 & 0 & \cdots & 0 & 1 \\
-%            1 & 0 & \cdots & 0 & 0 \\
-%            \vdots & \vdots & \vdots & \ddots & \vdots \\
-%            0 & 0 & \cdots & 1 & 0
-%        \end{pmatrix}.
-%\end{align*}
-%Then we can write $C$ as $C = c_0 I + c_1 P + c_2 P^2 + \cdots + c_{n-1} P^{n-1}$.
-%Observe that $P^\top C P = P$.
+\subsection{Quantum information}
 
-%\begin{comment}
-%If each $c_i$ is a $B \times B$ matrix, then the $NB \times NB$ matrix $C$ is said to be a \emph{block circulant matrix}.
-%In this case, we have that $S^\top C S = C$ where $S = P_N \otimes I_B$ is the block shift operator.
-%Additionally, if each $c_i$ is a $B \times B$ circulant matrix, then $C$ is called a \emph{block circulant matrix with circulant blocks} (BCCB).
-%If $C$ is BCCB then it also satisfies $T^\top C T = C$ where $T = I_N \otimes P_B$ is the within-block shift operator.
-%\end{comment}
+A \emph{density} operator is a positive semidefinite operator with unit trace.
+We denote the set of all density operators on $\X$ as $\mathrm{D}(\X)$.
+We define a \emph{quantum state} as a density operator.
+We use the shorthand state to refer to a quantum state.
 
-%A \emph{discrete Fourier matrix} of order $N$, $F$ is a $N \times N$ matrix with entries $F_{jk} = \exp(2 \pi i/N)$.
-%For a circulant matrix $C$, it can be shown that $C = F^\dag \Lambda_C F$ where $\Lambda_C = \sum_{k=0}^{N-1} \lambda_k(C) \ketbra{k}$ are the eigenvalues of $C$.
-%If $C$ is BCCB, then it can be shown that $C = (F_N \otimes F_B)^\dag \Lambda_C (F_N \otimes F_B)$.
+Consider the set of states $\{\rho_1, \cdots, \rho_n\}$ and an associated set of probabilities $\{p_1, \cdots, p_n\}$.
+The set $\{(p_i, \rho_i)\}$ for $i \in [n]$ is referred to as an \emph{ensemble} of states, and the state $\rho = \sum_{i=1}^n p_i \rho_i$ is said to be a \emph{mixture} of the states.
+A state with rank one is referred to as a \emph{pure} state.
+A state $\rho \in \mathrm{D}(\X)$ is said to be pure if there exists a unit vector $u \in \X$ such that $\rho = uu^*$.
 
-%\highlight{end\{new\}}
+A state $\rho \in \D(\X)$ is said to be a \emph{product} state if it has the form $\rho = \sigma_1 \otimes \cdots \otimes \sigma_n$ for $\sigma_1 \in \Y_1, \cdots, \sigma_n \in \Y_n$.
+States that cannot be represented as product states are said to be \emph{entangled}.
 
-%\bigskip
+The \emph{maximally mixed} state in a complex Euclidean space $\X$ is defined as 
+\begin{equation*}
+    \omega_{\mathrm{MM}} = \frac{\id}{\dim(\X)}.
+\end{equation*}
+The state of \emph{uniform superposition} in $\X = \C^n$ is defined as $\omega_{\mathrm{US}} = \kb{\psi}$ where
+\begin{equation*}
+    \ket{\psi} = \frac{1}{\sqrt{n}} \sum_{i=1}^n \ket{i}.
+\end{equation*}
 
-\emph{Semidefinite programming} is an area of convex optimization where the goal is to optimize a linear function of a positive semidefinite matrix $X$ over affine constraints. 
+\emph{Measurements} are a set of positive-operator valued measure (POVM) operators $\{M_i\}$ for each $i$ in the alphabet.
+Each operator $M_i$ is positive semidefinite and $\sum_i M_i = \id$. 
+
+\subsection{Tests in quantum computing}\label{sec:QC_bg} 
+
+\paragraph{Swap test.}
+
+Given two (possibly unknown) pure states $\ket{\psi}$ and $\ket{\phi}$, the swap test outputs a Bernoulli random variable that is $0$ with probability $\frac{1}{2} + \frac{1}{2}|\braket{\psi}{\phi}|^2$.
+Figure~\ref{fig:inner_product_circuit} (a) depicts the corresponding circuit.
+One can learn $|\braket{\psi}{\phi}|^2$ to additive accuracy $\epsilon$ with failure probability at most $\delta$ using $\Ocomp \left(\frac{1}{\epsilon^2} \log \left( \frac{1}{\delta} \right) \right)$ copies of the states and $\tilde{\Ocomp} \left(\frac{1}{\epsilon^2} \log \left( \frac{1}{\delta} \right) \right)$ operations~\cite{buhrman2001quantum,huang2019near}.
+
+\paragraph{Hadamard test.}
+
+Given access to a unitary $U$ that maps the state $\ket{\psi}$ to the state $\ket{\phi}$, this method creates a random variable whose expected value is the real part of $\braket{\psi}{\phi}$.
+Figure~\ref{fig:inner_product_circuit} (b) illustrates the circuit for this procedure.
+The imaginary part of $\braket{\psi}{\phi}$ can be computed by applying a phase gate $S$ on the first qubit before the controlled unitary operation.
+We can learn $|\braket{\psi}{\phi}|^2$ to additive accuracy $\epsilon$ with failure probability at most $\delta$ using $\Ocomp \left(\frac{1}{\epsilon^2} \log \left( \frac{1}{\delta} \right) \right)$ copies of the states and $\tilde{\Ocomp} \left(\frac{1}{\epsilon^2} \log \left( \frac{1}{\delta} \right) \right)$ operations~\cite{aharonov2006polynomial,huang2019near}.
+
+\begin{figure}[ht]
+    \centering
+    \begin{subfigure}[b]{0.495\textwidth}
+        \centering
+        \begin{quantikz}
+            \lstick{$\ket{0}$} & \gate{H} & \ctrl{2} & \gate{H} & \meter{} & \cw \\
+            \lstick{$\ket{\psi}$} & \qw & \swap{1} & \qw & \qw & \qw \\
+            \lstick{$\ket{\phi}$} & \qw & \swap{} & \qw & \qw & \qw
+        \end{quantikz}    
+        \caption{Circuit for swap test.}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.495\textwidth}
+        \centering
+        \begin{quantikz}
+            \lstick{$\ket{0}$} & \gate{H} & \ctrl{1} & \gate{S^b} & \gate{H} & \meter{} & \cw \\
+            \lstick{$\ket{\psi}$} & \qw & \gate{U} & \qw & \qw & \qw & \qw \\
+        \end{quantikz}    
+        \caption{Circuit for Hadamard test.}
+    \end{subfigure}
+    \caption{
+    Circuits to learn the inner product between two (perhaps unknown) states $\ket{\psi}$ and $\ket{\phi}$.
+    The swap test can approximate $|\braket{\psi}{\phi}|$ from many measured samples. 
+    When $b = 0$, the Hadamard test approximates from many samples $\Re(\braket{\psi}{\phi})$, and when $b = 1$, $\Im(\braket{\psi}{\phi})$ can be approximated instead.
+    The unitary $U$ maps the state $\ket{\psi}$ to the state $\ket{\phi}$. 
+    }
+    \label{fig:inner_product_circuit} 
+\end{figure}
+
+\subsection{Semidefinite programming} \label{ss:ch1_intro-SDP}
+
+Semidefinite programming is an area of convex optimization where the goal is to optimize a linear function of a positive semidefinite matrix $X$ over affine constraints. 
 A semidefinite program (abbreviated as SDP) can be written in standard form
     \begin{equation*}    
         \begin{aligned}
@@ -139,17 +447,10 @@ Every SDP has a dual which is an SDP itself and is defined as
     \end{equation}     
 We have that $\alpha \leq \beta$, a fact known as weak duality. 
 If both $\alpha$ and $\beta$ are finite and one has a feasible solution where the inequalities are strict (known as strict feasibility), then $\alpha = \beta$. 
-This condition is known as strong duality. 
+This condition is known as strong duality.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+The above optimization in this case is called \emph{semidefinite programming} and is of great interest in many areas including combinatorial optimization~\cite{tunccel2016polyhedral} and quantum information~\cite{watrous2018theory} and we refer to a specific instance as a semidefinite program (SDP). 
+While optimizing over separable operators is indeed intractable, one can often solve SDPs efficiently. 
+Current numerical solvers for solving SDPs exist such as CVX~\cite{grant2014cvx}, SeDuMi~\cite{sturm1999using}, SDPT3~\cite{toh1999sdpt3} and Mosek~\cite{andersen2000mosek}. 
 
-\section{Background}
-
-In this section, we establish the relevant notations and background for this thesis.
-We first review concepts in linear algebra and convex analysis.
-Then, we discuss topics in quantum information and semidefinite programming.
-
-\subsection{Notations}
-
-An \emph{alphabet} is a finite and non-empty set of \emph{symbols}.
-Some examples of alphabets that are frequently used in this thesis are the set of $n$-bit strings $\{0,1\}^n$ and $$.
+Since SDPs can often be solved efficiently, they are a popular choice for approximating convex sets which are difficult to deal with.%, a great example being $\Sep$.

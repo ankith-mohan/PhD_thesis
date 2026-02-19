@@ -1,27 +1,26 @@
-\chapter{Local strategies are pretty good at computing boolean properties of quantum sequences} \label{ch:qseq}
+\chapter{Local strategies are pretty good at computing Boolean properties of quantum sequences} \label{ch:qseq}
 
-Suppose there are two known quantum states, $\ket{\psi}$ and $\ket{\phi}$, and a learner receives a sequence of the form
-\begin{equation}
-    \ket{\psi}\ket{\phi}\ket{\psi}\cdots\ket{\psi} .
-\end{equation}
-While each position is known to be either $\ket{\psi}$ or $\ket{\phi}$, the identity of each state is unknown. 
-Can one determine whether the number of $\ket{\psi}$ states exceeds the number of $\ket{\phi}$ states, or whether the total number of $\ket{\psi}$ states is even? 
-These examples highlight a basic task: learning coarse-grained properties of a quantum sequence without determining the sequence itself.
+The contents of this chapter is based on my work with Tathagata Gupta, Shayeef Munshir, Vincent Russo, Jamie Sikora and Alice Zheng in \cite{}.
 
-We study this problem in two contrasting resource regimes. 
-In the \emph{full-memory} setting the entire (finite) sequence may be stored so that an optimal joint measurement can be performed upon receiving all of the states. 
-In the \emph{memoryless} setting, neither quantum nor classical memory is available and each state must be measured immediately, using only predetermined local measurements. 
-This work investigates which Boolean properties can still be learned optimally under such stringent memory constraints.
+\amnote{In the previous chapter we looked at PGM. Here we see how this is optimal for learning affine functions using memoryless strategies.}
 
-Motivated by this, we initiate a study of learning Boolean properties of quantum sequences. 
-In a classical information-processing/computation setup, data are represented by bit strings, and computing Boolean functions of these strings, such as the $\mathsf{XOR}$ is elementary; the main challenges lie instead in algorithmic efficiency and robustness of protocols. 
-In the quantum setting, by contrast, computing even a simple function becomes non-trivial when no classical description of the data is available. 
-We consider which properties can be optimally learned using memoryless measurement strategies, and which fundamentally require joint measurements across the sequence. 
-The paradigm we focus on is minimum-error, where the learner might obtain an incorrect value for the property of the sequence and their goal is to minimize this error, and we completely characterize the Boolean functions for which fixed local measurements are optimal.
+This chapter is organized in the following manner.
+\begin{itemize}
+    \item Section~\ref{sec:ch5_qseq-main}: We formulate the problem as an instance of quantum state discrimination and present the main results.
+    \item Section~\ref{sec:ch5_qseq-easy_proofs}: We describe the greedy strategy and compare its performance with the global strategy.
+    \item Section~\ref{ss:ch5_qseq-greedy}: We define our greedy strategy.
+    \item Section~\ref{ss:ch5_qseq-lower_bound}: We prove that for all Boolean functions, the performance of the greedy strategy is bounded below by the square of the performance of the global strategy.
+    \item Section~\ref{ss:ch5_qseq-optimal}: We show that for a class of Boolean functions, the greedy strategy is globally optimal.
+    \item Section~\ref{sec:ch5_qseq-necessary}: We prove that for Boolean functions not in the class considered in Section~\ref{ss:ch5_qseq-optimal}, the greedy strategy is not globally optimal.
+    \item Section~\ref{sec:ch5_qseq-non-affine-examples}: We consider the $\AND$ and majority functions.
+    For the $\AND$ function, we show that both the greedy and the global strategies converge to perfect success exponentially fast.
+    For the majority function, we observe that the greedy strategy converges to a value strictly bounded away from $1$, while the global strategy achieves better performance.
+\end{itemize}
 
-%------------------------------------------------------------------------------%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Problem Formulation and Main Results} \label{sec:ch5_qseq-main}
-%------------------------------------------------------------------------------%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 In this section we formulate our problem as a task of quantum state discrimination and present the main results. 
 %The section ends with a short guide to the structure of the paper.
 
@@ -87,6 +86,7 @@ Throughout this paper, we write $\greedy$ and $\glo$ to denote the fixed local (
 \subsection{Main results} 
 
 We now state our first main result which establishes an universal performance guarantee for the greedy strategy.
+\begin{comment}
 \begin{theorem}
     \label{thm:ch5_qseq-PGM}
     For all Boolean functions $f$, positive integers $n$, and $s \in (0,1)$, the performance of the greedy strategy can be bounded below by the following relation
@@ -94,96 +94,75 @@ We now state our first main result which establishes an universal performance gu
         (P(n,f,s,\glo))^2 \leq P(n,f,s,\greedy).
     \end{equation}
 \end{theorem}
+\end{comment}
+
+\begin{restatable}{theorem}{PGM}
+    \label{thm:ch5_qseq-PGM}
+    For all Boolean functions $f$, positive integers $n$, and $s \in (0,1)$, the performance of the greedy strategy can be bounded below by the following relation
+    \begin{equation}
+        (P(n,f,s,\glo))^2 \leq P(n,f,s,\greedy).
+    \end{equation}
+\end{restatable}
 
 The proof consists in showing that the greedy strategy is implemented by the pretty good measurement (PGM) \cite{hausladen1994pretty} for discriminating the Boolean ensemble $\mathcal{E} = \{(p_0, \sigma_0), (p_1, \sigma_1)\}$. 
 The bound then follows from Barnum and Knill's theorem~\cite{barnum2002reversing,watrous2018theory}. 
-This is presented in Section~\ref{sec:easy-proofs}.
+This is presented in Section~\ref{sec:ch5_qseq-easy_proofs}.
 
 This raises a natural question: for which Boolean functions does the greedy strategy actually achieve the global optimum? 
 The next result identifies a class of functions that satisfies this.
 
 \begin{restatable}[Sufficiency]{theorem}{sufficient}
-    \label{thm:ch5_qseq-sufficient}
-    The greedy strategy is globally optimal, that is 
-    \begin{equation}
-        P(n,f,s,\greedy)=P(n,f,s,\glo)
-    \end{equation} 
-    for all Boolean functions of the form 
-    \begin{equation}
-        \label{eq:ch5_qseq-affine}
-        f(x_1,\dots,x_n) = b_0 \oplus b_1 x_1 \oplus b_2 x_2 \oplus \cdots \oplus b_n x_n,
-    \end{equation}
-    where $b_0, b_1, \ldots, b_n \in \{0, 1\}$, for all $s \in (0,1)$.
+\label{thm:ch5_qseq-sufficient}
+Let $f : \{0,1\}^n \to \{0,1\}$ be an affine Boolean function, meaning
+\begin{equation}
+    \label{eq:ch5_qseq-affine}
+    f(x_1,\dots,x_n) = b_0 \oplus b_1 x_1 \oplus b_2 x_2 \oplus \cdots \oplus b_n x_n,
+\end{equation}
+for some $b_0, b_1, \ldots, b_n \in \{0, 1\}$.
+Then, the greedy strategy is globally optimal, that is 
+\begin{equation}
+    P(n,f,s,\greedy)=P(n,f,s,\glo)
+\end{equation} 
+for all $s \in (0,1)$.
 \end{restatable}
 
-The functions of the form in Eq.~\eqref{eq:ch5_qseq-affine} are called \emph{affine Boolean functions}. 
+%The functions of the form in Eq.~\eqref{eq:ch5_qseq-affine} are called \emph{affine Boolean functions}. 
 For affine functions, both the globally optimal success probability (via the Helstrom bound) and the greedy success probability can be computed in closed form. 
 A direct calculation using properties of the trace norm shows that they are equal for all $s \in (0,1)$. 
-See Section~\ref{sec:ch5_qseq-easy-proofs} for details.
+See Section~\ref{sec:ch5_qseq-easy_proofs} for details.
 
-Our final result shows that this class is essentially the only one for which the greedy strategy is optimal, establishing a converse to Eq.~\eqref{thm:ch5_qseq-sufficient}.
-
-\begin{restatable}[Necessity]{theorem}{necessity}
-    \label{thm:ch5_qseq-necessary}
-    For learning a Boolean function $f:\{0,1\}^n \to \{0,1\}$, if the greedy strategy is globally optimal, then $f$ must be an affine Boolean function of the form in Eq.~\eqref{eq:ch5_qseq-affine} for all but finitely many values of $s \in (0,1)$.
-\end{restatable}
-
-\begin{restatable}[Sufficiency]{theorem}{sufficient}
-    \label{thm:ch5_qseq-sufficient}
-    Suppose $f:\{0,1\}^n \to \{0,1\}$ is affine Boolean. 
-    Then greedy = global, for $s \in (0,1)$.
-\end{restatable}
+Our final result shows that this class is essentially the only one for which the greedy strategy is optimal, establishing a converse to Theorem~\ref{thm:ch5_qseq-sufficient}.
 
 \begin{restatable}[Necessity]{theorem}{necessity}
-    \label{thm:ch5_qseq-necessity_v1}
-    Suppose $f:\{0,1\}^n \to \{0,1\}$ is not affine Boolean. 
-    Then greedy < global, for all but possibly finitely many values of $s \in (0,1)$.
-\end{restatable}
-
-\begin{restatable}[Necessity]{theorem}{necessity}
-    \label{thm:ch5_qseq-necessary_v2}
-    For all but finitely many values of $s \in (0,1)$, if the greedy strategy is globally optimal for learning a Boolean function $f:\{0,1\}^n \to \{0,1\}$, then $f$ must be an affine Boolean function of the form in Eq.~\eqref{eq:affine}.
+\label{thm:ch5_qseq-necessary}
+Suppose a Boolean function $f : \{0,1\}^n \to \{0,1\}$ is \emph{not} affine, meaning it is \emph{not} of the form in Eq.~\eqref{eq:ch5_qseq-affine}.
+Then, the greedy strategy is not globally optimal, that is
+\begin{equation}
+    P(n,f,s,\greedy) < P(n,f,s,\glo)
+\end{equation}
+for all but possibly finitely many values of $s \in (0,1)$.
 \end{restatable}
 
 Together, Theorems~\ref{thm:ch5_qseq-sufficient} and~\ref{thm:ch5_qseq-necessary} provide a complete characterization: affine Boolean functions are precisely those for which memoryless measurement strategies suffice for optimal learning. 
 Note that Theorem~\ref{thm:ch5_qseq-necessary} holds for all $s \in (0,1)$ except possibly for a finite set, hence for all but a set of measure zero. 
 The proof is presented in Section \ref{sec:ch5_qseq-necessary}. 
-This is followed by discussing the conclusions (Section \ref{sec:ch5_qseq-discussion}). 
+%This is followed by discussing the conclusions (Section \ref{sec:discussion}). 
 
-Section~\ref{sec:ch5_qseq-non_affine_examples} briefly discusses the performance of the greedy strategy for some non-affine functions. 
+Section~\ref{sec:ch5_qseq-non-affine-examples} briefly discusses the performance of the greedy strategy for some non-affine functions. 
 We consider the $\mathsf{AND}$ and $\mathsf{MAJ}$ (majority) functions as representative non-affine examples. 
 The former is highly unbalanced ($|S_0|=2^n-1, |S_1|=1)$, while the latter is balanced ($|S_0|=|S_1|)$. 
 In both cases, globally optimal strategies outperform the greedy strategy, as illustrated by numerical results for small sequence lengths ($3\le n\le 9$). 
 Their asymptotic behavior, however, differs: for $\mathsf{AND}$, both the greedy and global strategies achieve perfect success as $n\to\infty$, whereas for $\mathsf{MAJ}$, the greedy strategy remains bounded away from unity in this limit.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \section{Proofs of Theorems~\ref{thm:ch5_qseq-PGM} and~\ref{thm:ch5_qseq-sufficient}: Performance of the Greedy Strategy}\label{sec:ch5_qseq-easy_proofs}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\amnote{Move this to the introduction}
+\amnote{Walkthrough of what happens in this chapter}
 
-The \emph{pretty good measurement} (PGM), introduced by Hausladen and Wootters~\cite{hausladen1994pretty} and further analyzed by Barnum and Knill~\cite{barnum2002reversing}, provides a computationally tractable measurement strategy for quantum state discrimination. 
-Given an ensemble $\{(p_i, \rho_i)\}_{i=1}^n$, the PGM is defined by the measurement operators
-\begin{equation}
-    \label{eq:ch5_qseq-pgm_operators}
-    M_i^{\text{PGM}} = \rho_{\text{avg}}^{-1/2} (p_i \rho_i) \rho_{\text{avg}}^{-1/2},
-\end{equation}
-where $\rho_{\text{avg}} = \sum_{i=1}^n p_i \rho_i$ and $\rho_{\text{avg}}^{-1/2}$ denotes its Moore-Penrose pseudo-inverse. These operators form a valid POVM.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Barnum and Knill~\cite{barnum2002reversing} gave the following bound on the performance of the PGM.
-
-\begin{theorem}[Barnum-Knill Inequality \cite{barnum2002reversing}]
-    \label{thm:ch5_qseq-barnum-knill}
-    Let $P_{\text{opt}}$ denote the optimal success probability and $P_{\text{PGM}}$ denote the success probability achieved by the pretty good measurement for discriminating an ensemble $\{(p_i, \rho_i)\}_{i=1}^n$. Then
-    \begin{equation}
-        P_{\text{opt}}^2 \leq P_{\text{PGM}} \leq P_{\text{opt}}.
-    \end{equation}
-\end{theorem} 
-
-This bound ensures that the PGM always achieves a success probability at least as large as the square of the optimal probability, guaranteeing near-optimal performance. 
-Moreover, in many cases of interest, the PGM is exactly optimal \cite{mochon2006family,dalla2015optimality,eldar2001quantum}.
-
-\subsection{The Greedy Strategy}
+\subsection{The Greedy Strategy} \label{ss:ch5_qseq-greedy}
 
 Let $\mathcal{M} = \{M_0, M_1\}$ be an optimal POVM for discriminating the ensemble \\ $\{(1/2, \ket{\psi_0}), (1/2, \ket{\psi_1})\}$ on a single qubit, where $M_0, M_1 \in \Pos(\C^2)$ satisfying $M_0 + M_1 = \I$. 
 Since $\ket{\psi_0}$ and $\ket{\psi_1}$ appear with equal probabilities, the PGM is optimal for this single-qubit discrimination problem~\cite{hausladen1994pretty}, with
@@ -213,14 +192,16 @@ Averaging over the uniform distribution on inputs, the greedy success probabilit
     \end{aligned}
 \end{equation}
 
-\subsection{Lower bounding the greedy strategy via the PGM}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Lower bounding the greedy strategy via the PGM} \label{ss:ch5_qseq-lower_bound}
 
 Now consider applying the PGM to distinguish the Boolean ensemble in Eq.~\eqref{eq:ch5_qseq-boolean-ensemble}. 
 The average state is
 \begin{equation}
     \begin{aligned}
-        \rho_{\text{avg}} &= p_0 \sigma_0 + p_1 \sigma_1 = \frac{|S_0|}{2^n} \sigma_0 + \frac{|S_1|}{2^n} \sigma_1
-        = \frac{1}{2^n} \sum_{x \in \{0,1\}^n} \op{\psi_x} 
+        \rho_{\text{avg}} &= p_0 \sigma_0 + p_1 \sigma_1 = \frac{|S_0|}{2^n} \sigma_0 + \frac{|S_1|}{2^n} \sigma_1 \\
+        &= \frac{1}{2^n} \sum_{x \in \{0,1\}^n} \op{\psi_x}
         = \left(\frac{1}{2}\op{\psi_0} + \frac{1}{2}\op{\psi_1}\right)^{\otimes n} = \rho^{\otimes n}.
     \end{aligned}
 \end{equation}
@@ -264,10 +245,11 @@ This completes the proof.
 \end{proof}
 
 The proof of Theorem~\ref{thm:ch5_qseq-PGM} follows immediately.
+
 \begin{proof}[Proof of Theorem~\ref{thm:ch5_qseq-PGM}]
     From Theorem~\ref{thm:ch5_qseq-barnum-knill} and Eq.~\eqref{eq:ch5_qseq-local=pgm} we have 
     \begin{equation}
-        P^2(n,f,s,\glo) \leq P(n,f,s,\mathrm{PGM})= P(n,f,s,\greedy)
+        (P(n,f,s,\glo))^2 \leq P(n,f,s,\mathrm{PGM})= P(n,f,s,\greedy)
     \end{equation} 
     completing the proof.
 \end{proof}
@@ -280,10 +262,13 @@ Theorem~\ref{thm:ch5_qseq-pgm_local} reveals a remarkable structural property: a
 This decomposition shows that what appears to be a global measurement is, in fact, equivalent to independently measuring each qubit optimally. 
 Therefore, $P(n,f,s,\greedy) = P(n,f,s,\mathrm{PGM})$, and Theorem~\ref{thm:ch5_qseq-PGM} follows immediately by applying the Barnum-Knill inequality (Theorem~\ref{thm:ch5_qseq-barnum-knill}).
 
-\subsection{Optimality for affine functions}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Optimality for affine functions} \label{ss:ch5_qseq-optimal}
 
 Having provided a universal guarantee for the greedy strategy for arbitrary Boolean functions, we find a class of Boolean functions for which it is optimal. 
 This is the content of Theorem~\ref{thm:ch5_qseq-sufficient} which we restate for convenience and prove below. 
+
 \sufficient*
 
 \begin{proof}
@@ -332,18 +317,18 @@ Thus
 
 The last equality uses the fact that $(-1)^{\bigoplus_{i \in I} x_i} = \prod_{i \in I} (-1)^{x_i}$.
 
-Using the multiplicativity of the trace norm $\left\|A \otimes B\|_1 = \|A\|_1 \cdot \|B\right\|_1$ and noting that $\|\op{\psi_0} + \op{\psi_1}\|_1 = 2$ (since both are rank-1 projectors with trace 1):
+Using the multiplicativity of the trace norm $\left\|A \otimes B\|_1 = \|A\|_1 \cdot \|B\right\|_1$ and noting that \\ $\Big\| \op{\psi_0} + \op{\psi_1} \Big\|_1 = 2$ (since both are rank-1 projectors with trace 1):
 \begin{equation}
     \begin{aligned}
-        \|\sigma_0 - \sigma_1\|_1 &= \frac{1}{2^{n-1}}\left\| \op{\psi_0} - \op{\psi_1} \right\|_1^m \cdot \left\| \op{\psi_0} + \op{\psi_1} \right\|_1^{n-m} \\
-        &= \frac{1}{2^{n-1}} \left\| \op{\psi_0} - \op{\psi_1} \right\|_1^m \cdot 2^{n-m}
-        = \frac{1}{2^{m-1}} \left\| \op{\psi_0} - \op{\psi_1} \right\|_1^m. 
+        \|\sigma_0 - \sigma_1\|_1 &= \frac{1}{2^{n-1}} \Big\| \op{\psi_0} - \op{\psi_1} \Big\|_1^m \cdot \Big\| \op{\psi_0} + \op{\psi_1} \Big\|_1^{n-m} \\
+        &= \frac{1}{2^{n-1}} \Big\| \op{\psi_0} - \op{\psi_1} \Big\|_1^m \cdot 2^{n-m} \\ %= \frac{1}{2^{m-1}} \left\| \op{\psi_0} - \op{\psi_1} \right\|_1^m. 
+        &= \frac{1}{2^{m-1}} \Big\| \op{\psi_0} - \op{\psi_1} \Big\|_1^m. 
     \end{aligned}
 \end{equation}
 
 Therefore,
 \begin{equation}
-    P(n,f,s,\glo) = \frac{1}{2} + \frac{1}{2^{m+1}} \left\| \op{\psi_0} - \op{\psi_1} \right\|_1^m.
+    P(n,f,s,\glo) = \frac{1}{2} + \frac{1}{2^{m+1}} \Big\| \op{\psi_0} - \op{\psi_1} \Big\|_1^m.
 \end{equation}
 
 Now consider the greedy strategy. 
@@ -373,13 +358,13 @@ The probability that the parity is correct among the $m$ relevant qubits is:
     \end{aligned}
 \end{equation}
 
-For the optimal single-qubit measurement, $p = \frac{1}{2} + \frac{1}{4} \left\| \op{\psi_0} - \op{\psi_1} \right\|_1$, giving $2p - 1 = \frac{1}{2} \left\| \op{\psi_0} - \op{\psi_1} \right\|_1$.
+For the optimal single-qubit measurement, $p = \frac{1}{2} + \frac{1}{4} \Big\| \op{\psi_0} - \op{\psi_1} \Big\|_1$, resulting in \\ $2p - 1 = \frac{1}{2} \Big\| \op{\psi_0} - \op{\psi_1} \Big\|_1$.
 
 Therefore,
 \begin{equation} 
     \begin{aligned}
-        P(n,f,s,\greedy) &= \frac{1}{2} + \frac{1}{2^{m+1}} \left\| \op{\psi_0} - \op{\psi_1} \right\|_1^m \\ 
-        &= P(n,f,s,\glo), 
+        P(n,f,s,\greedy) &= \frac{1}{2} + \frac{1}{2^{m+1}} \Big\| \op{\psi_0} - \op{\psi_1} \Big\|_1^m \\ 
+                         &= P(n,f,s,\glo),
     \end{aligned}
 \end{equation} 
 for all affine Boolean functions $f$. 
@@ -387,15 +372,14 @@ This completes the proof.
 \end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%-----------------------------------------------------------------------------%
 \section{Proof of Theorem~\ref{thm:ch5_qseq-necessary}: Only Affine Functions Achieve Optimality}\label{sec:ch5_qseq-necessary}
-%-----------------------------------------------------------------------------%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 We now investigate the Boolean functions for which the PGM (hence the greedy strategy) is globally optimal.
 
-%-----------------------------------------------------------------------------%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \subsection{Optimality Criterion for the PGM}
-%-----------------------------------------------------------------------------%
 
 The following lemma, due to Iten et al.~\cite{iten2016pretty}, provides a necessary and sufficient condition for the optimality of the PGM:
 
@@ -459,8 +443,8 @@ We compute the partial trace:
 \begin{equation}
     \begin{aligned}
         \Tr_B\left(\ketbra{\xi_i}{\xi_j}_{BB'}\right) 
-        &= \Tr_B\left(\frac{1}{\sqrt{|S_i||S_j|}} \sum_{\substack{y \in S_i \\ z \in S_j}} \ketbra{\psi_y}{\psi_z}_B \otimes \ketbra{y}{z}_{B'}\right) 
-        = \frac{1}{\sqrt{|S_i||S_j|}} \sum_{\substack{y \in S_i \\ z \in S_j}} \braket{\psi_z}{\psi_y} \ketbra{y}{z}_{B'}.
+        &= \Tr_B\left(\frac{1}{\sqrt{|S_i||S_j|}} \sum_{\substack{y \in S_i \\ z \in S_j}} \ketbra{\psi_y}{\psi_z}_B \otimes \ketbra{y}{z}_{B'}\right) \\
+        &= \frac{1}{\sqrt{|S_i||S_j|}} \sum_{\substack{y \in S_i \\ z \in S_j}} \braket{\psi_z}{\psi_y} \ketbra{y}{z}_{B'}.
     \end{aligned}
 \end{equation}
 
@@ -481,7 +465,7 @@ This calculation reveals a natural block structure for $G$, which allow us to pr
 The block structure follows directly from the calculation above. The $(i,j)$-block of $G$ corresponds to the operator acting on $\ketbra{i}{j}_{X'}$, which contains the matrix of inner products $\braket{\psi_y}{\psi_z}$ for $y \in S_i$ and $z \in S_j$. For $i = j$, this gives the Gram matrices $\Gamma_0$ and $\Gamma_1$. For $i \neq j$, this gives the cross-Gram matrices $\Gamma'$ and $\Gamma'^*$. The global factor $1/2^n$ appears uniformly across all blocks.
 \end{proof}
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Structural Constraints from PGM Optimality}
 
@@ -578,6 +562,8 @@ Therefore
 completing the proof.
 \end{proof}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \subsection{Consequences of the Matrix Relation}
 
 Having established that PGM optimality implies $\Gamma_0 \Gamma' = \Gamma' \Gamma_1$, we now extract the structural consequences of this relation. 
@@ -612,7 +598,7 @@ For the second consequence, we look at the relationship between the \emph{Boolea
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{The Boolean Hypercube Graph}
+\subsection{The Boolean Hypercube Graph} \label{ss:ch5_qseq-boolean}
 
 The structure of Boolean functions is intimately connected to the geometry of the $n$-dimensional hypercube. For $n \in \N$, the \emph{$n$-dimensional hypercube graph} $Q_n$ is defined as follows:
 \begin{itemize}
@@ -692,7 +678,27 @@ Figure~\ref{fig:ch5_qseq-hypercube} illustrates this structure for $Q_3$.
 \vspace{0.2cm}
 \noindent
 The following Lemma characterizes balanced partitions of the hypercube satisfying the path-counting symmetry Eq.~\eqref{eq:ch5_qseq-count-condition} which are precisely those obtained by flipping a single coordinate.
-\hypercubeflip*
+
+\begin{restatable}[Hypercube Flip Characterization]{lemma}{hypercubeflip}
+    \label{lem:ch5_qseq-hypercube-flip}
+    Let $Q_n$ be the $n$-dimensional hypercube graph, and let $A, B \subseteq V(Q_n)$ be a partition satisfying
+    \begin{enumerate}
+        \item[(i)] $A \cup B = V(Q_n)$ and $A \cap B = \varnothing$;
+        \item[(ii)] $|A| = |B| = 2^{n-1}$ (balanced partition);
+        \item[(iii)] for all $L \in \N$ and for all $x \in A$, $y \in B$,
+            \begin{equation}
+                \label{eq:ch5_qseq-count-condition}
+                \bigl|\{\,u \in A: d(x,u) + d(u,y) = L\,\}\bigr|
+                =
+                \bigl|\{\,v \in B: d(x,v) + d(v,y) = L\,\}\bigr|.
+            \end{equation}
+    \end{enumerate}
+    Then there exists a unique index $i \in [n]$ such that for every $x = (x_1,\dots,x_n) \in \{0,1\}^n$,
+    \begin{equation}
+        x \in A \quad\Longleftrightarrow\quad x^{(i)} \in B,
+    \end{equation}
+    where $x^{(i)} = (x_1,\dots,x_{i-1},\overline{x_i},x_{i+1},\dots,x_n)$ denotes the bit-flip of $x$ in the $i$-th coordinate.
+\end{restatable}
 
 We prove Lemma \ref{lem:ch5_qseq-hypercube-flip} via induction on $n$. 
 The following lemma establishes that the two parts must have adjacent vertices.
@@ -799,31 +805,13 @@ By equating coefficients of powers of $s$ in the polynomial identity we show tha
     This gives us Eq.~\eqref{eq:ch5_qseq-counting-equality} for each $L$.
 \end{proof}
 
-\subsection{Necessity of the Affine Structure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Necessity of the Affine Structure} \label{ss:ch5_qseq-necessity}
 
 We now combine the results from the previous sections to obtain a complete characterization of when the greedy strategy is optimal. 
-A crucial element in our proof will be the following Lemma about the Boolean hypercube whose proof can be found in Appendix \ref{app:hypercube}.
-
-\begin{restatable}[Hypercube Flip Characterization]{lemma}{hypercubeflip}
-    \label{lem:ch5_qseq-hypercube-flip}
-    Let $Q_n$ be the $n$-dimensional hypercube graph, and let $A, B \subseteq V(Q_n)$ be a partition satisfying
-    \begin{enumerate}
-        \item[(i)] $A \cup B = V(Q_n)$ and $A \cap B = \varnothing$;
-        \item[(ii)] $|A| = |B| = 2^{n-1}$ (balanced partition);
-        \item[(iii)] for all $L \in \N$ and for all $x \in A$, $y \in B$,
-            \begin{equation}
-                \label{eq:ch5_qseq-count-condition}
-                \bigl|\{\,u \in A: d(x,u) + d(u,y) = L\,\}\bigr|
-                =
-                \bigl|\{\,v \in B: d(x,v) + d(v,y) = L\,\}\bigr|.
-            \end{equation}
-    \end{enumerate}
-    Then there exists a unique index $i \in [n]$ such that for every $x = (x_1,\dots,x_n) \in \{0,1\}^n$,
-    \begin{equation}
-        x \in A \quad\Longleftrightarrow\quad x^{(i)} \in B,
-    \end{equation}
-    where $x^{(i)} = (x_1,\dots,x_{i-1},\overline{x_i},x_{i+1},\dots,x_n)$ denotes the bit-flip of $x$ in the $i$-th coordinate.
-\end{restatable}
+%A crucial element in our proof will be the following Lemma about the Boolean hypercube whose proof can be found in Appendix \ref{app:hypercube}.
+%\hypercubeflip*
 
 We start with the following theorem which states that the functions for which the greedy strategy is optimal must necessarily follow a recursive structure.
 \begin{theorem}
@@ -1003,7 +991,7 @@ We then use induction to show that whenever this equation is satisfied, the func
 Our induction hypothesis is: 
 if $f$ is a Boolean function on $(n-1)$-bits for which the greedy strategy is optimal, then Eq.~\eqref{eq:ch5_qseq-gamma-comm} holds which implies $f$ must be affine. 
 A key role is played by Lemma~\ref{lem:ch5_qseq-reduced-optimality} which asserts than if the greedy strategy is optimal for $f$ which is an $n$-bit Boolean function satisfying the recursive form Eq.~\eqref{eq:ch5_qseq-function-xor}, then the Gram matrices of the Boolean ensemble of $g$, the $(n-1)$-bit Boolean function that appears in the recursive form of $f$, must satisfy the commutation relation Eq.~\eqref{eq:ch5_qseq-gamma-comm}. 
-But by our induction hypothesis, any $(n-1)$-bit Boolean function satisfying Eq.~\eqref{eq:ch5_qseq_gamma-comm} must be affine. 
+But by our induction hypothesis, any $(n-1)$-bit Boolean function satisfying Eq.~\eqref{eq:ch5_qseq-gamma-comm} must be affine. 
 This implies that $f$ itself must be affine. 
 
 \begin{comment}
@@ -1029,14 +1017,6 @@ The second is to introduce limited classical memory to allow some degree of adap
 %One can also introduce quantum memory and investigate which classes of functions necessarily require joint measurements for their optimal evaluation. 
 Finally, studying online or streaming strategies where qubits arrive sequentially and the Boolean function value is continuously updated as the sequence grows, is another direction for future research. 
 \end{comment}
-
-%------------------------------------------------------------------------------%
-\subsection*{Software} 
-%------------------------------------------------------------------------------%
-
-Companion software for computing optimal discrimination probabilities,
-including the semidefinite programs used in this work, is available in the
-\texttt{toqito} quantum information package~\cite{russo2021toqito}.
 
 \begin{comment}
 \subsection*{Acknowledgements}
@@ -1082,13 +1062,16 @@ This bound ensures that the PGM always achieves a success probability at least a
 
 
 
-%-----------------------------------------------------------------------------%
-\section{Greedy Strategy Performance for Non-Affine Functions} \label{app:non-affine-examples}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Greedy Strategy Performance for Non-Affine Functions} \label{sec:ch5_qseq-non-affine-examples}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 In this section, we examine two important non-affine functions: the AND function and the majority function. 
 For these functions, the greedy strategy is suboptimal, but understanding the gap between greedy and global performance provides insight into when adaptive or joint measurements offer practical advantages.
 
-\subsection{The AND Function}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{The AND Function} \label{ss:ch5_qseq-AND}
 
 The AND function on $n$ bits is defined by
 \begin{equation}
@@ -1144,7 +1127,9 @@ Thus, the greedy strategy succeeds with probability approaching 1.
 The global optimal strategy achieves slightly better performance by leveraging correlations across qubits, but this advantage becomes negligible as $n$ increases. 
 For large $n$, the extreme imbalance of the AND function dominates, and both strategies approach perfect success.
 
-\subsection{The Majority Function}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{The Majority Function} \label{ss:ch5_qseq-MAJ}
 
 For odd $n = 2k+1$, the majority function is defined by
 \begin{equation}
@@ -1261,3 +1246,9 @@ These examples confirm that our characterization theorem captures a fundamental 
 Crucially, the practical significance of this advantage is intimately tied to the function's noise sensitivity. 
 Low noise sensitivity functions (like AND for large $n$) exhibit vanishing advantage from joint measurements, while high noise sensitivity functions (like majority) maintain substantial joint-measurement-advantage even for arbitrarily large input dimensions. 
 This connection between noise sensitivity and joint-measurement-advantage suggests deeper structural relationships between classical Boolean function complexity and quantum information-theoretic resources.
+
+\subsection*{Software} 
+
+Companion software for computing optimal discrimination probabilities,
+including the semidefinite programs used in this work, is available in the
+\texttt{toqito} quantum information package~\cite{russo2021toqito}.

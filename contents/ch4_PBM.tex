@@ -1,10 +1,25 @@
 \chapter{Pretty bad measurement} \label{ch:PBM}
 
- 
+ The contents of this chapter is based on my work with Caleb McIrvin and Jamie Sikora in \cite{mcirvin2024quantum}.
+
+ \amnote{In this chapter we look at PGM and come up with its counterpart PBM.}
+
+ We develop the pretty bad measurement through the following steps.
+ \begin{itemize}
+     \item Section~\ref{sec:ch4_PBM-PGM}: We discuss the pretty good measurement (PGM).
+     \item Section~\ref{sec:ch4_PBM-offsets}: We describe how we can offset a measurement using an offset parameter.
+     \item Section~\ref{sec:ch4_PBM-PBM}: We define the pretty bad measurement (PBM) as the counterpart of PGM for the quantum state exclusion problem.
+     \item Section~\ref{sec:ch4_PBM-interpret}: We discuss an interpretation of PBM as PGM in a different setting.
+     \item Section~\ref{sec:ch4_PBM-eg}: We illustrate an example of a state for which the PGM achieves the optimal probability for state discrimination while the PBM is a decent approximation to the optimal probability for state exclusion.
+     \item Section~\ref{sec:ch4_PBM-sim}: We describe how PGM performs no worse than blind guessing and PBM performs no better than blind guessing on randomly generated examples.
+     \item Section~\ref{sec:ch4_PBM-anomaly}: We discuss how PBM can be applied to the quantum anomaly detection problem.
+ \end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \section{The pretty good measurement (PGM)} \label{sec:ch4_PBM-PGM}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\amnote{Polish this section.}
 
 Also known as the square root measurement, the pretty good measurement is the POVM $\{G_1, \dots, G_n\}$, where each measurement operator is defined as  
 \begin{equation}
@@ -30,13 +45,34 @@ where $1/n$ can be interpreted as the blind guessing probability.
 Moreover, if $\PPGM = 1/n$, then we have $\rho_i = \rho_j$ and $p_i = p_j = 1/n$ for all $i \neq j$. 
 \end{thm} 
 
+The \emph{pretty good measurement} (PGM), introduced by Hausladen and Wootters~\cite{hausladen1994pretty} and further analyzed by Barnum and Knill~\cite{barnum2002reversing}, provides a computationally tractable measurement strategy for quantum state discrimination. 
+Given an ensemble $\{(p_i, \rho_i)\}_{i=1}^n$, the PGM is defined by the measurement operators
+\begin{equation}
+    \label{eq:ch5_qseq-pgm_operators}
+    M_i^{\text{PGM}} = \rho_{\text{avg}}^{-1/2} (p_i \rho_i) \rho_{\text{avg}}^{-1/2},
+\end{equation}
+where $\rho_{\text{avg}} = \sum_{i=1}^n p_i \rho_i$ and $\rho_{\text{avg}}^{-1/2}$ denotes its Moore-Penrose pseudo-inverse. These operators form a valid POVM.
+
+Barnum and Knill~\cite{barnum2002reversing} gave the following bound on the performance of the PGM.
+
+\begin{theorem}[Barnum-Knill Inequality \cite{barnum2002reversing}]
+    \label{thm:ch5_qseq-barnum-knill}
+    Let $P_{\text{opt}}$ denote the optimal success probability and $P_{\text{PGM}}$ denote the success probability achieved by the pretty good measurement for discriminating an ensemble $\{(p_i, \rho_i)\}_{i=1}^n$. Then
+    \begin{equation}
+        P_{\text{opt}}^2 \leq P_{\text{PGM}} \leq P_{\text{opt}}.
+    \end{equation}
+\end{theorem} 
+
+This bound ensures that the PGM always achieves a success probability at least as large as the square of the optimal probability, guaranteeing near-optimal performance. 
+Moreover, in many cases of interest, the PGM is exactly optimal \cite{mochon2006family,dalla2015optimality,eldar2001quantum}.
+
 %We prove a slightly weaker version of this theorem in Section~\ref{sec:ch4_PBM-thm_1_pf} using the concept of \emph{offsets}, discussed in the next section.
 
 We now discuss our first step towards defining a pretty bad measurement. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \section{Purposely messing up measurements with offsets} \label{sec:ch4_PBM-offsets}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 Suppose that one is given a decent measurement for state discrimination and one wishes to make it perform worse. 
 Then one way to do this is to take the outcome of this measurement and \emph{change the answer}. 
@@ -58,6 +94,8 @@ It turns out that all of these quantities are related to each other via the equa
 which is easily seen by noting that, for any fixed $i$, $\{M_i, M_{i \oplus 1}, \ldots, M_{i \oplus (n-1)}\}$ yields a valid POVM, and thus $\sum_{s=0}^{n-1} M_{i \oplus s} = \id$.
 
 We now prove a slightly weaker version of Theorem~\ref{thm:ch4_PBM-PGM}. \amnote{Is this the right place to put this proof?}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Proof of a slightly weaker version of Theorem~\ref{thm:ch4_PBM-PGM}} \label{ss:ch4_PBM-thm_pf}
 
@@ -155,8 +193,8 @@ where the last equality holds since $\rho_i = \rho_j$ for all $i$ and $j$.
 Thus, $p_i = 1/n$ for all $i$, as required.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{The pretty bad measurement (PBM).} \label{sec:ch4_PBM-PBM}
+\section{The pretty bad measurement (PBM)} \label{sec:ch4_PBM-PBM}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 We now define the counterpart to the PGM which now approximates $\Pworst$ instead. 
 Our approach is quite simple and borrows much of the elegance from the PGM. 
@@ -204,8 +242,8 @@ As a consequence of our discussion so far, we have
 \end{equation} 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{Another interpretation}  
+\section{Another interpretation} \label{sec:ch4_PBM-interpret}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 There is another way to interpret the PBM which is as the PGM \emph{in a different setting}.  
 For the set of states 
@@ -251,9 +289,8 @@ Thus, one can view the PBM as the PGM if the problem instance is changed accordi
 which have been used in the study of compatibility~\cite{filippov2017necessary}.  
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%\medskip 
-\section{Illustrative examples}  
+\section{Illustrative examples} \label{sec:ch4_PBM-eg}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 Consider the three trine states, defined as 
 \begin{equation}
@@ -314,9 +351,8 @@ Thus, we have equality throughout, proving that $\PPGM = \Pbest$.
 \end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%\medskip 
-\section{Numerical simulations.} 
+\section{Numerical simulations.} \label{sec:ch4_PBM-sim}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 We have discussed how the PGM always performs no worse than blind guessing and consequently proved that the PBM always performs no better than blind guessing.
 To get a better idea of how these two probabilities compare, we calculate them on many randomly generated examples. 
@@ -348,9 +384,8 @@ We generate $1000$ random qubit instances $\{ \rho_1, \ldots, \rho_n \}$ for $n=
 \end{figure} 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%\medskip 
-\section{Application: Quantum anomaly detection/avoidance.} 
+\section{Application: Quantum anomaly detection/avoidance.} \label{sec:ch4_PBM-anomaly}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 Suppose Alice promises to send Bob $n$ copies of a state $\rho$. 
 However, she has a faulty device which is known to produce one copy of an anomaly (read: a \emph{pretty bad state}) $\sigma$ at some point in this sequence. 

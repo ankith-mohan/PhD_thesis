@@ -1,102 +1,67 @@
 \chapter{Quantum heuristics for optimizing large separable operators}\label{ch:Sep}
 
-In this chapter, we address both of these issues by combining semidefinite programming techniques with quantum heuristics. 
-Firstly, by using semidefinite programming-based algorithms, one can solve small instances (i.e., when $\dim(\A)$ and $\dim(\B)$ are small) with reasonable levels of success. 
-Secondly, we introduce a heuristic algorithm to  reduce the dimension of the optimization problem. 
-We discuss when this pre-processing step can be run on a quantum co-processor, thereby alleviating the curse of dimensionality. 
-In a sense, we do not need to perform any vector-represented calculations, the interactions are done on a quantum mechanical level and the desired quantities can be inferred from measurement statistics. 
-We combine both of these methods, allowing us to optimize over separable states of large dimensions. 
+The contents of this chapter is based on my work with Tobias Haug, Kishor Bharti and Jamie Sikora in \cite{mohan2025quantum}.
 
-We note that even though our algorithm is heuristics-based, it maintains an important feature which is that it always returns a feasible solution.\footnote{Interestingly, even if the quantum processing part of our method is noisy, it still returns a feasible solution.} 
-Thus, in the event that our algorithm does not perform well,\footnote{Due to assumed complexity theoretical barriers (P $\neq$ NP), this is likely the case eventually for any such algorithm.} it still exhibits a feasible solution which could still be of value depending on the application. 
+\amnote{Highlight of this chapter: In this chapter we address the separability problem and heuristic for large separable operators. Finish this based on the intro.}
 
-As an application, we approximate the separable state that has the greatest energy with respect to a fixed Hamiltonian, whose energy we call the \emph{separable ground energy}.\footnote{Note that since we are maximizing throughout the discussions in this work, we think of the largest eigenvalue as the ground energy. 
-This convention is without loss of generality since one can replace the Hamiltonian $H$ with $-H$ if one prefers to minimize.} 
-We show that this approximation can be used to characterize the amount of entanglement in the groundspace of the Hamiltonian. 
-We give a full study of our algorithm for the case of the one-dimensional Ising Hamiltonian with numerics for up to $28$ qubits. 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection{Paper organization} 
-
-In the next section we study optimization-based algorithms for solving (small) separability problems and examine numerically how well they perform. 
+This chapter is organized as follows.
+\begin{itemize}
+    \item Section~\ref{sec:ch2_SEP-small_SEP}: We study optimization-based algorithms for solving (small) separability problems and examine numerically how well they perform.
+    \item Section~\ref{sec:ch2_SEP-SEP_related}: We discuss related work that deals with optimizing over separable states and those specific to Hamiltonians. 
+    This section is followed with a brief discussion of how our algorithms compare to these works.
+    \item Section~\ref{sec:ch2_SEP-big_sep}: We introduce our quantum heuristics for reducing the dimension to optimize over both separable operators and separable states.
+    \item Section~\ref{ss:ch2_SEP-sep_ops}: We describe the heuristic for optimizing over separable operators.
+    \item Section~\ref{ss:ch2_SEP-sep_states}: We consider the case of optimizing over separable states.
+    \item Section~\ref{ss:ch2_SEP-q_co_proc}: We discuss how the quantum co-processor is used to compute the data for the reduced optimization problem.
+    \item Section~\ref{sec:ch2_SEP-Hammy_intro}: As a concrete application, we apply the heuristic to find separable ground states of Hamiltonians.
+    \item Section~\ref{ss:ch2_SEP-measure}: We introduce a measure of entanglement in the groundspace of the Hamiltonian.
+    \item Section~\ref{ss:ch2_SEP-vary_ansatz}: We discuss how the ansatz states are chosen and evaluate the performance of our heuristic as we modify the ansatz.
+    \item Section~\ref{ss:ch2_SEP-ground_energy_Ising}: For the Ising Hamiltonian, we compare the ground energy, separable ground energy, and their approximations.
+\end{itemize}
+\begin{comment}
+Sections~\ref{sec:ch2_SEP-SEP_related} and~\ref{sec:ch2_sep-Hammy_related} discuss related work for optimizing over separable states and those specific to Hamiltonians.
+Each of these sections are followed with a brief discussion of how our algorithms compare to these works.
 We introduce our quantum heuristics in Section~\ref{sec:big_sep} and, as a concrete application, apply it to finding separable ground states of Hamiltonians in Section~\ref{sec:Hammy_intro}.  
 In particular, in that application we study the effect the separability constraint has on the optimization problem (or in the context of Hamiltonians, its ground energy). 
 We also examine how well the algorithm performs as we modify the ansatz in our heuristic. 
-Lastly, we study the computational limits of our methods in general. 
+Lastly, we study the computational limits of our methods in general.  
+\end{comment}     
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{Related work for optimizing over separable states}  
-
-An algorithm was proposed in \cite{brandao2011quasipolynomial} that solves the optimization problem~(\ref{eq:ch2_SEP-Sep_opt}) in time 
-\begin{equation} 
-\exp(\Ocomp(\delta^{-2}\ \log(\dim \A)\ \log(\dim \B)\ \| C \|_F^2)), 
-\end{equation} 
-for additive error $\delta$ which is based on \emph{symmetric extensions} introduced in~\cite{doherty2002SymExt}. 
-Another approach that combines KKT conditions with symmetric extensions was studied in~\cite{harrow2017improved}. 
-In \cite{shi2015epsilon}, the authors propose a quasi-polynomial time algorithm which takes as input the Hermitian matrix $C$ and its decomposition $C = \sum_{i=1}^M C_i^1 \otimes C_i^2$ for small $M$.
-Then optimizing over product states $\inner{\rho \otimes \sigma}{C}$ becomes $\sum_{i=1}^M \inner{\rho}{C_i^1} \inner{\sigma}{C_i^2}$. 
-By modifying the construction of $\varepsilon$-nets (\cite{shi2015epsilon}, Definition $1$) using the multiplicative matrix weights (MMW) update method~\cite{arora2012multiplicative}, we can enumerate all possible values of $\inner{C_i^1}{\rho}$ for all values of $i$. 
-Thus the problem can be solved efficiently when $M$ is small. 
-Moreover, when $C$ is positive semidefinite, they propose another algorithm which combines this $\varepsilon$-net approach with Schmidt decompositions to approximate the optimal value of problem~(\ref{eq:ch2_SEP-Sep_opt})  
-in time 
-\begin{equation} 
-\exp(\Ocomp(\log(d) + \delta^{-2} \|C\|_F^2 \ln(\|C\|_F/\delta)))  
-\end{equation} 
-where $d = \dim(\A) = \dim(\B)$.  
-There are also several variational approaches to solving this problem~\cite{consiglio2022variational, philip2024schrodinger}. 
-
-\paragraph{Comparisons to our algorithm.} 
-One issue that still arises in working with the hierarchy of symmetric extensions, or other popular outer approximations to $\Sep$ (such as PPT (Positive-Partial Transpose) operators), is the curse of dimensionality. 
-The sizes of the variables in the semidefinite programs still scale exponentially, and this problem is only exacerbated at higher levels. 
-While these algorithms are great in general, their size is still an issue, especially with current numerical solvers.  
-We do note that these algorithms, as well as others, can be combined with our dimension-reducing quantum heuristics though. 
-
-Our approach has some similarities to \cite{shi2015epsilon}. 
-We look at general $C$ matrices as well as those that can be decomposed as a sum of tensor products. 
-While their approach uses MMW, we use dimension-reduction techniques to get the size of the problem smaller, then generalized eigensolvers, see Section~\ref{sec:small_SEP}. 
-Thus, the approaches are complimentary in this setting. 
-We do note that since our approach is heuristics-based, it can be used in general settings, sometimes even when the size of $C$ is exponentially large, as discussed in Section~\ref{sec:big_sep}. 
-
-Comparing to the previously-mentioned variational algorithms, our algorithm promises to give feasible solutions whereas this is not always the case in  variational algorithms. 
-This could be an important feature, depending on the application.
-Unlike variational algorithms, our approach does not involve the optimization of parameters in any parametric quantum circuit, thereby circumventing the barren plateau problem~\cite{mcclean2018barren} by design. Furthermore, the absence of a classical-quantum feedback loop, characteristic of Variational Quantum Algorithms, significantly reduces the overhead associated with quantum measurements.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{Related work for optimizing over separable ground states of Hamiltonians} 
-
-The mean-field method is a powerful class of approximations for complex interacting Hamiltonians, reducing them to effective one-body problems that are easier to analyze. A prominent example is the Hartree-Fock approach for fermionic Hamiltonians, which simplifies the interaction terms to one-body fermionic operators~\cite{google2020hartree}. The core idea is to replace the original Hamiltonian 
-$H$ with a simpler, mean-field Hamiltonian $H_{\text{MF}}$. By construction, the ground state of $H_{\text{MF}}$ is a separable state (i.e., a product state of single-particle wave functions). 
-A folklore result is that the computation of the ground-state energy of a mean-field Hamiltonian $H$ is equivalent to solving a problem of the form (\ref{eq:ch2_SEP-Sep_opt}). 
-However, the mean-field ansatz is highly constrained. This assumed separability (often defined in a specific, potentially non-local basis corresponding to the particle wave functions) means that the ground state of the mean-field Hamiltonian frequently lacks important correlations present in the true ground state, potentially rendering it an inadequate approximation.
-
-\paragraph{Comparisons to our algorithm.} Our algorithm is distinct from the mean-field approach in a crucial way. The mean-field method first approximates the Hamiltonian to get $H_{\text{MF}}$ and then finds its exact (separable) ground state. In contrast, our approach directly finds an approximate separable ground state for the original Hamiltonian $H$. The separable states obtained by these two different methods are generally not the same. Our method's flexibility stems from an ansatz that can systematically incorporate higher-order terms, which are explicitly neglected in standard mean-field and Hartree-Fock approximations. In fact, our approach can be built directly on top of these methods. For instance, the Hartree-Fock ground state can serve as the initial reference state for our heuristic, which can then be improved by including higher-order Pauli terms that go beyond the mean-field limitations. 
-     
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \section{Semidefinite programming-based algorithms for the separability problem, a quick discussion}\label{sec:ch2_SEP-small_SEP} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\amnote{Check with what is in the introduction and remove redundancy.}
-We say that $\K$ is a convex cone if it is convex and also closed under nonnegative scaling, meaning that if $x \in \K$ then $\lambda x \in \K$ for all $\lambda \geq 0$. 
-A cone program is the study of optimizing a linear function over a variable in a convex cone $\K$ subject to affine constraints. 
-In standard form, we can write one as 
+For a density operator acting on the bipartite space $\A \otimes \B$, we wish to decide whether it belongs to the set of separable states, defined as 
 \begin{equation} 
-\text{maximize } \Big\{ \inner{X}{A} : \Xi(X) = B, \; X \in \K \Big\} 
+\SepD(\A: \B) = \mathrm{conv} \; \{ \rho \otimes \sigma \} 
+\label{eq:ch2_SEP-SepIntro}
 \end{equation} 
-where $\Xi$ is a hermiticity-preserving linear map, and $A$ and $B$ are Hermitian. 
-In this work, we are concerned primarily with the cone of \emph{separable operators}, i.e., when $\K = \Sep$, but also when $\K$ is the set of positive semidefinite operators, denoted by $\Pos(\X)$ when acting on a complex Euclidean space $\X$.  
-The above optimization in this case is called \emph{semidefinite programming} and is of great interest in many areas including combinatorial optimization~\cite{tunccel2016polyhedral} and quantum information~\cite{watrous2018theory} and we refer to a specific instance as a semidefinite program (SDP). 
-While optimizing over separable operators is indeed intractable, one can often solve SDPs efficiently. 
-Current numerical solvers for solving SDPs exist such as CVX~\cite{grant2014cvx}, SeDuMi~\cite{sturm1999using}, SDPT3~\cite{toh1999sdpt3} and Mosek~\cite{andersen2000mosek}. 
+where %$\mathrm{conv}$ denotes the convex hull (the set of all convex combinations), 
+$\rho$ ranges over density operators on $\A$, and $\sigma$ ranges over density operators on $\B$.
+In this work, we also look at the set of separable \emph{operators} which is  defined as  
+\begin{equation} 
+\Sep(\A: \B) = \mathrm{conv} \; \{ X \otimes Y \} 
+\label{eq:ch2_SEP-Sep}
+\end{equation} 
+where $X$ is a positive semidefinite operator acting on $\A$ and $Y$ is a positive semidefinite operator acting on $\B$. 
+We note that $\Sep(\A: \B)$ and $\SepD(\A: \B)$ differ only in the fact that the latter has a unit trace constraint. 
 
-Since SDPs can often be solved efficiently, they are a popular choice for approximating convex sets which are difficult to deal with, a great example being $\Sep$. 
+A general linear optimization over the set of separable operators takes the form 
+\begin{equation} \label{eq:ch2_SEP-Sep_opt_operator} 
+\text{maximize } \Big\{ \inner{X}{C} : \Xi(X) = B, X \in \Sep(\A:\B) \Big\} 
+\end{equation} 
+where $C$ and $B$ are Hermitian matrices, and $\Xi$ is a hermiticity-preserving linear map.%, and $\inner{A}{B}$ denotes the Hilbert-Schmidt inner product between two operators $A$ and $B$, which is defined as $\Tr(A^* B)$.  
+While we consider the general problem above in this work, we often focus on the special case of linear optimization over the set of separable \emph{states} taking the form 
+\begin{equation} \label{eq:ch2_SEP-Sep_opt} 
+\text{maximize } \Big\{ \inner{\tau}{C} : \tau \in \SepD(\A:\B) \Big\}.  
+\end{equation}
 
-Let us consider again the optimization problem~(\ref{eq:ch2_SEP-Sep_opt}).  
+In this work, we are concerned primarily with the cone of \emph{separable operators}, i.e., when $\K = \Sep$, but also when $\K$ is the set of positive semidefinite operators.%, denoted by $\Pos(\X)$ when acting on a complex Euclidean space $\X$.  
+
+Let us consider again the optimization problem~\eqref{eq:ch2_SEP-Sep_opt}.  
 Notice that if we have the optimal solution $\tau$, which always exists by compactness of the set $\SepD$, then a simple convexity argument\footnote{If an optimal solution is a convex combination of feasible solutions, then one of those feasible solutions has objective function value at least as good as the original optimal solution.} shows that there exists pure states $\ket{\psi}$ and $\ket{\phi}$ such that $\kb{\psi} \otimes \kb{\phi}$ is an optimal solution.   
 Therefore, we can optimize over product states instead of all of $\SepD$. 
-Under this restriction, we can rewrite the problem~(\ref{eq:ch2_SEP-Sep_opt}) as 
+Under this restriction, we can rewrite the problem~\eqref{eq:ch2_SEP-Sep_opt} as 
 \begin{equation} \label{eq:ch2_SEP-JohnWick4}
 \text{maximize } \Big\{ \inner{\rho \otimes \sigma}{C} : \rho \in D(\A), \; \sigma \in D(\B) \Big\},   
 \end{equation}  
@@ -105,7 +70,7 @@ where we have denoted the set of \emph{density matrices} acting on $\X$ as $D(\X
 Since the optimization problem~(\ref{eq:ch2_SEP-JohnWick4}) is quadratic, it still remains hard in general. 
 However, there are folklore algorithms called \emph{see-saw} which often perform well in practice (and are a special case of coordinate descent algorithms~\cite{wright2015coordinate}).
 (Note that no algorithm will always perform well due to NP complexity barriers.)   
-The see-saw pseudo-algorithm is stated below for this setting, noting the notation $\Herm(\X)$ as the set of Hermitian operators acting on $\X$.  
+The see-saw pseudo-algorithm is stated below for this setting.%, noting the notation $\Herm(\X)$ as the set of Hermitian operators acting on $\X$.  
 
 \begin{algorithm}[htpb]
     \caption{See-saw}\label{algo:ch2_SEP-see-saw}
@@ -129,18 +94,22 @@ Thus, this gives us a \emph{lower bound} on the optimal value and a correspondin
 We note that many SDP-based algorithms for approximating the separable set are \emph{outer approximations} which do not always have this feature of yielding a feasible solution (such as the PPT criterion~\cite{horodecki1996necessary, peres1996separability}, symmetric extensions~\cite{doherty2002SymExt, chen2014symmetric, li2019symmetric}, and the realignment criterion~\cite{chen2003matrix}). 
 Therefore, this is a nice feature of the see-saw algorithm. 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \subsection{A bottleneck in the see-saw algorithm} \label{sec:ch2_SEP-faster_see-saw} 
 
 Recall that in see-saw we wish to alternately optimize over $\rho$ and $\sigma$. 
-Concentrating on optimizing over $\sigma$ for now, we can rewrite $\inner{\hat{\rho} \otimes \sigma}{C}$ as $\inner{\sigma}{C_\B}$, where $$C_\B = \Tr_\A[(\hat{\rho} \otimes \id)C] \in \Herm(\B)$$ and $\Tr_{\A}$ is the partial trace over $\A$. 
+Concentrating on optimizing over $\sigma$ for now, we can rewrite $\inner{\hat{\rho} \otimes \sigma}{C}$ as $\inner{\sigma}{C_\B}$, where $$C_\B = \Tr_\A[(\hat{\rho} \otimes \id)C] \in \Herm(\B).$$ % and $\Tr_{\A}$ is the partial trace over $\A$. 
 Thus, we are effectively solving the optimization problem 
 \begin{equation}
     \text{maximize } \Big\{ \inner{\sigma}{C_\B} : \sigma \in D(\B) \Big\}
 \end{equation}
-whose solution corresponds to the principal eigenvector of $C_\B$. \amnote{Prove this for yourself.}
+whose solution corresponds to the principal eigenvector of $C_\B$.
 Similarly, $\inner{\rho \otimes \hat{\sigma}}{C} = \inner{\rho}{C_\A}$ where $C_\A = \Tr_\B[(\id \otimes \hat{\sigma})C] \in \Herm(\A)$  
 whose solution is the principal eigenvector of $C_\A$. 
 Thus, the see-saw algorithm is simply a sequence of principal eigenvector computations. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  
 \subsection{Special-case instances} \label{sec:ch2_SEP-special}
 
@@ -151,7 +120,7 @@ Before discussing our dimension-reduction technique, we discuss a special case t
 
 We now consider instances with a particular structure that circumvents the pre-computation issue raised above while still capturing many applications of interest. 
 Suppose $C$ can be written in the following way 
-\begin{equation} \label{eq:special}
+\begin{equation} \label{eq:ch2_SEP-special}
     C = \sum_{m=1}^N K_m \otimes L_m,
 \end{equation}
 where $K_m \in \Herm(\A)$ and $L_m \in \Herm(\B)$, for all $m$. 
@@ -163,7 +132,7 @@ and similarly
     $C_\A = \Tr_\B[(\id \otimes \hat{\sigma})C] = \sum_m \inner{\hat{\sigma}}{L_m} K_m$.   
 Therefore, the see-saw pre-computation involves a series of matrix computations on matrices of size $d \times d$ now, offering a quadratic speed up. 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Numerical tests} 
   
@@ -176,22 +145,72 @@ At this point, our numerical experiments required about $35$ days of runtime.
 (The hardware specifications are indicated in the computational platform section (Section~\ref{sec:ch2_SEP-platform}).)  
 
 \paragraph{Accuracy.}  
-    In our numerical experiments, we compared the lower bounds against some outer approximations obtained by relaxing the set $\SepD$ into a larger set that can be represented as an SDP (positive partial transpose criterion~\cite{peres1996separability, horodecki1996necessary} and symmetric extensions~\cite{doherty2002SymExt}).
-    To quantify the performance, we track the difference $\beta - \gamma$ where $\beta$ is the least upper bound (e.g., from all of the outer approximations calculated) and $\gamma$ is the greatest lower bound (e.g., by performing see-saw over the various starting points). 
-    If the difference is small, then we have a good approximation and the states outputted from the best see-saw algorithm is an approximately optimal solution. 
-    A large difference indicates that we have found a tricky instance over which at least one of these algorithms failed to produce a good approximation. 
-      
-    For varying dimensions, we ran this over $100$ random instances.
-    Our numerical experiments showed that this difference was at most $10^{-3}$ for values of local dimension up to $13$.
-    Beyond this value of the local dimension, the median time required to compute the upper bounds over $100$ random instances of $C$ exceeded $30$ minutes and thus had to be terminated.
-    Since the see-saw algorithm is seen to be effective both in terms of performance as well as scalability, we rely on see-saw for approximations for larger dimensions in the rest of this work. 
+In our numerical experiments, we compare the lower bounds against some outer approximations obtained by relaxing the set $\SepD$ into a larger set that can be represented as an SDP (positive partial transpose criterion~\cite{peres1996separability, horodecki1996necessary} and symmetric extensions~\cite{doherty2002SymExt}).
+To quantify the performance, we track the difference $\beta - \gamma$ where $\beta$ is the least upper bound (e.g., from all of the outer approximations calculated) and $\gamma$ is the greatest lower bound (e.g., by performing see-saw over the various starting points). 
+If the difference is small, then we have a good approximation and the states outputted from the best see-saw algorithm is an approximately optimal solution. 
+A large difference indicates that we have found a tricky instance over which at least one of these algorithms failed to produce a good approximation. 
+  
+For varying dimensions, we ran this over $100$ random instances.
+Our numerical experiments showed that this difference was at most $10^{-3}$ for values of local dimension up to $13$.
+Beyond this value of the local dimension, the median time required to compute the upper bounds over $100$ random instances of $C$ exceeded $30$ minutes and thus had to be terminated.
+Since the see-saw algorithm is seen to be effective both in terms of performance as well as scalability, we rely on see-saw for approximations for larger dimensions in the rest of this work. 
 
 \paragraph{Data.}   
-    The data collected from these numerical experiments is hosted on an interactive web application \url{https://ankith-mohan.shinyapps.io/SEP_app}. 
+The data collected from these numerical experiments is hosted on an interactive web application \url{https://ankith-mohan.shinyapps.io/SEP_app}. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Related work for optimizing over separable states} \label{sec:ch2_SEP-SEP_related} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+An algorithm was proposed in \cite{brandao2011quasipolynomial} that solves the optimization problem~(\ref{eq:ch2_SEP-Sep_opt}) in time 
+\begin{equation} 
+\exp(\Ocomp(\delta^{-2}\ \log(\dim \A)\ \log(\dim \B)\ \| C \|_F^2)), 
+\end{equation} 
+for additive error $\delta$ which is based on \emph{symmetric extensions} introduced in~\cite{doherty2002SymExt}. 
+Another approach that combines KKT conditions with symmetric extensions was studied in~\cite{harrow2017improved}. 
+In \cite{shi2015epsilon}, the authors propose a quasi-polynomial time algorithm which takes as input the Hermitian matrix $C$ and its decomposition $C = \sum_{i=1}^M C_i^1 \otimes C_i^2$ for small $M$.
+Then optimizing over product states $\inner{\rho \otimes \sigma}{C}$ becomes $\sum_{i=1}^M \inner{\rho}{C_i^1} \inner{\sigma}{C_i^2}$. 
+By modifying the construction of $\varepsilon$-nets~\cite[Definition 1]{shi2015epsilon} using the multiplicative matrix weights (MMW) update method~\cite{arora2012multiplicative}, we can enumerate all possible values of $\inner{C_i^1}{\rho}$ for all values of $i$. 
+Thus the problem can be solved efficiently when $M$ is small. 
+Moreover, when $C$ is positive semidefinite, they propose another algorithm which combines this $\varepsilon$-net approach with Schmidt decompositions to approximate the optimal value of problem~(\ref{eq:ch2_SEP-Sep_opt})  
+in time 
+\begin{equation} 
+\exp(\Ocomp(\log(d) + \delta^{-2} \|C\|_F^2 \ln(\|C\|_F/\delta)))  
+\end{equation} 
+where $d = \dim(\A) = \dim(\B)$.  
+There are also several variational approaches to solving this problem~\cite{consiglio2022variational, philip2024schrodinger}. 
+
+\paragraph{Comparisons to our algorithm.} 
+One issue that still arises in working with the hierarchy of symmetric extensions, or other popular outer approximations to $\Sep$ (such as PPT (Positive-Partial Transpose) operators), is the curse of dimensionality. 
+The sizes of the variables in the semidefinite programs still scale exponentially, and this problem is only exacerbated at higher levels. 
+While these algorithms are great in general, their size is still an issue, especially with current numerical solvers.  
+We do note that these algorithms, as well as others, can be combined with our dimension-reducing quantum heuristics though. 
+
+Our approach has some similarities to \cite{shi2015epsilon}. 
+We look at general $C$ matrices as well as those that can be decomposed as a sum of tensor products. 
+While their approach uses MMW, we use dimension-reduction techniques to get the size of the problem smaller, then generalized eigensolvers, see Section~\ref{sec:ch2_SEP-small_SEP}. 
+Thus, the approaches are complimentary in this setting. 
+We do note that since our approach is heuristics-based, it can be used in general settings, sometimes even when the size of $C$ is exponentially large, as discussed in Section~\ref{sec:ch2_SEP-big_sep}. 
+
+Comparing to the previously-mentioned variational algorithms, our algorithm promises to give feasible solutions whereas this is not always the case in  variational algorithms. 
+This could be an important feature, depending on the application.
+Unlike variational algorithms, our approach does not involve the optimization of parameters in any parametric quantum circuit, thereby circumventing the barren plateau problem~\cite{mcclean2018barren} by design. Furthermore, the absence of a classical-quantum feedback loop, characteristic of Variational Quantum Algorithms, significantly reduces the overhead associated with quantum measurements.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Related work for optimizing over separable ground states of Hamiltonians} \label{ss:ch2_SEP-Hammy_related}
+
+The mean-field method is a powerful class of approximations for complex interacting Hamiltonians, reducing them to effective one-body problems that are easier to analyze. A prominent example is the Hartree-Fock approach for fermionic Hamiltonians, which simplifies the interaction terms to one-body fermionic operators~\cite{google2020hartree}. The core idea is to replace the original Hamiltonian 
+$H$ with a simpler, mean-field Hamiltonian $H_{\text{MF}}$. By construction, the ground state of $H_{\text{MF}}$ is a separable state (i.e., a product state of single-particle wave functions). 
+A folklore result is that the computation of the ground-state energy of a mean-field Hamiltonian $H$ is equivalent to solving a problem of the form (\ref{eq:ch2_SEP-Sep_opt}). 
+However, the mean-field ansatz is highly constrained. This assumed separability (often defined in a specific, potentially non-local basis corresponding to the particle wave functions) means that the ground state of the mean-field Hamiltonian frequently lacks important correlations present in the true ground state, potentially rendering it an inadequate approximation.
+
+\paragraph{Comparisons to our algorithm.} 
+Our algorithm is distinct from the mean-field approach in a crucial way. The mean-field method first approximates the Hamiltonian to get $H_{\text{MF}}$ and then finds its exact (separable) ground state. In contrast, our approach directly finds an approximate separable ground state for the original Hamiltonian $H$. The separable states obtained by these two different methods are generally not the same. Our method's flexibility stems from an ansatz that can systematically incorporate higher-order terms, which are explicitly neglected in standard mean-field and Hartree-Fock approximations. In fact, our approach can be built directly on top of these methods. For instance, the Hartree-Fock ground state can serve as the initial reference state for our heuristic, which can then be improved by including higher-order Pauli terms that go beyond the mean-field limitations.
       
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- 
 \section{Reducing the dimension of separability problems via a quantum co-processor}\label{sec:ch2_SEP-big_sep} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 Now that we have argued that the see-saw algorithm provides good inner approximations on small separability problems, what can we do with large separability problems? 
 An even tougher problem: 
@@ -201,14 +220,16 @@ An even tougher problem:
 \end{quote} 
 Indeed, many quantum problems suffer from the curse of dimensionality meaning that classical descriptions could involve exponentially large vectors and matrices. 
 We now consider heuristics for reducing the dimension by generalizing the NISQ SDP solver idea in~\cite{bharti2022noisy} to optimize over both separable operators and separable states.   
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  
-\subsection{General linear optimization over separable operators} 
+\subsection{General linear optimization over separable operators} \label{ss:ch2_SEP-sep_ops}
 
 Consider the optimization problem  
 \begin{equation}
     \mu = \text{maximize } \Big\{ \inner{X}{C} : \Xi(X) = B, \; X \in \Sep(\A : \B) \Big\}.  
 \end{equation} 
-Suppose we are given \emph{two} sets of ansatz states $\{\ket{\psi_1}, \dots, \ket{\psi_L}\} \subset \A$ and $\{\ket{\phi_1}, \dots, \ket{\phi_M}\} \subset \B$. 
+Suppose we are given \emph{two} sets of ansatz states $$\{\ket{\psi_1}, \dots, \ket{\psi_L}\} \subset \A \quad \text{and} \quad \{\ket{\phi_1}, \dots, \ket{\phi_M}\} \subset \B.$$ 
 From these states, we define the two matrices 
 \begin{equation}
     \Psi \coloneqq \sum_{i=1}^L \ketbra{\psi_i}{i} \quad \text{and} \quad \Phi \coloneqq \sum_{k=1}^M \ketbra{\phi_k}{k}.
@@ -251,7 +272,9 @@ As we have previously discussed, the see-saw algorithm performs well on smaller 
 Moreover, this feasible solution can be turned into a feasible solution for the original problem. 
 Thus, overall this process yields a feasible solution to the original problem, and this provides a lower bound on its value. 
 
-\subsection{Optimizing over separable states}\label{sec:ch2_SEP-sep_states_SDP}   
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Optimizing over separable states}\label{ss:ch2_SEP-sep_states}   
 
 We now consider the special case when the constraint $\Xi(X) = B$ is written as $\Tr(X) = 1$, i.e., we wish to optimize over separable quantum states such as in the following problem:  
 \begin{equation} \label{eq:ch2_SEP-first}
@@ -266,7 +289,7 @@ where $G_{\A}$ is the Gram matrix of the first set of ansatz states and $G_{\B}$
 \begin{equation}
     G_\A = \sum_{i=1}^L \sum_{j=1}^L \braket{\psi_i}{\psi_j} \ketbra{i}{j} \quad \text{and} \quad G_\B = \sum_{k=1}^M \sum_{l=1}^M \braket{\phi_k}{\phi_l} \ketbra{k}{l}. 
 \end{equation} 
-If we suppose that the each set of ansatz states are linearly independent, then both $G_{\A}$ and $G_{\B}$ are invertible. 
+If we suppose that each set of ansatz states are linearly independent, then both $G_{\A}$ and $G_{\B}$ are invertible. 
 Now, if we define the matrix 
 \begin{equation}
     Z \coloneqq \left( G_\A^{1/2} \otimes G_\B^{1/2} \right) Y \left( G_\A^{1/2} \otimes G_\B^{1/2} \right) 
@@ -291,7 +314,9 @@ Let us summarize what we have accomplished so far.
 We have taken the optimization over separable states given in Eq.~\eqref{eq:ch2_SEP-first} defined by the matrix $C \in \SepD(\A : \B)$ and replaced it with a reduced version which is itself an optimization over separable states given in Eq.~\eqref{eq:ch2_SEP-ultra_reduced_SepD_intro} defined by the matrix $\tilde{D} \in \SepD(\Cspace^L : \Cspace^M)$.  
 This can be a considerably smaller optimization over separable states and, again, given a feasible solution to the reduced problem we can find a feasible solution to the original problem. 
 
-\subsection{Calculating the data of the reduced problems with a quantum co-processor}    
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Calculating the data of the reduced problems with a quantum co-processor} \label{ss:ch2_SEP-q_co_proc}   
 
 \amnote{This section is common between SEP and QSD.}
  
@@ -304,7 +329,7 @@ From an algorithmic standpoint, we assume that they are efficiently preparable a
 \item circuits $U_i$ that create $\ket{\psi_i}$ and their inverses, and 
 \item circuits $V_j$ that create $\ket{\phi_j}$ and their inverses. 
 \end{itemize} 
-By combining them, we thus have a circuit $U$ which maps $\ket{\psi_i}$ to $\ket{\psi_j}$ for any choice of $i$ and $j$, and similarly for the $\ket{\phi_i}$ states.  
+By combining them, we thus have a circuit $U_{ij}$ which maps $\ket{\psi_i}$ to $\ket{\psi_j}$ for any choice of $i$ and $j$, and similarly for the $\ket{\phi_i}$ states.  
 This way we can compute the Gram matrix $G_{\A}$ by performing the \emph{Hadamard test} (Figure~\ref{fig:ch2_SEP-Hadamard_test}) to learn $\mathrm{Re}(\braket{\psi_i}{\psi_j})$ and $\mathrm{Im}(\braket{\psi_i}{\psi_j})$ for each pair of $i$ and $j$. 
 We can similarly compute the Gram matrix $G_{\B}$. 
  
@@ -347,6 +372,34 @@ D_{i,j,k,l} = \bra{\psi} \bra{\phi} \left( \sum_{m} (P^A_i \otimes P^B_k) P_m (P
 where $P$ is simply a sum of Pauli strings (with $\{\pm 1, \pm i\}$ coefficients). 
 So calculating $D_{i,j,k,l}$ is equivalent to computing the expectation value of a Pauli string with respect to the state $\ket{\psi}\ket{\phi}$, which can be done efficiently as long as $\ket{\psi}\ket{\phi}$ are efficiently preparable as discussed above and we have access to Pauli gates.  
 
+\amnote{Adapt this figure for the SEP case.}
+
+Figure~\ref{fig:ch2_SEP-flow_chart} depicts this hybrid algorithm.
+\begin{figure}[ht]
+    \centering
+    \begin{tikzpicture}[node distance=3.5cm]
+        % nodes
+        \node (U) [startstop] {Preparation unitaries};
+        \node (ip) [process, right of=U] {Compute inner products};
+        \node (G) [startstop, right of=ip] {Gram matrix $G$};
+        \node (SDP) [process, right of=G] {Reduced SDP};
+        \node (R) [startstop, right of=SDP] {Reward matrix $R$};
+        \node (q) [startstop, above of=SDP] {Apriori probability vector $q$};
+        \node (p) [process, below of=SDP] {Optimal guessing probability};
+        %edges
+        \draw [arrow] (U) -- (ip);
+        \draw [arrow] (ip) -- (G);
+        \draw [arrow] (G) -- (SDP);
+        \draw [arrow] (R) -- (SDP);
+        \draw [arrow] (q) -- (SDP);
+        \draw [arrow] (SDP) -- (p);
+    \end{tikzpicture}
+    \caption{A visual representation of the hybrid algorithm.}
+    \label{fig:ch2_SEP-flow_chart}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \subsection{A special case which speeds up the see-saw algorithm when applied to the reduced problem}   
 
 We note that when $C$ can be expressed as $C = \sum_m K_m \otimes L_m$, we can rewrite the reduced problem~(\ref{eq:ch2_SEP-ultra_reduced_SepD_intro}) as
@@ -362,8 +415,8 @@ Depending on the nature of each $K_m$ and $L_m$ and our choices of ansatz states
 Moreover, the structure is the same as discussed in Section~\ref{sec:ch2_SEP-special}, meaning that we can dramatically speed up the see-saw algorithm when applied to this problem. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \section{Applications to finding separable ground states of Hamiltonians}\label{sec:ch2_SEP-Hammy_intro} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 In this section, we use see-saw and our dimension-reduction idea to solve for the separable state of the greatest\footnote{Note that since we are maximizing throughout the discussions in this work, we think of the largest eigenvalue as the ground energy. 
 This convention is without loss of generality since one can replace the Hamiltonian $H$ with $-H$ if one prefers to minimize.} energy of a certain Hamiltonian. 
@@ -374,7 +427,9 @@ We also graph how well the heuristics perform with respect to the number of ansa
 The third part compares how well our heuristic performs compared to the (a) full see-saw algorithm, (b) full ground energy calculation, and (c) the heuristic ground energy calculation from~\cite{bharti2022noisy}. 
 We run all of our tests on the one-dimensional Ising Hamiltonian, noting that our methods apply to many other popular Hamiltonians as well. 
 
-\subsection{A ground space entanglement measure} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{A ground space entanglement measure} \label{ss:ch2_SEP-measure}
 
 For a Hamiltonian $H$, let us denote the largest and smallest eigenvalues by $\lambda_{\mathrm{max}}$ and $\lambda_{\mathrm{min}}$, respectively.  
 
@@ -417,6 +472,8 @@ For any $\varepsilon$, the (unique) ground state of $H$ is $\ket{\psi^-}$ which 
 However, we have $\lambda_{\max} = 1$, $\lambda_{\min} = 0$, $\alpha \geq 1-\varepsilon$, and thus $\delta \leq \varepsilon$. 
 Therefore, our measure is small, indicating that there is a separable state that has energy \emph{close} to that in the ground space.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \subsubsection{The Ising Hamiltonian} 
 
 We consider the one-dimensional Ising model of $N$ qubits with transverse field $h$, longitudinal field $g$, and coupling term $J$, defined as
@@ -448,12 +505,14 @@ These graphs suggest that there is a non-trivial amount of entanglement in these
 Note that while this model has a phase transition for the critical point $h=1$, the entanglement is actually maximal at a value that is close, but not exactly at the critical point~\cite{osterloh2002scaling}, which matches our results. 
 Going forward, we set $h$ to be in this range and test other figures of interest.
 
-\subsection{Evaluating the performance of our heuristic with varying numbers of ansatz states} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Evaluating the performance of our heuristic with varying numbers of ansatz states} \label{ss:ch2_SEP-vary_ansatz}
 
 We now study the performance of our heuristic for reducing the dimensionality of large separability problems discussed in Section~\ref{sec:ch2_SEP-big_sep} for the Hamiltonian $H_{\mathrm{Ising}}$.
 To formulate our problem as an instance of~(\ref{eq:ch2_SEP-ultra_reduced_SepD_KL_intro}), we require two things: (a) the ansatz states $\{\ket{\psi_1}, \dots, \ket{\psi_L}\} \subset \A$ and $\{\ket{\phi_1}, \dots, \ket{\phi_M}\} \subset \B$, and (b) the matrices $K_m$ and $L_m$ for all values of $m$.
 
-\subsubsection{Choosing the ansatz states}
+\subsubsection{Choosing the ansatz states} 
 
 We use the \emph{NISQ-friendly version of the Krylov subspace} approach proposed by~\cite{bharti2022noisy} to generate the ansatz space $\Sset$.
 The original Krylov subspace approach approximates the ground state of the Hamiltonian $H$ up to order $K$, using a reference state $\ket{\eta}$ as 
@@ -517,9 +576,12 @@ where
         $H_\A^x = -\sum_{l=1}^{N_\A} \sigma_l^x$ and 
         $H_\B^x = -\sum_{m={N_\A}+1}^N \sigma_m^x$ represent the single-qubit $\sigma^x$ terms. 
 
-\subsubsection{Varying the number of ansatz states} 
+\subsubsection{Varying the number of ansatz states}
  
-We now address the following question: How does the number of ansatz states $L$ and $M$ affect the performance of our heuristic? 
+We now address the following question:
+\begin{quote} 
+\textit{How does the number of ansatz states $L$ and $M$ affect the performance of our heuristic?}
+\end{quote}  
 To answer this, we consider the $12$-qubit Ising Hamiltonian (with $J = 1, g = 0$ and $h = 1.3$) and use the see-saw algorithm for special-case instances discussed in Section~\ref{sec:ch2_SEP-faster_see-saw} to compute the lower bound $\hat{\alpha}$. 
 We now compare $\hat{\alpha}$, which is our approximation to the actual separable ground energy, to the value attained if we were to use our dimension-reducing ansatz. 
 We note that while we do not need to use dimension reduction here, it serves as a test bed to see how well we could expect it to perform on larger examples where we might not know the answer. 
@@ -544,10 +606,12 @@ Figure~\ref{fig:ch2_SEP-vNa_6qe_intro} describes the difference between $\hat{\a
 
 This gives an illustration of how many ansatz states one could choose to use. 
 We observe that the error decreases to near $0$ as the number of ansatz states increases. 
-However, the computation gets more demanding as the number of ansatz states increases, so there is a trade-off. 
+However, the computation gets more demanding as this number increases, so there is a trade-off. 
 From this numerical experiment, it seems that the errors decrease at a slower rate starting around $L = 20$. 
 
-\subsection{Calculating ground energies and separable ground energies on large Ising Hamiltonians}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Calculating ground energies and separable ground energies on large Ising Hamiltonians} \label{ss:ch2_SEP-ground_energy_Ising}
 
 In this subsection, we consider the $2N$-qubit Ising Hamiltonian with $J = 1$, $g=0$, and $h = 1.4$ where $\A$ is the first $N$ qubits and $\B$ is the remaining $N$ qubits. 
 Our computations here are split into two camps: 
@@ -579,7 +643,7 @@ When $N \geq 13$, the computation of our inner approximation $\hat{\alpha}$ (wit
 However, the approximation $\hat{\alpha}_L$ is still able to be calculated, and we do so for the largest possible $L$ for each number of qubits. 
 Also, $\lambda_{\max}$ can be computed up to $N = 12$, noting that this is a $2N$-qubit Hamiltonian and thus  
 this computation involves computing the eigenvalue of a $2^{24} \times 2^{24}$ matrix. 
-Despite the sparsity of $H_{\mathrm{Ising}}$, for values of $N \geq 13$, we are unable to compute the value of $\lambda_{\max}$ because the size of the Hamiltonian exceeds the available memory ($32$ GB, as described in the computational platform section (in Section~\ref{sec:ch2_SEP-platform})).  
+Despite the sparsity of $H_{\mathrm{Ising}}$, for values of $N \geq 13$, we are unable to compute the value of $\lambda_{\max}$ because the size of the Hamiltonian exceeds the available memory ($32$ GB, as described in the next section).  
 
 At $N = 15$, the size of each of the $K_m$ and $L_m$ matrices exceeds the available memory. 
 
