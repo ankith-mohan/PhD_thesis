@@ -1,1 +1,21 @@
-You are also required as of Spring 2016 to include a general audience abstract. This should be geared towards individuals outside of your field that may be reading seeking information about your work. You should avoid language that is particular to your field and clearly define any terms that may have special meaning in your discipline.
+\amnote{ChatGPT version}
+
+Many important questions in quantum information such as how to identify unknown quantum signals, how much entanglement a system contains, or how best to make measurements, can be framed as optimization problems. 
+In principle, these problems can often be expressed using powerful convex-optimization methods, but in practice they quickly become computationally overwhelming: the space of quantum states grows exponentially with the number of qubits, and additional physical constraints (such as requiring states to be ``separable'', i.e., not entangled) can make the underlying optimization fundamentally hard.
+
+This thesis develops tools that make several of these high-dimensional quantum optimization problems more tractable by uncovering structure that allows the problems to be reduced to dramatically smaller ones without losing their essential content. 
+A recurring theme is hybrid computation: combining classical optimization with targeted quantum subroutines to extract the key quantities needed to set up the reduced problems directly from quantum data.
+
+We first study optimization over separable (unentangled) states, a task that is notoriously difficult. 
+We introduce a hybrid quantum–classical method that reduces the effective dimension of the search while always producing valid separable candidates, rather than merely upper or lower bounds. 
+We use this approach to estimate how ``entangled'' the ground states of many-body Hamiltonians are, and we demonstrate that it scales to systems with up to $28$ qubits in numerical experiments.
+
+Next, we develop a general framework for quantum state discrimination: deciding which of several possible states was prepared, under a wide range of scoring rules that include standard minimum-error discrimination, unambiguous discrimination, and state exclusion. 
+By reformulating these tasks in a way that depends only on relationships between the candidate states, rather than the full exponentially large state description, we obtain reduced optimization problems whose size depends mainly on the number of hypotheses, not the dimension of the underlying Hilbert space. We show how the necessary reduced description can be built from experimentally accessible overlap information, and we apply the framework to quantum changepoint identification problems, including multi-changepoint regimes that were previously computationally out of reach.
+
+We also investigate structured measurement strategies that are simple to compute and implement. 
+We introduce the ``pretty bad measurement'', a natural counterpart to the well-known ``pretty good measurement'', tailored to exclusion-type tasks, and we prove that each has a guaranteed performance baseline relative to blind guessing in its respective setting. 
+Finally, we study how well one can evaluate Boolean functions from a stream of quantum systems when memory is extremely limited. 
+We show that a straightforward local ``greedy'' measurement is globally optimal exactly for affine Boolean functions, and more broadly it still achieves a provable approximation guarantee compared to the best possible global strategy.
+
+Overall, the thesis shows that seemingly intractable quantum optimization problems often contain hidden structure that enables principled reductions, hybrid algorithms, and performance guarantees, thus opening the door to analyzing larger quantum systems and more complex data-driven tasks than naive methods would allow.

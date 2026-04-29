@@ -2,7 +2,11 @@
 
  The contents of this chapter is based on my work with Caleb McIrvin and Jamie Sikora in \cite{mcirvin2024quantum}.
 
- \amnote{In this chapter we look at PGM and come up with its counterpart PBM.}
+ The pretty good measurement (PGM) is a way to approximate the best possible measurement for the minimum error state discrimination task.
+ This chapter introduces the pretty bad measurement (PBM) as an analogue for the minimum error state exclusion problem.
+ We compare the performance of these measurements with the blind guessing probability.
+ We observe that while PGM can perform no worse than blind guessing, PBM can perform no better than blind guessing.
+ Lastly, we look at the application of the PBM for the quantum anomaly detection/avoidance problem.
 
  We develop the pretty bad measurement through the following steps.
  \begin{itemize}
@@ -16,55 +20,45 @@
  \end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{The pretty good measurement (PGM)} \label{sec:ch4_PBM-PGM}
+\section{The pretty good measurement} \label{sec:ch4_PBM-PGM}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\amnote{Polish this section.}
-
-Also known as the square root measurement, the pretty good measurement is the POVM $\{G_1, \dots, G_n\}$, where each measurement operator is defined as  
+For an ensemble $\{(p_i, \rho_i)\}_{i=1}^n$, the pretty good measurement (PGM), also known as the square root measurement, introduced by Hausladen and Wootters~\cite{hausladen1994pretty} and further analyzed by Barnum and Knill~\cite{barnum2002reversing}, is the POVM $\{G_1, \dots, G_n\}$, where each measurement operator is defined as  
 \begin{equation}
     \label{eq:ch4_PBM-PGM_ops}
     G_i = P^{-1/2} \bigg( p_i \rho_i \bigg) P^{-1/2} \; \text{ where } \; 
     P = \sum_{i=1}^n p_i \rho_i.
 \end{equation} 
-If Bob uses the PGM for quantum state discrimination, he wins with probability 
+If Bob uses the PGM for quantum state discrimination, his success probability is
 \begin{align} 
 \PPGM 
 & = \sum_{i=1}^n p_i \inner{G_i}{\rho_i} = \sum_{i=1}^n p_i^2 \tr(P^{-1/2} \rho_i P^{-1/2} \rho_i). \label{eq:ch4_PBM-P_PGM} 
-\end{align} 
+\end{align}
+
+Barnum and Knill~\cite{barnum2002reversing} gave the following bound on the performance of the PGM.
+
+\begin{theorem}[Barnum-Knill Inequality \cite{barnum2002reversing}]
+    \label{thm:ch4_PBM-barnum-knill}
+    Let $\Pbest$ denote the optimal success probability (Eq.~\eqref{eq:ch4_PBM-P_best}), then
+    \begin{equation}
+        \Pbest^2 \leq \PPGM \leq \Pbest.
+    \end{equation}
+\end{theorem} 
+
+This bound ensures that the PGM always achieves a success probability at least as large as the square of the optimal probability, guaranteeing near-optimal performance. 
+
 We now present a theorem which compares $\PPGM$ to the blind guessing probability, i.e., $1/n$. 
 %To the best of our knowledge, comparing $\PPGM$ to the blind guessing probability, i.e., $1/k$, is not known except in trivial cases. 
 %This brings us to our first main result (which we prove in the appendix). 
 
 \begin{thm}{\cite{renes2017better}} \label{thm:ch4_PBM-PGM}
-For any set of states $\{ \rho_1, \ldots, \rho_n \}$ and probability distribution $(p_1, \ldots, p_n)$, we have 
+For any set of states $\{ \rho_1, \ldots, \rho_n \}$ and probability distribution $\{ p_1, \ldots, p_n \}$, we have 
 \begin{equation} 
 \PPGM \geq \frac{1}{n} + \frac{(1 - n \Pbest)^2}{n (n - 1)} 
 \end{equation}
 where $1/n$ can be interpreted as the blind guessing probability. 
 Moreover, if $\PPGM = 1/n$, then we have $\rho_i = \rho_j$ and $p_i = p_j = 1/n$ for all $i \neq j$. 
 \end{thm} 
-
-The \emph{pretty good measurement} (PGM), introduced by Hausladen and Wootters~\cite{hausladen1994pretty} and further analyzed by Barnum and Knill~\cite{barnum2002reversing}, provides a computationally tractable measurement strategy for quantum state discrimination. 
-Given an ensemble $\{(p_i, \rho_i)\}_{i=1}^n$, the PGM is defined by the measurement operators
-\begin{equation}
-    \label{eq:ch5_qseq-pgm_operators}
-    M_i^{\text{PGM}} = \rho_{\text{avg}}^{-1/2} (p_i \rho_i) \rho_{\text{avg}}^{-1/2},
-\end{equation}
-where $\rho_{\text{avg}} = \sum_{i=1}^n p_i \rho_i$ and $\rho_{\text{avg}}^{-1/2}$ denotes its Moore-Penrose pseudo-inverse. These operators form a valid POVM.
-
-Barnum and Knill~\cite{barnum2002reversing} gave the following bound on the performance of the PGM.
-
-\begin{theorem}[Barnum-Knill Inequality \cite{barnum2002reversing}]
-    \label{thm:ch5_qseq-barnum-knill}
-    Let $P_{\text{opt}}$ denote the optimal success probability and $P_{\text{PGM}}$ denote the success probability achieved by the pretty good measurement for discriminating an ensemble $\{(p_i, \rho_i)\}_{i=1}^n$. Then
-    \begin{equation}
-        P_{\text{opt}}^2 \leq P_{\text{PGM}} \leq P_{\text{opt}}.
-    \end{equation}
-\end{theorem} 
-
-This bound ensures that the PGM always achieves a success probability at least as large as the square of the optimal probability, guaranteeing near-optimal performance. 
-Moreover, in many cases of interest, the PGM is exactly optimal \cite{mochon2006family,dalla2015optimality,eldar2001quantum}.
 
 %We prove a slightly weaker version of this theorem in Section~\ref{sec:ch4_PBM-thm_1_pf} using the concept of \emph{offsets}, discussed in the next section.
 
@@ -93,13 +87,13 @@ It turns out that all of these quantities are related to each other via the equa
 \end{equation} 
 which is easily seen by noting that, for any fixed $i$, $\{M_i, M_{i \oplus 1}, \ldots, M_{i \oplus (n-1)}\}$ yields a valid POVM, and thus $\sum_{s=0}^{n-1} M_{i \oplus s} = \id$.
 
-We now prove a slightly weaker version of Theorem~\ref{thm:ch4_PBM-PGM}. \amnote{Is this the right place to put this proof?}
+We now prove a slightly weaker version of Theorem~\ref{thm:ch4_PBM-PGM}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Proof of a slightly weaker version of Theorem~\ref{thm:ch4_PBM-PGM}} \label{ss:ch4_PBM-thm_pf}
 
-Given the quantum states $\{\rho_1, \ldots, \rho_n\}$ and the probability distribution $(p_1, \ldots, p_n)$,  
+Given the quantum states $\{\rho_1, \ldots, \rho_n\}$ and the probability distribution $\{ p_1, \ldots, p_n \}$,  
 define $P = \sum_{i=1}^n p_i \rho_i$ and the POVM $\{G_1, \ldots, G_n\}$ where $G_i = P^{-1/2} \left( p_i \rho_i \right) P^{-1/2}$ as in Eq.~\eqref{eq:ch4_PBM-PGM_ops}. 
 Moreover, define the $n$-dimensional vector $r$ where 
 \begin{equation} 
@@ -228,7 +222,7 @@ Since $\alpha_0 = \PPGM$, as this is the no-offset success probability, we have 
 By combining with Theorem~\ref{thm:ch4_PBM-PGM}, we have our main result, below, which is the counterpart to the PGM bound, Theorem~\ref{thm:ch4_PBM-PGM}. 
 
 \begin{thm} \label{thm:ch4_PBM-PBM}
-For any set of states $\{ \rho_1, \ldots, \rho_n \}$ and probability distribution $(p_1, \ldots, p_n)$, we have 
+For any set of states $\{ \rho_1, \ldots, \rho_n \}$ and probability distribution $\{ p_1, \ldots, p_n \}$, we have 
 \begin{equation} 
 \PPBM \leq \frac{1}{n} - \frac{(1 - n \Pbest)^2}{n (n - 1)^2}. 
 \end{equation} 
@@ -248,9 +242,9 @@ As a consequence of our discussion so far, we have
 There is another way to interpret the PBM which is as the PGM \emph{in a different setting}.  
 For the set of states 
 $\{ \rho_1, \ldots, \rho_n \}$ with probabilities 
-$(p_1, \ldots, p_n)$, define a new problem instance 
+$\{ p_1, \ldots, p_n \}$, define a new problem instance 
 $\{ \wt{\rho}_1, \ldots, \wt{\rho}_n \}$ with probabilities 
-$(\wt{p}_1, \ldots, \wt{p}_n)$ 
+$\{ \wt{p}_1, \ldots, \wt{p}_n \}$ 
 where 
 \begin{equation} 
 \wt{\rho}_i 
@@ -401,7 +395,7 @@ We focus on these two concepts in the following example and graphs.
 
 As an example, we consider the case where Alice promises to send to Bob $7$ copies of the state $\rho = \ketbra{0}{0}$ but an anomaly occurs creating the state $\sigma = \ketbra{\psi}{\psi}$ where $\ket{\psi} = \gamma \ket{0} + \sqrt{1 - \gamma^2} \ket{1}$ for some fixed parameter $\gamma \in [0,1]$ known to both Alice and Bob. 
 FIG.~\ref{fig:ch4_PBM-anomaly_7} illustrates the probabilities $\Pbest$, $\PPGM$, $\PPBM$, $\Pworst$ and the blind guessing probability $1/n$, as a function of $\gamma$, below. 
-For anomaly detection, \cite{llorens2023quantum, skotiniotis2018identification} showed that PGM is indeed the optimal measurement. Moreover they provide a closed-form expression for the optimal success probability. Therefore, using Eq.~\eqref{eq:ch4_PBM-PGM_PBM} we also have an expression for $\PPBM$.
+For anomaly detection, \cite{llorens2024quantum, skotiniotis2018identification} showed that PGM is indeed the optimal measurement. Moreover they provide a closed-form expression for the optimal success probability. Therefore, using Eq.~\eqref{eq:ch4_PBM-PGM_PBM} we also have an expression for $\PPBM$.
 
 \begin{figure}[h]
     \centering

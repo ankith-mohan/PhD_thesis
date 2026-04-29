@@ -1,1 +1,21 @@
 \chapter{Conclusion}
+
+In this thesis, we have investigated several fundamental problems in quantum information theory, primarily focusing on the interplay between semidefinite programming and dimensionality reduction. 
+By exploiting the inherent structure of the problem, we have developed algorithms and theoretical frameworks that address the computational bottlenecks associated with the high-dimensional spaces.
+
+The first part of this work addressed the separability problem. 
+By introducing a hybrid quantum-classical heuristic, we demonstrated that the effective dimension of the optimization problem can be significantly reduced while maintaining feasibility guarantees. 
+Our results for the one-dimensional Ising Hamiltonian on up to 28 qubits illustrate that this approach can effectively approximate the separable ground energy, providing a scalable tool for characterizing entanglement in many-body systems.
+
+In the second part, we extended the concept of dimension reduction to quantum state discrimination. 
+We showed that the search for optimal measurements can be reduced from a problem scaling with the dimension $d$ of the space to one scaling with the number of candidate states $n$. 
+This $n \ell$ reduction framework is remarkably general, accommodating various figures of merit including minimum-error, unambiguous discrimination, and the state exclusion problem. 
+Our application to multi-changepoint detection highlights the practical utility of this reduction for problems that were previously computationally prohibitive.
+
+Finally, we explored structural measurement strategies for the state exclusion problem. 
+We introduced the pretty bad measurement (PBM) as a natural analogue to the pretty good measurement, proving its efficacy relative to blind guessing. 
+Furthermore, our characterization of Boolean property learning from quantum sequences established the global optimality of memoryless ``greedy'' strategies for affine functions. 
+This provides a clear boundary for when local measurements suffice and when joint measurements are fundamentally required to extract coarse-grained information from quantum data.
+
+In summary, the results presented here suggest that many ``hard'' problems in quantum information possess a hidden structure that can be exploited for efficient computation. 
+As quantum hardware continues to evolve, the hybrid workflows and dimension-reduction techniques developed in this thesis will likely play a crucial role in bridging the gap between theoretical protocols and practical implementation on near-term devices.

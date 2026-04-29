@@ -2,17 +2,31 @@
 
 The contents of this chapter are based on my work with Jamie Sikora and Sarvagya Upadhyay in \cite{mohan2023generalized}.
 
-\amnote{What do we do in this chapter?}
+This chapter develops a unifying framework on state discrimination tasks through a reward/penalty matrix that assigns a payoff to each possible measurement outcome conditioned on every possible state. 
+This framework both subsumes standard variants of state discrimination and enables objectives for cases where the states admit a certain ordering. 
+Thus near-misses can be partially rewarded, errors can be penalized asymmetrically, or inconclusive outcomes can carry explicit utility. 
+Once the discrimination task is expressed at the level of rewards, the remaining obstacle is computational: the naive semidefinite programming formulation scales with the dimension of the underlying quantum states and therefore becomes intractable for long sequences or many-qubit instances.
+
+Our main technical contribution is a dimension reduction that replaces the large operator-valued optimization with an equivalent program expressed solely in terms of the Gram matrix of the candidate states. 
+This reduction shifts the computational burden from the Hilbert space dimension to the number of states, which is often much smaller in structured discrimination problems. 
+Importantly, this viewpoint also aligns with scenarios in which we have access to efficiently preparable circuits for the states rather than classically stored descriptions. 
+In such settings, the Gram matrix can be estimated from quantum data using standard overlap-estimation primitives, enabling a hybrid quantum–classical workflow: quantum subroutines supply the inner-product information, and a classical SDP solver computes the optimal achievable reward and the corresponding measurement description in the reduced space.
+
+We illustrate the scope of this framework through the quantum changepoint identification problem, where the states correspond to different locations (and numbers) of changes in a quantum source. 
+Here the Gram-matrix structure induced by sequential data leads to substantial computational speedups, and also motivates additional symmetry-based heuristics that further accelerate optimization for long sequences. 
 
 This chapter is organized as follows:
 \begin{itemize}
     \item Section~\ref{sec:ch3_QSD-QSD}: We discuss the quantum state discrimination problem and some of its variants.
-    \item Section~\ref{sec:ch3_QSD-gen_frame}: We consider the generalized framework to study quantum state discrimination problems.
-    \item Section~\ref{sec:ch3_QSD-class}: We describe how this framework can be extended to the case of mixed states.
-    \item Section~\ref{sec:ch3_QSD-SDP_redn}: We discuss how the problem can be reduced to a semidefinite program of much smaller dimension.
+    \item Section~\ref{sec:ch3_QSD-gen_frame}: We consider a generalized framework for the state discrimination problem by considering a reward matrix and show these variants are subsumed by the framework.
+    We show how this can be extended to the case of mixed states.
+    \item Section~\ref{sec:ch3_QSD-SDP_redn}: We discuss how the dimension of the problem can be reduced.
+    \item Section~\ref{sec:ch3_QSD-appln}: As a concrete application, we consider the quantum changepoint identification problem.
+    We first describe the effect of reward functions on the identification of a single changepoint.
+    Then we discuss a heuristic to speedup calculations for large changepoint sequences and evaluate its performance for the case of multiple changepoints.
+    \item Section~\ref{sec:ch3_QSD-mQCP}: Next, we consider the general version of the quantum changepoint identification problem that considers at most $p$ changepoints and show how this can be expressed using the framework for the state discrimination problem and discuss heuristics for speedups.
+    \item Section~\ref{sec:ch3_QSD-expts}: We illustrate through numerical experiments the performance of our heuristic approach for some candidate set of states.
 \end{itemize}
-
-\amnote{Sections 4.4, 4.5, 4.6, 4.7 read and decide how to combine.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Quantum state discrimination} \label{sec:ch3_QSD-QSD}
@@ -124,7 +138,7 @@ We now briefly revisit each discrimination task and discuss how it is a special 
     \end{cases}.
 \end{align}
 Notice here that Bob is given a unit reward only when he is able to correctly identify the state he received, and gets no reward when he makes an error.
-Applying this reward scheme to Eq.~\eqref{eq:ch3_QSD-gen_QSD}, we can recover Eq.~\eqref{eq:ch3_QSD-ME}. 
+Applying this reward scheme to \eqref{eq:ch3_QSD-gen_QSD}, we can recover \eqref{eq:ch3_QSD-ME}. 
 
 \item \textbf{Minimum-error state exclusion}: 
 This is the case when $\ell = n$, and
@@ -136,7 +150,7 @@ This is the case when $\ell = n$, and
         1 &\text{otherwise}
     \end{cases}. 
 \end{align}
-Substituting this reward scheme in Eq.~\eqref{eq:ch3_QSD-gen_QSD} recovers Eq.~\eqref{eq:ch3_QSD-ME_SE}. 
+Substituting this reward scheme in \eqref{eq:ch3_QSD-gen_QSD} recovers \eqref{eq:ch3_QSD-ME_SE}. 
 
 \item \textbf{Unambiguous state discrimination}: 
 This is the case when $\ell = n+1$, with $i = n+1$ indicating an inconclusive measurement, and
@@ -151,7 +165,7 @@ This is the case when $\ell = n+1$, with $i = n+1$ indicating an inconclusive me
 \end{align} 
 Bob is awarded a unit reward when he correctly identifies his received state and is granted a penalty of $-\infty$ for all erroneous situations to ensure that such errors are not committed. 
 Also, he receives no reward (or penalty) for the inconclusive outcome $n+1$.  
-Using this reward scheme in Eq.~\eqref{eq:ch3_QSD-gen_QSD} gives us Eq.~\eqref{eq:ch3_QSD-UA}. 
+Using this reward scheme in \eqref{eq:ch3_QSD-gen_QSD} gives us \eqref{eq:ch3_QSD-UA}. 
 
 A variant of this scheme is 
 \begin{align}
@@ -195,7 +209,7 @@ By setting $\mu$ to be the \emph{closeness parameter}, a non-negative integer, a
     \end{cases}. 
 \end{align} 
 This gives a unit reward if one is close enough, and nothing otherwise.  
-By setting $\mu = 0$, we recover minimum error discrimination, Eq.~(\ref{eq:ch3_QSD-ME}). 
+By setting $\mu = 0$, we recover minimum error discrimination, \eqref{eq:ch3_QSD-ME}. 
 
 \item \textbf{The closer-the-better reward}: This is when one does not need to be exact to be correct, \emph{but closer is better}.  
 By setting $\gamma \in [0,1]$ to be some fixed reward, and $\ell = n$, define  
@@ -204,7 +218,7 @@ By setting $\gamma \in [0,1]$ to be some fixed reward, and $\ell = n$, define
     R_{ij} = \gamma^{|i-j|}. 
 \end{align} 
 This gives a greater reward the closer one is to correctly identifying the state. 
-By setting $\gamma = 0$, we recover minimum error discrimination, Eq.~(\ref{eq:ch3_QSD-ME}). 
+By setting $\gamma = 0$, we recover minimum error discrimination, \eqref{eq:ch3_QSD-ME}. 
 By setting $\gamma = 1$, we get the every-guess-is-a-winner reward. 
 
 \item \textbf{The high school exam reward}: This is when one is rewarded partial marks for saying ``I do not know''.  
@@ -251,7 +265,7 @@ Suppose that the spectral decomposition of the state $\rho_j$ is given by
     \rho_j = \sum_{k_j=1}^{r_j} \lambda_{jk_j} \ketbra{\psi_{jk_j}}{\psi_{jk_j}},
 \end{equation}
 where $r_j$ is the rank of the state $\rho_j$.
-Then the reward function in Eq.~\eqref{eq:ch3_QSD-gen_QSD} can be expressed as
+Then the reward function in \eqref{eq:ch3_QSD-gen_QSD} can be expressed as
 \begin{align}
     \sum_{i=1}^\ell \sum_{j=1}^n R_{ij} p_j \inner{M_i}{\rho_j} 
     &= \sum_{i=1}^\ell \sum_{j=1}^n R_{ij} p_j \inner{M_i}{\sum_{k_j=1}^{r_j} \lambda_{jk_j} \ketbra{\psi_{jk_j}}} \nonumber \\
@@ -318,7 +332,7 @@ More precisely, $\alpha = \alpha'$.
 
 \begin{proof}
 
-The optimal reward value of the generalized quantum state discrimination task, given in Eq.~\eqref{eq:ch3_QSD-gen_QSD2} can be formally described as the primal-dual pair, below 
+The optimal reward value of the generalized quantum state discrimination task, given in \eqref{eq:ch3_QSD-gen_QSD2} can be formally described as the primal-dual pair, below 
 \begin{equation}
 \begin{minipage}{.45\textwidth}
     \begin{equation*}
@@ -417,7 +431,7 @@ Since we can take a feasible $\{ M_1, \ldots, M_\ell \}$ and construct feasible 
 By strong duality, one can check that $\alpha' = \beta'$.
 All that remains to be proved is that $\alpha \geq \alpha'$.
 
-Suppose $\{ W_1, \dots, W_\ell \}$ is a feasible solution of the primal SDP in Eq.~\eqref{eq:ch3_QSD-M_W}.
+Suppose $\{ W_1, \dots, W_\ell \}$ is a feasible solution of the primal SDP in \eqref{eq:ch3_QSD-M_W}.
 If $\Psi = \sum_{i=1}^r \sigma_i \ketbra{\mu_i}{\nu_i}$ is the singular value decomposition of $\Psi$ where $r$ denotes its rank, then $\Psi^+ = \sum_{i=1}^r \sigma_i^{-1} \ketbra{\nu_i}{\mu_i}$ is the Moore-Penrose generalized inverse of $\Psi$.
 Define $M_i = (\Psi^+)^*\ W_i\ (\Psi^+) + \frac{1}{\ell} \left( \id - \Psi \Psi^+ \right)$ for each $i \in [\ell]$.
 Since $W_i \succeq 0$ and $\Psi \Psi^+ = \sum_{i=1}^r \ketbra{\mu_i}$ is a projection, we have that $M_i \succeq 0$ for each $i \in [\ell]$.
@@ -472,8 +486,6 @@ If I remember correctly: If in $\mathbb{C}^3$ we are given $\ket{\psi_1} = \ket{
 \end{comment}
 
 \subsubsection{Hybrid algorithm for the generalized discrimination problem}
-
-\amnote{This section is similar to the one in SEP}
 
 As mentioned above, if we had access to the inner products, we would be able to solve for the optimal reward function values (for any reward of our choosing).
 However, computing inner products of exponentially large vectors is expensive. 
@@ -533,7 +545,7 @@ As far as we are aware, general sensitivity analyses are not known for SDP algor
 As such, we leave this as an interesting open problem and rely simply on using machine-accurate estimations of such parameters.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Application}
+\section{Application}\label{sec:ch3_QSD-appln}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 We first discuss a problem that can be studied via quantum state discrimination and then apply our reduced SDPs discussed in Section~\ref{sec:ch3_QSD-SDP_redn} to several variants of this problem. 
@@ -569,7 +581,7 @@ In this paper, we make the same assumption, that we have the availability of qua
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{A single changepoint with varying reward functions}  
+\subsection{A single changepoint with varying reward functions}  \label{ss:ch3_QSD-1CP_vary}
 
 \paragraph{One changepoint, with horseshoe reward.}   
 
@@ -637,7 +649,7 @@ In this setting, we are able to easily compute the reward function for states up
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Heuristic: Speeding up computations for large changepoint sequences}  
+\subsection{Heuristic: Speeding up computations for large changepoint sequences} \label{ss:ch3_QSD-1CP_heu} 
 
 To speed-up the calculation of the optimal reward values for large sequences, we introduce a heuristic. 
 Roughly speaking, we add the constraint in the dual of the reduced problem that $X$ is Hermitian Toeplitz. 
@@ -675,7 +687,7 @@ The dual is given as $\beta'$ below and $\beta''$ is our heuristic.
 \end{equation} 
 
 
-By strong duality, the primal (Eq.~\eqref{eq:ch3_QSD-reducedprimal}) and the dual (Eq.~\eqref{eq:ch3_QSD-reduceddual}) have the same optimal value. 
+By strong duality, the primal \eqref{eq:ch3_QSD-reducedprimal} and the dual \eqref{eq:ch3_QSD-reduceddual} have the same optimal value. 
 
 Note that we justify this heuristic in the specific application of the quantum changepoint problem with one changepoint; there is no reason to believe it works well in general discrimination problems. 
 
@@ -683,9 +695,9 @@ Why this heuristic? Well, for one it reduces the number of free parameters in an
 But, this means nothing if it gives us bad approximations. 
 Indeed, it turns out that for large $n$, this heuristic turns out to both be a good approximation to the actual value as well as seeing an advantage in computation time. 
 In Figure~\ref{fig:ch3_QSD-beta'_beta''_pi_4_1CP_intro} we consider the case where Alice promises to send Bob $n$ copies of the state $\ket{0}$ but a mutation in her device led to the generation of the state $\ket{+}$ instead.
-The reduced SDP (Eq.~\eqref{eq:ch3_QSD-reduceddual}) and the heuristic (Eq.~\eqref{eq:ch3_QSD-reduceddual2}) are considered.
+The reduced SDP \eqref{eq:ch3_QSD-reduceddual} and the heuristic \eqref{eq:ch3_QSD-reduceddual2} are considered.
 We compare the absolute difference of their values as well as their runtimes respectively.
-For a sequence of length $220$, the error between the reduced SDP (Eq.~\eqref{eq:ch3_QSD-reduceddual}) and the heuristic (Eq.~\eqref{eq:ch3_QSD-reduceddual2}) is of the order of $10^{-3}$ and computing the heuristic (Eq.~\eqref{eq:ch3_QSD-reduceddual2}) is observed to be about \emph{seven} times faster than the reduced SDP (Eq.~\eqref{eq:ch3_QSD-reduceddual}).\footnote{In Figure~\ref{fig:ch3_QSD-beta'_beta''_pi_4_1CP_intro}, the subscript $1$ in $\beta_1'$ and $\beta_1''$ denote that we are considering one changepoint. We consider $2$ and $3$ changepoints in Appendix~\ref{app:heuristics}.} 
+For a sequence of length $220$, the error between the reduced SDP \eqref{eq:ch3_QSD-reduceddual} and the heuristic \eqref{eq:ch3_QSD-reduceddual2} is of the order of $10^{-3}$ and computing the heuristic \eqref{eq:ch3_QSD-reduceddual2} is observed to be about \emph{seven} times faster than the reduced SDP \eqref{eq:ch3_QSD-reduceddual}.\footnote{In Figure~\ref{fig:ch3_QSD-beta'_beta''_pi_4_1CP_intro}, the subscript $1$ in $\beta_1'$ and $\beta_1''$ denote that we are considering one changepoint. We consider $2$ and $3$ changepoints in Appendix~\ref{app:heuristics}.} 
 
 Section~\ref{sec:ch3_QSD-mQCP} describes the general case and provides a comparison with the results of~\cite{sentis2016quantum, sentis2017exact}. 
 
@@ -694,19 +706,19 @@ Section~\ref{sec:ch3_QSD-mQCP} describes the general case and provides a compari
     \begin{subfigure}[b]{0.495\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figs/ch3_QSD/betap_betapp_pi_4_1CP.pdf}
-        \caption{Absolute value of the difference between Eq.~\eqref{eq:ch3_QSD-reduceddual} and Eq.~\eqref{eq:ch3_QSD-reduceddual2}.}
+        \caption{Absolute value of the difference between \eqref{eq:ch3_QSD-reduceddual} and \eqref{eq:ch3_QSD-reduceddual2}.}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.495\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figs/ch3_QSD/betap_betapp_time_pi_4_1CP.pdf}
-        \caption{Runtimes of Eq.~\eqref{eq:ch3_QSD-reduceddual} and Eq.~\eqref{eq:ch3_QSD-reduceddual2}.}
+        \caption{Runtimes of \eqref{eq:ch3_QSD-reduceddual} and \eqref{eq:ch3_QSD-reduceddual2}.}
     \end{subfigure}
     \caption{
     Here we consider the sequences where the state $\ket{0}$ mutated to the state $\ket{+}$. 
-    Using the closer-the-better reward scheme with $\gamma = 1/2$, we see the error between the heuristic (Eq.~\eqref{eq:ch3_QSD-reduceddual2}) and the reduced SDP (Eq.~\eqref{eq:ch3_QSD-reduceddual}) (on the left), and the runtimes of both Eq.~\eqref{eq:ch3_QSD-reduceddual} and Eq.~\eqref{eq:ch3_QSD-reduceddual2} (on the right).
-    Observe that the difference between Eq.~\eqref{eq:ch3_QSD-reduceddual} and Eq.~\eqref{eq:ch3_QSD-reduceddual2} decreases rapidly approaching $10^{-3}$ at $N = 220$ (on the left).
-    Although there seems to be no advantage, in terms of time, in computing Eq.~\eqref{eq:ch3_QSD-reduceddual2} for sequences up to length $80$, we observe that computing Eq.~\eqref{eq:ch3_QSD-reduceddual2} is roughly \emph{seven} times faster than calculating Eq.~\eqref{eq:ch3_QSD-reduceddual} for larger values of $N$.
+    Using the closer-the-better reward scheme with $\gamma = 1/2$, we see the error between the heuristic \eqref{eq:ch3_QSD-reduceddual2} and the reduced SDP \eqref{eq:ch3_QSD-reduceddual} (on the left), and the runtimes of both \eqref{eq:ch3_QSD-reduceddual} and \eqref{eq:ch3_QSD-reduceddual2} (on the right).
+    Observe that the difference between \eqref{eq:ch3_QSD-reduceddual} and \eqref{eq:ch3_QSD-reduceddual2} decreases rapidly approaching $10^{-3}$ at $N = 220$ (on the left).
+    Although there seems to be no advantage, in terms of time, in computing \eqref{eq:ch3_QSD-reduceddual2} for sequences up to length $80$, we observe that computing \eqref{eq:ch3_QSD-reduceddual2} is roughly \emph{seven} times faster than calculating \eqref{eq:ch3_QSD-reduceddual} for larger values of $N$.
     }
     \label{fig:ch3_QSD-beta'_beta''_pi_4_1CP_intro}
 \end{figure}
@@ -714,10 +726,10 @@ Section~\ref{sec:ch3_QSD-mQCP} describes the general case and provides a compari
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Multiple changepoint problem}  
+\subsection{Multiple changepoint problem} \label{ss:ch3_QSD-MCP} 
 
 We now consider the scenario where Alice promises $n$ copies of the state $\ket{0}$, but there are a total of three changepoints; starting from $\ket{0}$ and eventually possibly changing to $\ket{+}$, to $\ket{1}$, and to $-\ket{-}$, in that order.
-Figure~\ref{fig:ch3_QSD-beta'_beta''_pi_4_3CP} (a) and Figure~\ref{fig:ch3_QSD-beta'_beta''_pi_4_3CP} (b) compare the error and their runtimes of the reduced dual (Eq.~\eqref{eq:ch3_QSD-reduceddual}) and the heuristic (Eq.~\eqref{eq:ch3_QSD-T_3CP}) respectively.
+Figure~\ref{fig:ch3_QSD-beta'_beta''_pi_4_3CP} (a) and Figure~\ref{fig:ch3_QSD-beta'_beta''_pi_4_3CP} (b) compare the error and their runtimes of the reduced dual \eqref{eq:ch3_QSD-reduceddual} and the heuristic \eqref{eq:ch3_QSD-T_3CP} respectively.
 These examples and more are described in further detail in Section~\ref{sec:ch3_QSD-expts}.
 
 \begin{figure}[h]
@@ -725,23 +737,23 @@ These examples and more are described in further detail in Section~\ref{sec:ch3_
     \begin{subfigure}[b]{0.495\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figs/ch3_QSD/betap_betapp_pi_4_3CP.pdf}
-        \caption{Absolute value of the difference between Eq.~\eqref{eq:ch3_QSD-reduceddual} and Eq.~\eqref{eq:ch3_QSD-T_3CP}.}
+        \caption{Absolute value of the difference between \eqref{eq:ch3_QSD-reduceddual} and \eqref{eq:ch3_QSD-T_3CP}.}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.495\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figs/ch3_QSD/betap_betapp_time_pi_4_3CP.pdf}
-        \caption{Runtimes of Eq.~\eqref{eq:ch3_QSD-reduceddual} and Eq.~\eqref{eq:ch3_QSD-T_3CP}.}
+        \caption{Runtimes of \eqref{eq:ch3_QSD-reduceddual} and \eqref{eq:ch3_QSD-T_3CP}.}
     \end{subfigure}
     \caption{
     We examine the sequences with three changepoints, each of $N$ states, starting at $\ket{0}$, then mutating to $\ket{+}$, to $\ket{1}$ and $-\ket{-}$, in that order.
     Here we consider a closer-the-better reward structure (discussed in Section~\ref{sec:ch3_QSD-expts}).
-    Under this reward scheme, we see the error (on the left) and the runtime (on the right) of both Eq.~\eqref{eq:ch3_QSD-reduceddual} and the heuristic (Eq.~\eqref{eq:ch3_QSD-T_3CP}, discussed in Section~\ref{sec:ch3_QSD-expts}).
-    We would like to note that the SDP variable size to solve Eq.~\eqref{eq:ch3_QSD-reduceddual} is of size $\Ocomp(N^3)$.
+    Under this reward scheme, we see the error (on the left) and the runtime (on the right) of both \eqref{eq:ch3_QSD-reduceddual} and the heuristic (\eqref{eq:ch3_QSD-T_3CP}, discussed in Section~\ref{sec:ch3_QSD-expts}).
+    We would like to note that the SDP variable size to solve \eqref{eq:ch3_QSD-reduceddual} is of size $\Ocomp(N^3)$.
     There is an error of roughly $0.083$ for the sequence of length $12$.
-    At this sequence length, Eq.~\eqref{eq:ch3_QSD-T_3CP} is about \emph{ten} times faster than Eq.~\eqref{eq:ch3_QSD-reduceddual}.
+    At this sequence length, \eqref{eq:ch3_QSD-T_3CP} is about \emph{ten} times faster than \eqref{eq:ch3_QSD-reduceddual}.
     We suspect that for a larger sequence, we will observe a behavior similar to Figure~\ref{fig:ch3_QSD-beta'_beta''_pi_4_1CP_intro} (a).
-    However since it takes roughly $18$ hours to compute Eq.~\eqref{eq:ch3_QSD-reduceddual} for $N = 10$, we are unable to easily test for larger sequences of $N$.
+    However since it takes roughly $18$ hours to compute \eqref{eq:ch3_QSD-reduceddual} for $N = 10$, we are unable to easily test for larger sequences of $N$.
     }
     \label{fig:ch3_QSD-beta'_beta''_pi_4_3CP_intro}
 \end{figure} 
@@ -804,7 +816,7 @@ Therefore, Bob must now consider the states
     \ket{\tau_{c_1, \cdots, c_p}} = \ket{\psi}^{\otimes c_1}\ \otimes\ \ket{\phi_1}^{\otimes (c_2 - c_1)}\ \otimes\ \cdots\ \otimes\ \ket{\phi_{P-1}}^{\otimes (c_p - c_{p-1})}\ \otimes\ \ket{\phi_p}^{\otimes (N - c_p)}.
 \end{align}
 
-The primal-dual pair in Eq.~(\ref{prog:ch3_QSD-P_D}) can be expressed as 
+The primal-dual pair in \eqref{prog:ch3_QSD-P_D} can be expressed as 
 \begin{equation}
 \begin{minipage}{.5\textwidth}
     \begin{equation*}
@@ -1152,13 +1164,13 @@ Without this reduction, solving~\eqref{eq:ch3_QSD-gen_QSD2} involves finding ope
     \begin{subfigure}[b]{0.495\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figs/ch3_QSD/betap_betapp_time_pi_4_1CP.pdf}
-        \caption{Runtimes of Eq.~\eqref{eq:ch3_QSD-reduceddual} and Eq.~\eqref{eq:ch3_QSD-reduceddual2}.}
+        \caption{Runtimes of~\eqref{eq:ch3_QSD-reduceddual} and~\eqref{eq:ch3_QSD-reduceddual2}.}
     \end{subfigure}
     \caption{
     Here we consider the sequences where the state $\ket{0}$ mutated to the state $\ket{+}$. 
-    Using the closer-the-better reward scheme with $\gamma = 1/\sqrt{2}$, we see the error between the heuristic (Eq.~\eqref{eq:ch3_QSD-reduceddual2}) and the reduced SDP (Eq.~\eqref{eq:ch3_QSD-reduceddual}) (on the left), and the runtimes of both Eq.~\eqref{eq:ch3_QSD-reduceddual} and Eq.~\eqref{eq:ch3_QSD-reduceddual2} (on the right).
-    Observe that the difference between Eq.~\eqref{eq:ch3_QSD-reduceddual} and Eq.~\eqref{eq:ch3_QSD-reduceddual2} decreases rapidly approaching $10^{-3}$ at $N = 220$ (on the left).
-    Although there seems to be no advantage, in terms of time, in computing Eq.~\eqref{eq:ch3_QSD-reduceddual2} for sequences up to length $80$, we observe that computing Eq.~\eqref{eq:ch3_QSD-reduceddual2} is roughly \emph{seven} times faster than calculating Eq.~\eqref{eq:ch3_QSD-reduceddual} for larger values of $N$.
+    Using the closer-the-better reward scheme with $\gamma = 1/\sqrt{2}$, we see the error between the heuristic \eqref{eq:ch3_QSD-reduceddual2} and the reduced SDP \eqref{eq:ch3_QSD-reduceddual} (on the left), and the runtimes of both \eqref{eq:ch3_QSD-reduceddual} and \eqref{eq:ch3_QSD-reduceddual2} (on the right).
+    Observe that the difference between \eqref{eq:ch3_QSD-reduceddual} and \eqref{eq:ch3_QSD-reduceddual2} decreases rapidly approaching $10^{-3}$ at $N = 220$ (on the left).
+    Although there seems to be no advantage, in terms of time, in computing \eqref{eq:ch3_QSD-reduceddual2} for sequences up to length $80$, we observe that computing \eqref{eq:ch3_QSD-reduceddual2} is roughly \emph{seven} times faster than calculating \eqref{eq:ch3_QSD-reduceddual} for larger values of $N$.
     }
     \label{fig:ch3_QSD-beta'_beta''_pi_4_1CP}
 \end{figure}

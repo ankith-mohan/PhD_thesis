@@ -1,1 +1,35 @@
-\lipsum [1]
+% Introduction
+
+Many fundamental problems in quantum information theory can be formulated as optimization tasks over quantum states and measurements. 
+While the convex structure of quantum theory enables powerful semidefinite programming (SDP) formulations, two major challenges persist: the NP-hardness of structural constraints such as separability and the exponential growth of Hilbert space dimension with system size. 
+This thesis discusses dimensionality reduction techniques to address these obstacles across several core problems in quantum information.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Separability problem
+
+We first study optimization over separable quantum states. 
+Separability testing is NP-hard and standard SDP hierarchies typically suffer from the curse of dimensionality. 
+We introduce a hybrid algorithm that leverages a quantum co-processor to reduce the effective dimension of the problem. 
+Unlike several other approaches, our method is guaranteed to always produce a feasible separable state. 
+We apply this framework to approximate the minimum separable energy of many-body Hamiltonians, thereby defining an entanglement measure for their ground spaces, and demonstrate numerical scalability to systems of up to $28$ qubits.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% State discrimination
+
+We next develop a general dimension-reduction framework for the quantum state discrimination problem. 
+By considering optimal discrimination as an SDP with a reward matrix and exploiting structural symmetries, we reduce the dimension of the problem from $d \ell$ to $N \ell$, where $d$ is the Hilbert space dimension, $N$ the number of candidate states, and $\ell$ the number of possible guesses. 
+The framework applies to pure as well as mixed ensembles and to general reward structures, encompassing minimum-error discrimination, unambiguous discrimination, and exclusion among others.
+We show how a hybrid algorithm can be used to construct the reduced SDP directly from quantum data.
+As an application, we characterize optimal success probabilities in quantum changepoint problems, including the case where we have multiple changepoints which was previously computationally inaccessible.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Pretty bad measurements and Boolean function from quantum sequence
+
+We also analyze structural measurement strategies. 
+As a counterpart to the well-known pretty good measurement for minimum error discrimination, we introduce the pretty bad measurement for the exclusion variant, and prove that both are guaranteed to perform at least as well as blind guessing in their respective objectives. 
+Finally, we consider evaluating Boolean functions under severe memory constraints and prove that a simple local ``greedy'' measurement strategy is globally optimal precisely for affine Boolean functions, while more generally achieving at least the square of the optimal global success probability.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Conclusion
+
+Together, these results demonstrate that high-dimensional quantum optimization problems often admit hidden structure enabling dimension reduction, hybrid computation, and provable approximation guarantees.

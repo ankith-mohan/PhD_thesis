@@ -2,21 +2,26 @@
 
 The contents of this chapter is based on my work with Tobias Haug, Kishor Bharti and Jamie Sikora in \cite{mohan2025quantum}.
 
-\amnote{Highlight of this chapter: In this chapter we address the separability problem and heuristic for large separable operators. Finish this based on the intro.}
+In this chapter, we develop a dimension-reduction framework for optimizing over separable operators that preserves feasibility while extending the size of problem being considered. 
+The central idea is to restrict the search to carefully chosen low-dimensional ansatz subspaces, solve a reduced separable optimization problem, and then lift the resulting solution back to the original space. 
+This produces an inner approximation of the original problem and therefore guarantees valid separable solutions. 
+To construct the reduced problem in regimes where the full operator cannot be explicitly represented, we leverage a quantum co-processor to estimate the data required for the reduction.
+
+We demonstrate the effectiveness of this approach by applying it to the problem of approximating separable ground energies of Ising Hamiltonians. 
+This application allows us to introduce a normalized measure quantifying how close separable states can approach the true ground energy and to study how entanglement manifests across system sizes. 
+Numerical experiments illustrate both the accuracy of the proposed heuristic and its ability to scale beyond the limits of direct classical computation.
 
 This chapter is organized as follows.
 \begin{itemize}
     \item Section~\ref{sec:ch2_SEP-small_SEP}: We study optimization-based algorithms for solving (small) separability problems and examine numerically how well they perform.
+    \item Section~\ref{sec:ch2_SEP-big_sep}: We now shift our focus to large separability problems whose classical descriptions could involve exponentially large vectors and matrices.
+    To combat this curse of dimensionality, we introduce our quantum heuristics for reducing the dimension to optimize over both separable operators and separable states.
+    We also discuss how a quantum co-processor is used to compute the data for the reduced optimization problem.
+    \item Section~\ref{sec:ch2_SEP-Hammy_intro}: As a concrete application, we apply the heuristic to find separable ground states of Hamiltonians.
+    We first introduce a measure of entanglement in the groundspace of the Hamiltonian and then discuss how the ansatz states are chosen and evaluate the performance of our heuristic as we modify this number.
+    For the Ising Hamiltonian, we compare the ground energy, separable ground energy, and their approximations.
     \item Section~\ref{sec:ch2_SEP-SEP_related}: We discuss related work that deals with optimizing over separable states and those specific to Hamiltonians. 
     This section is followed with a brief discussion of how our algorithms compare to these works.
-    \item Section~\ref{sec:ch2_SEP-big_sep}: We introduce our quantum heuristics for reducing the dimension to optimize over both separable operators and separable states.
-    \item Section~\ref{ss:ch2_SEP-sep_ops}: We describe the heuristic for optimizing over separable operators.
-    \item Section~\ref{ss:ch2_SEP-sep_states}: We consider the case of optimizing over separable states.
-    \item Section~\ref{ss:ch2_SEP-q_co_proc}: We discuss how the quantum co-processor is used to compute the data for the reduced optimization problem.
-    \item Section~\ref{sec:ch2_SEP-Hammy_intro}: As a concrete application, we apply the heuristic to find separable ground states of Hamiltonians.
-    \item Section~\ref{ss:ch2_SEP-measure}: We introduce a measure of entanglement in the groundspace of the Hamiltonian.
-    \item Section~\ref{ss:ch2_SEP-vary_ansatz}: We discuss how the ansatz states are chosen and evaluate the performance of our heuristic as we modify the ansatz.
-    \item Section~\ref{ss:ch2_SEP-ground_energy_Ising}: For the Ising Hamiltonian, we compare the ground energy, separable ground energy, and their approximations.
 \end{itemize}
 \begin{comment}
 Sections~\ref{sec:ch2_SEP-SEP_related} and~\ref{sec:ch2_sep-Hammy_related} discuss related work for optimizing over separable states and those specific to Hamiltonians.
@@ -91,7 +96,7 @@ We consider three choices of initial states in this work, the maximally mixed st
 
 An important aspect of the see-saw algorithm is that it gives a feasible solution, in the sense that $\hat{\rho} \otimes \hat{\sigma}$ is always separable. 
 Thus, this gives us a \emph{lower bound} on the optimal value and a corresponding feasible solution. 
-We note that many SDP-based algorithms for approximating the separable set are \emph{outer approximations} which do not always have this feature of yielding a feasible solution (such as the PPT criterion~\cite{horodecki1996necessary, peres1996separability}, symmetric extensions~\cite{doherty2002SymExt, chen2014symmetric, li2019symmetric}, and the realignment criterion~\cite{chen2003matrix}). 
+We note that many SDP-based algorithms for approximating the separable set are \emph{outer approximations} which do not always have this feature of yielding a feasible solution (such as the PPT criterion~\cite{horodecki1996necessary, peres1996separability}, symmetric extensions~\cite{doherty2002SymExt, chen2014symmetric, li2019symmetric}, and the realignment criterion~\cite{chen2003matrix} (refer Chapter~\ref{ch:introduction})). 
 Therefore, this is a nice feature of the see-saw algorithm. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -157,56 +162,6 @@ Since the see-saw algorithm is seen to be effective both in terms of performance
 
 \paragraph{Data.}   
 The data collected from these numerical experiments is hosted on an interactive web application \url{https://ankith-mohan.shinyapps.io/SEP_app}. 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Related work for optimizing over separable states} \label{sec:ch2_SEP-SEP_related} 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-An algorithm was proposed in \cite{brandao2011quasipolynomial} that solves the optimization problem~(\ref{eq:ch2_SEP-Sep_opt}) in time 
-\begin{equation} 
-\exp(\Ocomp(\delta^{-2}\ \log(\dim \A)\ \log(\dim \B)\ \| C \|_F^2)), 
-\end{equation} 
-for additive error $\delta$ which is based on \emph{symmetric extensions} introduced in~\cite{doherty2002SymExt}. 
-Another approach that combines KKT conditions with symmetric extensions was studied in~\cite{harrow2017improved}. 
-In \cite{shi2015epsilon}, the authors propose a quasi-polynomial time algorithm which takes as input the Hermitian matrix $C$ and its decomposition $C = \sum_{i=1}^M C_i^1 \otimes C_i^2$ for small $M$.
-Then optimizing over product states $\inner{\rho \otimes \sigma}{C}$ becomes $\sum_{i=1}^M \inner{\rho}{C_i^1} \inner{\sigma}{C_i^2}$. 
-By modifying the construction of $\varepsilon$-nets~\cite[Definition 1]{shi2015epsilon} using the multiplicative matrix weights (MMW) update method~\cite{arora2012multiplicative}, we can enumerate all possible values of $\inner{C_i^1}{\rho}$ for all values of $i$. 
-Thus the problem can be solved efficiently when $M$ is small. 
-Moreover, when $C$ is positive semidefinite, they propose another algorithm which combines this $\varepsilon$-net approach with Schmidt decompositions to approximate the optimal value of problem~(\ref{eq:ch2_SEP-Sep_opt})  
-in time 
-\begin{equation} 
-\exp(\Ocomp(\log(d) + \delta^{-2} \|C\|_F^2 \ln(\|C\|_F/\delta)))  
-\end{equation} 
-where $d = \dim(\A) = \dim(\B)$.  
-There are also several variational approaches to solving this problem~\cite{consiglio2022variational, philip2024schrodinger}. 
-
-\paragraph{Comparisons to our algorithm.} 
-One issue that still arises in working with the hierarchy of symmetric extensions, or other popular outer approximations to $\Sep$ (such as PPT (Positive-Partial Transpose) operators), is the curse of dimensionality. 
-The sizes of the variables in the semidefinite programs still scale exponentially, and this problem is only exacerbated at higher levels. 
-While these algorithms are great in general, their size is still an issue, especially with current numerical solvers.  
-We do note that these algorithms, as well as others, can be combined with our dimension-reducing quantum heuristics though. 
-
-Our approach has some similarities to \cite{shi2015epsilon}. 
-We look at general $C$ matrices as well as those that can be decomposed as a sum of tensor products. 
-While their approach uses MMW, we use dimension-reduction techniques to get the size of the problem smaller, then generalized eigensolvers, see Section~\ref{sec:ch2_SEP-small_SEP}. 
-Thus, the approaches are complimentary in this setting. 
-We do note that since our approach is heuristics-based, it can be used in general settings, sometimes even when the size of $C$ is exponentially large, as discussed in Section~\ref{sec:ch2_SEP-big_sep}. 
-
-Comparing to the previously-mentioned variational algorithms, our algorithm promises to give feasible solutions whereas this is not always the case in  variational algorithms. 
-This could be an important feature, depending on the application.
-Unlike variational algorithms, our approach does not involve the optimization of parameters in any parametric quantum circuit, thereby circumventing the barren plateau problem~\cite{mcclean2018barren} by design. Furthermore, the absence of a classical-quantum feedback loop, characteristic of Variational Quantum Algorithms, significantly reduces the overhead associated with quantum measurements.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection{Related work for optimizing over separable ground states of Hamiltonians} \label{ss:ch2_SEP-Hammy_related}
-
-The mean-field method is a powerful class of approximations for complex interacting Hamiltonians, reducing them to effective one-body problems that are easier to analyze. A prominent example is the Hartree-Fock approach for fermionic Hamiltonians, which simplifies the interaction terms to one-body fermionic operators~\cite{google2020hartree}. The core idea is to replace the original Hamiltonian 
-$H$ with a simpler, mean-field Hamiltonian $H_{\text{MF}}$. By construction, the ground state of $H_{\text{MF}}$ is a separable state (i.e., a product state of single-particle wave functions). 
-A folklore result is that the computation of the ground-state energy of a mean-field Hamiltonian $H$ is equivalent to solving a problem of the form (\ref{eq:ch2_SEP-Sep_opt}). 
-However, the mean-field ansatz is highly constrained. This assumed separability (often defined in a specific, potentially non-local basis corresponding to the particle wave functions) means that the ground state of the mean-field Hamiltonian frequently lacks important correlations present in the true ground state, potentially rendering it an inadequate approximation.
-
-\paragraph{Comparisons to our algorithm.} 
-Our algorithm is distinct from the mean-field approach in a crucial way. The mean-field method first approximates the Hamiltonian to get $H_{\text{MF}}$ and then finds its exact (separable) ground state. In contrast, our approach directly finds an approximate separable ground state for the original Hamiltonian $H$. The separable states obtained by these two different methods are generally not the same. Our method's flexibility stems from an ansatz that can systematically incorporate higher-order terms, which are explicitly neglected in standard mean-field and Hartree-Fock approximations. In fact, our approach can be built directly on top of these methods. For instance, the Hartree-Fock ground state can serve as the initial reference state for our heuristic, which can then be improved by including higher-order Pauli terms that go beyond the mean-field limitations.
       
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Reducing the dimension of separability problems via a quantum co-processor}\label{sec:ch2_SEP-big_sep} 
@@ -316,9 +271,7 @@ This can be a considerably smaller optimization over separable states and, again
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Calculating the data of the reduced problems with a quantum co-processor} \label{ss:ch2_SEP-q_co_proc}   
-
-\amnote{This section is common between SEP and QSD.}
+\subsection{Calculating the data of the reduced problems with a quantum co-processor} \label{ss:ch2_SEP-q_co_proc}
  
 One immediate concern arises when one wishes to compute $\tilde{D}$. 
 This involves computing matrix operations on possibly huge vectors, which may not be possible on a classical computer. 
@@ -370,33 +323,7 @@ Then, each entry of the matrix $D$ can be expressed as
 D_{i,j,k,l} = \bra{\psi} \bra{\phi} \left( \sum_{m} (P^A_i \otimes P^B_k) P_m (P^A_j \otimes P^B_l) \right) \ket{\psi} \ket{\phi} = \bra{\psi} \bra{\phi} P \ket{\psi} \ket{\phi}, 
 \end{equation} 
 where $P$ is simply a sum of Pauli strings (with $\{\pm 1, \pm i\}$ coefficients). 
-So calculating $D_{i,j,k,l}$ is equivalent to computing the expectation value of a Pauli string with respect to the state $\ket{\psi}\ket{\phi}$, which can be done efficiently as long as $\ket{\psi}\ket{\phi}$ are efficiently preparable as discussed above and we have access to Pauli gates.  
-
-\amnote{Adapt this figure for the SEP case.}
-
-Figure~\ref{fig:ch2_SEP-flow_chart} depicts this hybrid algorithm.
-\begin{figure}[ht]
-    \centering
-    \begin{tikzpicture}[node distance=3.5cm]
-        % nodes
-        \node (U) [startstop] {Preparation unitaries};
-        \node (ip) [process, right of=U] {Compute inner products};
-        \node (G) [startstop, right of=ip] {Gram matrix $G$};
-        \node (SDP) [process, right of=G] {Reduced SDP};
-        \node (R) [startstop, right of=SDP] {Reward matrix $R$};
-        \node (q) [startstop, above of=SDP] {Apriori probability vector $q$};
-        \node (p) [process, below of=SDP] {Optimal guessing probability};
-        %edges
-        \draw [arrow] (U) -- (ip);
-        \draw [arrow] (ip) -- (G);
-        \draw [arrow] (G) -- (SDP);
-        \draw [arrow] (R) -- (SDP);
-        \draw [arrow] (q) -- (SDP);
-        \draw [arrow] (SDP) -- (p);
-    \end{tikzpicture}
-    \caption{A visual representation of the hybrid algorithm.}
-    \label{fig:ch2_SEP-flow_chart}
-\end{figure}
+So calculating $D_{i,j,k,l}$ is equivalent to computing the expectation value of a Pauli string with respect to the state $\ket{\psi}\ket{\phi}$, which can be done efficiently as long as $\ket{\psi}\ket{\phi}$ are efficiently preparable as discussed above and we have access to Pauli gates.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -643,9 +570,63 @@ When $N \geq 13$, the computation of our inner approximation $\hat{\alpha}$ (wit
 However, the approximation $\hat{\alpha}_L$ is still able to be calculated, and we do so for the largest possible $L$ for each number of qubits. 
 Also, $\lambda_{\max}$ can be computed up to $N = 12$, noting that this is a $2N$-qubit Hamiltonian and thus  
 this computation involves computing the eigenvalue of a $2^{24} \times 2^{24}$ matrix. 
-Despite the sparsity of $H_{\mathrm{Ising}}$, for values of $N \geq 13$, we are unable to compute the value of $\lambda_{\max}$ because the size of the Hamiltonian exceeds the available memory ($32$ GB, as described in the next section).  
+Despite the sparsity of $H_{\mathrm{Ising}}$, for values of $N \geq 13$, we are unable to compute the value of $\lambda_{\max}$ because the size of the Hamiltonian exceeds the available memory ($32$ GB, as described below).  
 
 At $N = 15$, the size of each of the $K_m$ and $L_m$ matrices exceeds the available memory. 
+
+\subsection*{Computational platform}\label{sec:ch2_SEP-platform}
+
+All computations were performed on a $32$ GB $10$th Generation Intel Core i$9$-$10885$H CPU ($16$ MB cache, $2.40$ GHz, $8$ cores).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Related work for optimizing over separable states} \label{sec:ch2_SEP-SEP_related} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+An algorithm was proposed in \cite{brandao2011quasipolynomial} that solves the optimization problem~(\ref{eq:ch2_SEP-Sep_opt}) in time 
+\begin{equation} 
+\exp(\Ocomp(\delta^{-2}\ \log(\dim \A)\ \log(\dim \B)\ \| C \|_F^2)), 
+\end{equation} 
+for additive error $\delta$ which is based on \emph{symmetric extensions} introduced in~\cite{doherty2002SymExt}. 
+Another approach that combines KKT conditions with symmetric extensions was studied in~\cite{harrow2017improved}. 
+In \cite{shi2015epsilon}, the authors propose a quasi-polynomial time algorithm which takes as input the Hermitian matrix $C$ and its decomposition $C = \sum_{i=1}^M C_i^1 \otimes C_i^2$ for small $M$.
+Then optimizing over product states $\inner{\rho \otimes \sigma}{C}$ becomes $\sum_{i=1}^M \inner{\rho}{C_i^1} \inner{\sigma}{C_i^2}$. 
+By modifying the construction of $\varepsilon$-nets~\cite[Definition 1]{shi2015epsilon} using the multiplicative matrix weights (MMW) update method~\cite{arora2012multiplicative}, we can enumerate all possible values of $\inner{C_i^1}{\rho}$ for all values of $i$. 
+Thus the problem can be solved efficiently when $M$ is small. 
+Moreover, when $C$ is positive semidefinite, they propose another algorithm which combines this $\varepsilon$-net approach with Schmidt decompositions to approximate the optimal value of problem~(\ref{eq:ch2_SEP-Sep_opt})  
+in time 
+\begin{equation} 
+\exp(\Ocomp(\log(d) + \delta^{-2} \|C\|_F^2 \ln(\|C\|_F/\delta)))  
+\end{equation} 
+where $d = \dim(\A) = \dim(\B)$.  
+There are also several variational approaches to solving this problem~\cite{consiglio2022variational, philip2024schrodinger}. 
+
+\paragraph{Comparisons to our algorithm.} 
+One issue that still arises in working with the hierarchy of symmetric extensions, or other popular outer approximations to $\Sep$ (such as PPT (Positive-Partial Transpose) operators), is the curse of dimensionality. 
+The sizes of the variables in the semidefinite programs still scale exponentially, and this problem is only exacerbated at higher levels. 
+While these algorithms are great in general, their size is still an issue, especially with current numerical solvers.  
+We do note that these algorithms, as well as others, can be combined with our dimension-reducing quantum heuristics though. 
+
+Our approach has some similarities to \cite{shi2015epsilon}. 
+We look at general $C$ matrices as well as those that can be decomposed as a sum of tensor products. 
+While their approach uses MMW, we use dimension-reduction techniques to get the size of the problem smaller, then generalized eigensolvers, see Section~\ref{sec:ch2_SEP-small_SEP}. 
+Thus, the approaches are complimentary in this setting. 
+We do note that since our approach is heuristics-based, it can be used in general settings, sometimes even when the size of $C$ is exponentially large, as discussed in Section~\ref{sec:ch2_SEP-big_sep}. 
+
+Comparing to the previously-mentioned variational algorithms, our algorithm promises to give feasible solutions whereas this is not always the case in  variational algorithms. 
+This could be an important feature, depending on the application.
+Unlike variational algorithms, our approach does not involve the optimization of parameters in any parametric quantum circuit, thereby circumventing the barren plateau problem~\cite{mcclean2018barren} by design. Furthermore, the absence of a classical-quantum feedback loop, characteristic of Variational Quantum Algorithms, significantly reduces the overhead associated with quantum measurements.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Related work for optimizing over separable ground states of Hamiltonians} \label{ss:ch2_SEP-Hammy_related}
+
+The mean-field method is a powerful class of approximations for complex interacting Hamiltonians, reducing them to effective one-body problems that are easier to analyze. A prominent example is the Hartree-Fock approach for fermionic Hamiltonians, which simplifies the interaction terms to one-body fermionic operators~\cite{google2020hartree}. The core idea is to replace the original Hamiltonian 
+$H$ with a simpler, mean-field Hamiltonian $H_{\text{MF}}$. By construction, the ground state of $H_{\text{MF}}$ is a separable state (i.e., a product state of single-particle wave functions). 
+A folklore result is that the computation of the ground-state energy of a mean-field Hamiltonian $H$ is equivalent to solving a problem of the form (\ref{eq:ch2_SEP-Sep_opt}). 
+However, the mean-field ansatz is highly constrained. This assumed separability (often defined in a specific, potentially non-local basis corresponding to the particle wave functions) means that the ground state of the mean-field Hamiltonian frequently lacks important correlations present in the true ground state, potentially rendering it an inadequate approximation.
+
+\paragraph{Comparisons to our algorithm.} 
+Our algorithm is distinct from the mean-field approach in a crucial way. The mean-field method first approximates the Hamiltonian to get $H_{\text{MF}}$ and then finds its exact (separable) ground state. In contrast, our approach directly finds an approximate separable ground state for the original Hamiltonian $H$. The separable states obtained by these two different methods are generally not the same. Our method's flexibility stems from an ansatz that can systematically incorporate higher-order terms, which are explicitly neglected in standard mean-field and Hartree-Fock approximations. In fact, our approach can be built directly on top of these methods. For instance, the Hartree-Fock ground state can serve as the initial reference state for our heuristic, which can then be improved by including higher-order Pauli terms that go beyond the mean-field limitations.
 
 \begin{comment}
 \section{Conclusions} 
@@ -656,11 +637,6 @@ By exploiting the structure of the one-dimensional Ising Hamiltonian, we  were a
 
 Future work can extend our methods to calculate the dynamical evolution under Hamiltonians~\cite{bharti2021quantum,haug2022generalized,lau2022nisq} as well as include the effect of symmetries to reduce problem sizes~\cite{bharti2022noisy}. 
 \end{comment}
-
- 
-\subsection*{Computational platform}\label{sec:ch2_SEP-platform}
-
-All computations were performed on a $32$ GB $10$th Generation Intel Core i$9$-$10885$H CPU ($16$ MB cache, $2.40$ GHz, $8$ cores).
 
 \begin{comment}
 \subsection*{Acknowledgements} 
