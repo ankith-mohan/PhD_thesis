@@ -16,11 +16,12 @@ We apply this framework to approximate the minimum separable energy of many-body
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % State discrimination
 
-We next develop a general dimension-reduction framework for the quantum state discrimination problem. 
-By considering optimal discrimination as an SDP with a reward matrix and exploiting structural symmetries, we reduce the dimension of the problem from $d \ell$ to $N \ell$, where $d$ is the Hilbert space dimension, $N$ the number of candidate states, and $\ell$ the number of possible guesses. 
-The framework applies to pure as well as mixed ensembles and to general reward structures, encompassing minimum-error discrimination, unambiguous discrimination, and exclusion among others.
-We show how a hybrid algorithm can be used to construct the reduced SDP directly from quantum data.
-As an application, we characterize optimal success probabilities in quantum changepoint problems, including the case where we have multiple changepoints which was previously computationally inaccessible.
+We consider the general Bayes framework, as introduced by Helstrom, for state discrimination when, instead of a classical description of the candidate states, one has access to their \emph{source code}: the quantum circuit that prepares them.
+We show that the SDP for the discrimination problem can be reformulated in terms of the Gram matrix of these states, reducing the SDP variable dimensions from $dL$ to $NL$, where $d$ is the Hilbert space dimension, $N$ is the number of candidate states, and $L$ is the number of possible guesses.
+Importantly, we further introduce a quantum pre-processing procedure which efficiently constructs the reduced SDP from the source code, enabling our method to operate directly on quantum data. 
+We consider two applications.
+First, we characterize the optimal identifications for quantum changepoint problems under several reward structures, including multiple-changepoint settings that were previously computationally inaccessible.
+Second, we consider a quantum error classification problem and show how our reduction makes it tractable for systems of hundreds of qubits.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Pretty bad measurements and Boolean function from quantum sequence

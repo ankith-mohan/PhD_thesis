@@ -21,7 +21,7 @@ This chapter is organized as follows.
     We first introduce a measure of entanglement in the groundspace of the Hamiltonian and then discuss how the ansatz states are chosen and evaluate the performance of our heuristic as we modify this number.
     For the Ising Hamiltonian, we compare the ground energy, separable ground energy, and their approximations.
     \item Section~\ref{sec:ch2_SEP-SEP_related}: We discuss related work that deals with optimizing over separable states and those specific to Hamiltonians. 
-    This section is followed with a brief discussion of how our algorithms compare to these works.
+    This is followed with a brief discussion of how our algorithms compare to these works.
 \end{itemize}
 \begin{comment}
 Sections~\ref{sec:ch2_SEP-SEP_related} and~\ref{sec:ch2_sep-Hammy_related} discuss related work for optimizing over separable states and those specific to Hamiltonians.
@@ -63,7 +63,7 @@ While we consider the general problem above in this work, we often focus on the 
 
 In this work, we are concerned primarily with the cone of \emph{separable operators}, i.e., when $\K = \Sep$, but also when $\K$ is the set of positive semidefinite operators.%, denoted by $\Pos(\X)$ when acting on a complex Euclidean space $\X$.  
 
-Let us consider again the optimization problem~\eqref{eq:ch2_SEP-Sep_opt}.  
+%Let us consider again the optimization problem~\eqref{eq:ch2_SEP-Sep_opt}.  
 Notice that if we have the optimal solution $\tau$, which always exists by compactness of the set $\SepD$, then a simple convexity argument\footnote{If an optimal solution is a convex combination of feasible solutions, then one of those feasible solutions has objective function value at least as good as the original optimal solution.} shows that there exists pure states $\ket{\psi}$ and $\ket{\phi}$ such that $\kb{\psi} \otimes \kb{\phi}$ is an optimal solution.   
 Therefore, we can optimize over product states instead of all of $\SepD$. 
 Under this restriction, we can rewrite the problem~\eqref{eq:ch2_SEP-Sep_opt} as 
@@ -96,7 +96,7 @@ We consider three choices of initial states in this work, the maximally mixed st
 
 An important aspect of the see-saw algorithm is that it gives a feasible solution, in the sense that $\hat{\rho} \otimes \hat{\sigma}$ is always separable. 
 Thus, this gives us a \emph{lower bound} on the optimal value and a corresponding feasible solution. 
-We note that many SDP-based algorithms for approximating the separable set are \emph{outer approximations} which do not always have this feature of yielding a feasible solution (such as the PPT criterion~\cite{horodecki1996necessary, peres1996separability}, symmetric extensions~\cite{doherty2002SymExt, chen2014symmetric, li2019symmetric}, and the realignment criterion~\cite{chen2003matrix} (refer Chapter~\ref{ch:introduction})). 
+We note that many SDP-based algorithms for approximating the separable set are \emph{outer approximations} which do not always have this feature of yielding a feasible solution (such as the PPT criterion~\cite{horodecki1996necessary, peres1996separability}, symmetric extensions~\cite{doherty2002SymExt, chen2014symmetric, li2019symmetric}, and the realignment criterion~\cite{chen2003matrix} (as discussed in Chapter~\ref{ch:introduction})). 
 Therefore, this is a nice feature of the see-saw algorithm. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -283,9 +283,10 @@ From an algorithmic standpoint, we assume that they are efficiently preparable a
 \item circuits $V_j$ that create $\ket{\phi_j}$ and their inverses. 
 \end{itemize} 
 By combining them, we thus have a circuit $U_{ij}$ which maps $\ket{\psi_i}$ to $\ket{\psi_j}$ for any choice of $i$ and $j$, and similarly for the $\ket{\phi_i}$ states.  
-This way we can compute the Gram matrix $G_{\A}$ by performing the \emph{Hadamard test} (Figure~\ref{fig:ch2_SEP-Hadamard_test}) to learn $\mathrm{Re}(\braket{\psi_i}{\psi_j})$ and $\mathrm{Im}(\braket{\psi_i}{\psi_j})$ for each pair of $i$ and $j$. 
+This way we can compute the Gram matrix $G_{\A}$ by performing the \emph{Hadamard test} to learn $\mathrm{Re}(\braket{\psi_i}{\psi_j})$ and $\mathrm{Im}(\braket{\psi_i}{\psi_j})$ for each pair of $i$ and $j$. 
 We can similarly compute the Gram matrix $G_{\B}$. 
- 
+
+\begin{comment}
 \begin{figure}[ht]
     \centering
     \begin{quantikz}
@@ -299,6 +300,7 @@ We can similarly compute the Gram matrix $G_{\B}$.
     }
     \label{fig:ch2_SEP-Hadamard_test}
 \end{figure} 
+\end{comment}
 
 In the event that all of the inner products are non-negative then we could alternatively use the \emph{SWAP test} to compute each of the inner products in the Gram matrix. 
 In this setting, we do not require any of the preparation circuits, just access to copies of the states. 
@@ -540,7 +542,7 @@ From this numerical experiment, it seems that the errors decrease at a slower ra
 
 \subsection{Calculating ground energies and separable ground energies on large Ising Hamiltonians} \label{ss:ch2_SEP-ground_energy_Ising}
 
-In this subsection, we consider the $2N$-qubit Ising Hamiltonian with $J = 1$, $g=0$, and $h = 1.4$ where $\A$ is the first $N$ qubits and $\B$ is the remaining $N$ qubits. 
+In this subsection, we consider the $2N$-qubit Ising Hamiltonian with $J = 1$, $g=0$, and $h = 1.4$ where $\A$ is the first $N_\A$ qubits and $\B$ is the remaining $N_\B$ qubits. 
 Our computations here are split into two camps: 
 \begin{itemize} 
 \item 
