@@ -1,13 +1,13 @@
 \chapter{A hybrid quantum-classical algorithm for Bayes-optimal quantum state discrimination using the source code}\label{ch:QSD}
 
-The contents of this chapter are based on my work with Jamie Sikora and Sarvagya Upadhyay in \cite{mohan2026hybridquantumclassicalalgorithmbayesoptimal}.
+The contents of this chapter are based on work with Jamie Sikora and Sarvagya Upadhyay in \cite{mohan2026hybridquantumclassicalalgorithmbayesoptimal}.
 
 This chapter develops a unified framework for quantum state discrimination based on Helstrom’s general Bayes approach. 
 Through a reward matrix that assigns a payoff to each possible measurement outcome conditioned on every possible state, this framework captures both standard discrimination problems and ordered or structured tasks such as changepoint identification. 
 
 The main technical contribution of the chapter is an exact semidefinite programming reduction for this general Bayes problem. 
-The original SDP optimizes over ($L$) measurement operators acting on the full Hilbert space, so its variables scale with the state dimension ($d$), which becomes prohibitive for many-qubit or long-sequence instances. 
-We show that the same optimal reward can instead be computed using an SDP whose variables are ($L$) positive semidefinite matrices of size ($N \times N$), constrained to sum to the Gram matrix ($G$) of the candidate states. 
+The original SDP optimizes over $L$ measurement operators acting on the full Hilbert space, so its variables scale with the state dimension $d$, which becomes prohibitive for many-qubit or long-sequence instances. 
+We show that the same optimal reward can instead be computed using an SDP whose variables are $L$ positive semidefinite matrices of size $N \times N$, constrained to sum to the Gram matrix $G$ of the candidate states. 
 Thus, the optimization depends only on the pairwise inner products of the states, not on their ambient Hilbert-space representation. 
 This converts the problem from one scaling with the physical dimension of the states to one scaling with the number of candidate hypotheses. 
 
@@ -36,8 +36,8 @@ This chapter is organized as follows:
     \item Section~\ref{sec:ch3_QSD-appln}: We consider two problems that can be formulated as instances of the general Bayes approach and apply our reduced SDPs.
     We first look at the effect of reward functions for the quantum changepoint identification problem, introduce a heuristic and evaluate its performance as the number of states is increased.
     Next, we view a quantum error classification task and illustrate the performance of our reduced SDP for this problem.
-    \item Section~\ref{sec:ch3_QSD-mQCP}: Next, we introduce a general version of the quantum changepoint identification problem that considers at most $p$ changepoints and show how this can be expressed using the framework for the state discrimination problem and discuss heuristics for speedups.
-    \item Appendix~\ref{app:mQCP}: We consider the case where two or more changepoints can occur and illustrate through numerical experiments the performance of our heuristic approach for some candidate set of states.
+    %\item Appendix~\ref{app:mQCP}: We introduce a general version of the quantum changepoint identification problem that considers at most $p$ changepoints and show how this can be expressed using the framework for the state discrimination problem and discuss heuristics for speedups.
+    %We consider the case where two or more changepoints can occur and illustrate through numerical experiments the performance of our heuristic approach for some candidate set of states.
 \end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -73,7 +73,7 @@ However, for most cases, a closed-form solution is unknown and one must resort t
 \subsubsection{Unambiguous discrimination} 
 This variant is similar to the minimum error case, except we further restrict Bob to \emph{never make a mistake}. 
 In other words, Bob only makes a guess when he is certain about his received state, and in all other cases he returns an inconclusive outcome corresponding to ``I do not know!''. 
-This can be achieved through constraining the measurement operators $\{M_1, \dots, M_N, M_{N+1}\}$ to satisfy $\Pr[i|j] = \inner{M_i}{\rho_j} = 0$, for all $i \ne j$. 
+This can be achieved through constraining the measurement operators $\{M_1, \dots, M_N, M_{N+1}\}$ to satisfy $\Pr[i|j] = \inner{M_i}{\rho_j} = 0$, for all $i \in [N], i \ne j$. 
 Here, we have $L = N+1$ with $M_{N+1}$ corresponding to the inconclusive outcome.
 The guessing probability in this setting is equal to the optimal value of the following optimization problem 
 \begin{align}
@@ -84,7 +84,7 @@ The guessing probability in this setting is equal to the optimal value of the fo
 The unambiguous case is often restricted to the cases where the states are either linearly independent for pure states~\cite{chefles1998unambiguous}, or when their supports do not completely overlap for mixed states~\cite{rudolph2003unambiguous}. 
 Similar to the minimum error case, discriminating between two states unambiguously has a closed form solution given by Jaeger and Shimony~\cite{jaeger1995optimal}. 
 
-\subsubsection{Generalizations of these strategies.} 
+\subsubsection{Generalizations of these strategies} 
 From the discussion so far, we can express the probability of correctly identifying the states, the error probability, and the probability of obtaining an inconclusive outcome below 
 \begin{align}
     \label{eq:ch3_QSD-P}
@@ -132,7 +132,7 @@ The parameter $R_{ij}$ is also referred to as the cost matrix~\cite{helstrom1969
 In general, we can assume that Bob wishes to maximize his reward function given as 
 \begin{align}
     \label{eq:ch3_QSD-gen_QSD}
-    \text{maximize:} \;  \left\{ \sum_{i=1}^L \sum_{j=1}^N R_{ij} q_j  \inner{M_i}{\rho_j} \right\}.
+    \text{maximize:} \;  \left\{ \sum_{i=1}^L \sum_{j=1}^N R_{ij} p_j  \inner{M_i}{\rho_j} \right\}.
 \end{align} 
 
 We describe below how some discrimination tasks fit into this framework. 
@@ -160,7 +160,7 @@ This is the case when $L = N$, and
         1 &\text{otherwise}
     \end{cases}. 
 \end{align}
-Substituting this reward scheme in \eqref{eq:ch3_QSD-gen_QSD} recovers \eqref{eq:ch3_QSD-ME_SE}. 
+Substituting this reward scheme in \eqref{eq:ch3_QSD-gen_QSD} recovers $1 - \Pworst$ (see \eqref{eq:ch3_QSD-ME_SE}). 
 
 \item \textbf{Unambiguous state discrimination}: 
 This is the case when $L = N+1$, with $i = N+1$ indicating an inconclusive measurement, and
@@ -267,7 +267,7 @@ For this task, we can define
 (Here, $i$ runs over the number of classes.) 
 This means that Bob gets a unit reward if he correctly guesses a class that $\rho_j$ belongs to, i.e., he correctly classifies the given state. 
  
-\subsubsection{Mixed states.} 
+\subsubsection{Mixed states} 
 
 While many state discrimination results apply to the pure state case, we now show how this framework can be applied to mixed states as well.
 Suppose that the spectral decomposition of the state $\rho_j$ is given by 
@@ -334,7 +334,7 @@ To reduce the size of the SDP problem, we investigate the following equivalent S
     \alpha' & = \text{maximize:} \;
         \left\{ 
             \sum_{i=1}^L \sum_{j=1}^N R_{ij} p_j \bra{j} W_i \ket{j} : 
-            \sum_{i=1}^L W_i = G,\ W_i \succeq 0 
+            \sum_{i=1}^L W_i = G,\ W_i \succcurlyeq 0 
         \right\} \label{eq:ch3_QSD-reducedprimal}
 \end{align}
 where $G$ is the Gram matrix of the states $\{\ket{\psi_i}\}$, i.e., 
@@ -355,52 +355,55 @@ More precisely, $\alpha = \alpha'$.
 
 The optimal reward value of the general Bayes approach, given in \eqref{eq:ch3_QSD-gen_QSD2} can be formally described as the primal-dual pair, below 
 \begin{equation}
-\begin{minipage}{.45\textwidth}
-    \begin{equation*}
+\label{prog:ch3_QSD-P_D}
+%\begin{minipage}{.45\textwidth}
+%    \begin{equation*}
         \begin{aligned}
             \alpha = \max \; & \sum_{i=1}^L \sum_{j=1}^N R_{ij} p_j \inner{M_i}{\rho_j} \\
             \suchthat \; & \sum_{i=1}^L M_i = \id \\
-            & M_i \succeq 0, \, i \in [L],
+            & M_i \succcurlyeq 0, \, i \in [L],
         \end{aligned}
-    \end{equation*}    
-\end{minipage} 
-\begin{minipage}{.45\textwidth} 
-    \begin{equation*}
-        \label{prog:ch3_QSD-P_D}
+%    \end{equation*}    
+%\end{minipage} 
+\qquad
+%\begin{minipage}{.45\textwidth} 
+%    \begin{equation*}
+        %\label{prog:ch3_QSD-P_D}
         \begin{aligned}
             \beta = \min \; & \Tr(Y) \\
-            \suchthat \; & Y \succcurlyeq \sum_{j=1}^N R_{ij} q_j\, \rho_j, \, i \in [L]. \\
+            \suchthat \; & Y \succcurlyeq \sum_{j=1}^N R_{ij} p_j\, \rho_j, \, i \in [L]. \\
             & \phantom{N} \\ 
             & \phantom{N} 
         \end{aligned}
-    \end{equation*}
-\end{minipage}
-\label{eq:ch3_QSD-alpha_beta}
+%    \end{equation*}
+%\end{minipage}
+%\label{eq:ch3_QSD-alpha_beta}
 \end{equation}
 Note that $\alpha = \beta$ from strong duality when $R_{ij}$ is finite.
 
 We consider the case when the states are pure, i.e., $\{\ket{\psi_1}, \dots, \ket{\psi_N}\}$, with corresponding a priori probabilities $\{p_1, \dots, p_N\}$. 
 This gives us the SDPs 
 \begin{equation}
-\begin{minipage}{.45\textwidth}
-    \begin{equation*}
+\label{prog:ch3_QSD-P_D_reduced}
+%\begin{minipage}{.45\textwidth}
+%    \begin{equation*}
         \begin{aligned}
-            \alpha = \max \; & \sum_{i=1}^L \sum_{j=1}^N R_{ij} q_j \inner{M_i}{\kb{\psi_j}} \\
+            \alpha = \max \; & \sum_{i=1}^L \sum_{j=1}^N R_{ij} p_j \inner{M_i}{\kb{\psi_j}} \\
             \suchthat \; & \sum_{i=1}^L M_i = \id \\
-            & M_i \succeq 0, \, i \in [L], 
+            & M_i \succcurlyeq 0, \, i \in [L], 
         \end{aligned}
-    \end{equation*}    
-\end{minipage} 
-\begin{minipage}{.45\textwidth} 
-    \begin{equation*}
-        \label{prog:ch3_QSD-P_D_reduced}
+%    \end{equation*}    
+%\end{minipage} 
+%\begin{minipage}{.45\textwidth} 
+%    \begin{equation*}
+        %\label{prog:ch3_QSD-P_D_reduced}
         \begin{aligned}
             \beta = \min \; & \Tr(Y) \\
-            \suchthat \; & Y \succcurlyeq \sum_{j=1}^N R_{ij} q_j \kb{\psi_j}, \, i \in [L]. \\
+            \suchthat \; & Y \succcurlyeq \sum_{j=1}^N R_{ij} p_j \kb{\psi_j}, \, i \in [L]. \\
             & \phantom{N}
         \end{aligned}
-    \end{equation*}
-\end{minipage}
+%    \end{equation*}
+%\end{minipage}
 \end{equation} 
 
 We now suppose a particular structure on the variables in the primal above. 
@@ -410,9 +413,9 @@ To this end, define the following matrix
     \Psi \coloneqq \sum\limits_{k=1}^N \ketbra{\psi_k}{k} 
 \end{equation} 
 and note that $\Psi^*\Psi = G$, the Gram matrix of the set of states $\{ \ket{\psi_1}, \ldots, \ket{\psi_N} \}$. 
-For a primal feasible solution $\{M_1, \dots, M_L\}$, define $W_i \coloneqq \Psi^* M_i \Psi$ for $i \in \{1, \dots, L\}$, since $M_i \succeq 0$ for all $i \in [L]$ and $\sum_{i=1}^L M_i = \id$, we have that 
+For a primal feasible solution $\{M_1, \dots, M_L\}$, define $W_i \coloneqq \Psi^* M_i \Psi$ for $i \in \{1, \dots, L\}$, since $M_i \succcurlyeq 0$ for all $i \in [L]$ and $\sum_{i=1}^L M_i = \id$, we have that 
 \begin{equation} 
-    W_i \succeq 0, \text{ for all } i \in [L], \text{ and } \sum_{i=1}^L W_i = G. 
+    W_i \succcurlyeq 0, \text{ for all } i \in [L], \text{ and } \sum_{i=1}^L W_i = G. 
 \end{equation}
 Also, we have $\ket{\psi_j} = \Psi \ket{j}$, so we have
 \begin{equation}\label{eq:ch3_QSD-M_W}
@@ -423,38 +426,39 @@ Also, we have $\ket{\psi_j} = \Psi \ket{j}$, so we have
 \end{equation}
 Thus, under this assumption, we have the following primal-dual pair of SDPs
 \begin{equation}
-\begin{minipage}{.45\textwidth}
-    \begin{equation*}
+\label{prog:ch3_QSD-P'_D'}
+%\begin{minipage}{.45\textwidth}
+%    \begin{equation*}
         \begin{aligned}
-            \alpha' = \max \; & \sum_{i=1}^L \sum_{j=1}^N R_{ij} q_j \bra{j} W_i \ket{j} \\
+            \alpha' = \max \; & \sum_{i=1}^L \sum_{j=1}^N R_{ij} p_j \bra{j} W_i \ket{j} \\
             \suchthat \; & \sum_{i=1}^L W_i = G \\
-            & \hspace{20pt} W_i \succeq 0,\ i \in [L]. \\ 
+            & \hspace{20pt} W_i \succcurlyeq 0,\ i \in [L]. \\ 
         \end{aligned}
-    \end{equation*}
-\end{minipage}
-~
-\begin{minipage}{.45\textwidth}
-    \begin{equation*}
-        \label{prog:ch3_QSD-P'_D'}
+%    \end{equation*}
+%\end{minipage}
+%~
+%\begin{minipage}{.45\textwidth}
+%    \begin{equation*}
+%        \label{prog:ch3_QSD-P'_D'}
         \begin{aligned}
             \beta' = \min \quad & \inner{X}{G} \\
-            \suchthat \quad & X \succcurlyeq \sum_{j=1}^N R_{ij} q_j \ketbra{j},\ i \in [L]. \\
+            \suchthat \quad & X \succcurlyeq \sum_{j=1}^N R_{ij} p_j \ketbra{j},\ i \in [L]. \\
             & \phantom{N}
             %& \quad \\ 
             %& \quad \\ 
         \end{aligned}
-    \end{equation*}    
-\end{minipage}
+%    \end{equation*}    
+%\end{minipage}
 \end{equation} 
 
 Since we can take a feasible $\{ M_1, \ldots, M_L \}$ and construct feasible $\{ W_1, \ldots, W_L \}$ with the same objective function value, we have that $\alpha \leq \alpha'$.
 By strong duality, one can check that $\alpha' = \beta'$.
 All that remains to be proved is that $\alpha \geq \alpha'$.
 
-Suppose $\{ W_1, \dots, W_L \}$ is a feasible solution of the primal SDP in \eqref{eq:ch3_QSD-M_W}.
+Suppose $\{ W_1, \dots, W_L \}$ is a feasible solution of the primal SDP in \eqref{prog:ch3_QSD-P'_D'}.
 If $\Psi = \sum_{i=1}^r \sigma_i \ketbra{\mu_i}{\nu_i}$ is the singular value decomposition of $\Psi$ where $r$ denotes its rank, then $\Psi^+ = \sum_{i=1}^r \sigma_i^{-1} \ketbra{\nu_i}{\mu_i}$ is the Moore-Penrose generalized inverse of $\Psi$.
 Define $M_i = (\Psi^+)^*\ W_i\ (\Psi^+) + \frac{1}{L} \left( \id - \Psi \Psi^+ \right)$ for each $i \in [L]$.
-Since $W_i \succeq 0$ and $\Psi \Psi^+ = \sum_{i=1}^r \ketbra{\mu_i}$ is a projection, we have that $M_i \succeq 0$ for each $i \in [L]$.
+Since $W_i \succcurlyeq 0$ and $\Psi \Psi^+ = \sum_{i=1}^r \ketbra{\mu_i}$ is a projection, we have that $M_i \succcurlyeq 0$ for each $i \in [L]$.
 If we sum over all the elements $\{ M_1, \dots, M_L \}$, we get
 \begin{align}
     \sum_{i=1}^L M_i 
@@ -485,18 +489,18 @@ The proof above is the generalization to the general Bayes approach.
 While restricting to the support subspace is well known\footnote{The minimal reducing subspace technique~\cite[Proposition 1]{holevo1982testing} is an example of such an approach.}, this reduction is the explicit reformulation as an SDP over $N \times N$ matrices parameterized solely by the Gram matrix $G$. 
 This reformulation:
 (i) decouples the SDP from any Hilbert-space representation, 
-(ii) enables direct construction from experimentally accessible inner products via the hybrid algorithm of Strategy 1.3, and 
+(ii) enables direct construction from experimentally accessible inner products via the hybrid algorithm of Strategy~\ref{strategy}, and 
 (iii) yields a concrete computational pipeline that can scale with the number of states in the problem, which is illustrated in Section~\ref{sec:ch3_QSD-appln}.
 
 \paragraph{Related works that focus on Gram matrices.}
 Several works exploit the fact that the discrimination properties for a set of states are captured by the Gram matrix \emph{for fixed applications}. 
 For instance,~\cite{sentis2016quantum, sentis2017exact, sentis2018online} use this to prove bounds on the success probability for the changepoint problem,~\cite{llorens2024quantum} draws on this for the multi-anomaly detection problem, and \cite{skotiniotis2018identification} utilizes this for error position identification. 
-In~\cite{dalla2015optimality}, the authors characterize the optimal success probability of discriminating a set of linearly independent pure states in the minimum error regime as a function of the Gram matrix. %\jsnote{What setting? linearly independent pure states?} 
+In~\cite{dalla2015optimality}, the authors characterize the optimal success probability of discriminating a set of linearly independent pure states in the minimum error regime as a function of the Gram matrix.
 For discriminating between linearly independent pure states with an intrinsic ordering,~\cite{martinez2019certified} obtains a bound for the success probability when using a combination of the horseshoe reward (Eq.~\eqref{eq:ch3_QSD-R_ME_SD}) and unambiguous discrimination. 
 In \cite{johnston2023tight, johnston2025complexityperfectquantumstate}, analyzing the task of \emph{$k$-learnability} makes significant use of a reduction of the problem to properties of the Gram matrix. 
 These works demonstrate that not only is the reduction to a Gram matrix attractive from a computational perspective, but also from an analytical perspective. 
 Our reduction in this work takes the above approaches and unifies them for general, application-agnostic state discrimination tasks. 
-Perhaps surprisingly, this has not been yet been considered and we suspect this will be helpful for many other future applications.
+Perhaps surprisingly, this has not yet been considered and we suspect this will be helpful for many other future applications.
 
 \subsection{A hybrid algorithm for calculating the optimal reward}
 
@@ -522,6 +526,8 @@ In the special case where the inner products are all non-negative, we can use th
 Given two states $\ket{\psi}$ and $\ket{\phi}$, the swap test has two outcomes, one occurring with probability $\frac{1}{2} + \frac{1}{2} | \braket{\psi}{\phi} |^2$ and the other occurring with probability $\frac{1}{2} - \frac{1}{2} | \braket{\psi}{\phi} |^2$ (we discuss this more in Section~\ref{sec:QC_bg}).
   
 Figure~\ref{fig:ch3_qseq-flow_chart} depicts this hybrid algorithm.
+
+\begin{comment}
 \begin{figure}[ht]
     \centering
     \begin{tikzpicture}[node distance=3cm]
@@ -552,8 +558,69 @@ Figure~\ref{fig:ch3_qseq-flow_chart} depicts this hybrid algorithm.
     \caption{A visual representation of the hybrid algorithm.}
     \label{fig:ch3_qseq-flow_chart}
 \end{figure}
+\end{comment}
 
-\begin{strategy} 
+\begin{figure}[ht]
+    \centering
+    \begin{tikzpicture}[
+        node distance=3cm,
+        alt={
+            Flowchart of the hybrid quantum-classical algorithm.
+            In the quantum stage, preparation unitaries are used to compute inner products, which form the Gram matrix G.
+            In the classical stage, the Gram matrix, the reward matrix R, and the prior-probability vector q are supplied as inputs to a reduced semidefinite program. 
+            Solving the reduced semidefinite program produces the optimal reward.
+        }
+    ]
+        % Nodes
+        \node (U) [startstop] {Preparation unitaries};
+        \node (ip) [process, right of=U] {Compute inner products};
+        \node (G) [startstop, right of=ip] {Gram matrix $G$};
+        \node (SDP) [process, below of=ip] {Reduced SDP};
+        \node (R) [startstop, right of=SDP] {Reward matrix $R$};
+        \node (q) [startstop, left of=SDP]
+            {A priori probability vector $q$};
+        \node (p) [lastnode, below of=SDP] {Optimal reward};
+
+        \begin{scope}[on background layer]
+            \node[
+                fill=blue!10,
+                draw=blue!30,
+                fit=(U)(ip)(G),
+                label={
+                    [blue!70, font=\bfseries]above:Quantum
+                }
+            ] {};
+
+            \node[
+                fill=red!10,
+                draw=red!30,
+                fit=(q)(SDP)(R),
+                label={
+                    [red!70!black, font=\bfseries]above:Classical
+                }
+            ] {};
+        \end{scope}
+
+        % Edges
+        \draw [arrow] (U) -- (ip);
+        \draw [arrow] (ip) -- (G);
+        \draw [arrow] (G) -- (SDP);
+        \draw [arrow] (R) -- (SDP);
+        \draw [arrow] (q) -- (SDP);
+        \draw [arrow] (SDP) -- (p);
+    \end{tikzpicture}
+
+    \caption{
+        Flowchart of the hybrid quantum-classical algorithm.
+        The quantum stage computes the Gram matrix from state-preparation unitaries. 
+        The classical stage supplies the Gram matrix, reward matrix, and prior-probability vector to a reduced semidefinite program, whose solution gives the optimal reward.
+    }
+    \label{fig:ch3_qseq-flow_chart}
+\end{figure}
+
+
+\begin{strategy}
+\label{strategy} 
 Suppose we are given $N$ pure states $\{ \ket{\psi_1}, \ldots, \ket{\psi_N} \}$ and a priori probabilities $\{p_1, \ldots, p_N\}$, 
 and suppose further that we are given efficient preparation unitaries that prepare each of the states. 
 Then we can approximate the optimal reward function using a hybrid quantum-classical algorithm via the Hadamard test. 
@@ -571,7 +638,7 @@ As such, we leave this as an interesting open problem and rely simply on using m
 
 We now discuss two problems that can be formulated as instances of the general Bayes approach and then apply our reduced SDPs followed by a discussion of numerical performance.
 
-\subsection{The quantum changepoint identification problem.} 
+\subsection{The quantum changepoint identification problem} 
 
 Suppose that Alice sends to Bob a sequence of states $\ket{\psi}^{\otimes c_1} \otimes \ket{\phi_1}^{\otimes (c_2 - c_1)} \otimes \ket{\phi_2}^{\otimes (N - c_2)}$, one state at a time. 
 We can think of $\ket{\psi}$ as the original state and $\ket{\phi_1}$ and $\ket{\phi_2}$ as mutated states. 
@@ -579,6 +646,7 @@ Perhaps Alice bought a cheap QKD device which started breaking down at time step
 In this problem, Bob wishes to guess the index of the time steps, see Figure~\ref{fig:ch3_QSD-QCP} for an illustration. 
 This is a quantum version of a \emph{changepoint problem} which is a widely studied field in statistical analysis with diverse applications, see the survey~\cite{aminikhanghahi2017survey}. 
 
+\begin{comment}
 \begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth]{figs/ch3_QSD/QCPnew.png}
@@ -588,6 +656,26 @@ This is a quantum version of a \emph{changepoint problem} which is a widely stud
     }
     \label{fig:ch3_QSD-QCP}
 \end{figure} 
+\end{comment}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[
+        width=\textwidth,
+        alt={
+            Diagram of a quantum change-point detection problem.
+            A quantum source sends Bob a sequence of quantum states, each normally in the state psi. 
+            Two mutations occur at unknown positions in the sequence. 
+            Bob uses a detector to estimate the two positions at which the mutations occurred.
+        }
+    ]{figs/ch3_QSD/QCPnew.png}
+
+    \caption{
+        A quantum source sends a stream of states $\ket{\psi}$, with two mutations occurring in this example. 
+        The task is to design an optimal detector that determines when the mutations occurred.
+    }
+    \label{fig:ch3_QSD-QCP}
+\end{figure}
 
 Here we assume that both the promised state as well as the mutated ones are known to Bob. 
 (We also discuss the case when they are unknown but we have a source of them to perform some pre-computations.) 
@@ -599,6 +687,206 @@ The changepoint problem \emph{with one mutation} has been introduced and studied
 In both works, they present the optimal success probabilities and analyze restricted measurements given by online algorithms. 
 Achieving the bound in~\cite{sentis2016quantum} requires a measurement performed jointly on all states in the sequence. 
 Here we make the same assumption, that we have the availability of quantum memory capable of storing each of these particles sent by Alice, thereby enabling such joint measurements.
+
+%We refer the reader to Appendix~\ref{app:mQCP} for the formulation of the general case.
+
+\subsection{At most one changepoint}\label{sec:ch3_QSD-1CP}
+
+%Using the formulation in~\ref{prog:ch3_QSD-D_mQCP}, 
+When there is at most one changepoint Bob discriminates between the following states
+\begin{equation}
+    \begin{aligned}
+        %\ket{\tau_1} &\coloneqq \ket{\tau_{1NN \cdots NN}} 
+        \ket{\tau_1} &= \ket{\psi}\ \otimes\ \ket{\phi_1}^{\otimes N-1} \\
+        %\ket{\tau_2} &\coloneqq \ket{\tau_{2NN \cdots NN}} = \ket{\psi}^{\otimes 2}\ \otimes\ \ket{\phi_1}^{\otimes N-2} \\
+        \ket{\tau_2} &= \ket{\psi}^{\otimes 2}\ \otimes\ \ket{\phi_1}^{\otimes N-2} \\
+        \vdots \\
+        %\ket{\tau_{N-1}} &\coloneqq \ket{\tau_{N-1,NN \cdots NN}} = \ket{\psi}^{\otimes N-1}\ \otimes\ \ket{\phi_1} \\
+        \ket{\tau_{N-1}} &= \ket{\psi}^{\otimes N-1}\ \otimes\ \ket{\phi_1} \\
+        %\ket{\tau_N} &\coloneqq \ket{\tau_{NNN \cdots NN}} = \ket{\psi}^{\otimes N}. 
+        \ket{\tau_N} &= \ket{\psi}^{\otimes N}. 
+    \end{aligned}
+\end{equation}
+Notice that the last state $\ket{\tau_N}$ indicates the sequence where no changepoint has occurred, i.e, Alice generated all the states as promised.
+All the remaining states correspond to the sequences where exactly one changepoint occurred.
+Therefore, Bob wishes to not only determine whether a changepoint occurred, but also the exact point of said occurrence.
+
+Here we assume that the changepoint follows a uniform prior, i.e, each of the states \\
+$\ket{\tau_k}, k \in \{1, \dots, N\}$, are equally likely.
+
+\begin{lemma}
+    \label{lem:ch3_QSD-G_sym_toep}
+    Gram matrix $G$ of the possible sequences generated by Alice when there is at most one changepoint is a Hermitian Toeplitz matrix.
+\end{lemma}
+\begin{proof}
+    By direct computation, we have
+    \begin{align*}
+        G_{ij} = 
+        \begin{cases}
+            \braket{\phi_1}{\psi}^{(j-i)} &i < j \\
+            \braket{\psi}{\phi_1}^{(i-j)} &\text{otherwise}
+        \end{cases}
+    \end{align*}
+    $G$ is clearly a Hermitian Toeplitz matrix from the above.
+\end{proof}
+
+\begin{lemma}
+    \label{lem:ch3_QSD-T_sym_Toep}
+    When there is at most one changepoint, the Gram matrix $G$ has the same reward as the Gram matrix $T^{(1)}$ where $(T^{(1)})_{ij} = |G_{ij}|$. Moreover, $T^{(1)}$ is a symmetric Toeplitz matrix.
+\end{lemma}
+\begin{proof}
+    Define $\ket{\phi_1'} = e^{i \theta} \ket{\phi_1}$, where we choose $\theta \in \reals$ such that $\braket{\phi_1'}{\psi} = |\braket{\phi_1}{\psi}|$.
+    From~\eqref{eq:ch3_QSD-gen_QSD2}, the value of the SDP clearly remains same if we replace any state with one that is equivalent up to a global phase.
+    Define $\ket{\tau_i'} = \ket{\psi}^{\otimes i}\ \otimes\ \ket{\phi_1'}^{\otimes (N-i)}$, for all values of $i$.
+    Then $\ket{\tau_i}$ and $\ket{\tau_i'}$ differ by a global phase, thus the SDPs have the same value.
+    Let $T^{(1)}$ be the Gram matrix of $\ket{\tau_1'}, \dots, \ket{\tau_N'}$.
+    Notice that $(T^{(1)})_{ij} = |\braket{\psi}{\phi_1}|^{|i-j|} = |G_{ij}|$. 
+    Finally, $T^{(1)}$ is symmetric Toeplitz, as desired. 
+\end{proof} 
+
+The dual SDP in \eqref{eq:ch3_QSD-gen_QSD2} can be expressed as
+\begin{equation}
+    \label{eq:ch3_QSD-1CP_Toep}
+    \begin{aligned}
+        \beta'_{T1} = \min \quad& \inner{X}{T^{(1)}} \\
+        \suchthat \quad& X \succcurlyeq \frac{1}{N} \sum_{j=1}^N R_{ij} | j \rangle\langle j |, i \in \{1, \dots, N\} \\
+    \end{aligned}
+\end{equation}
+
+Consider the following reward scheme
+\begin{align}
+    \label{eq:ch3_QSD-R_1CP}
+    (R_{1CP})_{ij} = 
+    \begin{cases}
+        r_{|i - j|},\ i \in \{1, \dots, N\} \\
+        c,\ \hspace{15pt}\ i = N + 1
+    \end{cases}
+\end{align}
+for $j \in \{1, \dots, N\}$, where $r_0, \dots, r_{N-1}$ and $c$ are real scalars.
+The motivation behind this strategy is as follows.
+When Bob is able to correctly identify the changepoint, he is awarded a reward of $r_0$, regardless of when the changepoint occurred.
+Similarly, if the changepoint occurred at the $j$-th state, and Bob guessed the $i$-th state, irrespective of whether $i < j$ or $i > j$, he is given a reward of $r_{|i-j|}$.
+Notwithstanding the state Bob received, if he gives an inconclusive outcome, he is awarded a constant reward of $c$.
+
+Accounting for all this, we can rewrite the dual SDP in \eqref{eq:ch3_QSD-gen_QSD2} as follows
+\begin{equation}
+    \label{prog:ch3_QSD-D'_1CP}
+    \begin{aligned}
+        \beta'_{1CP} = \min \quad & \inner{X_{1CP}}{T_{1CP}} \\
+        \suchthat \quad & X_{1CP} \succcurlyeq \frac{1}{N}\, \sum_{j=1}^N r_{|i - j|} \ketbra{j},\ i \in \{1, \dots, N\} \\
+        & X_{1CP} \succcurlyeq \frac{c}{N}\, \id_N.
+    \end{aligned}
+\end{equation}
+
+\subsubsection{A heuristic}
+
+Observe that $(R_{1CP})_{ij} = r_{|i-j|},\ i, j \in \{1, \dots, N\}$ corresponds to a symmetric Toeplitz matrix.
+Since $T_{1CP}$ is a symmetric Toeplitz matrix and $R_{1CP}$ has a Toeplitz-like structure, we investigate a heuristic solution $X'_{1CP}$ which is restricted to be symmetric Toeplitz.
+The incentive behind such a restriction is that a symmetric Toeplitz matrix can be fully constructed from its first row, and thus has fewer parameters.
+Then both $T_{1CP}$ and $X'_{1CP}$ can be expressed as
+\begin{align}
+    \label{eq:ch3_QSD-sym_Toep}
+    T_{1CP} = \sum_{k=-(N-1)}^{(N-1)} \gamma^{|k|} \Theta_k \quad\qquad\quad X'_{1CP} = \sum_{k=-(N-1)}^{(N-1)} x_{|k|} \Theta_k,
+\end{align}
+where $\gamma = |\braket{\psi}{\phi_1}|$, and $\Theta_k$ is a $N \times N$ Toeplitz matrix with ones on the $k$-th diagonal and zeros elsewhere.
+Here, $k = 0$ indicates the principal diagonal, $k > 0$ denotes the sub-diagonals, and $k < 0$ corresponds to the super-diagonals.
+
+We can express \eqref{prog:ch3_QSD-D'_1CP} with this heuristic as
+\begin{equation}
+    \label{prog:ch3_QSD-D''_1CP}
+    \begin{aligned}
+        \beta''_{1CP} = \min \quad & \inner{x}{p} \\
+        \suchthat \quad & \sum_{k=-(N-1)}^{N-1} x_{|k|} \Theta_k \succcurlyeq \frac{1}{N}\, \sum_{j=1}^N r_{|i - j|} \ketbra{j},\ i \in \{1, \dots, N\} \\
+        & \sum_{k=-(N-1)}^{N-1} x_{|k|} \Theta_k \succcurlyeq \frac{c}{N}\, \id_N,
+    \end{aligned}
+\end{equation}
+where $p = \left( N,\ 2(N-1) \gamma,\ 2(N-2) \gamma^2,\ \ldots,\ 2 \gamma^{N-1} \right)^\top$ and $x = \left( x_0, x_1, x_2, \ldots, x_{N-1} \right)^\top$.
+
+\subsubsection{Numerical experiment}
+
+We look at the specific case where the promised state is $\ket{\psi} = \ket{0}$ and the mutated state is $\ket{\phi_1} = \ket{+}$.
+Here we consider the following reward function
+\begin{align}
+    \label{eq:ch3_QSD-1CP_ctbr}
+    (R_{1CP})_{ij} = 
+    \begin{cases}
+        \left( \frac{1}{\sqrt{2}} \right)^{|i - j|},\ i \in \{1, \dots, N\} \\
+        0,\ \hspace{15pt}\ i = N + 1
+    \end{cases}
+\end{align}
+Figure~\ref{fig:ch3_QSD-beta'_beta''_pi_4_1CP} considers the solution of the reduced SDP~\eqref{prog:ch3_QSD-D'_1CP} and the heuristic~\eqref{prog:ch3_QSD-D''_1CP} for this case.
+We note the following two observations:
+(1) Our reduction~\eqref{prog:ch3_QSD-D'_1CP} allows us to compute the probability of both detecting as well as localizing a single changepoint for sequences of length $220$.
+Without this reduction, solving~\eqref{eq:ch3_QSD-gen_QSD2} involves finding operators of size $2^{220} \times 2^{220}$.
+(2) Observe that solving our heuristic~\eqref{prog:ch3_QSD-D''_1CP} is roughly \emph{seven} times faster, with a gap of only about $10^{-3}$.
+
+\begin{comment}
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[b]{0.495\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figs/ch3_QSD/betap_betapp_pi_4_1CP.pdf}
+        \caption{Absolute value of the difference between~\eqref{prog:ch3_QSD-D'_1CP} and~\eqref{prog:ch3_QSD-D''_1CP}.}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.495\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figs/ch3_QSD/betap_betapp_time_pi_4_1CP.pdf}
+        \caption{Runtimes of~\eqref{prog:ch3_QSD-D'_1CP} and~\eqref{prog:ch3_QSD-D''_1CP}.}
+    \end{subfigure}
+    \caption{
+    Here we consider the sequences where the state $\ket{0}$ mutated to the state $\ket{+}$. 
+    Using the closer-the-better reward scheme with $\gamma = 1/\sqrt{2}$, we see the error between the heuristic \eqref{prog:ch3_QSD-D''_1CP} and the reduced SDP \eqref{prog:ch3_QSD-D'_1CP} (on the left), and the runtimes of both \eqref{prog:ch3_QSD-D'_1CP} and \eqref{prog:ch3_QSD-D''_1CP} (on the right).
+    Observe that the difference between \eqref{prog:ch3_QSD-D'_1CP} and \eqref{prog:ch3_QSD-D''_1CP} decreases rapidly approaching $10^{-3}$ at $N = 220$ (on the left).
+    Although there seems to be no advantage, in terms of time, in computing \eqref{prog:ch3_QSD-D''_1CP} for sequences up to length $80$, we observe that computing \eqref{prog:ch3_QSD-D''_1CP} is roughly \emph{seven} times faster than calculating \eqref{prog:ch3_QSD-D'_1CP} for larger values of $N$.
+    }
+    \label{fig:ch3_QSD-beta'_beta''_pi_4_1CP}
+\end{figure}
+\end{comment}
+
+\begin{figure}[h]
+    \centering
+
+    \begin{minipage}[b]{0.495\textwidth}
+        \centering
+        \includegraphics[
+            width=\linewidth,
+            alt={
+                Plot of the absolute difference between the reduced semidefinite program and the heuristic as a function of the sequence length N for the one changepoint problem. 
+                The states considered are a mutation from the zero state to the plus state, and the closer-the-better reward scheme is used with gamma equal to one over square root of two. 
+                The vertical axis shows the absolute difference in the objective values. 
+                The difference decreases rapidly as N increases and approaches 10 to the power minus 3 near N equal to 220.
+            }
+        ]{figs/ch3_QSD/betap_betapp_pi_4_1CP.pdf}
+
+        \smallskip
+        \textbf{(a)} Absolute difference between \eqref{prog:ch3_QSD-D'_1CP} and \eqref{prog:ch3_QSD-D''_1CP}.
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.495\textwidth}
+        \centering
+        \includegraphics[
+            width=\linewidth,
+            alt={
+                Plot comparing the runtimes of the reduced semidefinite program and the heuristic as a function of the sequence length N for the one changepoint problem. 
+                The states considered are a mutation from the zero state to the plus state, and the closer-the-better reward scheme is used with gamma equal to one over square root of two.
+                For small values of N up to about 80, the runtimes are similar. 
+                For larger values of N, the heuristic becomes significantly faster and is about seven times faster than the reduced semidefinite program.
+            }
+        ]{figs/ch3_QSD/betap_betapp_time_pi_4_1CP.pdf}
+
+        \smallskip
+        \textbf{(b)} Runtimes of \eqref{prog:ch3_QSD-D'_1CP} and \eqref{prog:ch3_QSD-D''_1CP}.
+    \end{minipage}
+
+    \caption{
+        Here we consider sequences in which the state $\ket{0}$ mutates to the state $\ket{+}$. 
+        Using the closer-the-better reward scheme with $\gamma = 1/\sqrt{2}$, panel~(a) shows the error between the heuristic \eqref{prog:ch3_QSD-D''_1CP} and the reduced SDP \eqref{prog:ch3_QSD-D'_1CP}, while panel~(b) shows the runtimes of both methods. 
+        The difference between \eqref{prog:ch3_QSD-D'_1CP} and \eqref{prog:ch3_QSD-D''_1CP} decreases rapidly, approaching $10^{-3}$ at $N=220$. 
+        Although there is little timing advantage for sequences up to length $80$, computing \eqref{prog:ch3_QSD-D''_1CP} is roughly \emph{seven} times faster than computing \eqref{prog:ch3_QSD-D'_1CP} for larger values of $N$.
+    }
+    \label{fig:ch3_QSD-beta'_beta''_pi_4_1CP}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -619,6 +907,7 @@ Recall the reward function is given as
 
 Figure~\ref{fig:ch3_QSD-beta'_beta''_pi_4_1CP_mu} plots the optimal reward value for a single changepoint example. 
 
+\begin{comment}
 \begin{figure}[h]
     \centering
     \includegraphics[scale=0.75]{figs/ch3_QSD/betap_betapp_pi_4_1CP_mu.pdf}
@@ -629,6 +918,28 @@ Figure~\ref{fig:ch3_QSD-beta'_beta''_pi_4_1CP_mu} plots the optimal reward value
     }
     \label{fig:ch3_QSD-beta'_beta''_pi_4_1CP_mu}
 \end{figure} 
+\end{comment}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[
+        scale=0.75,
+        alt={
+            Plot of the optimal probability of identifying a quantum changepoint as a function of the sequence length N.
+            The sequence begins in the zero state and may change to the plus state at an unknown position. 
+            Multiple curves correspond to different values of the closeness parameter mu. 
+            For each value of mu, the optimal reward approaches a stable value as the sequence length increases. 
+            Curves corresponding to larger values of mu have higher optimal rewards.
+        }
+    ]{figs/ch3_QSD/betap_betapp_pi_4_1CP_mu.pdf}
+
+    \caption{
+        We consider a sequence of $N$ states that begins in $\ket{0}$ and may switch to $\ket{+}$ at an unknown position.
+        The optimal reward, corresponding to the optimal probability of identifying the location of the change point, is plotted as a function of $N$ for different values of the closeness parameter $\mu$. 
+        The reward stabilizes for large sequence lengths, and larger values of $\mu$ substantially improve the reward, as expected.
+    }
+    \label{fig:ch3_QSD-beta'_beta''_pi_4_1CP_mu}
+\end{figure}
 
 We note that in this figure, we were easily able to compute the reduced SDPs for this problem up to $80$ qubits. 
 Using the original SDP, this would be completely intractable as the variables would each be of size $2^{80} \times 2^{80}$.
@@ -638,12 +949,13 @@ Using the original SDP, this would be completely intractable as the variables wo
 In this example, we consider the closer-the-better reward with varying parameters $\gamma$. 
 Recall the reward function is given as 
 \begin{align*}
-    \label{eq:ch3_QSD-ctbr}
+    %\label{eq:ch3_QSD-ctbr}
     R_{ij} = \gamma^{|i-j|}.
 \end{align*}
 
 An example reward function is illustrated in Figure~\ref{fig:ch3_QSD-overall_1CP} (a) while Figure~\ref{fig:ch3_QSD-overall_1CP} (b) plots the optimal reward value for three particular examples.
 
+\begin{comment}
 \begin{figure}[h]
     \centering
     \begin{subfigure}[b]{0.495\textwidth}
@@ -665,11 +977,58 @@ An example reward function is illustrated in Figure~\ref{fig:ch3_QSD-overall_1CP
     }
     \label{fig:ch3_QSD-overall_1CP}
 \end{figure}
+\end{comment}
+
+\begin{figure}[h]
+    \centering
+
+    \begin{minipage}[b]{0.495\textwidth}
+        \centering
+        \includegraphics[
+            width=\linewidth,
+            alt={
+                Plot of the reward assigned to Bob's guess of the changepoint location for a sequence consisting of fifty copies of the state psi followed by fifty copies of the state phi, under the closer-the-better reward scheme. 
+                The horizontal axis represents Bob's guessed location, and the vertical axis represents the reward.
+                Separate curves or values correspond to the different settings of theta considered in the experiment.
+                The reward is largest near the true changepoint location and decreases as the guess moves farther away.
+            }
+        ]{figs/ch3_QSD/rewards_1CP.pdf}
+
+        \smallskip
+        \textbf{(a)} Reward that Bob receives for the sequence $\ket{\psi}^{\otimes 50} \otimes \ket{\phi}^{\otimes 50}$ under the closer-the-better reward scheme.
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.495\textwidth}
+        \centering
+        \includegraphics[
+            width=\linewidth,
+            alt={
+                Plot of the optimal reward function value as a function of the sequence length N for several values of theta.
+                The sequence begins in the state psi and changes at an unknown point to the state phi, where the overlap between the states depends on theta. 
+                The horizontal axis represents N, and the vertical axis represents the optimal reward. 
+                The curves show how the achievable reward varies with sequence length for different state overlaps.
+            }
+        ]{figs/ch3_QSD/prob_1CP.pdf}
+
+        \smallskip
+        \textbf{(b)} Optimal reward function value as a function of $N$ for varying values of $\theta$.
+    \end{minipage}
+
+    \caption{
+        We consider the closer-the-better reward scheme with $\gamma = |\braket{\psi}{\phi}| = \cos(\theta)$ for $\theta \in \{\pi/8, \pi/4, 3\pi/8\}$, where $\ket{\psi} = \ket{0}$ and $\ket{\phi} = \cos(\theta)\ket{0} + \sin(\theta)\ket{1}$.
+        Panel~(a) shows the reward Bob receives for the sequence $\ket{\psi}^{\otimes 50} \otimes \ket{\phi}^{\otimes 50}$ under this reward scheme. 
+        Panel~(b) shows the optimal reward function value as a function of $N$, the number of states sent. 
+        As the states become closer to one another, locating the change point becomes more difficult. 
+        However, the rewards are scaled so that more difficult settings correspond to larger rewards.
+    }
+    \label{fig:ch3_QSD-overall_1CP}
+\end{figure}
 
 In this setting, we are able to easily compute the reward function for states up to $220$ qubits.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\begin{comment}
 \subsection{Heuristic: Speeding up computations for large changepoint sequences} \label{ss:ch3_QSD-1CP_heu} 
 
 To speed-up the calculation of the optimal reward values for large sequences, we introduce a heuristic. 
@@ -681,28 +1040,26 @@ The dual is given as $\beta'$ below and $\beta''$ is our heuristic.
         \beta' = \text{minimize:} 
         \left\{ 
             \inner{X}{G} : 
-            X \succcurlyeq \sum_{j=1}^N R_{ij} q_j \ketbra{j}, \ i \in [L]
+            X \succcurlyeq \sum_{j=1}^N R_{ij} p_j \ketbra{j}, \ i \in [L]
         \right\} 
     \end{aligned}
 \end{equation}
 
-\begin{comment}
 \begin{align}
     \beta' & = \text{minimize:} 
         \left\{ 
             \inner{X}{G} : 
-            X \succcurlyeq \sum_{j=1}^N R_{ij} q_j \ketbra{j}, \ i \in [L]
+            X \succcurlyeq \sum_{j=1}^N R_{ij} p_j \ketbra{j}, \ i \in [L]
         \right\} 
         \label{reduceddual}
 \end{align}
-\end{comment}
 
 \begin{equation}
     \label{eq:ch3_QSD-reduceddual2}
     \beta'' = \text{minimize:} 
                 \left\{ 
                     \inner{X}{G} : 
-                    X \succcurlyeq \sum_{j=1}^N R_{ij} q_j \ketbra{j}, \ i \in [L], 
+                    X \succcurlyeq \sum_{j=1}^N R_{ij} p_j \ketbra{j}, \ i \in [L], 
                     X \text{ Hermitian Toeplitz}
                 \right\}.
 \end{equation} 
@@ -717,7 +1074,7 @@ Indeed, it turns out that for large $N$, this heuristic turns out to both be a g
 In Figure~\ref{fig:ch3_QSD-beta'_beta''_pi_4_1CP_intro} we consider the case where Alice promises to send Bob $N$ copies of the state $\ket{0}$ but a mutation in her device led to the generation of the state $\ket{+}$ instead.
 The reduced SDP \eqref{eq:ch3_QSD-reduceddual} and the heuristic \eqref{eq:ch3_QSD-reduceddual2} are considered.
 We compare the absolute difference of their values as well as their runtimes respectively.
-For a sequence of length $220$, the error between the reduced SDP \eqref{eq:ch3_QSD-reduceddual} and the heuristic \eqref{eq:ch3_QSD-reduceddual2} is of the order of $10^{-3}$ and computing the heuristic \eqref{eq:ch3_QSD-reduceddual2} is observed to be about \emph{seven} times faster than the reduced SDP \eqref{eq:ch3_QSD-reduceddual}.\footnote{In Figure~\ref{fig:ch3_QSD-beta'_beta''_pi_4_1CP_intro}, the subscript $1$ in $\beta_1'$ and $\beta_1''$ denote that we are considering one changepoint. We consider $2$ and $3$ changepoints in Appendix~\ref{app:heuristics}.} 
+For a sequence of length $220$, the error between the reduced SDP \eqref{eq:ch3_QSD-reduceddual} and the heuristic \eqref{eq:ch3_QSD-reduceddual2} is of the order of $10^{-3}$ and computing the heuristic \eqref{eq:ch3_QSD-reduceddual2} is observed to be about \emph{seven} times faster than the reduced SDP \eqref{eq:ch3_QSD-reduceddual}.\footnote{In Figure~\ref{fig:ch3_QSD-beta'_beta''_pi_4_1CP_intro}, the subscript $1$ in $\beta_1'$ and $\beta_1''$ denote that we are considering one changepoint.} %We consider $2$ and $3$ changepoints in Appendix~\ref{app:mQCP}.} 
 
 Section~\ref{sec:ch3_QSD-mQCP} describes the general case and provides a comparison with the results of~\cite{sentis2016quantum, sentis2017exact}. 
 
@@ -743,6 +1100,153 @@ Section~\ref{sec:ch3_QSD-mQCP} describes the general case and provides a compari
     \label{fig:ch3_QSD-beta'_beta''_pi_4_1CP_intro}
 \end{figure}
 
+\begin{figure}[htbp]
+    \centering
+
+    \begin{minipage}[b]{0.495\textwidth}
+        \centering
+        \includegraphics[
+            width=\linewidth,
+            alt={
+                Plot of the absolute difference between the objective values produced by the reduced semidefinite program and the heuristic for the one changepoint problem.
+                The horizontal axis represents the sequence length N, and the vertical axis represents the absolute difference between the two objective values. 
+                The sequence changes from the zero state to the plus state, and the closer-the-better reward parameter gamma is one half. 
+                The difference decreases rapidly as N increases and approaches ten to the power minus three at N equal to 220.
+            }
+        ]{figs/ch3_QSD/betap_betapp_pi_4_1CP.pdf}
+
+        \par\smallskip
+        \textbf{(a)} Absolute difference between \eqref{eq:ch3_QSD-reduceddual} and \eqref{eq:ch3_QSD-reduceddual2}.
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.495\textwidth}
+        \centering
+        \includegraphics[
+            width=\linewidth,
+            alt={
+                Plot comparing the runtimes of the reduced semidefinite program and the heuristic for the one changepoint problem. 
+                The horizontal axis represents the sequence length N, and the vertical axis represents runtime. 
+                The two methods have similar runtimes for sequence lengths up to about 80. 
+                For larger sequence lengths, the heuristic is increasingly faster and is approximately seven times faster than the reduced semidefinite program.
+            }
+        ]{figs/ch3_QSD/betap_betapp_time_pi_4_1CP.pdf}
+
+        \par\smallskip
+        \textbf{(b)} Runtimes of
+        \eqref{eq:ch3_QSD-reduceddual} and
+        \eqref{eq:ch3_QSD-reduceddual2}.
+    \end{minipage}
+
+    \caption{
+        We consider sequences in which the state $\ket{0}$ mutates to the state $\ket{+}$. 
+        Using the closer-the-better reward scheme with $\gamma=1/2$, panel~(a) shows the error between the heuristic \eqref{eq:ch3_QSD-reduceddual2} and the reduced SDP \eqref{eq:ch3_QSD-reduceddual}, while panel~(b) shows their runtimes. 
+        The difference between \eqref{eq:ch3_QSD-reduceddual} and \eqref{eq:ch3_QSD-reduceddual2} decreases rapidly, approaching $10^{-3}$ at $N=220$. 
+        Although the heuristic provides little runtime advantage for sequence lengths up to approximately $80$, it is roughly \emph{seven} times faster than the reduced SDP for larger values of $N$.
+    }
+    \label{fig:ch3_QSD-beta'_beta''_pi_4_1CP_intro}
+\end{figure}
+\end{comment}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Related work} 
+
+For the minimum-error case,~\cite{sentis2016quantum} showed that in the limit of the sequence length $N$, the probability of success is bounded by
+\begin{align}
+    \label{eq:ch3_QSD-sentis2016bound}
+    P_D \leq \frac{4 \sqrt{1 - \gamma^2}}{\pi} K^2(\gamma^2) + 4 \left( \frac{1 + \gamma}{1 - \gamma} \right)^{3/2} \frac{1}{N^{1 - \varepsilon}}
+\end{align}
+where $K(x)$ is the complete elliptic function of the first kind~\cite{darkhovsky2000non}, and $\varepsilon > 0$ is an arbitrary constant.
+For a sequence of length $N = 50$, Figure~\ref{fig:ch3_QSD-ME_compare} compares the difference between the heuristic~\eqref{prog:ch3_QSD-D''_1CP} and the optimal SDP~\eqref{prog:ch3_QSD-D'_1CP} where $r_{|i-j|} = \delta_{ij}$ for all $i, j$, and $c = 0$, with the difference between Eq.~\eqref{eq:ch3_QSD-sentis2016bound} and the aforementioned optimal SDP, for varying values of $\gamma^2$.
+Observe that while our heuristic outperforms the bound in Eq.~\eqref{eq:ch3_QSD-sentis2016bound}, the heuristic requires us to solve an SDP while Eq.~\eqref{eq:ch3_QSD-sentis2016bound} provides a closed-form expression.
+
+\begin{comment}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=0.6]{figs/ch3_QSD/ME_compare-2.pdf}
+    \caption{
+    For a sequence of length $N = 50$, the difference between the heuristic~\eqref{prog:ch3_QSD-D''_1CP} and the optimal SDP is compared with the difference between Eq.~\eqref{eq:ch3_QSD-sentis2016bound} and the optimal SDP, as we vary the value of $\gamma^2 = |\bra{\psi}\ket{\phi_1}|^2$.
+    Although our heuristic is a better bound than Eq.~\eqref{eq:ch3_QSD-sentis2016bound}, the heuristic requires us to solve an SDP while Eq.~\eqref{eq:ch3_QSD-sentis2016bound} is a closed-form expression.
+    }
+    \label{fig:ch3_QSD-ME_compare}
+\end{figure}
+\end{comment}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[
+        scale=0.6,
+        alt={
+            Plot comparing two approximation errors for a quantum changepoint problem with sequence length N equal to fifty.
+            The horizontal axis represents gamma squared, the squared overlap between the states psi and phi one. 
+            The vertical axis represents the absolute difference from the optimal semidefinite-program value. 
+            One curve shows the error of the heuristic, and the other shows the error of the closed-form bound. 
+            Across the plotted overlap values, the heuristic remains closer to the optimal value than the closed-form bound.
+        }
+    ]{figs/ch3_QSD/ME_compare-2.pdf}
+
+    \caption{
+        For a sequence of length $N=50$, we compare the difference between the heuristic~\eqref{prog:ch3_QSD-D''_1CP} and the optimal SDP with the difference between Eq.~\eqref{eq:ch3_QSD-sentis2016bound} and the optimal SDP, as the value of $\gamma^2 = |\braket{\psi}{\phi_1}|^2$ is varied.
+        Although our heuristic provides a tighter bound than Eq.~\eqref{eq:ch3_QSD-sentis2016bound}, it requires solving an SDP, whereas Eq.~\eqref{eq:ch3_QSD-sentis2016bound} is a closed-form expression.
+    }
+    \label{fig:ch3_QSD-ME_compare}
+\end{figure}
+
+Similarly for the unambiguous case, \cite{sentis2017exact} found that the success probability $P_u$ can be approximated by the expression
+\begin{align}
+    \label{eq:ch3_QSD-sentis2017approx}
+    P_{u} \approx
+    \begin{cases}
+        \frac{1 - \gamma}{1 + \gamma} + \frac{1}{N} \frac{2 \gamma}{(1 + \gamma)^2}, \qquad\qquad\qquad\qquad 0 \leq \gamma \leq \gamma^* = (\sqrt{5} - 1)/2 \\
+        \frac{1 - \gamma}{1 + \gamma} + \frac{1}{N} \frac{2 \gamma}{(1 + \gamma)^2} - \frac{2}{N} \left( \frac{1 - \gamma - \gamma^2}{1 + \gamma} \right)^2, \quad \gamma^* < \gamma \leq 1.
+    \end{cases}
+\end{align}
+For a sequence of length $N = 15$, Figure~\ref{fig:ch3_QSD-UA_compare} compares the difference between the heuristic~\eqref{prog:ch3_QSD-D''_1CP} and the optimal SDP~\eqref{prog:ch3_QSD-D'_1CP} where $r_{|i-j|} = 1$ if $i = j$, $r_{|i-j|} = -M$ if $i \ne j$, and $c = 0$, for $M = 10^4$, with the difference between Eq.~\eqref{eq:ch3_QSD-sentis2017approx} and this optimal SDP, for varying values of $\gamma$.
+For $\gamma \le \gamma^* = (\sqrt{5} - 1)/2$, the error between the heuristic and this optimal SDP is of the order $10^{-5}$.
+When $\gamma > \gamma^*$, observe that Eq.~\eqref{eq:ch3_QSD-sentis2017approx} provides a much better bound compared to the heuristic. 
+
+\begin{remark}
+We remark that our original SDP value is an approximation on unambiguous discrimination since we cannot numerically set $M = \infty$. 
+Thus, Figure~\ref{fig:ch3_QSD-UA_compare} compares the two heuristics compared to this SDP approximation. 
+We see that in this case, both heuristics perform well. 
+\end{remark} 
+
+\begin{comment}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=0.6]{figs/ch3_QSD/UA_compare-3.pdf} 
+    \caption{
+    For a sequence of length $N = 15$, we compare the difference between the heuristic~\eqref{prog:ch3_QSD-D''_1CP} and the optimal SDP, with the difference between Eq.~\eqref{eq:ch3_QSD-sentis2016bound} and the optimal SDP, for varying values of $\gamma$.
+    For $\gamma \le \gamma^* = (\sqrt{5} - 1)/2$, the error between the heuristic and the optimal SDP is of the order $10^{-5}$.
+    When $\gamma > \gamma^*$, observe that Eq.~\eqref{eq:ch3_QSD-sentis2016bound} provides a much better bound compared to the heuristic.
+    }
+    \label{fig:ch3_QSD-UA_compare}
+\end{figure}
+\end{comment}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[
+        scale=0.6,
+        alt={
+            Plot comparing two approximation errors for a quantum changepoint problem with sequence length N equal to fifteen. 
+            The horizontal axis represents gamma, and the vertical axis represents the difference from the optimal semidefinite program value. 
+            One curve shows the error of the heuristic, and the other shows the error of the closed-form bound. 
+            For gamma at or below gamma star, equal to the square root of five minus one divided by two, the heuristic error is approximately ten to the power minus five. 
+            Above gamma star, the closed-form expression is substantially closer to the optimal value than the heuristic.
+        }
+    ]{figs/ch3_QSD/UA_compare-3.pdf}
+
+    \caption{
+        For a sequence of length $N=15$, we compare the difference between the heuristic~\eqref{prog:ch3_QSD-D''_1CP} and the optimal SDP with the difference between Eq.~\eqref{eq:ch3_QSD-sentis2017approx} and the optimal SDP for varying values of $\gamma$. 
+        For $\gamma \leq \gamma^*=(\sqrt{5}-1)/2$, the error between the heuristic and the optimal SDP is of order $10^{-5}$. 
+        When $\gamma>\gamma^*$, Eq.~\eqref{eq:ch3_QSD-sentis2016bound} provides a substantially tighter bound than the heuristic.
+    }
+    \label{fig:ch3_QSD-UA_compare}
+\end{figure}
+
+
+%We defer the discussion of two or more changepoints to Appendix~\ref{app:mQCP}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -752,10 +1256,32 @@ Suppose now that Alice sends Bob an $n$-qubit state $\ket{\phi}$ via a single-qu
 We assume that any of the $n$ qubits can be affected by one of these errors with equal probability.
 Bob's task is to simply find out which of these errors occurred, i.e., $I, X, Z$, or $ZX$ (which equals $Y$ up to global phase).
 
+\begin{comment}
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{figs/ch3_QSD/QETC.png}
     \caption{A quantum source is sending an $n$-qubit state $\ket{\phi}$ via a single-qubit Pauli error channel. The task is to classify the type of error ($I, X, Z, Y$) that affected the state (while not asking for \emph{which qubit} it acted on).}
+    \label{fig:QETC}
+\end{figure}
+\end{comment}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[
+        width=\textwidth,
+        alt={
+            Diagram of a quantum error-type classification problem.
+            A quantum source prepares an n-qubit state phi and sends it through a channel that applies a single-qubit Pauli error. 
+            The possible error types are the identity, X, Z, and Y operations. 
+            A detector receives the corrupted state and outputs a guess of the error type without attempting to determine which qubit was affected.
+        }
+    ]{figs/ch3_QSD/QETC.png}
+
+    \caption{
+        A quantum source sends an $n$-qubit state $\ket{\phi}$ through a single-qubit Pauli error channel. 
+        The task is to classify the type of error, $I$, $X$, $Z$, or $Y$, that affected the state without determining \emph{which qubit} the error acted on.
+        The input state $\ket{\phi}$ need not be a separable state.
+    }
     \label{fig:QETC}
 \end{figure}
 
@@ -769,7 +1295,7 @@ Let $R_{ij} = 1$ if $\ket{\psi_j} \in \mathcal{S}$ is correctly classified into 
 The a priori probability of the states are $q_1 = 1/4$ and $1/4n$ for each of the other states in $\mathcal{S}$.
 Thus, the optimal classification probability can be formulated as the following SDP
 \begin{equation}
-    \max \; \left\{ \sum_{i \in \mathcal{I}} \sum_{j=1}^N R_{ij} q_j \inner{M_i}{\ketbra{\psi_j}}\ : \sum_{i \in \mathcal{I}} M_i = I,\ M_i \succcurlyeq 0 \right\}.
+    \max \; \left\{ \sum_{i \in \mathcal{I}} \sum_{j=1}^N R_{ij} p_j \inner{M_i}{\ketbra{\psi_j}}\ : \sum_{i \in \mathcal{I}} M_i = I,\ M_i \succcurlyeq 0 \right\}.
 \end{equation}
 
 For our numerical experiments, we consider the state
@@ -782,6 +1308,15 @@ where
     \ket{\mathrm{GHZ}_n} = \frac{\ket{0}^{\otimes n} + \ket{1}^{\otimes n}}{\sqrt{2}}\ \text{and}\ \ket{\mathrm{W}_n} = \frac{1}{\sqrt{n}}(\ket{100 \cdots 0} + \ket{010 \cdots 0} + \ket{001 \cdots 0} + \cdots + \ket{000 \cdots 1}) 
 \end{equation*} 
 for $n \geq 2$.
+
+The GHZ and W states are natural candidates for this study. 
+For three or more qubits, they are the canonical representatives of the two inequivalent classes of genuine multipartite entanglement under stochastic local operations and classical communication~\cite{dur2000three}, and each plays a distinguished role in quantum information processing: GHZ states are the
+archetypal ``cat'' states underlying stabilizer codes, Heisenberg-limited metrology, and tests of quantum nonlocality, while W states, whose entanglement is robust to particle loss, model single-excitation states in quantum memories and networks.
+
+More importantly for our purposes, the two states respond to single-qubit Pauli errors in complementary ways. 
+The GHZ state is supported on $\mathrm{span}\{\ket{0^n}, \ket{1^n}\}$: a phase-flip error $Z_i$, applied to \emph{any} qubit $i$, maps it to the same orthogonal state $(\ket{0^n} - \ket{1^n})/\sqrt{2}$, so the error type is perfectly visible while all location information is erased, whereas a bit-flip $X_i$ moves the support to a location-dependent sector. 
+The W state, by contrast, lives in the single-excitation subspace: any bit-flip error changes the excitation number and hence maps it to an orthogonal subspace, while a phase flip nearly preserves it, since $\braket{\mathrm{W}_n}{Z_i | \mathrm{W}_n} = (n-2)/n \to 1$. 
+Since our task is precisely to identify the \emph{type} of an error irrespective of its \emph{location}, this pair of complementary, permutation-symmetric responses makes the family $\ket{\psi_n(\theta)}$ a natural testbed: as $\theta$ sweeps from $0$ to $\pi/2$, the ensemble of corrupted states interpolates between a regime in which the error classes are perfectly distinguishable and one in which dephasing errors become nearly indistinguishable from no error at all.
 
 For $n=2$, the Bell states are 
 \begin{equation*}
@@ -865,6 +1400,7 @@ Note that this classical simulation was feasible since the state overlaps had an
 However, for generic states and error unitaries, one would likely need to take advantage of a quantum computer to compute the Gram matrix. 
 \end{remark} 
 
+\begin{comment}
 \begin{figure}
     \centering
     \includegraphics[scale=0.75]{figs/ch3_QSD/theta_qubits_data_301.png}
@@ -875,285 +1411,31 @@ However, for generic states and error unitaries, one would likely need to take a
     }
     \label{fig:qetc}
 \end{figure}
+\end{comment}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{General case of the quantum changepoint identification problem}\label{sec:ch3_QSD-mQCP} 
-
-%We now consider a general case of the quantum changepoint problem.
-Suppose again that Alice promised to deliver $N$ copies of the state $\ket{\psi}$ to Bob.
-At a point $c_1$, Alice starts to generate a mutated state $\ket{\phi_1}$.
-Then at some point $c_2$, Alice begins to generate another mutated state $\ket{\phi_2}$.
-Let us assume that there are $p$ such points in total leading to the states $\{\ket{\phi_3}, \dots, \ket{\phi_p}\}$ at points $\{c_3, \dots, c_p\}$ respectively.
-Therefore, Bob must now consider the states
-\begin{align}
-    \label{eq:ch3_QSD-CP_P}
-    \ket{\tau_{c_1, \cdots, c_p}} = \ket{\psi}^{\otimes c_1}\ \otimes\ \ket{\phi_1}^{\otimes (c_2 - c_1)}\ \otimes\ \cdots\ \otimes\ \ket{\phi_{P-1}}^{\otimes (c_p - c_{p-1})}\ \otimes\ \ket{\phi_p}^{\otimes (N - c_p)}.
-\end{align}
-
-The primal-dual pair in \eqref{prog:ch3_QSD-P_D} can be expressed as 
-\begin{equation}
-\begin{minipage}{.5\textwidth}
-    \begin{equation*}
-        \begin{aligned}
-            \alpha = \max \quad & \sum_{g\ \in\ \Iset_L}\ \sum_{c\ \in\ \Iset_N} R_{g, c}\ q_c\ \bra{\tau_c} M_g \ket{\tau_c} \\
-            \suchthat \quad & \sum_{g\ \in\ \Iset_L} M_g = \id \\
-            & \hspace{35pt} M_g \succcurlyeq 0,\ g \in \Iset_L, 
-        \end{aligned}
-    \end{equation*}    
-\end{minipage} 
-\begin{minipage}{.5\textwidth} 
-    \begin{equation*}
-        \label{prog:ch3_QSD-D_mQCP}
-        \begin{aligned}
-            \beta = \min \quad & \Tr(Y) \\
-            \suchthat \quad & Y \succcurlyeq \sum_{c\ \in\ \Iset_N} R_{g, c}\ q_c\ \ketbra{\tau_c},\ g \in \Iset_L, \\
-            & \phantom{N}
-        \end{aligned}
-    \end{equation*}
-\end{minipage}
-\end{equation} 
-where
-\begin{equation} 
-\Iset_m := \{(a_1, \cdots, a_p)\ :\ 1 \le a_1 \le \cdots \le a_p \le m\ \text{ where }\ a_i < a_{i+1}\ \text{ unless }\ a_i = m\}.
-\end{equation} 
-This indexing means that no state $\ket{\phi_i}$ is skipped, unless $n$ states total have already been sent. 
-In other words, you cannot skip from $\ket{\phi_i}$ to $\ket{\phi_{i+2}}$, say, but if the $n$-th state is $\ket{\psi_i}$, then you will not see any copies of $\ket{\psi_j}$ for $j > i$.
-
-The corresponding reduced primal-dual pair becomes
-\begin{equation}
-\begin{minipage}{.5\textwidth}
-    \begin{equation*}
-        \begin{aligned}
-            \alpha' = \max \quad & \sum_{g\ \in\ \Iset_L}\ \sum_{c\ \in\ \Iset_N} R_{g, c}\ q_c\ \bra{c} W_g \ket{c} \\
-            \suchthat \quad & \sum_{g\ \in\ \Iset_L} W_g = G \\
-            & \hspace{35pt} W_g \succcurlyeq 0,\ g \in \Iset_L.
-        \end{aligned}
-    \end{equation*}    
-\end{minipage} 
-\begin{minipage}{.5\textwidth} 
-    \begin{equation*}
-        \label{prog:ch3_QSD-D'_mQCP}
-        \begin{aligned}
-            \beta' = \min \quad & \inner{X}{G} \\
-            \suchthat \quad & X \succcurlyeq \sum_{c\ \in\ \Iset_N} R_{g, c}\ q_c\ \ketbra{c},\ g \in \Iset_L.\\
-            & \phantom{N}
-        \end{aligned}
-    \end{equation*}
-\end{minipage}
-\end{equation}
-
-Let us denote the overlaps as follows
-\begin{equation}
-    \label{eq:ch3_QSD-inner_prod}
-    \begin{aligned}
-        |\braket{\psi}{\phi_i}| = \gamma_{i},\ \quad |\braket{\phi_i}{\phi_j}| = |\braket{\phi_j}{\phi_i}| = \gamma_{ij},
-        \quad i \ne j \text{ and } i,\ j \in \{1, \dots, p\}.
-    \end{aligned}
-\end{equation}
-
-Each of these overlaps can be computed using the swap test (see Section~\ref{sec:QC_bg}).
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection{At most one changepoint}\label{sec:ch3_QSD-1CP}
-
-When there is at most one changepoint, Bob discriminates between the following states
-\begin{equation}
-    \begin{aligned}
-        \ket{\tau_1} &\coloneqq \ket{\tau_{1NN \cdots NN}} = \ket{\psi}\ \otimes\ \ket{\phi_1}^{\otimes N-1} \\
-        \ket{\tau_2} &\coloneqq \ket{\tau_{2NN \cdots NN}} = \ket{\psi}^{\otimes 2}\ \otimes\ \ket{\phi_1}^{\otimes N-2} \\
-        \vdots \\
-        \ket{\tau_{N-1}} &\coloneqq \ket{\tau_{N-1,NN \cdots NN}} = \ket{\psi}^{\otimes N-1}\ \otimes\ \ket{\phi_1} \\
-        \ket{\tau_N} &\coloneqq \ket{\tau_{NNN \cdots NN}} = \ket{\psi}^{\otimes N}. 
-    \end{aligned}
-\end{equation}
-Notice that the last state $\ket{\tau_N}$ indicates the sequence where no changepoint has occurred, i.e, Alice generated all the states as promised.
-All the remaining states correspond to the sequences where exactly one changepoint occurred.
-Therefore, Bob wishes to not only determine whether a changepoint occurred, but also the exact point of said occurrence.
-
-Here we assume that the changepoint follows a uniform prior, i.e, each of the states \\
-$\ket{\tau_k}, k \in \{1, \dots, N\}$, are equally likely.
-
-\begin{lemma}
-    \label{lem:ch3_QSD-G_sym_toep}
-    Gram matrix $G$ of the possible sequences generated by Alice when there is at most one changepoint is a Hermitian Toeplitz matrix.
-\end{lemma}
-\begin{proof}
-    By direct computation, we have
-    \begin{align*}
-        G_{ij} = 
-        \begin{cases}
-            \braket{\phi_1}{\psi}^{(j-i)} &i < j \\
-            \braket{\psi}{\phi_1}^{(i-j)} &\text{otherwise}
-        \end{cases}
-    \end{align*}
-    $G$ is clearly a Hermitian Toeplitz matrix from the above.
-\end{proof}
-
-\begin{lemma}
-    \label{lem:ch3_QSD-T_sym_Toep}
-    When there is at most one changepoint, the Gram matrix $G$ has the same reward as the Gram matrix $T^{(1)}$ where $(T^{(1)})_{ij} = |G_{ij}|$. Moreover, $T^{(1)}$ is a symmetric Toeplitz matrix.
-\end{lemma}
-\begin{proof}
-    Define $\ket{\phi_1'} = e^{i \theta} \ket{\phi_1}$, where we choose $\theta \in \reals$ such that $\braket{\phi_1'}{\psi} = |\braket{\phi_1}{\psi}|$.
-    From~\eqref{eq:ch3_QSD-gen_QSD2}, the value of the SDP clearly remains same if we replace any state with one that is equivalent up to a global phase.
-    Define $\ket{\tau_i'} = \ket{\psi}^{\otimes i}\ \otimes\ \ket{\phi_1'}^{\otimes (N-i)}$, for all values of $i$.
-    Then $\ket{\tau_i}$ and $\ket{\tau_i'}$ differ by a global phase, thus the SDPs have the same value.
-    Let $T^{(1)}$ by the Gram matrix of $\ket{\tau_1'}, \dots, \ket{\tau_N'}$.
-    Notice that $(T^{(1)})_{ij} = |\braket{\psi}{\phi_1}|^{|i-j|} = |G_{ij}|$. 
-    Finally, $T^{(1)}$ is symmetric Toeplitz, as desired. 
-\end{proof} 
-
-The dual SDP in \eqref{prog:ch3_QSD-D'_mQCP} can be expressed as
-\begin{equation}
-    \label{eq:ch3_QSD-1CP_Toep}
-    \begin{aligned}
-        \beta'_{T1} = \min \quad& \inner{X}{T^{(1)}} \\
-        \suchthat \quad& X \succcurlyeq \frac{1}{N} \sum_{j=1}^N R_{ij} | j \rangle\langle j |, i \in \{1, \dots, N\} \\
-    \end{aligned}
-\end{equation}
-
-Consider the following reward scheme
-\begin{align}
-    \label{eq:ch3_QSD-R_1CP}
-    (R_{1CP})_{ij} = 
-    \begin{cases}
-        r_{|i - j|},\ i \in \{1, \dots, N\} \\
-        c,\ \hspace{15pt}\ i = N + 1
-    \end{cases}
-\end{align}
-for $j \in \{1, \dots, N\}$, where $r_0, \dots, r_{N-1}$ and $c$ are real scalars.
-The motivation behind this strategy is as follows.
-When Bob is able to correctly identify the changepoint, he is awarded a reward of $r_0$, regardless of when the changepoint occurred.
-Similarly, if the changepoint occurred at the $j$-th state, and Bob guessed the $i$-th state, irrespective of whether $i < j$ or $i > j$, he is given a reward of $r_{|i-j|}$.
-Notwithstanding the state Bob received, if he gives an inconclusive outcome, he is awarded a constant reward of $c$.
-
-Accounting for all this, we can rewrite the dual SDP in \eqref{prog:ch3_QSD-D'_mQCP} as follows
-\begin{equation}
-    \label{prog:ch3_QSD-D'_1CP}
-    \begin{aligned}
-        \beta'_{1CP} = \min \quad & \inner{X_{1CP}}{T_{1CP}} \\
-        \suchthat \quad & X_{1CP} \succcurlyeq \frac{1}{N}\, \sum_{j=1}^N r_{|i - j|} \ketbra{j},\ i \in \{1, \dots, N\} \\
-        & X_{1CP} \succcurlyeq \frac{c}{N}\, \id_N.
-    \end{aligned}
-\end{equation}
-
-\subsubsection{A heuristic}
-
-Observe that $(R_{1CP})_{ij} = r_{|i-j|},\ i, j \in \{1, \dots, N\}$ corresponds to a symmetric Toeplitz matrix.
-Since $T_{1CP}$ is a symmetric Toeplitz matrix and $R_{1CP}$ has a Toeplitz-like structure, we investigate a heuristic solution $X'_{1CP}$ which is restricted to be symmetric Toeplitz.
-The incentive behind such a restriction is that a symmetric Toeplitz matrix can be fully constructed from its first row, and thus has fewer parameters.
-Then both $T_{1CP}$ and $X'_{1CP}$ can be expressed as
-\begin{align}
-    \label{eq:ch3_QSD-sym_Toep}
-    T_{1CP} = \sum_{k=-(N-1)}^{(N-1)} \gamma^{|k|} \Theta_k \quad\qquad\quad X'_{1CP} = \sum_{k=-(N-1)}^{(N-1)} x_{|k|} \Theta_k,
-\end{align}
-where $\gamma = |\braket{\psi}{\phi_1}|$, and $\Theta_k$ is a $N \times N$ Toeplitz matrix with ones on the $k$-th diagonal and zeros elsewhere.
-Here, $k = 0$ indicates the principal diagonal, $k > 0$ denotes the sub-diagonals, and $k < 0$ corresponds to the super-diagonals.
-
-We can express \eqref{prog:ch3_QSD-D'_1CP} with this heuristic as
-\begin{equation}
-    \label{prog:ch3_QSD-D''_1CP}
-    \begin{aligned}
-        \beta''_{1CP} = \min \quad & \inner{x}{p} \\
-        \suchthat \quad & \sum_{k=0}^{N-1} x_k \Theta_k \succcurlyeq \frac{1}{N}\, \sum_{j=1}^N r_{|i - j|} \ketbra{j},\ i \in \{1, \dots, N\} \\
-        & \sum_{k=0}^{N-1} x_k \Theta_k \succcurlyeq \frac{c}{N}\, \id_N,
-    \end{aligned}
-\end{equation}
-where $p = \left( N,\ 2(N-1) \gamma,\ 2(N-2) \gamma^2,\ \ldots,\ 2 \gamma^{N-1} \right)^\top$ and $x = \left( x_0, x_1, x_2, \ldots, x_{N-1} \right)^\top$.
-
-\subsubsection{Related work} 
-
-For the minimum-error case,~\cite{sentis2016quantum} showed that in the limit of the sequence length $N$, the probability of success is bounded by
-\begin{align}
-    \label{eq:ch3_QSD-sentis2016bound}
-    P_D \leq \frac{4 \sqrt{1 - \gamma^2}}{\pi} K^2(\gamma^2) + 4 \left( \frac{1 + \gamma}{1 - \gamma} \right)^{3/2} \frac{1}{N^{1 - \varepsilon}}
-\end{align}
-where $K(x)$ is the complete elliptic function of the first kind~\cite{darkhovsky2000non}, and $\varepsilon > 0$ is an arbitrary constant.
-For a sequence of length $N = 50$, Figure~\ref{fig:ch3_QSD-ME_compare} compares the difference between the heuristic~\eqref{prog:ch3_QSD-D''_1CP} and the optimal SDP~\eqref{prog:ch3_QSD-D'_1CP} where $r_{|i-j|} = \delta_{ij}$ for all $i, j$, and $c = 0$), with the difference between Eq.~\eqref{eq:ch3_QSD-sentis2016bound} and the aforementioned optimal SDP, for varying values of $\gamma^2$.
-Observe that while our heuristic outperforms the bound in Eq.~\eqref{eq:ch3_QSD-sentis2016bound}, the heuristic requires us to solve an SDP while Eq.~\eqref{eq:ch3_QSD-sentis2016bound} provides a closed-form expression.
-\begin{figure}[h!]
+\begin{figure}[htbp]
     \centering
-    \includegraphics[scale=0.6]{figs/ch3_QSD/ME_compare-2.pdf}
-    \caption{
-    For a sequence of length $N = 50$, the difference between the heuristic~\eqref{prog:ch3_QSD-D''_1CP} and the optimal SDP is compared with the difference between Eq.~\eqref{eq:ch3_QSD-sentis2016bound} and the optimal SDP, as we vary the value of $\gamma^2 = |\bra{\psi}\ket{\phi_1}|^2$.
-    Although our heuristic is a better bound than Eq.~\eqref{eq:ch3_QSD-sentis2016bound}, the heuristic requires us to solve an SDP while Eq.~\eqref{eq:ch3_QSD-sentis2016bound} is a closed-form expression.
+    \includegraphics[
+        width=0.75\linewidth,
+        alt={
+            Line plot of the optimal error-type classification probability as a function of theta for the states psi n of theta, for n equal to two through ten.
+            The horizontal axis is theta, ranging from zero to pi over two, and the vertical axis is the optimal classification probability. 
+            All curves begin at probability one when theta is zero. 
+            For n equal to two, the curve decreases symmetrically to one half at theta equal to pi over four and then returns to one at theta equal to pi over two. 
+            For n equal to three through ten, the curves decrease more gradually and meet near theta equal to forty-nine point eight degrees at probability zero point nine zero seven. 
+            Beyond this point, the curves separate, with the probability generally decreasing more strongly for larger n.
+        }
+    ]{figs/ch3_QSD/theta_qubits_data_301.png}
+
+    \caption{%
+        The optimal error-type classification probability for $\ket{\psi_n(\theta)} = \cos(\theta)\ket{\mathrm{GHZ}_n} + \sin(\theta)\ket{\mathrm{W}_n}$ as a function of $\theta\in[0,\pi/2]$.
+        For $n=2$, the success probability is $\max\{\cos^2(\theta),\sin^2(\theta)\}$.
+        For $n\geq3$, the curves appear to have an inflection point near $\theta=49.8^\circ$, corresponding to a success probability of approximately $0.907$.
     }
-    \label{fig:ch3_QSD-ME_compare}
-\end{figure} 
-
-Similarly for the unambiguous case, \cite{sentis2017exact} found that the success probability $P_u$ can be approximated by the expression
-\begin{align}
-    \label{eq:ch3_QSD-sentis2017approx}
-    P_{u} \approx
-    \begin{cases}
-        \frac{1 - \gamma}{1 + \gamma} + \frac{1}{N} \frac{2 \gamma}{(1 + \gamma)^2}, \qquad\qquad\qquad\qquad 0 \leq \gamma \leq \gamma^* = (\sqrt{5} - 1)/2 \\
-        \frac{1 - \gamma}{1 + \gamma} + \frac{1}{N} \frac{2 \gamma}{(1 + \gamma)^2} - \frac{2}{N} \left( \frac{1 - \gamma - \gamma^2}{1 + \gamma} \right)^2, \quad \gamma^* < \gamma \leq 1.
-    \end{cases}
-\end{align}
-For a sequence of length $N = 15$, Figure~\ref{fig:ch3_QSD-UA_compare} compares the difference between the heuristic~\eqref{prog:ch3_QSD-D''_1CP} and the optimal SDP~\eqref{prog:ch3_QSD-D'_1CP} where $r_{|i-j|} = 1$ if $i = j$, $r_{|i-j|} = -M$ if $i \ne j$, and $c = 0$, for $M = 10^4$, with the difference between Eq.~\eqref{eq:ch3_QSD-sentis2017approx} and this optimal SDP, for varying values of $\gamma$.
-For $\gamma \le \gamma^* = (\sqrt{5} - 1)/2$, the error between the heuristic and this optimal SDP is of the order $10^{-5}$.
-When $\gamma > \gamma^*$, observe that Eq.~\eqref{eq:ch3_QSD-sentis2017approx} provides a much better bound compared to the heuristic. 
-
-\begin{remark}
-We remark that our original SDP value is an approximation on unambiguous discrimination since we cannot numerically set $M = \infty$. 
-Thus, Figure~\ref{fig:ch3_QSD-UA_compare} compares the two heuristics compared to this SDP approximation. 
-We see that in this case, both heuristics perform well. 
-\end{remark} 
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[scale=0.6]{figs/ch3_QSD/UA_compare-3.pdf} 
-    \caption{
-    For a sequence of length $N = 15$, we compare the difference between the heuristic~\eqref{prog:ch3_QSD-D''_1CP} and the optimal SDP, with the difference between Eq.~\eqref{eq:ch3_QSD-sentis2016bound} and the optimal SDP, for varying values of $\gamma$.
-    For $\gamma \le \gamma^* = (\sqrt{5} - 1)/2$, the error between the heuristic and the optimal SDP is of the order $10^{-5}$.
-    When $\gamma > \gamma^*$, observe that Eq.~\eqref{eq:ch3_QSD-sentis2016bound} provides a much better bound compared to the heuristic.
-    }
-    \label{fig:ch3_QSD-UA_compare}
+    \label{fig:qetc}
 \end{figure}
 
-\subsubsection{Numerical experiment}
-
-We look at the specific case where the promised state is $\ket{\psi} = \ket{0}$ and the mutated state is $\ket{\phi_1} = \ket{+}$.
-Here we consider the following reward function
-\begin{align}
-    \label{eq:ch3_QSD-1CP_ctbr}
-    (R_{1CP})_{ij} = 
-    \begin{cases}
-        \left( \frac{1}{\sqrt{2}} \right)^{|i - j|},\ i \in \{1, \dots, N\} \\
-        0,\ \hspace{15pt}\ i = N + 1
-    \end{cases}
-\end{align}
-Figure~\ref{fig:ch3_QSD-beta'_beta''_pi_4_1CP} considers the solution of the reduced SDP~\eqref{eq:ch3_QSD-reduceddual} and the heuristic~\eqref{eq:ch3_QSD-reduceddual2} for this case.
-We note the following two observations:
-(1) Our reduction~\eqref{eq:ch3_QSD-reduceddual} is the probability of both detecting as well as localizing a single changepoint for sequences of length $220$.
-Without this reduction, solving~\eqref{eq:ch3_QSD-gen_QSD2} involves finding operators of size $2^{220} \times 2^{220}$.
-(2) Observe that solving our heuristic~\eqref{eq:ch3_QSD-reduceddual2} is roughly \emph{seven} times faster, with a gap of only about $10^{-3}$.
-
-\begin{figure}[h]
-    \centering
-    \begin{subfigure}[b]{0.495\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figs/ch3_QSD/betap_betapp_pi_4_1CP.pdf}
-        \caption{Absolute value of the difference between~\eqref{eq:ch3_QSD-reduceddual} and~\eqref{eq:ch3_QSD-reduceddual2}.}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.495\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figs/ch3_QSD/betap_betapp_time_pi_4_1CP.pdf}
-        \caption{Runtimes of~\eqref{eq:ch3_QSD-reduceddual} and~\eqref{eq:ch3_QSD-reduceddual2}.}
-    \end{subfigure}
-    \caption{
-    Here we consider the sequences where the state $\ket{0}$ mutated to the state $\ket{+}$. 
-    Using the closer-the-better reward scheme with $\gamma = 1/\sqrt{2}$, we see the error between the heuristic \eqref{eq:ch3_QSD-reduceddual2} and the reduced SDP \eqref{eq:ch3_QSD-reduceddual} (on the left), and the runtimes of both \eqref{eq:ch3_QSD-reduceddual} and \eqref{eq:ch3_QSD-reduceddual2} (on the right).
-    Observe that the difference between \eqref{eq:ch3_QSD-reduceddual} and \eqref{eq:ch3_QSD-reduceddual2} decreases rapidly approaching $10^{-3}$ at $N = 220$ (on the left).
-    Although there seems to be no advantage, in terms of time, in computing \eqref{eq:ch3_QSD-reduceddual2} for sequences up to length $80$, we observe that computing \eqref{eq:ch3_QSD-reduceddual2} is roughly \emph{seven} times faster than calculating \eqref{eq:ch3_QSD-reduceddual} for larger values of $N$.
-    }
-    \label{fig:ch3_QSD-beta'_beta''_pi_4_1CP}
-\end{figure}
-
-We defer the discussion of two or more changepoints to Appendix~\ref{app:mQCP}.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section*{Computational platform}
 

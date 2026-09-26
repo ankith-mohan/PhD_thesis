@@ -366,30 +366,21 @@ frame=single,
 
 }
 
-\def\ackpage{%
-  % \chapter*{\center{...}} started an unterminated trivlist inside the
-  % heading title, which left the H1 structure open and broke PDF tagging.
-  % Centre the heading by patching the heading macro instead, and restore
-  % it afterwards so other \chapter* headings are unaffected.
-  \let\VT@saved@schapterhead\@makeschapterhead
-  \patchcmd{\@makeschapterhead}{\raggedright}{\centering}{}{}%
-  \chapter*{Acknowledgments}%
-  \let\@makeschapterhead\VT@saved@schapterhead
+\def\ackpage{
+  \chapter*{\center{Acknowledgments}}
   \@acknowledge
   \newpage
 }
 
-\def\dedpage{%
+\def\dedpage{
 \pagestyle{fancy} % Restores all page numbers going forward, beginning at the dedication.
-  % \chapter*{} produced an empty H1 in the structure tree; a plain page
-  % break does the same job.  \itshape replaces \emph{...} because line
-  % breaks inside a command argument nest paragraph structures.
-  \clearpage
+\chapter*{}
   \vspace*{\fill}
+  \begingroup
   \begin{center}
-    \itshape
-    \@dedication
+    \emph{\@dedication}
   \end{center}
+  \endgroup
   \vspace*{\fill}
   \newpage
 }

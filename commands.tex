@@ -1,5 +1,13 @@
-\usetikzlibrary{quantikz}
-\usetikzlibrary{angles,quotes} % for pic
+%\usetikzlibrary{quantikz2}
+%\usetikzlibrary{angles,quotes} % for pic
+\usetikzlibrary{
+    quantikz2,
+    angles,
+    quotes,
+    backgrounds,
+    fit,
+    positioning
+}
 \contourlength{1.3pt}
 \tikzset{>=latex} % for LaTeX arrow head
 \tikzstyle{vector}=[->,very thick]
@@ -45,6 +53,8 @@
 \newcommand{\Y}{\mathcal{Y}} 
 \newcommand{\Ocomp}{\mathcal{O}}
 
+\newcommand{\idch}{\mathcal{I}}
+
 \newcommand{\Pos}{\mathrm{Pos}}
 \newcommand{\Pd}{\mathrm{Pd}}
 \newcommand{\Herm}{\mathrm{Herm}}
@@ -75,7 +85,7 @@
 \newcommand{\POVM}{\mathcal{M}}
 \newcommand{\aPOVM}{\mathcal{N}}
 
-\newcommand{\Iset}{\mathcal{I}}
+\newcommand{\Iset}{\mathcal{J}}
 \newcommand{\Xspace}{\mathcal{X}}
 \newcommand{\Yspace}{\mathcal{Y}}
 
@@ -98,6 +108,9 @@
 \newcommand{\Smat}{\mathbf{S}}
 \newcommand{\Tmat}{\mathbf{T}}
 \newcommand{\Vmat}{\mathbf{V}}
+
+\newcommand{\linmap}{\mathrm{L}}
+\newcommand{\superlinmap}{\mathrm{T}}
 
 \newcommand{\reals}{\mathbb{R}}
 \newcommand{\complex}{\mathbb{C}} 
@@ -153,6 +166,8 @@
 \newcommand{\threshnk}{\thresh_{n,k}}  
 \newcommand{\gammacomm}{Gram matrix relation}
 \newcommand{\cartprod}{\mathbin{\square}}
+
+\theoremstyle{plain}
 
 %\newtheorem{theorem}{Theorem}
 %\newtheorem{conjecture}[theorem]{Conjecture}
@@ -228,6 +243,7 @@
 \let\P\relax
 \let\norm\relax
 \DeclareMathOperator{\P}{P}
+\DeclareMathOperator{\Bern}{Bernoulli}
 \DeclareMathOperator{\Binom}{Binomial}
 \DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
 

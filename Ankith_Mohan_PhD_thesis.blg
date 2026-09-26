@@ -1,0 +1,50 @@
+This is BibTeX, Version 0.99e (TeX Live 2026)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: Ankith_Mohan_PhD_thesis.aux
+The style file: alpha.bst
+Database file #1: ref.bib
+Warning--there's a number but no volume in bacon2005optimal
+Warning--can't use both volume and number fields in bergou2007quantum
+Warning--empty journal in darkhovsky2000non
+You've used 143 entries,
+            2543 wiz_defined-function locations,
+            1328 strings with 26326 characters,
+and the built_in function-call counts, 59497 in all, are:
+= -- 5957
+> -- 2968
+< -- 51
++ -- 1047
+- -- 1027
+* -- 4696
+:= -- 9896
+add.period$ -- 429
+call.type$ -- 143
+change.case$ -- 930
+chr.to.int$ -- 141
+cite$ -- 146
+duplicate$ -- 2158
+empty$ -- 4194
+format.name$ -- 1196
+if$ -- 11895
+int.to.chr$ -- 3
+int.to.str$ -- 0
+missing$ -- 144
+newline$ -- 718
+num.names$ -- 429
+pop$ -- 649
+preamble$ -- 2
+purify$ -- 1077
+quote$ -- 0
+skip$ -- 1844
+stack$ -- 0
+substring$ -- 3689
+swap$ -- 257
+text.length$ -- 51
+text.prefix$ -- 37
+top$ -- 0
+type$ -- 1128
+warning$ -- 3
+while$ -- 594
+width$ -- 148
+write$ -- 1850
+(There were 3 warnings)

@@ -12,13 +12,28 @@
 %
 %In addition to the standard formatting options, the following options are defined for the VTthesis class: proposal, prelim, doublespace, draft. 
 
+\DocumentMetadata{lang=en-US, pdfstandard=ua-2, testphase={phase-III, math, firstaid}}
+
+%\DocumentMetadata{
+%  lang=en-US, pdfversion=2.0, pdfstandard=ua-2,
+%  testphase={phase-III,math,table,firstaid},
+%  debug={para=show, log=v},
+%}
+
 \documentclass[doublespace,nopageskip]{VTthesis} % nopageskip - Removes arbitrary blank pages.
+
+%\ExplSyntaxOn
+%\AddToHook{shipout/after}{
+%  \typeout{PARA-CHECK~page~\thepage :~
+%    begin=\int_use:N \g__tag_para_begin_int ~
+%    end=\int_use:N \g__tag_para_end_int}
+%}
+%\ExplSyntaxOff
 
 % Using the following header instead will create a draft copy of your thesis
 %\documentclass[doublespace,draft]{VTthesis}
 
 % The lipsum package is just included to put dummy text in the document in order to demonstrate page headers and table of contents behavior. You should remove it once you begin writing your actual thesis or dissertation.
-\usepackage{lipsum}
 \usepackage{physics}
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -31,35 +46,30 @@
 \usepackage{dsfont}
 \usepackage{mathtools}
 \usepackage{xspace}
-\usepackage{soul}
+%\usepackage{soul}
 \usepackage{algorithm}
 \usepackage{algpseudocode}
-\usepackage{rotating}
+%\usepackage{rotating}
 \usepackage{tikz}
 \usepackage{siunitx}
 \usepackage[outline]{contour}
-\usepackage{hyperref}       
-\usepackage{url}     
+%\usepackage{hyperref}       
+%\usepackage{url}     
 \usepackage{bm}
 \usepackage{subcaption}
 \usepackage{ifthen}
-\usepackage{latexsym}
-\usepackage{nicematrix}
+%\usepackage{latexsym}
+%\usepackage{nicematrix}
 \usepackage{xparse}
-\usepackage{thmtools} 
+%\usepackage{thmtools} 
 \usepackage{tabto}
-\usepackage{thm-restate}
+%\usepackage{thm-restate}
 \usepackage{cleveref}
 
 \input{commands}
 
-% REMOVE ME!
-\usepackage{xcolor}
-\newcommand{\amnote}[1]{\textcolor{blue}{[Ankith: #1]}}
-\newcommand{\jsnote}[1]{\textcolor{red}{[Jamie: #1]}}
-
 % Title of your thesis
-\title{Optimizing large, computationally hard problems in quantum information \amnote{Other titles in the acknowledgements}}
+\title{Techniques for computing and approximating large optimization problems in quantum information}
 
 % You should include 3-5 keywords, separated by commas
 \keywords{Semidefinite programming, Quantum state discrimination, Separability problem}
@@ -68,7 +78,7 @@
 \author{Ankith Mohan}
 
 % Change this to your program, e.g. Physics, Civil Engineering, etc.
-\program{Computer Science} 
+\program{Computer Science and Application} 
 
 % Change this to your degree, e.g. Master of Science, Master of Art, etc.
 \degree{Doctor of Philosophy} 
@@ -89,9 +99,21 @@
 \fourthreader{Iman Marvian}
 
 % The dedication and acknowledgement pages are optional. Comment them out to remove them.
-%\dedication{}%Dedicated to my parents without whose love and support, this work would not have been possible.}
-%\acknowledge{\input{contents/acknowledgement}}
- 
+\dedication{
+To my parents, for their unwavering support. \\ [2ex]
+And to CC, faithful companion of the sleepless nights. \\
+Rest easy, little one.
+}
+\acknowledge{\input{contents/acknowledgement}} % PENDING!
+
+\hypersetup{
+  pdftitle={Techniques for computing and approximating large optimization problems in quantum information},
+  pdfauthor={Ankith Mohan},
+  pdfsubject={PhD Dissertation, Computer Science, Virginia Tech},
+  pdfkeywords={Semidefinite programming, Quantum state discrimination, Separability problem},
+  pdflang={en-US},
+  pdfdisplaydoctitle=true
+} 
 
 % The abstract is required.
 %\abstract{Give a brief description of your thesis here.}
@@ -108,7 +130,7 @@
 
 % The list of figures and tables are now optional per the official ETD standards.  Unless you have a very good reason for removing them, you should leave these lists in the document. Comment them out to remove them.
 	\listoffigures
-	\listoftables
+	%\listoftables
 	\input{contents/abbreviation} 
     \printnomenclature %Creates a list of abbreviations. Comment out to remove it. 
 
@@ -130,10 +152,10 @@
 	%\bibliographystyle{plainnat}   
 
 	% This formats the chapter name to appendix to properly define the headers:
-	\input{contents/appendix}
     \bibliography{ref}
     %\bibliographystyle{ieeetr}  
     \bibliographystyle{alpha}
+    %\input{contents/appendix}
 \end{document}
 
 

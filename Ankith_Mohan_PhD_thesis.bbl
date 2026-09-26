@@ -1,0 +1,797 @@
+\newcommand{\etalchar}[1]{$^{#1}$}
+\providecommand{\noopsort}[1]{}\providecommand{\singleletter}[1]{#1}%
+\begin{thebibliography}{CDVMTB10}
+
+\bibitem[AA00]{andersen2000mosek}
+Erling~D Andersen and Knud~D Andersen.
+\newblock The {MOSEK} interior point optimizer for linear programming: an
+  implementation of the homogeneous algorithm.
+\newblock In {\em High Performance Optimization}, pages 197--232. Springer,
+  2000.
+
+\bibitem[ABB{\etalchar{+}}05]{acin2005multiple}
+Antonio Ac{\'\i}n, Emili Bagan, Maria Baig, Lluis Masanes, and Ramon
+  Munoz-Tapia.
+\newblock Multiple-copy two-state discrimination with individual measurements.
+\newblock {\em Physical Review A}, 71(3):032338, 2005.
+
+\bibitem[ABGH02]{andersson2002minimum}
+Erika Andersson, Stephen~M Barnett, Claire~R Gilson, and Kieran Hunter.
+\newblock Minimum-error discrimination between three mirror-symmetric states.
+\newblock {\em Physical Review A}, 65(5):052308, 2002.
+
+\bibitem[AC17]{aminikhanghahi2017survey}
+Samaneh Aminikhanghahi and Diane~J Cook.
+\newblock A survey of methods for time series change point detection.
+\newblock {\em Knowledge and Information Systems}, 51(2):339--367, 2017.
+
+\bibitem[AHK12]{arora2012multiplicative}
+Sanjeev Arora, Elad Hazan, and Satyen Kale.
+\newblock The multiplicative weights update method: a meta-algorithm and
+  applications.
+\newblock {\em Theory of Computing}, 8(1):121--164, 2012.
+
+\bibitem[AJL06]{aharonov2006polynomial}
+Dorit Aharonov, Vaughan Jones, and Zeph Landau.
+\newblock A polynomial quantum algorithm for approximating the {J}ones
+  polynomial.
+\newblock In {\em Proceedings of the Thirty-Eighth Annual ACM Symposium on
+  Theory of Computing}, pages 427--436, 2006.
+
+\bibitem[Amb01]{ambainis2001new}
+Andris Ambainis.
+\newblock A new protocol and lower bounds for quantum coin flipping.
+\newblock In {\em Proceedings of the Thirty-Third Annual ACM Symposium on
+  Theory of Computing}, pages 134--142, 2001.
+
+\bibitem[ATSVY00]{aharonov2000quantum}
+Dorit Aharonov, Amnon Ta-Shma, Umesh~V Vazirani, and Andrew~C Yao.
+\newblock Quantum bit escrow.
+\newblock In {\em Proceedings of the Thirty-Second Annual ACM Symposium on
+  Theory of Computing}, pages 705--714, 2000.
+
+\bibitem[AVDB18]{agrawal2018rewriting}
+Akshay Agrawal, Robin Verschueren, Steven Diamond, and Stephen Boyd.
+\newblock A rewriting system for convex optimization problems.
+\newblock {\em Journal of Control and Decision}, 5(1):42--60, 2018.
+
+\bibitem[Bae13]{bae2013structure}
+Joonwoo Bae.
+\newblock Structure of minimum-error quantum state discrimination.
+\newblock {\em New Journal of Physics}, 15(7):073037, 2013.
+
+\bibitem[Bar01]{barnett2001minimum}
+Stephen~M Barnett.
+\newblock Minimum-error discrimination between multiply symmetric states.
+\newblock {\em Physical Review A}, 64(3):030303, 2001.
+
+\bibitem[BB14]{bennett2014quantum}
+Charles~H Bennett and Gilles Brassard.
+\newblock Quantum cryptography: {P}ublic key distribution and coin tossing.
+\newblock {\em Theoretical Computer Science}, 560:7--11, 2014.
+
+\bibitem[BC09]{barnett2009quantum}
+Stephen~M Barnett and Sarah Croke.
+\newblock Quantum state discrimination.
+\newblock {\em Advances in Optics and Photonics}, 1(2):238--278, 2009.
+
+\bibitem[BCvD06]{bacon2005optimal}
+Dave Bacon, Andrew~M Childs, and Wim van Dam.
+\newblock Optimal measurements for the dihedral hidden subgroup problem.
+\newblock {\em Chicago Journal of Theoretical Computer Science}, (2), 2006.
+
+\bibitem[BCWDW01]{buhrman2001quantum}
+Harry Buhrman, Richard Cleve, John Watrous, and Ronald De~Wolf.
+\newblock Quantum fingerprinting.
+\newblock {\em Physical Review Letters}, 87(16):167902, 2001.
+
+\bibitem[BCY11]{brandao2011quasipolynomial}
+Fernando~GSL Brand{\~a}o, Matthias Christandl, and Jon Yard.
+\newblock A quasipolynomial-time algorithm for the quantum separability
+  problem.
+\newblock In {\em Proceedings of the Forty-Third Annual ACM Symposium on Theory
+  of Computing}, pages 343--352, 2011.
+
+\bibitem[Bel75a]{belavkin1975optimaldist}
+Viacheslav~P Belavkin.
+\newblock Optimal distinction of non-orthogonal quantum signals.
+\newblock {\em Radio Eng. Electron. Phys.}, 20:39--47, 1975.
+
+\bibitem[Bel75b]{belavkin1975optimal}
+Viacheslav~P Belavkin.
+\newblock Optimal multiple quantum statistical hypothesis testing.
+\newblock {\em Stochastics: An International Journal of Probability and
+  Stochastic Processes}, 1(1-4):315--345, 1975.
+
+\bibitem[Ber07]{bergou2007quantum}
+J{\'a}nos~A Bergou.
+\newblock Quantum state discrimination and selected applications.
+\newblock In {\em Journal of Physics: Conference Series}, volume~84, page
+  012001. IOP Publishing, 2007.
+
+\bibitem[Ber10]{bergou2010discrimination}
+J{\'a}nos~A Bergou.
+\newblock Discrimination of quantum states.
+\newblock {\em Journal of Modern Optics}, 57(3):160--180, 2010.
+
+\bibitem[BH21]{bharti2021iterative}
+Kishor Bharti and Tobias Haug.
+\newblock Iterative quantum-assisted eigensolver.
+\newblock {\em Physical Review A}, 104(5):L050401, 2021.
+
+\bibitem[BHH04]{bergou2004discrimination}
+J{\'a}nos~A Bergou, Ulrike Herzog, and Mark Hillery.
+\newblock Discrimination of quantum states.
+\newblock {\em Quantum State Estimation}, pages 417--465, 2004.
+
+\bibitem[BHVK22]{bharti2022noisy}
+Kishor Bharti, Tobias Haug, Vlatko Vedral, and Leong-Chuan Kwek.
+\newblock Noisy intermediate-scale quantum algorithm for semidefinite
+  programming.
+\newblock {\em Physical Review A}, 105(5):052445, 2022.
+
+\bibitem[BJOP14]{bandyopadhyay2014conclusive}
+Somshubhro Bandyopadhyay, Rahul Jain, Jonathan Oppenheim, and Christopher
+  Perry.
+\newblock Conclusive exclusion of quantum states.
+\newblock {\em Physical Review A}, 89(2):022336, 2014.
+
+\bibitem[BK02]{barnum2002reversing}
+Howard Barnum and Emanuel Knill.
+\newblock Reversing quantum dynamics with near-optimal quantum and classical
+  fidelity.
+\newblock {\em Journal of Mathematical Physics}, 43(5):2097--2106, 2002.
+
+\bibitem[BK15]{bae2015quantum}
+Joonwoo Bae and Leong-Chuan Kwek.
+\newblock Quantum state discrimination and its applications.
+\newblock {\em Journal of Physics A: Mathematical and Theoretical},
+  48(8):083001, 2015.
+
+\bibitem[BM96]{brody1996bayesian}
+Dorje~C Brody and Bernhard Meister.
+\newblock Bayesian inference in quantum systems.
+\newblock {\em Physica A: Statistical Mechanics and its Applications},
+  223(3-4):348--364, 1996.
+
+\bibitem[BV04]{boyd2004convex}
+Stephen~P Boyd and Lieven Vandenberghe.
+\newblock {\em Convex optimization}.
+\newblock Cambridge University Press, 2004.
+
+\bibitem[Cab00]{cabello2000quantum}
+Ad{\'a}n Cabello.
+\newblock Quantum key distribution in the {H}olevo limit.
+\newblock {\em Physical Review Letters}, 85(26):5635, 2000.
+
+\bibitem[CAW22]{consiglio2022variational}
+Mirko Consiglio, Tony~JG Apollaro, and Marcin Wie{\'s}niak.
+\newblock Variational approach to the quantum separability problem.
+\newblock {\em Physical Review A}, 106(6):062413, 2022.
+
+\bibitem[CB98]{chefles1998quantum}
+Anthony Chefles and Stephen~M Barnett.
+\newblock Quantum state separation, unambiguous discrimination and exact
+  cloning.
+\newblock {\em Journal of Physics A: Mathematical and General}, 31(50):10097,
+  1998.
+
+\bibitem[CDPS04]{chiribella2004covariant}
+Giulio Chiribella, Giacomo~Mauro D’Ariano, Paolo Perinotti, and
+  Massimiliano~F Sacchi.
+\newblock Covariant quantum measurements that maximize the likelihood.
+\newblock {\em Physical Review A}, 70(6):062105, 2004.
+
+\bibitem[CDPS06]{chiribella2006maximum}
+Giulio Chiribella, Giacomo~Mauro D’Ariano, Paolo Perinotti, and
+  Massimiliano~F Sacchi.
+\newblock Maximum likelihood estimation for a group of physical
+  transformations.
+\newblock {\em International Journal of Quantum Information}, 4(03):453--472,
+  2006.
+
+\bibitem[CDVMTB10]{calsamiglia2010local}
+J~Calsamiglia, JI~De~Vicente, Ramon Mu{\~n}oz-Tapia, and E~Bagan.
+\newblock Local discrimination of mixed states.
+\newblock {\em Physical Review Letters}, 105(8):080504, 2010.
+
+\bibitem[CF15]{combes2015cost}
+Joshua Combes and Christopher Ferrie.
+\newblock Cost of postselection in decision theory.
+\newblock {\em Physical Review A}, 92(2):022117, 2015.
+
+\bibitem[CFS02]{caves2002quantum}
+Carlton~M Caves, Christopher~A Fuchs, and R{\"u}diger Schack.
+\newblock Quantum probabilities as bayesian probabilities.
+\newblock {\em Physical review A}, 65(2):022305, 2002.
+
+\bibitem[Che98]{chefles1998unambiguous}
+Anthony Chefles.
+\newblock Unambiguous discrimination between linearly independent quantum
+  states.
+\newblock {\em Physics Letters A}, 239(6):339--347, 1998.
+
+\bibitem[Che00]{chefles2000quantum}
+Anthony Chefles.
+\newblock Quantum state discrimination.
+\newblock {\em Contemporary Physics}, 41(6):401--424, 2000.
+
+\bibitem[CJK{\etalchar{+}}14]{chen2014symmetric}
+Jianxin Chen, Zhengfeng Ji, David Kribs, Norbert L{\"u}tkenhaus, and Bei Zeng.
+\newblock Symmetric extension of two-qubit states.
+\newblock {\em Physical Review A}, 90(3):032318, 2014.
+
+\bibitem[CS12]{chailloux2012complexity}
+Andr{\'e} Chailloux and Or~Sattath.
+\newblock The complexity of the separable hamiltonian problem.
+\newblock In {\em Proceedings of the Twenty Seventh Annual IEEE Conference on
+  Computational Complexity}, pages 32--41, 2012.
+
+\bibitem[CVM{\etalchar{+}}23]{conlon2023approaching}
+Lorc{\'a}n~O Conlon, Tobias Vogl, Christian~D Marciniak, Ivan Pogorelov,
+  Simon~K Yung, Falk Eilenberger, Dominic~W Berry, Fabiana~S Santana, Rainer
+  Blatt, Thomas Monz, et~al.
+\newblock Approaching optimal entangling collective measurements on quantum
+  computing platforms.
+\newblock {\em Nature Physics}, 19(3):351--357, 2023.
+
+\bibitem[{CVX}12]{cvx}
+{CVX Research, Inc.}
+\newblock {CVX}: {MATLAB} software for disciplined convex programming, version
+  2.0.
+\newblock \url{http://cvxr.com/cvx}, August 2012.
+
+\bibitem[CW03]{chen2003matrix}
+Kai Chen and Ling-An Wu.
+\newblock A matrix realignment method for recognizing entanglement.
+\newblock {\em Quantum Information and Computation}, 3(3):193--202, 2003.
+
+\bibitem[Dar00]{darkhovsky2000non}
+BS~Darkhovsky.
+\newblock Non-parametric statistical diagnosis.
+\newblock 2000.
+
+\bibitem[DB16]{diamond2016cvxpy}
+Steven Diamond and Stephen Boyd.
+\newblock {CVXPY}: {A} {P}ython-embedded modeling language for convex
+  optimization.
+\newblock {\em Journal of Machine Learning Research}, 17(83):1--5, 2016.
+
+\bibitem[Die88]{dieks1988overlap}
+Dennis Dieks.
+\newblock Overlap and distinguishability of quantum states.
+\newblock {\em Physics Letters A}, 126(5-6):303--306, 1988.
+
+\bibitem[DPP15]{dalla2015optimality}
+Nicola Dalla~Pozza and Gianfranco Pierobon.
+\newblock Optimality of square-root measurements in quantum state
+  discrimination.
+\newblock {\em Physical Review A}, 91(4):042334, 2015.
+
+\bibitem[DPS02]{doherty2002SymExt}
+Andrew~C Doherty, Pablo~A Parrilo, and Federico~M Spedalieri.
+\newblock Distinguishing separable and entangled states.
+\newblock {\em Physical Review Letters}, 88(18):187904, 2002.
+
+\bibitem[DPS04]{doherty2004complete}
+Andrew~C Doherty, Pablo~A Parrilo, and Federico~M Spedalieri.
+\newblock Complete family of separability criteria.
+\newblock {\em Physical Review A}, 69(2):022308, 2004.
+
+\bibitem[DS20]{ducuara2019operational}
+Andr{\'e}s~F Ducuara and Paul Skrzypczyk.
+\newblock Operational interpretation of weight-based resource quantifiers in
+  convex quantum resource theories.
+\newblock {\em Physical Review Letters}, 125(11):110401, 2020.
+
+\bibitem[DT10]{deconinck2010qubit}
+Matthieu~E Deconinck and Barbara~M Terhal.
+\newblock Qubit state discrimination.
+\newblock {\em Physical Review A}, 81(6):062304, 2010.
+
+\bibitem[DVC00]{dur2000three}
+Wolfgang D{\"u}r, Guifre Vidal, and J~Ignacio Cirac.
+\newblock Three qubits can be entangled in two inequivalent ways.
+\newblock {\em Physical Review A}, 62(6):062314, 2000.
+
+\bibitem[Eld03a]{eldar2003mixed}
+Yonina~C Eldar.
+\newblock Mixed-quantum-state detection with inconclusive results.
+\newblock {\em Physical Review A}, 67(4):042309, 2003.
+
+\bibitem[Eld03b]{eldar2003semidefinite}
+Yonina~C Eldar.
+\newblock A semidefinite programming approach to optimal unambiguous
+  discrimination of quantum states.
+\newblock {\em {IEEE} {T}ransactions on {I}nformation {T}heory},
+  49(2):446--456, 2003.
+
+\bibitem[EMV03]{eldar2003designing}
+Yonina~C Eldar, Alexandre Megretski, and George~C Verghese.
+\newblock Designing optimal quantum detectors via semidefinite programming.
+\newblock {\em {IEEE} {T}ransactions on {I}nformation {T}heory},
+  49(4):1007--1012, 2003.
+
+\bibitem[EMV04]{eldar2004optimal}
+Yonina~C Eldar, Alexandre Megretski, and George~C Verghese.
+\newblock Optimal detection of symmetric mixed quantum states.
+\newblock {\em IEEE {T}ransactions on {I}nformation {T}heory},
+  50(6):1198--1207, 2004.
+
+\bibitem[FHL17]{filippov2017necessary}
+Sergey~N Filippov, Teiko Heinosaari, and Leevi Lepp{\"a}j{\"a}rvi.
+\newblock Necessary condition for incompatibility of observables in general
+  probabilistic theories.
+\newblock {\em Physical Review A}, 95(3):032127, 2017.
+
+\bibitem[GB14]{grant2014cvx}
+Michael Grant and Stephen Boyd.
+\newblock {CVX}: {MATLAB} software for disciplined convex programming, version
+  2.1, 2014.
+
+\bibitem[Gha10]{gharibian2010strong}
+Sevag Gharibian.
+\newblock Strong {NP}-hardness of the quantum separability problem.
+\newblock {\em Quantum Information and Computation}, 10(3):343--360, 2010.
+
+\bibitem[GMB24]{gupta2024unambiguous}
+Tathagata Gupta, Shayeef Murshid, and Somshubhro Bandyopadhyay.
+\newblock Unambiguous discrimination of sequences of quantum states.
+\newblock {\em Physical Review A}, 109(5):052222, 2024.
+
+\bibitem[GMM{\etalchar{+}}26]{gupta2026localstrategiesprettygood}
+Tathagata Gupta, Ankith Mohan, Shayeef Murshid, Vincent Russo, Jamie Sikora,
+  and Alice Zheng.
+\newblock Local strategies are pretty good at computing boolean properties of
+  quantum sequences.
+\newblock {\em arXiv preprint arXiv:2603.05452}, 2026.
+
+\bibitem[GMRB24]{gupta2024optimal}
+Tathagata Gupta, Shayeef Murshid, Vincent Russo, and Somshubhro Bandyopadhyay.
+\newblock Optimal discrimination of quantum sequences.
+\newblock {\em Physical Review A}, 110(6):062426, 2024.
+
+\bibitem[Gro96]{grover1996fastquantummechanicalalgorithm}
+Lov~K. Grover.
+\newblock A fast quantum mechanical algorithm for database search, 1996.
+
+\bibitem[GSLW19]{gilyen2019quantum}
+Andr{\'a}s Gily{\'e}n, Yuan Su, Guang~Hao Low, and Nathan Wiebe.
+\newblock Quantum singular value transformation and beyond: exponential
+  improvements for quantum matrix arithmetics.
+\newblock In {\em Proceedings of the Fifty-First Annual ACM SIGACT Symposium on
+  Theory of Computing}, pages 193--204, 2019.
+
+\bibitem[GSU13]{gharibian2013qma}
+Sevag Gharibian, Jamie Sikora, and Sarvagya Upadhyay.
+\newblock {QMA} variants with polynomially many provers.
+\newblock {\em Quantum Information and Computation}, 13(1-2):135--157, 2013.
+
+\bibitem[Gur04]{gurvits2004classical}
+Leonid Gurvits.
+\newblock Classical complexity and quantum entanglement.
+\newblock {\em Journal of Computer and System Sciences}, 69(3):448--484, 2004.
+
+\bibitem[HB20]{havlivcek2020simple}
+Vojt{\v{e}}ch Havl{\'\i}{\v{c}}ek and Jonathan Barrett.
+\newblock Simple communication complexity separation from quantum state
+  antidistinguishability.
+\newblock {\em Physical Review Research}, 2(1):013326, 2020.
+
+\bibitem[HBR21]{huang2019near}
+Hsin-Yuan Huang, Kishor Bharti, and Patrick Rebentrost.
+\newblock Near-term quantum algorithms for linear systems of equations with
+  regression loss functions.
+\newblock {\em New Journal of Physics}, 23(11):113021, 2021.
+
+\bibitem[Hel69]{helstrom1969quantum}
+Carl~W Helstrom.
+\newblock Quantum detection and estimation theory.
+\newblock {\em Journal of Statistical Physics}, 1:231--252, 1969.
+
+\bibitem[Hel03]{helstrom2003bayes}
+Carl~W Helstrom.
+\newblock Bayes-cost reduction algorithm in quantum hypothesis testing
+  (corresp.).
+\newblock {\em IEEE Transactions on Information Theory}, 28(2):359--366, 2003.
+
+\bibitem[HHH96]{horodecki1996necessary}
+Michal Horodecki, Pawel Horodecki, and Ryszard Horodecki.
+\newblock On the necessary and sufficient conditions for separability of mixed
+  quantum states.
+\newblock {\em Physical Letters A}, 223(1), 1996.
+
+\bibitem[HHHH09]{horodecki2009quantum}
+Ryszard Horodecki, Pawe{\l} Horodecki, Micha{\l} Horodecki, and Karol
+  Horodecki.
+\newblock Quantum entanglement.
+\newblock {\em Reviews of Modern Physics}, 81(2):865--942, 2009.
+
+\bibitem[HJW93]{hughston1993complete}
+Lane~P Hughston, Richard Jozsa, and William~K Wootters.
+\newblock A complete classification of quantum ensembles having a given density
+  matrix.
+\newblock {\em Physics Letters A}, 183(1):14--18, 1993.
+
+\bibitem[HKK08]{hayashi2008quantum}
+Mashito Hayashi, Akinori Kawachi, and Hirotada Kobayashi.
+\newblock Quantum measurements for hidden subgroup problems with optimal sample
+  complexity.
+\newblock {\em Quantum Information and Computation}, 8(3\&4):345--358, 2008.
+
+\bibitem[HM13]{harrow2013testing}
+Aram~W Harrow and Ashley Montanaro.
+\newblock Testing product states, quantum merlin-arthur games and tensor
+  optimization.
+\newblock {\em Journal of the ACM (JACM)}, 60(1):1--43, 2013.
+
+\bibitem[HMW13]{hayden2013two}
+Patrick Hayden, Kevin Milner, and Mark~M Wilde.
+\newblock Two-message quantum interactive proofs and the quantum separability
+  problem.
+\newblock In {\em Proccedings of Twenty-Eighth IEEE Conference on Computational
+  Complexity}, pages 156--167, 2013.
+
+\bibitem[HNW17]{harrow2017improved}
+Aram~W Harrow, Anand Natarajan, and Xiaodi Wu.
+\newblock An improved semidefinite programming hierarchy for testing
+  entanglement.
+\newblock {\em Communications in Mathematical Physics}, 352(3):881--904, 2017.
+
+\bibitem[Hol73]{holevo1973statistical}
+Alexander~Semenovich Holevo.
+\newblock Statistical decision theory for quantum systems.
+\newblock {\em Journal of Multivariate Analysis}, 3(4):337--394, 1973.
+
+\bibitem[Hol76]{holevo1976investigations}
+Alexander~Semenovich Holevo.
+\newblock Investigations in the general theory of statistical decisions.
+\newblock {\em Trudy Matematicheskogo Instituta imeni VA Steklova}, 124:3--140,
+  1976.
+
+\bibitem[Hol78]{holevo1978asymptotically}
+Alexander~Semenovich Holevo.
+\newblock On asymptotically optimal hypotheses testing in quantum statistics.
+\newblock {\em Teoriya Veroyatnostei i ee Primeneniya}, 23(2):429--432, 1978.
+
+\bibitem[Hol82]{holevo1982testing}
+Alexander~Semonovich Holevo.
+\newblock Testing statistical hypotheses in quantum theory.
+\newblock {\em Probab. Math. Stat}, 3(113):29, 1982.
+
+\bibitem[HW94]{hausladen1994pretty}
+Paul Hausladen and William~K Wootters.
+\newblock A pretty good measurement for distinguishing quantum states.
+\newblock {\em Journal of Modern Optics}, 41(12):2385--2390, 1994.
+
+\bibitem[Ioa07]{ioannou2007computational}
+LM~Ioannou.
+\newblock Computational complexity of the quantum separability problem.
+\newblock {\em Quantum Information and Computation}, 7(4):336--370, 2007.
+
+\bibitem[IRS16]{iten2016pretty}
+Raban Iten, Joseph~M Renes, and David Sutter.
+\newblock Pretty good measures in quantum information theory.
+\newblock {\em IEEE Transactions on Information Theory}, 63(2):1270--1279,
+  2016.
+
+\bibitem[Iva87]{ivanovic1987differentiate}
+Igor~D Ivanovic.
+\newblock How to differentiate between non-orthogonal states.
+\newblock {\em Physics Letters A}, 123(6):257--259, 1987.
+
+\bibitem[JJUW11]{jain2011qip}
+Rahul Jain, Zhengfeng Ji, Sarvagya Upadhyay, and John Watrous.
+\newblock {QIP} = {PSPACE}.
+\newblock {\em Journal of the ACM (JACM)}, 58(6):1--27, 2011.
+
+\bibitem[JLRS25]{johnston2025complexityperfectquantumstate}
+Nathaniel Johnston, Benjamin Lovitz, Vincent Russo, and Jamie Sikora.
+\newblock The complexity of perfect quantum state classification.
+\newblock {\em arXiv preprint arXiv:2510.20789}, 2025.
+
+\bibitem[JNV{\etalchar{+}}21]{ji2021mip}
+Zhengfeng Ji, Anand Natarajan, Thomas Vidick, John Wright, and Henry Yuen.
+\newblock {MIP}* = {RE}.
+\newblock {\em Communications of the ACM}, 64(11):131--138, 2021.
+
+\bibitem[JRS25]{johnston2023tight}
+Nathaniel Johnston, Vincent Russo, and Jamie Sikora.
+\newblock Tight bounds for antidistinguishability and circulant sets of pure
+  quantum states.
+\newblock {\em Quantum}, 9:1622, 2025.
+
+\bibitem[JS95]{jaeger1995optimal}
+Gregg Jaeger and Abner Shimony.
+\newblock Optimal distinction between two non-orthogonal quantum states.
+\newblock {\em Physics Letters A}, 197(2):83--87, 1995.
+
+\bibitem[JW23]{jeronimo2023power}
+Fernando~Granha Jeronimo and Pei Wu.
+\newblock The power of unentangled quantum proofs with non-negative amplitudes.
+\newblock In {\em Proceedings of the Fifty-Fifth Annual ACM Symposium on Theory
+  of Computing}, pages 1629--1642, 2023.
+
+\bibitem[KCCY18]{ko2018advanced}
+Heasin Ko, Byung-Seok Choi, Joong-Seon Choe, and Chun~Ju Youn.
+\newblock Advanced unambiguous state discrimination attack and countermeasure
+  strategy in a practical {B}92 {QKD} system.
+\newblock {\em Quantum Information Processing}, 17:1--14, 2018.
+
+\bibitem[LD20]{leifer2020noncontextuality}
+Matthew Leifer and Cristhiano Duarte.
+\newblock Noncontextuality inequalities from antidistinguishability.
+\newblock {\em Physical Review A}, 101(6):062113, 2020.
+
+\bibitem[Led22]{leditzky2022optimality}
+Felix Leditzky.
+\newblock Optimality of the pretty good measurement for port-based
+  teleportation.
+\newblock {\em Letters in Mathematical Physics}, 112(5):98, 2022.
+
+\bibitem[LHRZ19]{li2019symmetric}
+Youning Li, Shilin Huang, Dong Ruan, and Bei Zeng.
+\newblock Symmetric versus bosonic extension for bipartite states.
+\newblock {\em Physical Review A}, 99(1):012332, 2019.
+
+\bibitem[LSMT24]{llorens2024quantum}
+Santiago Llorens, Gael Sent{\'\i}s, and Ramon Mu{\~n}oz-Tapia.
+\newblock Quantum multi-anomaly detection.
+\newblock {\em Quantum}, 8:1452, 2024.
+
+\bibitem[LST09]{lvovsky2009optical}
+Alexander~I Lvovsky, Barry~C Sanders, and Wolfgang Tittel.
+\newblock Optical quantum memory.
+\newblock {\em Nature Photonics}, 3(12):706--714, 2009.
+
+\bibitem[LWFLJ14]{li2014quantum}
+Ming Li, Jing Wang, Shao-Ming Fei, and Xianqing Li-Jost.
+\newblock Quantum separability criteria for arbitrary-dimensional multipartite
+  states.
+\newblock {\em Physical Review A}, 89(2):022325, 2014.
+
+\bibitem[MBS{\etalchar{+}}18]{mcclean2018barren}
+Jarrod~R McClean, Sergio Boixo, Vadim~N Smelyanskiy, Ryan Babbush, and Hartmut
+  Neven.
+\newblock Barren plateaus in quantum neural network training landscapes.
+\newblock {\em Nature Communications}, 9(1):4812, 2018.
+
+\bibitem[MF19]{mitarai2019methodology}
+Kosuke Mitarai and Keisuke Fujii.
+\newblock Methodology for replacing indirect measurements with direct
+  measurements.
+\newblock {\em Physical Review Research}, 1(1):013006, 2019.
+
+\bibitem[MHBS25]{mohan2025quantum}
+Ankith Mohan, Tobias Haug, Kishor Bharti, and Jamie Sikora.
+\newblock Quantum heuristics for linear optimization over large separable
+  operators.
+\newblock {\em arXiv preprint arXiv:2509.25585}, 2025.
+
+\bibitem[MMS24]{mcirvin2024quantum}
+Caleb McIrvin, Ankith Mohan, and Jamie Sikora.
+\newblock Quantum state exclusion through offset measurement.
+\newblock {\em Physical Review A}, 110(4):042211, 2024.
+
+\bibitem[MMZ{\etalchar{+}}21]{ma2021one}
+Yu~Ma, You-Zhi Ma, Zong-Quan Zhou, Chuan-Feng Li, and Guang-Can Guo.
+\newblock One-hour coherent optical storage in an atomic frequency comb memory.
+\newblock {\em Nature Communications}, 12(1):2381, 2021.
+
+\bibitem[MNW24]{mishra2023optimal}
+Hemant~K Mishra, Michael Nussbaum, and Mark~M Wilde.
+\newblock On the optimal error exponents for classical and quantum
+  antidistinguishability.
+\newblock {\em Letters in Mathematical Physics}, 114(3), 2024.
+
+\bibitem[MO03]{mossel2003noise}
+Elchanan Mossel and Ryan O'Donnell.
+\newblock On the noise sensitivity of monotone functions.
+\newblock {\em Random Structures and Algorithms}, 23(3):333--350, 2003.
+
+\bibitem[MR07]{moore2005distinguishing}
+Cristopher Moore and Alexander Russell.
+\newblock For distinguishing conjugate hidden subgroups, the pretty good
+  measurement is as good as it gets.
+\newblock {\em Quantum Information and Computation}, 7(8):752--765, 2007.
+
+\bibitem[MSU26]{mohan2026hybridquantumclassicalalgorithmbayesoptimal}
+Ankith Mohan, Jamie Sikora, and Sarvagya Upadhyay.
+\newblock A hybrid quantum-classical algorithm for bayes-optimal quantum state
+  discrimination using the source code.
+\newblock {\em arXiv preprint arXiv:2312.04023v2}, 2026.
+
+\bibitem[NPA07]{navascues2007bounding}
+Miguel Navascu{\'e}s, Stefano Pironio, and Antonio Ac{\'\i}n.
+\newblock Bounding the set of quantum correlations.
+\newblock {\em Physical Review Letters}, 98(1):010401, 2007.
+
+\bibitem[NU12]{nakahira2012minimum}
+Kenji Nakahira and Tsuyoshi~Sasaki Usuda.
+\newblock Minimum-bayes-cost discrimination for symmetric quantum states.
+\newblock {\em Physical Review A}, 86(6):062305, 2012.
+
+\bibitem[OAFF02]{osterloh2002scaling}
+Andreas Osterloh, Luigi Amico, Giuseppe Falci, and Rosario Fazio.
+\newblock Scaling of entanglement close to a quantum phase transition.
+\newblock {\em Nature}, 416(6881):608--610, 2002.
+
+\bibitem[PBR12]{pusey2012reality}
+Matthew~F Pusey, Jonathan Barrett, and Terry Rudolph.
+\newblock On the reality of the quantum state.
+\newblock {\em Nature Physics}, 8(6):475--478, 2012.
+
+\bibitem[Per88]{peres1988differentiate}
+Asher Peres.
+\newblock How to differentiate between non-orthogonal states.
+\newblock {\em Physics Letters A}, 128(1-2):19, 1988.
+
+\bibitem[Per96]{peres1996separability}
+Asher Peres.
+\newblock Separability criterion for density matrices.
+\newblock {\em Physical Review Letters}, 77(8):1413, 1996.
+
+\bibitem[PRRW24]{philip2024schrodinger}
+Aby Philip, Soorya Rethinasamy, Vincent Russo, and Mark~M Wilde.
+\newblock Schr{\"o}dinger as a quantum programmer: Estimating entanglement via
+  steering.
+\newblock {\em Quantum}, 8:1366, 2024.
+
+\bibitem[Q{\etalchar{+}}20]{google2020hartree}
+Google~AI Quantum et~al.
+\newblock Hartree-fock on a superconducting qubit quantum computer.
+\newblock {\em Science}, 369(6507):1084--1089, 2020.
+
+\bibitem[Ren17]{renes2017better}
+Joseph~M Renes.
+\newblock Better bounds on optimal measurement and entanglement recovery, with
+  applications to uncertainty and monogamy relations.
+\newblock {\em Physical Review A}, 96(4):042328, 2017.
+
+\bibitem[RRS09]{radhakrishnan2009random}
+Jaikumar Radhakrishnan, Martin R{\"o}tteler, and Pranab Sen.
+\newblock Random measurement bases, quantum state distinction and applications
+  to the hidden subgroup problem.
+\newblock {\em Algorithmica}, 55:490--516, 2009.
+
+\bibitem[RS23]{russo2023inner}
+Vincent Russo and Jamie Sikora.
+\newblock Inner products of pure states and their antidistinguishability.
+\newblock {\em Physical Review A}, 107(3):L030202, 2023.
+
+\bibitem[RST03]{rudolph2003unambiguous}
+Terry Rudolph, Robert~W Spekkens, and Peter~S Turner.
+\newblock Unambiguous discrimination of mixed states.
+\newblock {\em Physical Review A}, 68(1):010301, 2003.
+
+\bibitem[Rud05]{rudolph2005further}
+Oliver Rudolph.
+\newblock Further results on the cross norm criterion for separability.
+\newblock {\em Quantum Information Processing}, 4(3):219--239, 2005.
+
+\bibitem[SB13]{strubi2013measuring}
+Gr{\'e}gory Str{\"u}bi and C~Bruder.
+\newblock Measuring ultrasmall time delays of light by joint weak measurements.
+\newblock {\em Physical Review Letters}, 110(8):083605, 2013.
+
+\bibitem[SBC{\etalchar{+}}16]{sentis2016quantum}
+Gael Sent{\'\i}s, Emilio Bagan, John Calsamiglia, Giulio Chiribella, and Ramon
+  Munoz-Tapia.
+\newblock Quantum change point.
+\newblock {\em Physical Review Letters}, 117(15):150502, 2016.
+
+\bibitem[SC23]{skrzypczyk2023semidefinite}
+Paul Skrzypczyk and Daniel Cavalcanti.
+\newblock {\em Semidefinite programming in quantum information science}.
+\newblock IOP Publishing, 2023.
+
+\bibitem[SCMT17]{sentis2017exact}
+Gael Sent{\'\i}s, John Calsamiglia, and Ramon Munoz-Tapia.
+\newblock Exact identification of a quantum change point.
+\newblock {\em Physical Review Letters}, 119(14):140506, 2017.
+
+\bibitem[Sho97]{shor1997}
+Peter~W. Shor.
+\newblock Polynomial-time algorithms for prime factorization and discrete
+  logarithms on a quantum computer.
+\newblock {\em SIAM Journal on Computing}, 26(5):1484–1509, October 1997.
+
+\bibitem[Sik17]{sikora2017simple}
+Jamie Sikora.
+\newblock Simple, near-optimal quantum protocols for die-rolling.
+\newblock {\em Cryptography}, 1(2):11, 2017.
+
+\bibitem[SLH{\etalchar{+}}24]{skotiniotis2018identification}
+Michalis Skotiniotis, Santiago Llorens, Ronja Hotz, John Calsamiglia, and Ramon
+  Mu{\~n}oz-Tapia.
+\newblock Identification of malfunctioning quantum devices.
+\newblock {\em Physical Review Research}, 6(3):033329, 2024.
+
+\bibitem[SMVMT18]{sentis2018online}
+Gael Sent{\'\i}s, Esteban Mart{\'\i}nez-Vargas, and Ramon Munoz-Tapia.
+\newblock Online strategies for exactly identifying a quantum change point.
+\newblock {\em Physical Review A}, 98(5):052305, 2018.
+
+\bibitem[SMVMT22]{sentis2022online}
+Gael Sent{\'\i}s, Esteban Mart{\'\i}nez-Vargas, and Ramon Mu{\~n}oz-Tapia.
+\newblock Online identification of symmetric pure states.
+\newblock {\em Quantum}, 6:658, 2022.
+
+\bibitem[Stu99]{sturm1999using}
+Jos~F Sturm.
+\newblock Using {SeDuMi} 1.02, a {MATLAB} toolbox for optimization over
+  symmetric cones.
+\newblock {\em Optimization Methods and Software}, 11(1-4):625--653, 1999.
+
+\bibitem[SW15]{shi2015epsilon}
+Yaoyun Shi and Xiaodi Wu.
+\newblock Epsilon-net method for optimizations over separable states.
+\newblock {\em Theoretical Computer Science}, 598:51--63, 2015.
+
+\bibitem[TAS07]{touzel2007optimal}
+Maximilian~Puelma Touzel, Robert B~A Adamson, and Aephraim~M Steinberg.
+\newblock Optimal bounded-error strategies for projective measurements in
+  non-orthogonal state discrimination.
+\newblock {\em Physical Review A}, 76(6):062314, 2007.
+
+\bibitem[TKI03]{tamaki2003security}
+Kiyoshi Tamaki, Masato Koashi, and Nobuyuki Imoto.
+\newblock Security of the {B}ennett 1992 quantum-key distribution protocol
+  against individual attack over a realistic channel.
+\newblock {\em Physical Review A}, 67(3):032310, 2003.
+
+\bibitem[TTT99]{toh1999sdpt3}
+Kim-Chuan Toh, Michael~J Todd, and Reha~H T{\"u}t{\"u}nc{\"u}.
+\newblock {SDPT}3—a {MATLAB} software package for semidefinite programming,
+  version 1.3.
+\newblock {\em Optimization Methods and Software}, 11(1-4):545--581, 1999.
+
+\bibitem[Tun16]{tunccel2016polyhedral}
+Levent Tun{\c{c}}el.
+\newblock {\em Polyhedral and Semidefinite Programming Methods in Combinatorial
+  Optimization}, volume~27.
+\newblock American Mathematical Society, 2016.
+
+\bibitem[UBK{\etalchar{+}}20]{uola2020all}
+Roope Uola, Tom Bullock, Tristan Kraft, Juha-Pekka Pellonp{\"a}{\"a}, and
+  Nicolas Brunner.
+\newblock All quantum resources provide an advantage in exclusion tasks.
+\newblock {\em Physical Review Letters}, 125(11):110402, 2020.
+
+\bibitem[VB96]{vandenberghe1996semidefinite}
+Lieven Vandenberghe and Stephen Boyd.
+\newblock Semidefinite programming.
+\newblock {\em SIAM review}, 38(1):49--95, 1996.
+
+\bibitem[VE02]{van2002unambiguous}
+SJ~Van~Enk.
+\newblock Unambiguous state discrimination of coherent states with linear
+  optics: Application to quantum cryptography.
+\newblock {\em Physical Review A}, 66(4):042313, 2002.
+
+\bibitem[VMT19]{martinez2019certified}
+Esteban~Mart{\'\i}nez Vargas and Ramon Munoz-Tapia.
+\newblock Certified answers for ordered quantum discrimination problems.
+\newblock {\em Physical Review A}, 100(4):042331, 2019.
+
+\bibitem[Wat18]{watrous2018theory}
+John Watrous.
+\newblock {\em The Theory of Quantum Information}.
+\newblock Cambridge University Press, 2018.
+
+\bibitem[WP18]{wieczorek2018entropic}
+Rafa{\l} Wieczorek and Hanna Podsedkowska.
+\newblock Entropic upper bound for {B}ayes risk in the quantum case.
+\newblock {\em Probability and Mathematical Statistics}, 38(2):429, 2018.
+
+\bibitem[Wri15]{wright2015coordinate}
+Stephen~J Wright.
+\newblock Coordinate descent algorithms.
+\newblock {\em Mathematical Programming}, 151(1):3--34, 2015.
+
+\bibitem[YKL03]{yuen2003optimum}
+Horace Yuen, Robert Kennedy, and Melvin Lax.
+\newblock Optimum testing of multiple hypotheses in quantum detection theory.
+\newblock {\em IEEE Transactions on Information Theory}, 21(2):125--134, 2003.
+
+\end{thebibliography}

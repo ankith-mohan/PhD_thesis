@@ -1,0 +1,97 @@
+\contentsline {chapter}{List of Figures}{xiv}{chapter*.3}%
+\contentsline {chapter}{\nonumberline List of Abbreviations}{xx}{chapter*.4}%
+\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
+\contentsline {paragraph}{Separability problem}{3}{paragraph*.13}%
+\contentsline {paragraph}{Quantum state discrimination}{5}{paragraph*.14}%
+\contentsline {section}{\numberline {1.1}Background}{12}{section.1.1}%
+\contentsline {subsection}{\numberline {1.1.1}Notations}{12}{subsection.1.1.1}%
+\contentsline {subsection}{\numberline {1.1.2}Linear algebra}{13}{subsection.1.1.2}%
+\contentsline {subsection}{\numberline {1.1.3}Quantum information}{18}{subsection.1.1.3}%
+\contentsline {subsection}{\numberline {1.1.4}Overlap estimation in quantum computing}{19}{subsection.1.1.4}%
+\contentsline {paragraph}{Swap test.}{19}{paragraph*.21}%
+\contentsline {paragraph}{Hadamard test.}{19}{paragraph*.22}%
+\contentsline {subsection}{\numberline {1.1.5}Semidefinite programming}{20}{subsection.1.1.5}%
+\contentsline {chapter}{\numberline {2}Quantum heuristics for optimizing large separable operators}{22}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Semidefinite programming-based algorithms for the separability problem, a quick discussion}{23}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}A bottleneck in the see-saw algorithm}{26}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}Special-case instances}{26}{subsection.2.1.2}%
+\contentsline {subsection}{\numberline {2.1.3}Numerical tests}{27}{subsection.2.1.3}%
+\contentsline {paragraph}{Efficiency.}{27}{paragraph*.35}%
+\contentsline {paragraph}{Accuracy.}{28}{paragraph*.36}%
+\contentsline {paragraph}{Data.}{28}{paragraph*.37}%
+\contentsline {section}{\numberline {2.2}Reducing the dimension of separability problems via a quantum co-processor}{29}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}General linear optimization over separable operators}{29}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Optimizing over separable states}{31}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.2.3}Calculating the data of the reduced problems with a quantum co-processor}{32}{subsection.2.2.3}%
+\contentsline {subsection}{\numberline {2.2.4}A special case which speeds up the see-saw algorithm when applied to the reduced problem}{34}{subsection.2.2.4}%
+\contentsline {section}{\numberline {2.3}Applications to finding separable ground states of Hamiltonians}{35}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}A ground space entanglement measure}{35}{subsection.2.3.1}%
+\contentsline {subsubsection}{The Ising Hamiltonian}{37}{subsubsection*.46}%
+\contentsline {subsection}{\numberline {2.3.2}Evaluating the performance of our heuristic with varying numbers of ansatz states}{38}{subsection.2.3.2}%
+\contentsline {subsubsection}{Choosing the ansatz states}{39}{subsubsection*.48}%
+\contentsline {subsubsection}{Representing the Ising Hamiltonian in the form $\DOTSB \sum@ \slimits@ _m K_m \otimes L_m$}{40}{subsubsection*.49}%
+\contentsline {subsubsection}{Varying the number of ansatz states}{41}{subsubsection*.50}%
+\contentsline {subsection}{\numberline {2.3.3}Calculating ground energies and separable ground energies on large Ising Hamiltonians}{43}{subsection.2.3.3}%
+\contentsline {section}{\numberline {2.4}Related work for optimizing over separable states}{45}{section.2.4}%
+\contentsline {paragraph}{Comparisons to our algorithm.}{46}{paragraph*.56}%
+\contentsline {subsection}{\numberline {2.4.1}Related work for optimizing over separable ground states of Hamiltonians}{47}{subsection.2.4.1}%
+\contentsline {paragraph}{Comparisons to our algorithm.}{47}{paragraph*.57}%
+\contentsline {chapter}{\numberline {3}A hybrid quantum-classical algorithm for Bayes-optimal quantum state discrimination using the source code}{49}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Quantum state discrimination}{52}{section.3.1}%
+\contentsline {subsubsection}{Minimum error discrimination}{52}{subsubsection*.62}%
+\contentsline {subsubsection}{Unambiguous discrimination}{53}{subsubsection*.63}%
+\contentsline {subsubsection}{Generalizations of these strategies}{54}{subsubsection*.64}%
+\contentsline {subsubsection}{Quantum state exclusion}{54}{subsubsection*.65}%
+\contentsline {section}{\numberline {3.2}The general Bayes approach}{55}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Classification and mixed states}{59}{subsection.3.2.1}%
+\contentsline {subsubsection}{Mixed states}{60}{subsubsection*.73}%
+\contentsline {section}{\numberline {3.3}Technical results}{61}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Semidefinite programming formulations and reductions}{61}{subsection.3.3.1}%
+\contentsline {paragraph}{Related works that focus on Gram matrices.}{65}{paragraph*.74}%
+\contentsline {subsection}{\numberline {3.3.2}A hybrid algorithm for calculating the optimal reward}{66}{subsection.3.3.2}%
+\contentsline {section}{\numberline {3.4}Applications}{68}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}The quantum changepoint identification problem}{68}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}At most one changepoint}{70}{subsection.3.4.2}%
+\contentsline {subsubsection}{A heuristic}{72}{subsubsection*.77}%
+\contentsline {subsubsection}{Numerical experiment}{73}{subsubsection*.78}%
+\contentsline {subsection}{\numberline {3.4.3}A single changepoint with varying reward functions}{74}{subsection.3.4.3}%
+\contentsline {paragraph}{One changepoint, with horseshoe reward.}{74}{paragraph*.80}%
+\contentsline {paragraph}{One changepoint, with the closer-the-better reward.}{76}{paragraph*.82}%
+\contentsline {subsection}{\numberline {3.4.4}Related work}{77}{subsection.3.4.4}%
+\contentsline {subsection}{\numberline {3.4.5}Quantum error type classification}{78}{subsection.3.4.5}%
+\contentsline {chapter}{\numberline {4}The pretty bad measurement}{86}{chapter.4}%
+\contentsline {section}{\numberline {4.1}The pretty good measurement (PGM)}{87}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Purposely messing up measurements with offsets}{88}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Proof of a slightly weaker version of Theorem~\ref {thm:ch4_PBM-PGM}}{89}{subsection.4.2.1}%
+\contentsline {section}{\numberline {4.3}The pretty bad measurement (PBM)}{92}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Another interpretation}{93}{section.4.4}%
+\contentsline {paragraph}{Remark.}{94}{paragraph*.96}%
+\contentsline {section}{\numberline {4.5}Illustrative examples}{94}{section.4.5}%
+\contentsline {section}{\numberline {4.6}Numerical simulations}{96}{section.4.6}%
+\contentsline {section}{\numberline {4.7}Application: Quantum anomaly detection/avoidance}{97}{section.4.7}%
+\contentsline {chapter}{\numberline {5}Local strategies are pretty good at computing Boolean properties of quantum sequences}{101}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Problem formulation and main results}{103}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Problem formulation}{103}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}Main results}{106}{subsection.5.1.2}%
+\contentsline {section}{\numberline {5.2}Proofs of Theorems~\ref {thm:ch5_qseq-PGM} and~\ref {thm:ch5_qseq-sufficient}: Performance of the greedy strategy}{108}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}The greedy strategy}{108}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}Lower-bounding the greedy strategy via the PGM}{109}{subsection.5.2.2}%
+\contentsline {subsection}{\numberline {5.2.3}Optimality for affine functions}{111}{subsection.5.2.3}%
+\contentsline {section}{\numberline {5.3}Proof of Theorem~\ref {thm:ch5_qseq-necessary}: Only affine functions achieve optimality}{114}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Optimality criterion for the PGM}{114}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}Structural constraints from PGM optimality}{117}{subsection.5.3.2}%
+\contentsline {subsection}{\numberline {5.3.3}Consequences of the matrix relation}{119}{subsection.5.3.3}%
+\contentsline {subsection}{\numberline {5.3.4}Necessity of the affine structure}{122}{subsection.5.3.4}%
+\contentsline {section}{\numberline {5.4}The Boolean hypercube graph}{128}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Greedy strategy performance for non-affine functions}{133}{section.5.5}%
+\contentsline {subsection}{\numberline {5.5.1}The $\bm {\mathrm {AND}}$ function}{133}{subsection.5.5.1}%
+\contentsline {subsubsection}{Greedy success probability}{133}{subsubsection*.123}%
+\contentsline {subsubsection}{Asymptotic behavior}{135}{subsubsection*.127}%
+\contentsline {subsection}{\numberline {5.5.2}The majority function}{135}{subsection.5.5.2}%
+\contentsline {subsubsection}{Greedy success probability}{135}{subsubsection*.128}%
+\contentsline {subsubsection}{Asymptotic behavior}{137}{subsubsection*.134}%
+\contentsline {subsection}{\numberline {5.5.3}Comparison and discussion}{139}{subsection.5.5.3}%
+\contentsline {paragraph}{Highly unbalanced functions ($\bm {\mathrm {AND}}$):}{139}{paragraph*.135}%
+\contentsline {paragraph}{Balanced non-affine functions (majority):}{139}{paragraph*.136}%
+\contentsline {chapter}{\numberline {6}Conclusion}{141}{chapter.6}%
+\contentsline {chapter}{Bibliography}{143}{chapter*.137}%

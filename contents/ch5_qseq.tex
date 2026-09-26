@@ -1,8 +1,8 @@
 \chapter{Local strategies are pretty good at computing Boolean properties of quantum sequences} \label{ch:qseq}
 
-The contents of this chapter is based on my work with Tathagata Gupta, Shayeef Murshid, Vincent Russo, Jamie Sikora and Alice Zheng in~\cite{gupta2026localstrategiesprettygood}.
+The contents of this chapter is based on work with Tathagata Gupta, Shayeef Murshid, Vincent Russo, Jamie Sikora, and Alice Zheng in~\cite{gupta2026localstrategiesprettygood}.
 
-In the previous two chapters we have focused on optimizing joint measurements for various aspects of the state discrimination problem.
+In the previous two chapters we have focused on optimizing and approximating global measurements for various aspects of the state discrimination problem.
 We did not take into account the fact that quantum memory is a scarce and costly resource.
 In this chapter, we study the problem of computing global properties of quantum sequences when quantum systems must be measured individually, without storing or jointly processing them.
 In our setting, a bit string $x \in \bit^n$ is encoded into an $n$-qubit product state $\ket{\psi_{x_1}} \otimes \cdots \otimes \ket{\psi_{x_n}}$, and the goal is to infer $f(x) \in \bit$ from measurements of this quantum encoding.
@@ -18,7 +18,7 @@ This chapter is organized in the following manner.
     \item Section~\ref{sec:ch5_qseq-easy-proofs}: We describe the greedy strategy and prove that for all Boolean functions, the performance of this greedy strategy is bounded below by the square of the performance of the optimal global strategy.
     For affine Boolean functions, we show that the greedy strategy is optimal.
     \item Section~\ref{sec:ch5_qseq-necessary}: We prove that for Boolean functions that are not affine, the greedy strategy is not globally optimal.
-    \item Section~\ref{sec:ch5_qseq-non-affine-examples}: We consider two non-affine functions, the $\AND$ and majority functions. For the $\AND$ function, we show that both the greedy as well as the optimal global strategy converge to perfect success exponentially quickly. For the majority function, we observe that the greedy strategy converges to a value strictly bounded away from 1, while the global strategy achieves better performance.
+    \item Section~\ref{sec:ch5_qseq-non-affine-examples}: We consider two non-affine functions, the $\AND$ and majority functions. For the $\AND$ function, we show that both the greedy as well as the optimal global strategy converge to perfect success exponentially quickly. For the majority function, we observe that the greedy strategy converges to a value strictly bounded away from 1, while the global strategy achieves a slightly better performance.
 \end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -65,7 +65,7 @@ Conditioned on the state being $\sigma_i$, the probability of a correct guess is
 The optimal success probability is obtained by maximizing the average probability of a correct decision over all such POVMs:
 \begin{equation}\label{SDP:ch5_qseq-qsd}
     \max \left\{
-        p_0 \inner{M_0}{\sigma_0} + p_1 \inner{M_1}{\sigma_1} : M_0 + M_1 = \I, M_0, M_1 \geq 0
+        p_0 \inner{M_0}{\sigma_0} + p_1 \inner{M_1}{\sigma_1} : M_0 + M_1 = \id, M_0, M_1 \succcurlyeq 0
     \right\}.
 \end{equation}
 This is a semidefinite program and generalizes to discrimination among any finite ensemble of quantum states.
@@ -89,7 +89,7 @@ Our first result shows that, remarkably, this strategy performs rather well---bu
 \begin{definition}
     Given a positive integer $n$, a function $f : \bit^n \to \bit$, and two encoding qubit states $\ket{\psi_0}$ and $\ket{\psi_1}$ with inner product $s = \braket{\psi_0}{\psi_1}$, the success probability of learning $f$ using a strategy ``strat'' when each $x \in \bit^n$ is chosen uniformly at random is denoted by $\P(n,f,s,\mathrm{strat})$.
 \end{definition}
-Throughout the paper, we denote the fixed local (greedy) strategy and a globally optimal strategy by ``$\greedy$'' and ``$\glo$'', respectively.
+Throughout this chapter, we denote the fixed local (greedy) strategy and a globally optimal strategy by ``$\greedy$'' and ``$\glo$'', respectively.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -111,7 +111,8 @@ This is presented in Section~\ref{subsec:ch5_qseq-greedy=pgm}.
 
 This raises a natural question: for which Boolean functions does the greedy strategy actually achieve the global optimum?
 The next result identifies a class of functions that satisfy this.
-\begin{restatable}[Sufficiency]{theorem}{sufficient}\label{thm:ch5_qseq-sufficient}
+%\begin{restatable}[Sufficiency]{theorem}{sufficient}\label{thm:ch5_qseq-sufficient}
+\begin{theorem}[Sufficiency]\label{thm:ch5_qseq-sufficient}
     Let $f : \bit^n \to \bit$ be of the form
     \begin{equation}\label{eq:ch5_qseq-affine}
         f(x_1,\ldots,x_n) = b_0 \oplus b_1 x_1 \oplus b_2 x_2 \oplus \cdots \oplus b_n x_n,
@@ -122,7 +123,10 @@ The next result identifies a class of functions that satisfy this.
         \P(n,f,s,\greedy)=\P(n,f,s,\glo)
     \end{equation}
     for all $s \in (0,1)$.
-\end{restatable}
+\end{theorem}
+%\end{restatable}
+\theoremstyle{plain}
+\newtheorem*{sufficientrestate}{Theorem~\ref{thm:ch5_qseq-sufficient}}
 
 The functions of the form in Eq.~\eqref{eq:ch5_qseq-affine} are called \emph{affine Boolean functions}.
 For affine Boolean functions, both the globally optimal success probability (via the Helstrom bound) and the greedy success probability can be computed in closed form.
@@ -131,16 +135,20 @@ See Section~\ref{subsec:ch5_qseq-greedy=opt} for details.
 
 Our final result shows that this class is essentially the only one for which the greedy strategy is optimal, establishing a converse to Theorem~\ref{thm:ch5_qseq-sufficient}.
 
-\begin{restatable}[Necessity]{theorem}{necessity}\label{thm:ch5_qseq-necessary}
+%\begin{restatable}[Necessity]{theorem}{necessity}\label{thm:ch5_qseq-necessary}
+\begin{theorem}[Necessity]\label{thm:ch5_qseq-necessary}
     Suppose a Boolean function $f : \bit^n \to \bit$ is \emph{not} affine, meaning it is \emph{not} of the form in Eq.~\eqref{eq:ch5_qseq-affine}.
     Then, the greedy strategy is not globally optimal, that is
     \begin{equation}
         \P(n,f,s,\greedy) < \P(n,f,s,\glo)
     \end{equation}
     for all but possibly finitely many values of $s \in (0,1)$.
-\end{restatable}
+\end{theorem}
+%\end{restatable}
+\theoremstyle{plain}
+\newtheorem*{necessaryrestate}{Theorem~\ref{thm:ch5_qseq-necessary}}
 
-Together, Theorems~\ref{thm:ch5_qseq-sufficient} and~\ref{thm:ch5_qseq-necessary} provide a complete characterization: affine Boolean functions are precisely those for which memoryless measurement strategies suffice for optimal learning.
+Together, Theorems~\ref{thm:ch5_qseq-sufficient} and~\ref{thm:ch5_qseq-necessary} provide a complete characterization: affine Boolean functions are precisely those for which greedy memoryless measurement strategies suffice for optimal learning.
 Note that Theorem~\ref{thm:ch5_qseq-necessary} holds for all $s \in (0,1)$ except possibly for a finite set, hence for all but a set of measure zero.
 The proof is presented in Section~\ref{sec:ch5_qseq-necessary}.
 
@@ -210,7 +218,7 @@ The PGM operators for distinguishing $\sigma_0$ and $\sigma_1$ are
 We can now establish the key connection:
 
 \begin{theorem}\label{thm:ch5_qseq-pgm-local}
-    For any Boolean function $f:\bit^n \to \bit$ and any inner product $s \in (0,1)$, the pretty good measurement achieves the same success probability as the greedy strategy for evaluating $f$.
+    For any Boolean function $f:\bit^n \to \bit$ and any inner product \\ $s \in (0,1)$, the pretty good measurement achieves the same success probability as the greedy strategy for evaluating $f$.
 \end{theorem}
 
 \begin{proof}
@@ -250,7 +258,7 @@ Theorem~\ref{thm:ch5_qseq-pgm-local} reveals a remarkable structural property: a
     M_{\sigma_i}^{\text{PGM}} = \sum_{y_1 \ldots y_n \in S_i} M_{y_1} \otimes \cdots \otimes M_{y_n}.
 \end{equation}
 This decomposition shows that what appears to be a global measurement is, in fact, equivalent to independently measuring each qubit optimally.
-Therefore, $\P(n,f,s,\greedy) = \P(n,f,s,\mathrm{PGM})$, and Theorem~\ref{thm:ch5_qseq-PGM} follows immediately by applying the Barnum and Knill's theorem (Theorem~\ref{thm:ch4_PBM-barnum-knill}).
+Therefore, \\ $\P(n,f,s,\greedy) = \P(n,f,s,\mathrm{PGM})$, and Theorem~\ref{thm:ch5_qseq-PGM} follows immediately by applying the Barnum and Knill's theorem (Theorem~\ref{thm:ch4_PBM-barnum-knill}).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -258,7 +266,22 @@ Therefore, $\P(n,f,s,\greedy) = \P(n,f,s,\mathrm{PGM})$, and Theorem~\ref{thm:ch
 
 Having provided a universal guarantee for the greedy strategy for arbitrary Boolean functions, we find a class of Boolean functions for which it is optimal.
 This is the content of Theorem~\ref{thm:ch5_qseq-sufficient}, which we restate for convenience and prove below.
-\sufficient*
+%\sufficient*
+\begin{sufficientrestate}[Sufficiency]
+    Let $f : \bit^n \to \bit$ be of the form
+    \[
+        f(x_1,\ldots,x_n)
+        =
+        b_0 \oplus b_1x_1 \oplus b_2x_2
+        \oplus \cdots \oplus b_nx_n,
+    \]
+    for some $b_0,b_1,\ldots,b_n\in\bit$.
+    Then the greedy strategy is globally optimal; that is,
+    \[
+        \P(n,f,s,\greedy)=\P(n,f,s,\glo)
+    \]
+    for all $s\in(0,1)$.
+\end{sufficientrestate}
 
 \begin{proof}
     Any affine Boolean function is either constant or balanced.
@@ -378,7 +401,8 @@ The following lemma, due to Iten, Renes and Sutter~\cite{iten2016pretty}, provid
 This criterion is powerful because it reduces the question of PGM optimality to checking whether two specific operators commute.
 For our problem, the generalized Gram matrix of the Boolean ensemble is given by the following lemma.%, the proof of which is in \cref{app:ch5_qseq-boolean-grams}.
 
-\begin{restatable}{lemma}{booleangrams}\label{lem:ch5_qseq-gram-structure}
+%\begin{restatable}{lemma}{booleangrams}\label{lem:ch5_qseq-gram-structure}
+\begin{lemma}\label{lem:ch5_qseq-gram-structure}
     The generalized Gram matrix $G$ for the Boolean ensemble has the block form
     \begin{equation}\label{eq:ch5_qseq-G-block}
         G = \frac{1}{2^n}
@@ -392,7 +416,10 @@ For our problem, the generalized Gram matrix of the Boolean ensemble is given by
         \item $\Gamma_i$ is the Gram matrix of the states in $S_i$, with entries $(\Gamma_i)_{xy} = \braket{\psi_x}{\psi_y}$ for $x,y \in S_i$,
         \item $\Gamma'$ is the cross-Gram matrix with entries $(\Gamma')_{xy} = \braket{\psi_x}{\psi_y}$ for $x \in S_0$ and $y \in S_1$.
     \end{itemize}
-\end{restatable}
+\end{lemma}
+%\end{restatable}
+\theoremstyle{plain}
+\newtheorem*{booleangramsrestate}{Lemma~\ref{lem:ch5_qseq-gram-structure}}
 
 \begin{proof}
 To apply the PGM optimality criterion from Lemma~\ref{lem:ch5_qseq-pgmopt}, we must compute the generalized Gram matrix $G$ for the Boolean ensemble (Eq.~\eqref{eq:ch5_qseq-boolean-ensemble}).
@@ -528,9 +555,9 @@ We now translate the PGM optimality condition into an explicit algebraic relatio
 Having established that PGM optimality implies $\Gamma_0 \Gamma' = \Gamma' \Gamma_1$, we now extract the structural consequences of this relation.
 A key observation is that the inner product between any two product states can be expressed in terms of the inner product $s = \braket{\psi_0}{\psi_1}$ and the Hamming distance:
 \begin{equation}\label{eq:ch5_qseq-inner-product-hamming}
-    \braket{\psi_x}{\psi_y} = \prod_{i=1}^n \braket{\psi_{x_i}}{\psi_{y_i}} = s^{d(x,y)},
+    \braket{\psi_x}{\psi_y} = \prod_{i=1}^n \braket{\psi_{x_i}}{\psi_{y_i}} = s^{d_H(x,y)},
 \end{equation}
-where $d(x,y)$ is the Hamming distance between two $n$-bit strings $x$ and $y$.
+where $d_H(x,y)$ is the Hamming distance between two $n$-bit strings $x$ and $y$.
 This means that every entry of the matrices $\Gamma_0$, $\Gamma_1$, and $\Gamma'$ is a monomial in $s$, allowing us to view these matrices as matrix-valued polynomials in $s$.
 The relation $\Gamma_0\Gamma' = \Gamma'\Gamma_1$ thus becomes a polynomial identity that must hold for all $s \in (0,1)$.
 
@@ -540,6 +567,8 @@ First, by comparing the number of monic terms in corresponding matrix entries, w
 \begin{theorem}\label{thm:ch5_qseq-balanced}
     If the \gammacomm{} in Eq.~\eqref{eq:ch5_qseq-gamma-comm} holds, then the function $f$ must be either constant $(\abs{S_0}\abs{S_1} = 0)$ or balanced $(\abs{S_0} = \abs{S_1})$, except possibly for a finite set of values of $s \in (0,1)$.
 \end{theorem}
+
+\begin{comment}
 \begin{proof}
     By Eq.~\eqref{eq:ch5_qseq-inner-product-hamming}, every entry of the matrices $\Gamma_0$, $\Gamma_1$, and $\Gamma'$ is a monic monomial in $s = \braket{\psi_0}{\psi_1}$.
     Thus, every term in $\Gamma_0 \Gamma'$ is a sum of $\abs{S_0}$ monic monomials, and every term in $\Gamma' \Gamma_1$ is a sum of $\abs{S_1}$ monic monomials.
@@ -547,6 +576,36 @@ First, by comparing the number of monic terms in corresponding matrix entries, w
     If the function is not constant, i.e., $\abs{S_0}\abs{S_1} \neq 0$, then $\Gamma_0 \Gamma'$ and $\Gamma' \Gamma_1$ are non-empty.
     If the function is additionally not balanced, i.e., $\abs{S_0} \neq \abs{S_1}$, then the elements of $\Gamma_0 \Gamma'$ and $\Gamma' \Gamma_1$ cannot coincide, except possibly for finitely many values of $s$.
 \end{proof}
+\end{comment}
+
+\begin{proof}
+	For fixed $x \in S_0$ and $y \in S_1$, define
+	\begin{equation*}
+		\begin{aligned}
+			P_{xy}(s) &\coloneqq (\Gamma_0 \Gamma')_{xy} = \sum_{u \in S_0} s^{d_H(x, u) + d_H(u, y)} \\
+			Q_{xy}(s) &\coloneqq (\Gamma' \Gamma_1)_{xy} = \sum_{v \in S_1} s^{d_H(x, v) + d_H(v, y)}.
+		\end{aligned}
+	\end{equation*}
+	
+	Evaluating the polynomials at $s = 1$, we get
+	\begin{equation*}
+		P_{xy}(1) = \sum_{u \in S_0} 1 = |S_0|, \qquad Q_{xy}(1) = \sum_{v \in S_1} 1 = |S_1|.
+	\end{equation*}
+	
+	If $f$ is non-constant and unbalanced ($S_0, S_1 \neq \emptyset$ and $|S_0| \neq |S_1|$), then
+	\begin{equation*}
+		D_{xy}(s) \coloneqq P_{xy}(s) - Q_{xy}(s)
+	\end{equation*}
+	satisfies
+	\begin{equation*}
+		D_{xy}(1) = |S_0| - |S_1| \neq 0.
+	\end{equation*}
+	
+	Thus, $D_{xy}$ is not a zero polynomial and hence has finitely many roots (at most $2n$).
+	
+	The Gram matrix relation $\Gamma_0 \Gamma' = \Gamma' \Gamma_1$ can hold only when $D_{xy}(s) = 0$ which requires $f$ to be either constant ($|S_0| |S_1| = 0$) or balanced ($|S_0| = |S_1|$).
+\end{proof}
+
 Two comments are in order.
 First, the implication of this theorem does not hold for some $s$ due to the \gammacomm{} being true regardless of the function structure.
 Additionally, the finite set of $s$ exceptions depends on $f$.
@@ -559,15 +618,15 @@ We do this for ease of comprehension, noting that the same reasoning may hold fo
 
 The second consequence could be understood in terms of the \emph{Boolean hypercube} graph (see Section~\ref{sec:ch5_qseq-hypercube} for details), and we use it shortly after to derive details about function structure.
 In this graph, nodes are $n$-bit strings and edges connect two nodes if and only if they differ by exactly one coordinate.
-For any pair of vertices $x \in S_0$ and $y \in S_1$ in the Boolean hypercube, consider all intermediate vertices $w$ such that a path from $x$ to $y$ via $w$ has total length $L$ (where the path need not be shortest overall, just the sum $d(x,w) + d(w,y) = L$).
+For any pair of vertices $x \in S_0$ and $y \in S_1$ in the Boolean hypercube, consider all intermediate vertices $w$ such that a path from $x$ to $y$ via $w$ has total length $L$ (where the path need not be shortest overall, just the sum $d_H(x,w) + d_H(w,y) = L$).
 By equating coefficients of powers of $s$ in the polynomial identity, we show that, for balanced functions, the number of such intermediate vertices in $S_0$ equals the number in $S_1$, for every choice of $x$, $y$ and $L$.
 
 \begin{theorem}\label{thm:ch5_qseq-counting}
     If the \gammacomm{} in Eq.~\eqref{eq:ch5_qseq-gamma-comm} holds and the function $f$ is balanced, then for all integers $L \in \{0,1,\ldots,2n\}$ and for all $x \in S_0$, $y \in S_1$,
     \begin{equation}\label{eq:ch5_qseq-counting-equality}
-        \abs{\{\,u \in S_0 : d(x,u) + d(u,y) = L\,\}}
+        \abs{\{\,u \in S_0 : d_H(x,u) + d_H(u,y) = L\,\}}
         =
-        \abs{\{\,v \in S_1 : d(x,v) + d(v,y) = L\,\}}
+        \abs{\{\,v \in S_1 : d_H(x,v) + d_H(v,y) = L\,\}}
     \end{equation}
     for all but possibly finitely many values of $s \in (0,1)$.
 \end{theorem}
@@ -576,18 +635,18 @@ By equating coefficients of powers of $s$ in the polynomial identity, we show th
     Fix any arbitrary $x \in S_0$ and $y \in S_1$.
     The $(x,y)$-entries of the matrix products in Eq.~\eqref{eq:ch5_qseq-gamma-comm} are
     \begin{align}
-        (\Gamma_0 \Gamma')_{xy} &= \sum_{u \in S_0} s^{d(x,u) + d(u,y)}&
-        (\Gamma' \Gamma_1)_{xy} &= \sum_{v \in S_1} s^{d(x,v) + d(v,y)}.
+        (\Gamma_0 \Gamma')_{xy} &= \sum_{u \in S_0} s^{d_H(x,u) + d_H(u,y)}&
+        (\Gamma' \Gamma_1)_{xy} &= \sum_{v \in S_1} s^{d_H(x,v) + d_H(v,y)}.
     \end{align}
     Equality of these expressions as polynomials in $s$ means
     \begin{equation}
-        \sum_{u \in S_0} s^{d(x,u) + d(u,y)} = \sum_{v \in S_1} s^{d(x,v) + d(v,y)}.
+        \sum_{u \in S_0} s^{d_H(x,u) + d_H(u,y)} = \sum_{v \in S_1} s^{d_H(x,v) + d_H(v,y)}.
     \end{equation}
-    We can rewrite each sum by grouping terms according to the total distance $L = d(x,w) + d(w,y)$,%
+    We can rewrite each sum by grouping terms according to the total distance \\ $L = d_H(x,w) + d_H(w,y)$,%
     \begin{equation}\label{eq:ch5_qseq-counting-polynomial}
-        \sum_{L=0}^{2n} s^L \abs{\{u \in S_0 : d(x,u) + d(u,y) = L\}}
+        \sum_{L=0}^{2n} s^L \abs{\{u \in S_0 : d_H(x,u) + d_H(u,y) = L\}}
         =
-        \sum_{L=0}^{2n} s^L \abs{\{v \in S_1 : d(x,v) + d(v,y) = L\}}.
+        \sum_{L=0}^{2n} s^L \abs{\{v \in S_1 : d_H(x,v) + d_H(v,y) = L\}}.
     \end{equation}
     This is a polynomial identity in $s$.
     For this to hold, either the coefficients of each power $s^L$ on both sides must agree (giving Eq.~\eqref{eq:ch5_qseq-counting-equality}), or $s$ must be one of (at most $2n$) roots of the above polynomial.
@@ -598,24 +657,28 @@ By equating coefficients of powers of $s$ in the polynomial identity, we show th
 We now combine the results from the previous sections to obtain a complete characterization of when the greedy strategy is optimal.
 A crucial element in our proof is the following lemma about the Boolean hypercube, the proof of which can be found in Section~\ref{sec:ch5_qseq-hypercube}.
 
-\begin{restatable}[Hypercube flip characterization]{lemma}{hypercubeflip}\label{lem:ch5_qseq-hypercube-flip}
+%\begin{restatable}[Hypercube flip characterization]{lemma}{hypercubeflip}\label{lem:ch5_qseq-hypercube-flip}
+\begin{lemma}[Hypercube flip characterization]\label{lem:ch5_qseq-hypercube-flip}
     Let $Q_n$ be the $n$-dimensional hypercube graph, and let $A, B \subseteq V(Q_n)$ be a partition satisfying
     \begin{enumerate}[label=(\roman*)]
         \item $A \cup B = V(Q_n)$ and $A \cap B = \varnothing$;
         \item $\abs{A} = \abs{B} = 2^{n-1}$ (balanced partition);
         \item\label{item:ch5_qseq-counting} for all $L \in \N$ and for all $x \in A$, $y \in B$,
         \begin{equation}\label{eq:ch5_qseq-count-condition}
-            \abs{\{\,u \in A: d(x,u) + d(u,y) = L\,\}}
+            \abs{\{\,u \in A: d_H(x,u) + d_H(u,y) = L\,\}}
             =
-            \abs{\{\,v \in B: d(x,v) + d(v,y) = L\,\}}.
+            \abs{\{\,v \in B: d_H(x,v) + d_H(v,y) = L\,\}}.
         \end{equation}
     \end{enumerate}
-    Then there exists a unique index $i \in [n]$ such that for every $x = (x_1,\ldots,x_n) \in \bit^n$,
+    Then there exists an index $i \in [n]$ such that for every $x = (x_1,\ldots,x_n) \in \bit^n$,
     \begin{equation}
         x \in A \quad\Longleftrightarrow\quad x^{(i)} \in B,
     \end{equation}
     where $x^{(i)} = (x_1,\ldots,x_{i-1},\overline{x_i},x_{i+1},\ldots,x_n)$ denotes the bit-flip of $x$ in the $i$-th coordinate.
-\end{restatable}
+\end{lemma}
+%\end{restatable}
+\theoremstyle{plain}
+\newtheorem*{hypercubefliprestate}{Lemma~\ref{lem:ch5_qseq-hypercube-flip}}
 We start with the following theorem, which states that the functions for which the greedy strategy is optimal must necessarily follow a recursive structure.
 \begin{theorem}\label{thm:ch5_qseq-function-form}
     If the \gammacomm{} in Eq.~\eqref{eq:ch5_qseq-gamma-comm} holds, then the function $f$ is either constant or there exists an index $i \in [n]$ and a Boolean function $g : \bit^{n-1} \to \bit$ such that
@@ -630,9 +693,9 @@ We start with the following theorem, which states that the functions for which t
     Starting from the \gammacomm{}, Theorem~\ref{thm:ch5_qseq-balanced} gives that the function is either constant (in which case the proof ends) or balanced.
     From Theorem~\ref{thm:ch5_qseq-counting}, the \gammacomm{} additionally means that for all $x \in S_0$, $y \in S_1$ and integers $L$,
     \begin{equation}\label{eq:ch5_qseq-counting-balance}
-        \abs{\{\,u \in S_0 : d(x,u) + d(u,y) = L\,\}}
+        \abs{\{\,u \in S_0 : d_H(x,u) + d_H(u,y) = L\,\}}
         =
-        \abs{\{\,v \in S_1 : d(x,v) + d(v,y) = L\,\}}
+        \abs{\{\,v \in S_1 : d_H(x,v) + d_H(v,y) = L\,\}}
     \end{equation}
     for all but possibly finitely many values of the inner product $s$.
     By the hypercube structure of $\bit^n$ and Lemma~\ref{lem:ch5_qseq-hypercube-flip}, the above two consequences imply that there exists an index $i \in [n]$ such that flipping the $i$-th bit maps $S_0$ bijectively onto $S_1$.
@@ -667,7 +730,17 @@ The remaining part of the induction step is to show the antecedent of the above,
 Specifically, if Eq.~\eqref{eq:ch5_qseq-gamma-comm} and Eq.~\eqref{eq:ch5_qseq-function-xor} hold for an $n$-bit Boolean function $f$, then the $(n-1)$-bit Boolean function $g$ that appears in the recursive form of $f$ must satisfy the \gammacomm{} in Eq.~\eqref{eq:ch5_qseq-gamma-comm}.
 Therefore any Boolean function satisfying Eq.~\eqref{eq:ch5_qseq-gamma-comm} must be affine, implying that $f$ itself must be affine.
 
-\necessity*
+%\necessity*
+\begin{necessaryrestate}[Necessity]
+    Suppose a Boolean function $f : \bit^n \to \bit$ is
+    \emph{not} affine, meaning that it is not of the form in
+    Eq.~\eqref{eq:ch5_qseq-affine}. Then the greedy strategy is not
+    globally optimal; that is,
+    \[
+        \P(n,f,s,\greedy) < \P(n,f,s,\glo)
+    \]
+    for all but possibly finitely many values of $s\in(0,1)$.
+\end{necessaryrestate}
 
 \begin{proof}
     We prove this statement via its contrapositive.
@@ -861,7 +934,29 @@ Substituting into the definition of $G$ and using $\sqrt{p_i p_j} = \sqrt{\abs*{
 \end{subequations}
 This calculation reveals a natural block structure for $G$, which allows us to prove \cref{lem:ch5_qseq-gram-structure}.
 
-\booleangrams*
+%\booleangrams*
+\begin{booleangramsrestate}
+    The generalized Gram matrix $G$ for the Boolean ensemble has the
+    block form
+    \begin{equation*}
+        G = \frac{1}{2^n}
+        \begin{pmatrix}
+            \Gamma_0 & \Gamma' \\
+            \Gamma'^{*} & \Gamma_1
+        \end{pmatrix},
+        \tag{\ref*{eq:ch5_qseq-G-block}}
+    \end{equation*}
+    where:
+    \begin{itemize}
+        \item $\Gamma_i$ is the Gram matrix of the states in $S_i$,
+        with entries
+        $(\Gamma_i)_{xy}=\braket{\psi_x}{\psi_y}$
+        for $x,y\in S_i$;
+        \item $\Gamma'$ is the cross-Gram matrix with entries
+        $(\Gamma')_{xy}=\braket{\psi_x}{\psi_y}$
+        for $x\in S_0$ and $y\in S_1$.
+    \end{itemize}
+\end{booleangramsrestate}
 
 \begin{proof}
     The block structure follows directly from the calculation above.
@@ -884,12 +979,12 @@ For $n \in \N$, the \emph{$n$-dimensional hypercube graph} $Q_n$ is defined as f
     \item Two vertices $x = (x_1,\ldots,x_n)$ and $y = (y_1,\ldots,y_n)$ are adjacent if and only if they differ in exactly one coordinate.
 \end{itemize}
 
-The \emph{Hamming distance} $d(x,y)$ between two vertices $x$ and $y$ is the number of coordinates in which they differ, which equals the graph distance in $Q_n$:
+The \emph{Hamming distance} $d_H(x,y)$ between two vertices $x$ and $y$ is the number of coordinates in which they differ, which equals the graph distance in $Q_n$:
 \begin{equation}
-    d(x,y) = \abs{\{i \in [n] : x_i \neq y_i\}}.
+    d_H(x,y) = \abs{\{i \in [n] : x_i \neq y_i\}}.
 \end{equation}
 %where $[n] = \{1, \ldots, n\}$.
-We denote adjacency by `$\sim$', meaning $x \sim y$ if and only if $d(x, y) = 1$.
+We denote adjacency by `$\sim$', meaning $x \sim y$ if and only if $d_H(x, y) = 1$.
 The complete graph on two vertices is denoted as $K_2$, i.e., the graph with vertex set $\bit$ with a single edge connecting them.
 A perfect matching in a graph is a set of pairwise disjoint edges such that every vertex of the graph is incident to exactly one edge in the set.
 
@@ -903,6 +998,7 @@ meaning $Q_{n+1}$ can be viewed as two copies of $Q_n$ connected by a perfect ma
 More precisely, if we partition $V(Q_{n+1})$ according to the last bit, we obtain two sub-cubes $Q_n \times \{0\}$ and $Q_n \times \{1\}$, each isomorphic to $Q_n$, with matching edges connecting vertices that differ only in the last coordinate.
 Figure~\ref{fig:ch5_qseq-hypercube} illustrates this structure for $Q_3$.
 
+\begin{comment}
 \begin{figure}[t]
     \centering
     \begin{tikzpicture}[
@@ -952,10 +1048,107 @@ Figure~\ref{fig:ch5_qseq-hypercube} illustrates this structure for $Q_3$.
     }
     \label{fig:ch5_qseq-hypercube}
 \end{figure}
+\end{comment}
+
+\begin{figure}[t]
+    \centering
+    \begin{tikzpicture}[
+        scale=1,
+        line cap=round,
+        line join=round,
+        every node/.style={font=\small},
+        alt={
+            Diagram of the three-dimensional hypercube Q three, drawn as two square copies of Q two. 
+            The front square, labeled Q two times zero, has vertices 000, 100, 110, and 010. 
+            The back square, labeled Q two times one, has vertices 001, 101, 111, and 011. 
+            Solid edges connect adjacent vertices within each square. 
+            Four dashed matching edges connect corresponding vertices whose labels differ only in the last bit: 000 to 001, 100 to 101, 110 to 111, and 010 to 011.
+        }
+    ]
+        % Front square: Q_2 x {0}
+        \coordinate (A0) at (0,0);
+        \coordinate (B0) at (2,0);
+        \coordinate (C0) at (2,2);
+        \coordinate (D0) at (0,2);
+
+        % Back square: Q_2 x {1}
+        \coordinate (A1) at (0.9,0.7);
+        \coordinate (B1) at (2.9,0.7);
+        \coordinate (C1) at (2.9,2.7);
+        \coordinate (D1) at (0.9,2.7);
+
+        % Draw Q_2 faces
+        \draw[thick] (A0)--(B0)--(C0)--(D0)--cycle;
+        \draw[thick] (A1)--(B1)--(C1)--(D1)--cycle;
+
+        % Perfect matching edges
+        \draw[dashed, thick] (A0)--(A1);
+        \draw[dashed, thick] (B0)--(B1);
+        \draw[dashed, thick] (C0)--(C1);
+        \draw[dashed, thick] (D0)--(D1);
+
+        % Vertices
+        \foreach \p in {A0,B0,C0,D0,A1,B1,C1,D1}{
+            \fill (\p) circle (2pt);
+        }
+
+        % Vertex labels
+        \node[below left]  at (A0) {$000$};
+        \node[below right] at (B0) {$100$};
+        \node[below right] at (C0) {$110$};
+        \node[above left]  at (D0) {$010$};
+
+        \node[above left]  at (A1) {$001$};
+        \node[below right] at (B1) {$101$};
+        \node[above right] at (C1) {$111$};
+        \node[above left]  at (D1) {$011$};
+
+        % Annotations
+        \node at (0.9,-0.45) {$Q_2 \times \{0\}$};
+        \node at (1.9,3.15) {$Q_2 \times \{1\}$};
+        \node[align=left] at (4.3,1.2) {
+            matching edges\\
+            (flip last bit)
+        };
+    \end{tikzpicture}
+
+    \caption{
+        The three-dimensional hypercube $Q_3 \cong Q_2 \cartprod K_2$, visualized as two copies of $Q_2$ with a perfect matching, shown by dashed edges, connecting corresponding vertices that differ in the last-bit coordinate.
+    }
+    \label{fig:ch5_qseq-hypercube}
+\end{figure}
 \vspace{0.2cm}
 \noindent
 The following lemma characterizes balanced partitions of the hypercube satisfying the path-counting symmetry (Eq.~\eqref{eq:ch5_qseq-count-condition}) which are precisely those obtained by flipping a single coordinate.%
-\hypercubeflip*
+%\hypercubeflip*
+\begin{hypercubefliprestate}[Hypercube flip characterization]
+    Let $Q_n$ be the $n$-dimensional hypercube graph, and let
+    $A,B\subseteq V(Q_n)$ be a partition satisfying
+    \begin{enumerate}[label=(\roman*)]
+        \item $A\cup B=V(Q_n)$ and $A\cap B=\varnothing$;
+        \item $\abs{A}=\abs{B}=2^{n-1}$ (balanced partition);
+        \item for all $L\in\N$ and for all $x\in A$, $y\in B$,
+        \begin{equation*}
+            \abs{\{\,u\in A:
+                d_H(x,u)+d_H(u,y)=L\,\}}
+            =
+            \abs{\{\,v\in B:
+                d_H(x,v)+d_H(v,y)=L\,\}}
+            \tag{\ref*{eq:ch5_qseq-count-condition}}
+        \end{equation*}
+    \end{enumerate}
+    Then there exists an index $i\in[n]$ such that for every
+    $x=(x_1,\ldots,x_n)\in\bit^n$,
+    \[
+        x\in A
+        \quad\Longleftrightarrow\quad
+        x^{(i)}\in B,
+    \]
+    where
+    $x^{(i)}
+    =(x_1,\ldots,x_{i-1},\overline{x_i},x_{i+1},\ldots,x_n)$
+    denotes the bit flip of $x$ in the $i$-th coordinate.
+\end{hypercubefliprestate}
 
 To prove Lemma~\ref{lem:ch5_qseq-hypercube-flip}, we need the following lemma which establishes that the two parts must have adjacent vertices.
 
@@ -963,20 +1156,20 @@ To prove Lemma~\ref{lem:ch5_qseq-hypercube-flip}, we need the following lemma wh
     Let $A, B \subseteq V(Q_n)$ satisfy the hypotheses of Lemma~\ref{lem:ch5_qseq-hypercube-flip}.
     Then
     \begin{equation}
-        \min\{d(x, y) : x \in A, \, y \in B\} = 1.
+        \min\{d_H(x, y) : x \in A, \, y \in B\} = 1.
     \end{equation}
 \end{lemma}
 
 \begin{proof}
-    Let $k = \min\{d(x, y) : x \in A, \, y \in B\}$.
+    Let $k = \min\{d_H(x, y) : x \in A, \, y \in B\}$.
     Assume for contradiction that $k > 1$.
-    Choose $x \in A$ and $y \in B$ with $d(x, y) = k$, and let $x$--$x_1$--$\,\cdots$--$x_{k-1}$--$y$ be a shortest path from $x$ to $y$ in $Q_n$.
+    Choose $x \in A$ and $y \in B$ with $d_H(x, y) = k$, and let $x$--$x_1$--$\,\cdots$--$x_{k-1}$--$y$ be a shortest path from $x$ to $y$ in $Q_n$.
 
-    Then, $d(x, x_1) = 1$ and $d(x_1, y) = k - 1 < k$.
+    Then, $d_H(x, x_1) = 1$ and $d_H(x_1, y) = k - 1 < k$.
     Since $A$ and $B$ form a partition, for any $x_1 \in V(Q_n)$ we either have:
     \begin{itemize}
-        \item $x_1 \in A$, meaning $d(x_1, y) < k$ with $x_1 \in A$ and $y \in B$, contradicting minimality of $k$, or
-        \item $x_1 \in B$, meaning $d(x, x_1) = 1 < k$ with $x \in A$ and $x_1 \in B$, again contradicting minimality.
+        \item $x_1 \in A$, meaning $d_H(x_1, y) < k$ with $x_1 \in A$ and $y \in B$, contradicting minimality of $k$, or
+        \item $x_1 \in B$, meaning $d_H(x, x_1) = 1 < k$ with $x \in A$ and $x_1 \in B$, again contradicting minimality.
     \end{itemize}
     Hence, $k = 1$.
 \end{proof}
@@ -988,7 +1181,7 @@ To prove Lemma~\ref{lem:ch5_qseq-hypercube-flip}, we need the following lemma wh
     For illustrative purposes, we additionally show the case when $n = 2$.
 
     The vertex set of the two-dimensional hypercube is $V(Q_2) = \{00, 01, 10, 11\}$.
-    By Lemma~\ref{lem:ch5_qseq-min-dist}, there exist vertices $x \in A$ and $y \in B$ such that $d(x, y) = 1$.
+    By Lemma~\ref{lem:ch5_qseq-min-dist}, there exist vertices $x \in A$ and $y \in B$ such that $d_H(x, y) = 1$.
     Without loss of generality, choose $x = 00$ and $y = 01$.
     Since $\abs{A} = \abs{B} = 2$, the only possible balanced partitions with $00 \in A$ and $01 \in B$ are
     \begin{equation}
@@ -1000,8 +1193,8 @@ To prove Lemma~\ref{lem:ch5_qseq-hypercube-flip}, we need the following lemma wh
     \medskip
 
     We next prove the statement for an arbitrary positive integer $n$.
-    By Lemma~\ref{lem:ch5_qseq-min-dist}, choose vertices $x \in A$ and $y \in B$ such that $d(x, y) = 1$.
-    Let $i \in [n]$ be the unique coordinate where $x$ and $y$ differ, so $y = x^{(i)}$.
+    By Lemma~\ref{lem:ch5_qseq-min-dist}, choose vertices $x \in A$ and $y \in B$ such that $d_H(x, y) = 1$.
+    Let $i \in [n]$ be the coordinate where $x$ and $y$ differ, so $y = x^{(i)}$.
     We now show that coordinate $i$ implements the flip globally.
 
     \medskip
@@ -1047,7 +1240,7 @@ To prove Lemma~\ref{lem:ch5_qseq-hypercube-flip}, we need the following lemma wh
 \section{Greedy strategy performance for non-affine functions}\label{sec:ch5_qseq-non-affine-examples}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In this section, we examine two important non-affine functions: the $\AND$ function and the majority function.
+In this section, we examine two important non-affine functions: the $\AND$ function and the majority ($\MAJ$) function.
 For these functions, the greedy strategy is suboptimal, but understanding the gap between greedy and global performance provides insight into when adaptive or joint measurements offer practical advantages.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1065,7 +1258,9 @@ This function is highly unbalanced: $S_1 = \{11\ldots1\}$ contains only the all-
 
 \subsubsection{Greedy success probability}
 
-For the greedy strategy, we measure each qubit independently using the optimal single-qubit measurement, which succeeds with probability $p = \frac{1}{2} + \frac{1}{4} \norm[\Big]{ \ketbra{\psi_0} - \ketbra{\psi_1} }_1 = \frac{1}{2}(1+\sqrt{1-s^2})$ in distinguishing $\ket{\psi_0}$ from $\ket{\psi_1}$ with equal priors.
+For the greedy strategy, we measure each qubit independently using the optimal single-qubit measurement, which succeeds with probability 
+$$p = \frac{1}{2} + \frac{1}{4} \norm[\Big]{ \ketbra{\psi_0} - \ketbra{\psi_1} }_1 = \frac{1}{2}(1+\sqrt{1-s^2})$$ 
+in distinguishing $\ket{\psi_0}$ from $\ket{\psi_1}$ with equal priors.
 The greedy strategy fails in evaluating $\AND$ when
 \begin{itemize}
     \item $x = 11\ldots1$ but we guess $y \neq 11\ldots1$, which happens with probability $(1-p^n)/2^n$.
@@ -1082,12 +1277,33 @@ The greedy success probability is therefore
     \P(n,\AND,s,\greedy) = 1-\frac{1-p^n}{2^{n-1}}.
 \end{equation}
 
+\begin{comment}
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.8\linewidth]{figs/ch5_qseq/greedy_vs_global_AND.pdf}
     \caption{%
         Greedy vs.~global success probabilities for the $\AND$ function.
         As $n$ increases, both strategies approach perfect success exponentially fast, with the gap diminishing rapidly.}
+    \label{fig:ch5_qseq-and-comparison}
+\end{figure}
+\end{comment}
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[
+        width=0.8\linewidth,
+        alt={
+            Plot comparing the success probabilities of the greedy and global measurement strategies for computing the Boolean AND function. 
+            The horizontal axis represents the number of input bits n, and the vertical axis represents success probability. 
+            The global strategy has a higher success probability than the greedy strategy for finite n. 
+            Both probabilities increase toward one exponentially quickly as n increases, and the gap between the two strategies rapidly approaches zero.
+        }
+    ]{figs/ch5_qseq/greedy_vs_global_AND.pdf}
+
+    \caption{
+        Greedy and global success probabilities for the $\AND$ function. 
+        As $n$ increases, both strategies approach perfect success exponentially quickly, and the gap between them decreases rapidly.
+    }
     \label{fig:ch5_qseq-and-comparison}
 \end{figure}
 
@@ -1165,11 +1381,33 @@ The greedy success probability is:
 \end{equation}
 where we used the symmetry $\gamma_j = \gamma_{2k+1-j}$ to combine terms.
 
+\begin{comment}
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.8\linewidth]{figs/ch5_qseq/greedy_vs_global_MAJ_separate.pdf}
     \caption{%
         Greedy vs.~global success probabilities for the majority function.
+    }
+    \label{fig:ch5_qseq-maj-comparison}
+\end{figure}
+\end{comment}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[
+        width=0.8\linewidth,
+        alt={
+            Line plot comparing the success probabilities of the greedy and globally optimal measurement strategies for computing the majority function. 
+            The horizontal axis is the overlap s between the two possible single-qubit states, ranging from zero for orthogonal states to one for identical states. 
+            The vertical axis is the success probability. 
+            Curves are shown for several odd values of the number of input bits n. 
+            For each value of n, the global strategy performs better than the greedy strategy except at the endpoints. 
+            The success probabilities decrease as the state overlap increases, and the gap between the global and greedy strategies remains visible as n increases.
+        }
+    ]{figs/ch5_qseq/greedy_vs_global_MAJ_separate.pdf}
+
+    \caption{%
+        Greedy and global success probabilities for the majority function as functions of the overlap between the two single-qubit states.
     }
     \label{fig:ch5_qseq-maj-comparison}
 \end{figure}
@@ -1211,7 +1449,7 @@ The majority function's noise sensitivity ensures that the greedy strategy conve
 Specifically, $\P(n,\MAJ,s,\greedy) \to 1 - \frac{2}{\pi}\arcsin(\sqrt{1-p})$ as $n \to \infty$, which remains bounded below $1$ for any non-orthogonal states ($p < 1$), while the global optimal strategy achieves better performance.
 This gap between greedy and global strategies persists even asymptotically, demonstrating a persistent advantage of joint measurements that does not vanish as the problem size increases.
 
-These examples confirm that our characterization theorem captures a fundamental dichotomy: affine functions are the unique class where local memoryless measurements are always optimal, while all other functions require more complex strategies.
+These examples confirm that our characterization theorem captures a fundamental dichotomy: affine functions are the unique class where greedy memoryless measurements are always optimal, while all other functions require more complex strategies.
 Crucially, the practical significance of this advantage is intimately tied to the function's noise sensitivity.
 Low noise sensitivity functions (like $\AND$ for large $n$) exhibit vanishing advantage from joint measurements, while high noise sensitivity functions (like majority) maintain advantage from joint-measurements even for arbitrarily large input dimensions.
 This connection between noise sensitivity and joint-measurement-advantage suggests deeper structural relationships between classical Boolean function complexity and quantum information-theoretic resources.

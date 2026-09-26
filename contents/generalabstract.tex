@@ -1,15 +1,81 @@
-\amnote{ChatGPT version}
+% Introduction
 
-Many important questions in quantum information theory can be viewed as optimization problems: how to identify an unknown quantum signal, how much entanglement a quantum system contains, or how to design measurements that extract the desired information from quantum data. In principle, many of these questions can be expressed using semidefinite programming, a powerful form of convex optimization. In practice, however, two major obstacles arise. First, the dimension of a quantum system grows exponentially with the number of qubits. Second, physically meaningful constraints, such as requiring a state to be separable, or unentangled, can make the resulting optimization problems fundamentally hard.
+%Many fundamental problems in quantum information theory can be formulated as optimization tasks over quantum states and measurements. 
+Many fundamental problems in quantum information theory can be understood as questions of choosing the best possible quantum state or measurement for a given task. 
+For instance, one may want to pick the quantum state that optimizes some desired property, or choose a measurement that extracts as much information as possible from a quantum system. 
+%Mathematically
+These questions are naturally formulated as optimization problems. % over the sets of quantum states and measurements.
+%
+%While the convex structure of quantum theory often enables powerful semidefinite programming formulations, a major challenge persists: the exponential growth of Hilbert space dimension with system size. 
+The mathematical structure of quantum theory often makes it possible to turn these questions into a powerful class of efficiently structured optimization problems called semidefinite programs.
+However, this approach faces a basic obstacle: as the number of quantum bits increases, the size of their mathematical description grows exponentially. 
+As a result, even problems that are well structured can quickly become too large to solve directly.
+%
+This dissertation discusses techniques to address these and related obstacles across several core problems in quantum information.
 
-This thesis develops dimension-reduction methods for several high-dimensional optimization problems in quantum information. The central theme is that many apparently intractable quantum optimization tasks contain hidden structure: the full exponentially large quantum description is often not needed, and the essential information can sometimes be captured by a smaller object. In several cases, this smaller object can be obtained using a hybrid quantum–classical procedure, where quantum subroutines estimate the quantities needed to define a reduced classical optimization problem.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Separability problem
 
-The first part of the thesis studies optimization over separable quantum states. Separability testing is computationally hard, and standard semidefinite programming hierarchies quickly become impractical as the number of qubits increases. We introduce a hybrid quantum–classical method that uses a quantum co-processor to reduce the effective dimension of the optimization problem. A key feature of the method is that it always outputs a valid separable state, rather than only producing a bound on the optimum. We apply this approach to estimating the minimum separable energy of many-body Hamiltonians, which in turn defines a measure of how entangled their ground spaces are. Numerical experiments demonstrate scalability to systems with up to 28 qubits.
+%We first study optimization over separable quantum states.
+We begin by studying quantum systems that are said to be \emph{separable}, i.e., systems whose parts can be described independently of one another. 
+This is an important starting point because one of the most distinctive features of quantum theory is that systems that are not separable can exhibit correlations that have no classical analogue. 
+Understanding which states possess this special type of correlation, i.e., are \emph{entangled}, and how to optimize over the states that lack it, is a basic problem in quantum information theory.
+%
+%Such problems are typically NP-hard and standard semidefinite programming hierarchies typically suffer from the curse of dimensionality. 
+These problems are believed to be computationally difficult and no efficient method is yet known for solving them exactly in full generality. 
+Although formulating these problems as a semidefinite program provides a systematic way to obtain an approximate solution, the resulting computations often become too large to handle as the number of quantum bits grows.
+%
+%We introduce a hybrid algorithm that leverages a quantum co-processor to reduce the effective dimension of the problem. 
+We introduce a hybrid algorithm that combines classical computation with a quantum co-processor, a quantum device used alongside a classical computer. 
+The role of the quantum co-processor is to encode part of the problem in a smaller effective space, making the resulting optimization task more manageable.
+%
+Unlike several other approaches, our method is guaranteed to always produce a solution that is feasible with respect to the optimization problem.
+%
+%We apply this framework to approximate the minimum separable energy of many-body Hamiltonians, and define an entanglement measure for their ground spaces, and demonstrate numerical scalability to systems of up to $28$ qubits.
+We apply this framework to study the lowest possible energy of large quantum systems under the restriction that the states are separable. 
+This also leads to a way of quantifying how much entanglement is present in the lowest-energy states. 
+Our numerical results demonstrate that the method can scale to systems with as many as $28$ quantum bits.
 
-The second part develops a general framework for quantum state discrimination using Helstrom’s general Bayes approach. This framework allows one to describe many discrimination tasks through a reward or penalty rule, including minimum-error discrimination, unambiguous discrimination, state exclusion, and more flexible objectives where near-misses or inconclusive answers receive partial credit. We show that the corresponding semidefinite program can be reformulated using only the Gram matrix of the candidate states. This changes the size of the optimization problem from one depending on the Hilbert-space dimension to one depending primarily on the number of candidate states and possible guesses. When the states are given through their preparation circuits, this Gram matrix can be estimated using quantum overlap-estimation procedures, yielding a hybrid quantum–classical algorithm that operates directly from quantum source data.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% State discrimination
 
-This state discrimination framework is then applied to two structured problems. The first is quantum changepoint identification, where the task is to determine where one or more changes occur in a sequence of quantum states. The reduced formulation makes it possible to study several reward structures, including objectives that reward guesses that are close to the true changepoint, and it enables computations in multiple-changepoint regimes that are inaccessible to the naive formulation. The second application is quantum error type classification, where an n-qubit state is affected by a single-qubit Pauli error and the goal is to identify the type of error, rather than the exact qubit on which it occurred. The Gram-matrix reduction makes this classification problem tractable for systems with hundreds of qubits in structured examples.
+%We next consider the general Bayes framework, as introduced by Helstrom, for state discrimination when, instead of a classical description of the candidate states, one has access to their \emph{source code}: the quantum circuit that prepares them.
+We next consider \emph{quantum state discrimination}: the task of identifying a given set of quantum bits from a known list of possibilities. 
+Building on the general Bayesian framework introduced by Helstrom, we study this problem in a setting where the candidate states are specified not by an explicit classical description, but by their preparation procedures, namely the quantum circuits that generate them.
+%
+%We show that the typical semidefinite program for the discrimination problem can be reformulated in terms of the Gram matrix of these states, reducing the variable dimensions from $dL$ to $NL$, where $d$ is the Hilbert space dimension, $N$ is the number of candidate states, and $L$ is the number of possible guesses.
+We show that the semidefinite program can be reformulated as a smaller problem.
+Instead of working directly with all of the quantum bits, whose description can be extremely large, our formulation uses only the matrix of inner products between the candidate states. 
+This reformulation replaces a problem whose size depends on all of the quantum bits with one whose size depends mainly on the number of candidate states and possible guesses.
+%
+%Importantly, we further introduce a quantum pre-processing procedure which efficiently constructs the reduced problem from the source code, enabling our method to operate directly on quantum data. 
+An important part of our approach is a quantum pre-processing step that builds this smaller optimization problem directly from the circuits that prepare the quantum bits. 
+This allows the method to work directly from quantum circuits, without first requiring a full classical description of the states.
+%
+%We consider two applications.
+%First, we characterize the optimal identifications for quantum changepoint problems under several reward structures, including multiple-changepoint settings that were previously computationally inaccessible.
+%Second, we consider a quantum error classification problem and show how our reduction makes it tractable for systems of hundreds of qubits.
+We demonstrate the versatility of this framework through two applications. 
+First, we consider quantum changepoint problems, where the goal is to identify when the quantum bits change from one behavior to another. 
+Our approach allows us to handle more general reward structures% and multiple changepoint settings
+ which previously led to problems too large to compute. 
+Second, we apply the framework to a problem where the goal is to identify the class of error affecting the quantum bits.
+Our reduction makes it possible to analyze hundreds of quantum bits, far beyond what direct methods can typically handle.
 
-The thesis also studies simple and structured measurement strategies. As a counterpart to the well-known pretty good measurement for minimum-error discrimination, we introduce the pretty bad measurement for state exclusion. We prove that both strategies perform at least as well as blind guessing in their respective settings. Finally, we consider the problem of evaluating Boolean functions from a sequence of quantum systems under severe memory constraints. We prove that a simple local greedy measurement strategy is globally optimal exactly for affine Boolean functions, and more generally achieves at least the square of the optimal global success probability.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Pretty bad measurements and Boolean function from quantum sequence
 
-Overall, this thesis shows that high-dimensional quantum optimization problems often admit principled reductions that preserve the essential structure of the task. By combining dimension reduction, hybrid quantum–classical computation, and provable performance guarantees, the results make it possible to analyze quantum discrimination, separability, classification, and measurement-design problems at scales that would be out of reach for direct methods.
+%We also analyze structural measurement strategies. 
+We also study measurement strategies that have restrictions on the available quantum memory, but still come with rigorous performance guarantees.
+%As a counterpart to the well-known pretty good measurement for minimum error discrimination, we introduce the pretty bad measurement for the exclusion variant, and prove that both are guaranteed to perform at least as well as blind guessing in their respective objectives. 
+We introduce a new strategy for ruling out incorrect quantum bits, analogous to a well-known strategy for identifying the correct one.
+We prove that these structured strategies are always at least as good as making a guess without using the quantum bits. 
+%Finally, we consider evaluating Boolean functions under severe memory constraints and prove that a simple local ``greedy'' measurement strategy is globally optimal precisely for affine Boolean functions, while more generally achieving at least the square of the optimal global success probability.
+Finally, we study how to make coarse-grained predictions when only limited memory is available, showing exactly when a simple step-by-step strategy is optimal and proving that it remains provably close to optimal more generally.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Conclusion
+
+%Together, these results demonstrate that high-dimensional quantum optimization problems often admit hidden structure enabling dimension reduction, hybrid computation, and provable approximation guarantees.
+Taken together, these results show that even very large quantum optimization problems can sometimes be made more manageable by uncovering the right underlying structure. 
+This structure can allow us to reduce the size of the problem, combine classical and quantum computation effectively, and still obtain feasible solutions with rigorous performance guarantees.

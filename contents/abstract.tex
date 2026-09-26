@@ -1,33 +1,36 @@
 % Introduction
 
 Many fundamental problems in quantum information theory can be formulated as optimization tasks over quantum states and measurements. 
-While the convex structure of quantum theory enables powerful semidefinite programming (SDP) formulations, two major challenges persist: the NP-hardness of structural constraints such as separability and the exponential growth of Hilbert space dimension with system size. 
-This thesis discusses dimensionality reduction techniques to address these obstacles across several core problems in quantum information.
+While the convex structure of quantum theory often enables powerful semidefinite programming formulations, a major challenge persists: the exponential growth of Hilbert space dimension with system size. 
+This dissertation discusses techniques to address these and related obstacles across several core problems in quantum information.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Separability problem
 
 We first study optimization over separable quantum states. 
-Separability testing is NP-hard and standard SDP hierarchies typically suffer from the curse of dimensionality. 
+Such problems are typically NP-hard and standard semidefinite programming hierarchies suffer from the curse of dimensionality. 
 We introduce a hybrid algorithm that leverages a quantum co-processor to reduce the effective dimension of the problem. 
-Unlike several other approaches, our method is guaranteed to always produce a feasible separable state. 
-We apply this framework to approximate the minimum separable energy of many-body Hamiltonians, thereby defining an entanglement measure for their ground spaces, and demonstrate numerical scalability to systems of up to $28$ qubits.
+%Unlike several other approaches, our method is guaranteed to always produce a feasible separable state. 
+While several existing approaches provide only a numerical bound on the optimal value, our method is guaranteed to return an explicit feasible solution: a valid separable state, even in instances where it is not optimal.
+We apply this framework to approximate the minimum separable energy of many-body Hamiltonians, define an entanglement measure for their ground spaces, and demonstrate numerical scalability to systems of up to $28$ qubits.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % State discrimination
 
-We consider the general Bayes framework, as introduced by Helstrom, for state discrimination when, instead of a classical description of the candidate states, one has access to their \emph{source code}: the quantum circuit that prepares them.
-We show that the SDP for the discrimination problem can be reformulated in terms of the Gram matrix of these states, reducing the SDP variable dimensions from $dL$ to $NL$, where $d$ is the Hilbert space dimension, $N$ is the number of candidate states, and $L$ is the number of possible guesses.
-Importantly, we further introduce a quantum pre-processing procedure which efficiently constructs the reduced SDP from the source code, enabling our method to operate directly on quantum data. 
+We next consider the general Bayes framework, as introduced by Helstrom, for state discrimination when, instead of a classical description of the candidate states, one has access to their \emph{source code}: the quantum circuit that prepares them.
+We show that the typical semidefinite program for the discrimination problem can be reformulated in terms of the Gram matrix of these states, reducing the variable dimensions from $dL$ to $NL$, where $d$ is the Hilbert space dimension, $N$ is the number of candidate states, and $L$ is the number of possible guesses.
+Importantly, we further introduce a quantum pre-processing procedure which efficiently constructs the reduced problem from the source code, enabling our method to operate directly on quantum data. 
 We consider two applications.
-First, we characterize the optimal identifications for quantum changepoint problems under several reward structures, including multiple-changepoint settings that were previously computationally inaccessible.
+First, we characterize the optimal identifications for quantum changepoint problems under several reward structures 
+%including multiple-changepoint settings 
+whose associated discrimination problems were previously computationally inaccessible.
 Second, we consider a quantum error classification problem and show how our reduction makes it tractable for systems of hundreds of qubits.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Pretty bad measurements and Boolean function from quantum sequence
 
 We also analyze structural measurement strategies. 
-As a counterpart to the well-known pretty good measurement for minimum error discrimination, we introduce the pretty bad measurement for the exclusion variant, and prove that both are guaranteed to perform at least as well as blind guessing in their respective objectives. 
+As a counterpart to the well-known pretty good measurement for minimum-error state discrimination, we introduce the pretty bad measurement for the exclusion variant, in which the goal is to identify a state that was \emph{not} sent, rather than to identify the one that was, and prove that both are guaranteed to perform at least as well as blind guessing in their respective objectives. 
 Finally, we consider evaluating Boolean functions under severe memory constraints and prove that a simple local ``greedy'' measurement strategy is globally optimal precisely for affine Boolean functions, while more generally achieving at least the square of the optimal global success probability.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

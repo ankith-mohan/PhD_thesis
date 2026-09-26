@@ -6,7 +6,83 @@
 %\chapter{Appendices I} \label{app:appendix_one}
 %\section{A1} \label{ase:app_one_sect_1}
 
-\chapter{Multiple changepoints} \label{app:mQCP}
+\chapter{General case of the quantum changepoint identification problem} \label{app:mQCP}
+
+%We now consider a general case of the quantum changepoint problem.
+Suppose that Alice promised to deliver $N$ copies of the state $\ket{\psi}$ to Bob.
+At a point $c_1$, Alice starts to generate a mutated state $\ket{\phi_1}$.
+Then at some point $c_2$, Alice begins to generate another mutated state $\ket{\phi_2}$.
+Let us assume that there are $p$ such points in total leading to the states $\{\ket{\phi_3}, \dots, \ket{\phi_p}\}$ at points $\{c_3, \dots, c_p\}$ respectively.
+Therefore, Bob must now consider the states
+\begin{align}
+    \label{eq:ch3_QSD-CP_P}
+    \ket{\tau_{c_1, \cdots, c_p}} = \ket{\psi}^{\otimes c_1}\ \otimes\ \ket{\phi_1}^{\otimes (c_2 - c_1)}\ \otimes\ \cdots\ \otimes\ \ket{\phi_{P-1}}^{\otimes (c_p - c_{p-1})}\ \otimes\ \ket{\phi_p}^{\otimes (N - c_p)}.
+\end{align}
+
+The primal-dual pair in \eqref{prog:ch3_QSD-P_D} can be expressed as 
+\begin{equation}
+\label{prog:ch3_QSD-D_mQCP}
+%\begin{minipage}{.5\textwidth}
+ %   \begin{equation*}
+        \begin{aligned}
+            \alpha = \max \quad & \sum_{g\ \in\ \Iset_L}\ \sum_{c\ \in\ \Iset_N} R_{g, c}\ q_c\ \bra{\tau_c} M_g \ket{\tau_c} \\
+            \suchthat \quad & \sum_{g\ \in\ \Iset_L} M_g = \id \\
+            & \hspace{35pt} M_g \succcurlyeq 0,\ g \in \Iset_L, 
+        \end{aligned}
+%    \end{equation*}    
+%\end{minipage} 
+%\begin{minipage}{.5\textwidth} 
+%    \begin{equation*}
+        %\label{prog:ch3_QSD-D_mQCP}
+        \begin{aligned}
+            \beta = \min \quad & \Tr(Y) \\
+            \suchthat \quad & Y \succcurlyeq \sum_{c\ \in\ \Iset_N} R_{g, c}\ q_c\ \ketbra{\tau_c},\ g \in \Iset_L, \\
+            & \phantom{N}
+        \end{aligned}
+%    \end{equation*}
+%\end{minipage}
+\end{equation} 
+where
+\begin{equation} 
+\Iset_m := \{(a_1, \cdots, a_p)\ :\ 1 \le a_1 \le \cdots \le a_p \le m\ \text{ where }\ a_i < a_{i+1}\ \text{ unless }\ a_i = m\}.
+\end{equation} 
+This indexing means that no state $\ket{\phi_i}$ is skipped, unless $n$ states total have already been sent. 
+In other words, you cannot skip from $\ket{\phi_i}$ to $\ket{\phi_{i+2}}$, say, but if the $n$-th state is $\ket{\psi_i}$, then you will not see any copies of $\ket{\psi_j}$ for $j > i$.
+
+The corresponding reduced primal-dual pair becomes
+\begin{equation}
+\label{prog:ch3_QSD-D'_mQCP}
+%\begin{minipage}{.5\textwidth}
+%    \begin{equation*}
+        \begin{aligned}
+            \alpha' = \max \quad & \sum_{g\ \in\ \Iset_L}\ \sum_{c\ \in\ \Iset_N} R_{g, c}\ q_c\ \bra{c} W_g \ket{c} \\
+            \suchthat \quad & \sum_{g\ \in\ \Iset_L} W_g = G \\
+            & \hspace{35pt} W_g \succcurlyeq 0,\ g \in \Iset_L.
+        \end{aligned}
+%    \end{equation*}    
+%\end{minipage} 
+%\begin{minipage}{.5\textwidth} 
+%    \begin{equation*}
+        %\label{prog:ch3_QSD-D'_mQCP}
+        \begin{aligned}
+            \beta' = \min \quad & \inner{X}{G} \\
+            \suchthat \quad & X \succcurlyeq \sum_{c\ \in\ \Iset_N} R_{g, c}\ q_c\ \ketbra{c},\ g \in \Iset_L.\\
+            & \phantom{N}
+        \end{aligned}
+%    \end{equation*}
+%\end{minipage}
+\end{equation}
+
+Let us denote the overlaps as follows
+\begin{equation}
+    \label{eq:ch3_QSD-inner_prod}
+    \begin{aligned}
+        |\braket{\psi}{\phi_i}| = \gamma_{i},\ \quad |\braket{\phi_i}{\phi_j}| = |\braket{\phi_j}{\phi_i}| = \gamma_{ij},
+        \quad i \ne j \text{ and } i,\ j \in \{1, \dots, p\}.
+    \end{aligned}
+\end{equation}
+
+Each of these overlaps can be computed using the swap test (see Section~\ref{sec:QC_bg}).
 
 In this appendix, we propose heuristics for the case of multiple changepoints and demonstrate their performance.
 We consider the following states
@@ -27,6 +103,7 @@ The possible mutations are as described in Figure~\ref{fig:ch3_QSD-pi_4_states}.
 \def\R{2.0}
 \def\ang{45}
 
+\begin{comment}
 \begin{figure}[h]
     \centering
     \begin{tikzpicture}
@@ -61,6 +138,81 @@ The possible mutations are as described in Figure~\ref{fig:ch3_QSD-pi_4_states}.
         \draw[dashed] (O) circle (\R);
     \end{tikzpicture}
     \caption{The state $\ket{0}$ promised by Alice and the possible mutated states $\ket{+}, \ket{1}$ and $-\ket{-}$ that Bob suspects of receiving.}
+    \label{fig:ch3_QSD-pi_4_states}
+\end{figure}
+\end{comment}
+
+\begin{figure}[htbp]
+    \centering
+
+    \begin{tikzpicture}[
+        alt={
+            Coordinate-plane diagram showing four quantum-state vectors of equal length extending from a common origin. 
+            The zero state points horizontally to the right. 
+            The plus state points diagonally upward at an angle of pi over four from the zero state. 
+            The one state points vertically upward. 
+            The negative minus state points diagonally upward to the left, at an angle of three pi over four from the positive horizontal axis.
+            A dashed circle passes through the endpoints of all four vectors, and an arc marks the pi-over-four angle between the zero state and the plus state.
+        }
+    ]
+        % Local numerical parameters
+        \def\axisextent{2.0}
+        \def\stateradius{2.0}
+        \def\stateangle{45}
+
+        % Coordinates
+        \coordinate (O) at (0,0);
+        \coordinate (zero) at (\axisextent,0);
+        \coordinate (plus) at (\stateangle:\stateradius);
+        \coordinate (one) at (0,\axisextent);
+        \coordinate (negminus) at (3*\stateangle:\stateradius);
+
+        % Coordinate axes
+        \draw[->]
+            (-1.5*\axisextent,0)
+            --
+            (1.5*\axisextent,0);
+
+        \draw[->]
+            (0,-1.5*\axisextent)
+            --
+            (0,1.5*\axisextent);
+
+        % Zero state
+        \draw[->,very thick] (O) -- (zero);
+        \node[above right] at (zero) {$\ket{0}$};
+
+        % Plus state
+        \draw[->,very thick] (O) -- (plus);
+        \node[above right] at (plus) {$\ket{+}$};
+
+        % One state
+        \draw[->,very thick] (O) -- (one);
+        \node[above right] at (one) {$\ket{1}$};
+
+        % Negative minus state
+        \draw[->,very thick] (O) -- (negminus);
+        \node[above left] at (negminus) {$-\ket{-}$};
+
+        % Angle between zero and plus states
+        \draw pic[
+            ->,
+            draw=black,
+            angle radius=21pt,
+            angle eccentricity=1.2,
+            "$\frac{\pi}{4}$"
+        ] {
+            angle=zero--O--plus
+        };
+
+        % Circle through the state-vector endpoints
+        \draw[dashed] (O) circle[radius=\stateradius];
+
+    \end{tikzpicture}
+
+    \caption{%
+        The state $\ket{0}$ promised by Alice and the possible mutated states $\ket{+}$, $\ket{1}$, and $-\ket{-}$ that Bob suspects of receiving.
+    }
     \label{fig:ch3_QSD-pi_4_states}
 \end{figure}
 
@@ -115,7 +267,7 @@ for $j \in \{1, \dots, N\}$.
 
 We discuss the case of identifying at most one changepoint in Section~\ref{sec:ch3_QSD-1CP}.
 
-\section{At most two changepoints}\ref{sec:ch3_QSD-2CP}
+\section{At most two changepoints}\label{sec:ch3_QSD-2CP}
 
 When dealing with the scenario where at most two changepoints can occur, Bob must focus on the following states
 \begin{equation}
@@ -206,30 +358,81 @@ The closer-the-better reward scheme of Eq.~\eqref{eq:ch3_QSD-R_ME_SD} is modifie
     \end{cases}
 \end{align}
 
-Figure~\ref{fig:ch3_QSD-beta'_beta''_pi_4_2CP} contrasts the solution of the reduced SDP~\eqref{eq:ch3_QSD-reduceddual} when the variable $X$ is constrained to be Hermitian, and for the heuristic, we require the variable $X$ to satisfy Eq.~\eqref{eq:ch3_QSD-X_2CP}, as a function of the length of the sequence $N$.
+Figure~\ref{fig:ch3_QSD-beta'_beta''_pi_4_2CP} contrasts the solution of the reduced SDP~\eqref{prog:ch3_QSD-D'_mQCP} when the variable $X$ is constrained to be Hermitian, and for the heuristic, we require the variable $X$ to satisfy Eq.~\eqref{eq:ch3_QSD-X_2CP}, as a function of the length of the sequence $N$.
 Observe that for small sequence lengths up to length $13$, it may be disadvantageous to use the heuristic approach.
 However for sequences of larger lengths, our heuristic is within $0.044$ of the solution, while being roughly \emph{eight} times faster to compute.
 
+\begin{comment}
 \begin{figure}[h]
     \centering
     \begin{subfigure}[b]{0.495\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figs/ch3_QSD/betap_betapp_pi_4_2CP.pdf}
-        \caption{Absolute value of the difference between~\eqref{eq:ch3_QSD-reduceddual} and its heuristic.}
+        \caption{Absolute value of the difference between~\eqref{prog:ch3_QSD-D'_mQCP} and its heuristic.}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.495\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figs/ch3_QSD/betap_betapp_time_pi_4_2CP.pdf}
-        \caption{Runtimes of~\eqref{eq:ch3_QSD-reduceddual} and its heuristic.}
+        \caption{Runtimes of~\eqref{prog:ch3_QSD-D'_mQCP} and its heuristic.}
     \end{subfigure}
     \caption{
     Here we look at the case where the state $\ket{0}$ mutated to the state $\ket{+}$ which in turn mutated to the state $\ket{1}$.
-    For the reward described in Eq.~\eqref{eq:ch3_QSD-2CP_ctbr}, we depict the error between the heuristic and the solution~\eqref{eq:ch3_QSD-reduceddual} (on the left), as well as the runtimes of both~\eqref{eq:ch3_QSD-reduceddual} and the heuristic (on the right).
+    For the reward described in Eq.~\eqref{eq:ch3_QSD-2CP_ctbr}, we depict the error between the heuristic and the solution~\eqref{prog:ch3_QSD-D'_mQCP} (on the left), as well as the runtimes of both~\eqref{prog:ch3_QSD-D'_mQCP} and the heuristic (on the right).
     For a short sequence up to length $13$, computing the heuristic might be a disadvantage.
-    But for sequences of larger lengths, the heuristic is roughly \emph{eight} times faster than~\eqref{eq:ch3_QSD-reduceddual} with a difference of only about $0.044$ between their computed values.
-    To compute~\eqref{eq:ch3_QSD-reduceddual} for sequence of length $22$, it takes about $15$ hours.
+    But for sequences of larger lengths, the heuristic is roughly \emph{eight} times faster than~\eqref{prog:ch3_QSD-D'_mQCP} with a difference of only about $0.044$ between their computed values.
+    To compute~\eqref{prog:ch3_QSD-D'_mQCP} for sequence of length $22$, it takes about $15$ hours.
     If one were to continue this experiment for larger lengths of sequences, one should expect a behavior similar to Figure~\ref{fig:ch3_QSD-beta'_beta''_pi_4_1CP} (a).
+    }
+    \label{fig:ch3_QSD-beta'_beta''_pi_4_2CP}
+\end{figure}
+\end{comment}
+
+\begin{figure}[htbp]
+    \centering
+
+    % Panel (a): approximation error
+    \begin{minipage}[b]{0.495\textwidth}
+        \centering
+        \includegraphics[
+            width=\linewidth,
+            alt={
+                Plot of the absolute difference between the reduced semidefinite program value and the heuristic value for a quantum sequence with two changepoints. 
+                The sequence begins in the zero state, changes to the plus state, and then changes to the one state. 
+                The horizontal axis represents the sequence length, and the vertical axis represents the absolute approximation error. 
+                For the larger sequence lengths shown, the difference is approximately zero point zero four four.
+            }
+        ]{figs/ch3_QSD/betap_betapp_pi_4_2CP.pdf}
+
+        \smallskip
+        \textbf{(a)} Absolute value of the difference between \eqref{prog:ch3_QSD-D'_mQCP} and its heuristic.
+    \end{minipage}
+    \hfill
+    % Panel (b): runtime comparison
+    \begin{minipage}[b]{0.495\textwidth}
+        \centering
+        \includegraphics[
+            width=\linewidth,
+            alt={
+                Plot comparing the runtimes of the reduced semidefinite program and its heuristic for a quantum sequence with two changepoints. 
+                The horizontal axis represents the sequence length, and the vertical axis represents computation time. 
+                For sequence lengths up to approximately thirteen, the heuristic provides little or no runtime advantage. 
+                For larger sequence lengths, the heuristic is approximately eight times faster. 
+                Computing the reduced semidefinite program for a sequence of length twenty-two takes approximately fifteen hours.
+            }
+        ]{figs/ch3_QSD/betap_betapp_time_pi_4_2CP.pdf}
+
+        \smallskip
+        \textbf{(b)} Runtimes of \eqref{prog:ch3_QSD-D'_mQCP} and its heuristic.
+    \end{minipage}
+
+    \caption{%
+        Results for a sequence in which the state $\ket{0}$ mutates to $\ket{+}$, which subsequently mutates to $\ket{1}$.
+        For the reward in Eq.~\eqref{eq:ch3_QSD-2CP_ctbr}, panel~(a) shows the absolute difference between the heuristic and the solution of \eqref{prog:ch3_QSD-D'_mQCP}, while panel~(b) compares their runtimes.
+        For sequence lengths up to $13$, computing the heuristic may provide no runtime advantage. 
+        For larger sequence lengths, the heuristic is approximately eight times faster than \eqref{prog:ch3_QSD-D'_mQCP}, while the difference between their computed values is approximately $0.044$.
+        Computing \eqref{prog:ch3_QSD-D'_mQCP} for a sequence of length $22$ takes approximately $15$ hours.
+        For larger sequence lengths, behavior similar to that in Figure~\ref{fig:ch3_QSD-beta'_beta''_pi_4_1CP}(a) is expected.
     }
     \label{fig:ch3_QSD-beta'_beta''_pi_4_2CP}
 \end{figure}
@@ -259,6 +462,7 @@ indicates the sequence with no changepoint.
 
 \paragraph{Gram matrix.}
 
+The entries of the Gram matrix are given by
 \begin{align}
     T_{ijk,lmn} =
     \begin{cases}
@@ -343,7 +547,7 @@ We therefore have the following matrices
     \end{pmatrix}
 \end{align}
 
-\begin{align}
+\begin{equation}
     \label{eq:ch3_QSD-V_1N_2}
     V_{1,N-2} =
     \begin{pmatrix}
@@ -377,9 +581,9 @@ We therefore have the following matrices
         S_{1,N-1,NN} \\
         S_{1N,NN} \\
     \end{pmatrix}
-\end{align}
+\end{equation}
 
-\begin{align}
+\begin{equation}
     \label{eq:ch3_QSD-V_2N}
     V_{2N} =
     \begin{pmatrix}
@@ -390,7 +594,7 @@ We therefore have the following matrices
         S_{2,N-1,NN} \\
         S_{2N,NN} \\
     \end{pmatrix},
-    \
+    \quad
     V_{3N} =
     \begin{pmatrix}
         S_{34,NN} \\
@@ -399,18 +603,18 @@ We therefore have the following matrices
         S_{3,N-1,NN} \\
         S_{3N,NN} \\
     \end{pmatrix},
-    \
+    \quad
     V_{N-2,N} =
     \begin{pmatrix}
         S_{N-2,N-1,NN} \\
         S_{N-2,N,NN}
     \end{pmatrix},
-    \
+    \quad
     V_{N-1,N} =
     \begin{pmatrix}
         S_{N-1,N,NN}
     \end{pmatrix}.
-\end{align}
+\end{equation}
 
 \paragraph{Heuristic approach.}
 
@@ -509,37 +713,90 @@ The reward strategy in accordance with the closer-the better rewards in Eq.~\eqr
     \end{cases}. 
 \end{align}
 
-Figure~\ref{fig:ch3_QSD-beta'_beta''_pi_4_3CP} compares the runtime and the absolute difference in the solutions of the reduced SDP~\eqref{eq:ch3_QSD-reduceddual} when the variable $X$ is constrained to be Hermitian, and the heuristic when the variable $X$ is constrained to satisfy Eq.~\eqref{eq:ch3_QSD-X_3CP}, as a function of the length of the sequence $N$.
-Note here that for sequence of length $12$, solving~\eqref{eq:ch3_QSD-reduceddual} involves computing a matrix of size $4096 \times 4096$.
+Figure~\ref{fig:ch3_QSD-beta'_beta''_pi_4_3CP} compares the runtime and the absolute difference in the solutions of the reduced SDP~\eqref{prog:ch3_QSD-D'_mQCP} when the variable $X$ is constrained to be Hermitian, and the heuristic when the variable $X$ is constrained to satisfy Eq.~\eqref{eq:ch3_QSD-X_3CP}, as a function of the length of the sequence $N$.
+Note here that for sequence of length $12$, solving~\eqref{prog:ch3_QSD-D'_mQCP} involves computing a matrix of size $4096 \times 4096$.
 Up to a sequence of length $8$, there is no gain in the runtime when computing the heuristic.
-As $N$ gets larger, the heuristic is about \emph{ten} times faster than~\eqref{eq:ch3_QSD-reduceddual} (on the right) with an error of roughly $0.083$ for $N = 12$.
+As $N$ gets larger, the heuristic is about \emph{ten} times faster than~\eqref{prog:ch3_QSD-D'_mQCP} (on the right) with an error of roughly $0.083$ for $N = 12$.
 
+\begin{comment}
 \begin{figure}[htb]
     \centering
     \begin{subfigure}[b]{0.495\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figs/ch3_QSD/betap_betapp_pi_4_3CP.pdf}
-        \caption{Absolute value of the difference between Eq.~\eqref{eq:ch3_QSD-reduceddual} and its heuristic.}
+        \caption{Absolute value of the difference between Eq.~\eqref{prog:ch3_QSD-D'_mQCP} and its heuristic.}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.495\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figs/ch3_QSD/betap_betapp_time_pi_4_3CP.pdf}
-        \caption{Runtimes of Eq.~\eqref{eq:ch3_QSD-reduceddual} and its heuristic.}
+        \caption{Runtimes of Eq.~\eqref{prog:ch3_QSD-D'_mQCP} and its heuristic.}
     \end{subfigure}
     \caption{
     We look at sequences with three changepoints, each being sequences of $N$ states starting at $\ket{0}$ and first switching to $\ket{+}$, then to $\ket{1}$, and finally to $-\ket{-}$.
-    Under the reward function of Eq.~\eqref{eq:ch3_QSD-3CP_ctbr}, we see the error (on the left) and the runtime (on the right) of both the solution~\eqref{eq:ch3_QSD-reduceddual} and the heuristic.
+    Under the reward function of Eq.~\eqref{eq:ch3_QSD-3CP_ctbr}, we see the error (on the left) and the runtime (on the right) of both the solution~\eqref{prog:ch3_QSD-D'_mQCP} and the heuristic.
     The SDP solving this heuristic is of size $\Ocomp(N^3)$.
     Comparing the runtimes we see that up to a sequence of $8$, there is no gain in the runtime by computing the heuristic.
-    Beyond this, the heuristic is about \emph{ten} times faster than~\eqref{eq:ch3_QSD-reduceddual} (on the right) with an error of roughly $0.083$ for $N = 12$.
-    We terminate execution at $N = 12$ because computing~\eqref{eq:ch3_QSD-reduceddual} takes $18$ hours.
+    Beyond this, the heuristic is about \emph{ten} times faster than~\eqref{prog:ch3_QSD-D'_mQCP} (on the right) with an error of roughly $0.083$ for $N = 12$.
+    We terminate execution at $N = 12$ because computing~\eqref{prog:ch3_QSD-D'_mQCP} takes $18$ hours.
     It would be reasonable to assume that for larger sequences, the error will resemble that of the one changepoint case illustrated in Figure~\ref{fig:ch3_QSD-beta'_beta''_pi_4_1CP} (a).
     }
     \label{fig:ch3_QSD-beta'_beta''_pi_4_3CP}
 \end{figure}
+\end{comment}
 
-We consider the previous discussion replacing these states $\ket{0}, \ket{+}, \ket{1}$ and $-\ket{-}$ with qubits differing by an angle of $\theta$ (Eq.~\eqref{eq:ch3_QSD-theta_states}) instead, in the next section. 
+\begin{figure}[htbp]
+    \centering
+
+    % Panel (a): approximation error
+    \begin{minipage}[b]{0.495\textwidth}
+        \centering
+        \includegraphics[
+            width=\linewidth,
+            alt={
+                Plot of the absolute difference between the reduced semidefinite program value and the heuristic value for quantum state sequences with three changepoints.
+                The horizontal axis represents the sequence length N, and the vertical axis represents the absolute approximation error. 
+                The sequence begins in the zero state and changes successively to the plus state, the one state, and the negative minus state. 
+                At sequence length twelve, the absolute difference is approximately zero point zero eight three.
+            }
+        ]{figs/ch3_QSD/betap_betapp_pi_4_3CP.pdf}
+
+        \smallskip
+        \textbf{(a)} Absolute value of the difference between \eqref{prog:ch3_QSD-D'_mQCP} and its heuristic.
+    \end{minipage}
+    \hfill
+    % Panel (b): runtime comparison
+    \begin{minipage}[b]{0.495\textwidth}
+        \centering
+        \includegraphics[
+            width=\linewidth,
+            alt={
+                Plot comparing the runtimes of the reduced semidefinite program and its heuristic for quantum-state sequences with three changepoints.
+                The horizontal axis represents the sequence length N, and the vertical axis represents computation time.
+                For sequence lengths up to approximately eight, the heuristic provides little or no runtime advantage.
+                For larger sequence lengths, the heuristic is approximately ten times faster. 
+                Computing the reduced semidefinite program for a sequence of length twelve takes approximately eighteen hours.
+            }
+        ]{figs/ch3_QSD/betap_betapp_time_pi_4_3CP.pdf}
+
+        \smallskip
+        \textbf{(b)} Runtimes of \eqref{prog:ch3_QSD-D'_mQCP} and its heuristic.
+    \end{minipage}
+
+    \caption{%
+        Results for sequences with three changepoints. 
+        Each sequence consists of $N$ states, beginning in $\ket{0}$ and changing successively to $\ket{+}$, $\ket{1}$, and $-\ket{-}$.
+        Under the reward function in Eq.~\eqref{eq:ch3_QSD-3CP_ctbr}, panel~(a) shows the absolute difference between the solution of \eqref{prog:ch3_QSD-D'_mQCP} and its heuristic, while panel~(b) compares their runtimes.
+        The SDP defining the heuristic has size $\Ocomp(N^3)$.
+        For sequence lengths up to $8$, the heuristic provides no substantial runtime advantage. 
+        Beyond this point, the heuristic is approximately ten times faster than \eqref{prog:ch3_QSD-D'_mQCP}, with an error of approximately $0.083$ at $N=12$.
+        The experiment is terminated at $N=12$ because computing \eqref{prog:ch3_QSD-D'_mQCP} takes approximately $18$ hours.
+        For larger sequence lengths, the error is expected to exhibit behavior similar to the one-changepoint case shown in Figure~\ref{fig:ch3_QSD-beta'_beta''_pi_4_1CP}(a).
+    }
+    \label{fig:ch3_QSD-beta'_beta''_pi_4_3CP}
+\end{figure}
+
+We consider the previous discussion replacing these states $\ket{0}, \ket{+}, \ket{1}$ and $-\ket{-}$ with qubits differing by an angle of $\theta$ (Eq.~\eqref{eq:ch3_QSD-theta_states}) instead, in Section~\ref{sec:ch3_QSD-theta_expts}. 
 %Section~\ref{sec:ch3_QSD-theta_expts}.
 
 \begin{comment}
@@ -573,7 +830,57 @@ These examples and more are described in further detail in Section~\ref{sec:ch3_
     However since it takes roughly $18$ hours to compute \eqref{eq:ch3_QSD-reduceddual} for $N = 10$, we are unable to easily test for larger sequences of $N$.
     }
     \label{fig:ch3_QSD-beta'_beta''_pi_4_3CP_intro}
-\end{figure} 
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+
+    % Panel (a): approximation error
+    \begin{minipage}[b]{0.495\textwidth}
+        \centering
+        \includegraphics[
+            width=\linewidth,
+            alt={
+                Plot of the absolute difference between the reduced dual semidefinite program value and the three changepoint heuristic value as the sequence length N increases.
+                The quantum-state sequence begins in the zero state and changes successively to the plus state, the one state, and the negative minus state. 
+                The horizontal axis represents sequence length N, and the vertical axis represents absolute difference. 
+                At sequence length twelve, the difference is approximately zero point zero eight three.
+            }
+        ]{figs/ch3_QSD/betap_betapp_pi_4_3CP.pdf}
+
+        \smallskip
+        \textbf{(a)} Absolute value of the difference between \eqref{eq:ch3_QSD-reduceddual} and \eqref{eq:ch3_QSD-T_3CP}.
+    \end{minipage}
+    \hfill
+    % Panel (b): runtime comparison
+    \begin{minipage}[b]{0.495\textwidth}
+        \centering
+        \includegraphics[
+            width=\linewidth,
+            alt={
+                Plot comparing the runtimes of the reduced dual semidefinite program and the three changepoint heuristic as the sequence length N increases.
+                The horizontal axis represents sequence length N, and the vertical axis represents computation time.
+                At sequence length twelve, the heuristic is approximately ten times faster than the reduced dual program. 
+                Computing the reduced dual program already takes approximately eighteen hours at sequence length ten.
+            }
+        ]{figs/ch3_QSD/betap_betapp_time_pi_4_3CP.pdf}
+
+        \smallskip
+        \textbf{(b)} Runtimes of \eqref{eq:ch3_QSD-reduceddual} and \eqref{eq:ch3_QSD-T_3CP}.
+    \end{minipage}
+
+    \caption{%
+        Results for sequences of $N$ states with three changepoints.
+        Each sequence begins in $\ket{0}$ and changes successively to $\ket{+}$, $\ket{1}$, and $-\ket{-}$.
+        We use the closer-the-better reward structure discussed in Section~\ref{sec:ch3_QSD-expts}.
+        Panel~(a) shows the absolute difference between the reduced dual program \eqref{eq:ch3_QSD-reduceddual} and the heuristic \eqref{eq:ch3_QSD-T_3CP}, while panel~(b) compares their runtimes.
+        The SDP variable used to solve \eqref{eq:ch3_QSD-reduceddual} has size $\Ocomp(N^3)$.
+        At $N=12$, the absolute difference is approximately $0.083$, and \eqref{eq:ch3_QSD-T_3CP} is approximately ten times faster than \eqref{eq:ch3_QSD-reduceddual}.
+        For larger sequence lengths, we expect behavior similar to that shown in Figure~\ref{fig:ch3_QSD-beta'_beta''_pi_4_1CP_intro}(a).
+        However, because computing \eqref{eq:ch3_QSD-reduceddual} already takes approximately $18$ hours at $N=10$, extending the experiment to larger sequence lengths is computationally difficult.
+    }
+    \label{fig:ch3_QSD-beta'_beta''_pi_4_3CP_intro}
+\end{figure}
 
 In this appendix we describe the scenarios for at most two and three changepoints. 
 \end{comment}
@@ -608,6 +915,7 @@ A possible explanation for this is that when the states are farther apart to beg
 As the length of the sequence increases, the ease of distinguishability also increases.
 As the states get closer to one another, the sequence must be fairly large before it becomes easy to distinguish them.
 
+\begin{comment}
 \begin{figure}[h]
     \centering
     \begin{subfigure}[b]{0.495\textwidth}
@@ -629,7 +937,53 @@ As the states get closer to one another, the sequence must be fairly large befor
     }
     \label{fig:ch3_QSD-1CP}
 \end{figure}
+\end{comment}
 
+\begin{figure}[htbp]
+    \centering
+
+    \begin{minipage}[b]{0.495\textwidth}
+        \centering
+        \includegraphics[
+            width=\linewidth,
+            alt={
+                Plot of the optimal reward function value as a function of the sequence length N for a one-changepoint problem.
+                The sequence begins with copies of the zero state and may change to the state phi one. 
+                Separate curves correspond to theta equal to pi over eight, pi over four, and three pi over eight. 
+                The horizontal axis represents N, and the vertical axis represents the optimal reward function value.
+            }
+        ]{figs/ch3_QSD/prob_1CP.pdf}
+
+        \smallskip
+        \textbf{(a)} Optimal reward function value as a function of $N$ for $\theta \in \{\pi/8,\pi/4,3\pi/8\}$.
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.495\textwidth}
+        \centering
+        \includegraphics[
+            width=\linewidth,
+            alt={
+                Plot of the absolute difference between the heuristic and the exact solution as a function of the sequence length N for a one changepoint problem. 
+                Separate curves correspond to theta equal to pi over eight, pi over four, and three pi over eight. 
+                The horizontal axis represents N, and the vertical axis represents the absolute difference. 
+                The error decreases more rapidly when the states are farther apart, especially for theta equal to three pi over eight.
+            }
+        ]{figs/ch3_QSD/approx_1CP.pdf}
+
+        \smallskip
+        \textbf{(b)} Absolute value of the difference between the solution and the heuristic for $\theta \in \{\pi/8,\pi/4,3\pi/8\}$ as a function of $N$.
+    \end{minipage}
+
+    \caption{
+        Consider sequences in which Alice promises Bob $N$ copies of the state $\ket{0}$ that mutate to the state $\ket{\phi_1}=\cos(\theta)\ket{0}+\sin(\theta)\ket{1}$ for $\theta \in \{\pi/8,\pi/4,3\pi/8\}$.
+        Panel~(a) compares the optimal reward function values for varying $\theta$ as a function of the sequence length $N$, while panel~(b) shows the absolute difference between the heuristic and the exact solution.
+        For states that are farther apart ($\theta=3\pi/8$), the error approaches zero relatively quickly. 
+        As the states become closer, the difference takes longer to decrease.
+    }
+    \label{fig:ch3_QSD-1CP}
+\end{figure}
+
+\begin{comment}
 \begin{figure}[h]
     \centering
     \begin{subfigure}[b]{0.495\textwidth}
@@ -650,7 +1004,54 @@ As the states get closer to one another, the sequence must be fairly large befor
     }
     \label{fig:ch3_QSD-2CP}
 \end{figure}
+\end{comment}
 
+\begin{figure}[htbp]
+    \centering
+
+    % Panel (a): optimal reward
+    \begin{minipage}[b]{0.495\textwidth}
+        \centering
+        \includegraphics[
+            width=\linewidth,
+            alt={
+                Plot of the optimal reward function value as a function of the sequence length N for a quantum sequence with two changepoints. 
+                The sequence begins in the zero state, changes to the state phi one, and then changes to the state phi two. 
+                Separate curves correspond to theta equal to pi over eight, pi over four, and three pi over eight.
+                The horizontal axis represents the sequence length N, and the vertical axis represents the optimal reward function value.
+            }
+        ]{figs/ch3_QSD/prob_2CP.pdf}
+
+        \smallskip
+        \textbf{(a)} Optimal reward function value as a function of $N$ for $\theta \in \{\pi/8,\pi/4,3\pi/8\}$.
+    \end{minipage}
+    \hfill
+    % Panel (b): approximation error
+    \begin{minipage}[b]{0.495\textwidth}
+        \centering
+        \includegraphics[
+            width=\linewidth,
+            alt={
+                Plot of the absolute difference between the heuristic and the exact solution as a function of the sequence length N for a quantum sequence with two changepoints.
+                Separate curves correspond to theta equal to pi over eight, pi over four, and three pi over eight. 
+                The horizontal axis represents the sequence length N, and the vertical axis represents the absolute approximation error. 
+                The qualitative behavior is similar to the corresponding one changepoint problem.
+            }
+        ]{figs/ch3_QSD/approx_2CP.pdf}
+
+        \smallskip
+        \textbf{(b)} Absolute value of the difference between the solution and the heuristic for $\theta \in \{\pi/8,\pi/4,3\pi/8\}$ as a function of $N$.
+    \end{minipage}
+
+    \caption{%
+        Results for sequences with two changepoints. The sequence begins in the state $\ket{0}$, first mutates to $\ket{\phi_1} = \cos(\theta)\ket{0} + \sin(\theta)\ket{1}$, and then mutates to $\ket{\phi_2} = \cos(2\theta)\ket{0} + \sin(2\theta)\ket{1}$, where $\theta \in \{\pi/8,\pi/4,3\pi/8\}$.
+        Panel~(a) compares the optimal reward function values for the three values of $\theta$ as a function of the sequence length $N$, while panel~(b) shows the absolute difference between the heuristic and the exact solution.
+        The qualitative behavior is similar to that observed in the one changepoint case.
+    }
+    \label{fig:ch3_QSD-2CP}
+\end{figure}
+
+\begin{comment}
 \begin{figure}[h]
     \centering
     \begin{subfigure}[b]{0.495\textwidth}
@@ -670,10 +1071,62 @@ As the states get closer to one another, the sequence must be fairly large befor
     (2) from $\ket{\phi_1} = \cos(\theta) + \sin(\theta)$ to $\ket{\phi_2} = \cos(2\theta) + \sin(2\theta)$, and finally
     (3) from $\ket{\phi_2} = \cos(2\theta) + \sin(2\theta)$ to $\ket{\phi_3} = \cos(3\theta) + \sin(3\theta)$, for $\theta \in \{\pi/8, \pi/4, 3\pi/8\}$.
     We contrast the optimal reward function values for varying $\theta$ as a function of the length of the sequence $N$ (on the left), and the absolute difference between the heuristic and the solution (on the right).
-    Observe that when $\theta = \pi/8$, the SDP solver is unable to compute the solution and hence~\eqref{eq:ch3_QSD-reduceddual} is assigned of $-1$ for sequences of length larger than $5$.
+    Observe that when $\theta = \pi/8$, the SDP solver is unable to compute the solution and hence~\eqref{prog:ch3_QSD-D'_mQCP} is assigned of $-1$ for sequences of length larger than $5$.
     More importantly, the heuristic manages to obtain a solution.
     This explains the large error for $\theta = \pi/8$ (on the right) which is more of an indication of the unsolvability than it is an actual error.
     } 
+    \label{fig:ch3_QSD-3CP}
+\end{figure}
+\end{comment}
+
+\begin{figure}[htbp]
+    \centering
+
+    % Panel (a): optimal reward
+    \begin{minipage}[b]{0.495\textwidth}
+        \centering
+        \includegraphics[
+            width=\linewidth,
+            alt={
+                Plot of the optimal reward function value as a function of the sequence length N for a quantum sequence with three changepoints. 
+                The sequence begins in the zero state, then changes successively to the states phi one, phi two, and phi three. 
+                Separate curves correspond to theta equal to pi over eight, pi over four, and three pi over eight. 
+                The horizontal axis represents the sequence length N, and the vertical axis represents the optimal reward function value.
+            }
+        ]{figs/ch3_QSD/prob_3CP.pdf}
+
+        \smallskip
+        \textbf{(a)} Optimal reward function value as a function of $N$ for $\theta \in \{\pi/8,\pi/4,3\pi/8\}$.
+    \end{minipage}
+    \hfill
+    % Panel (b): approximation error
+    \begin{minipage}[b]{0.495\textwidth}
+        \centering
+        \includegraphics[
+            width=\linewidth,
+            alt={
+                Plot of the absolute difference between the heuristic and the exact solution as a function of the sequence length N for a quantum sequence with three changepoints.
+                Separate curves correspond to theta equal to pi over eight, pi over four, and three pi over eight. 
+                The horizontal axis represents the sequence length N, and the vertical axis represents the absolute approximation error. 
+                For theta equal to pi over eight, the error becomes large for sequence lengths greater than five because the semidefinite program solver does not return a solution and the exact value is recorded as minus one, while the heuristic still produces a value.
+            }
+        ]{figs/ch3_QSD/approx_3CP.pdf}
+
+        \smallskip
+        \textbf{(b)} Absolute value of the difference between the solution and the heuristic for $\theta \in \{\pi/8,\pi/4,3\pi/8\}$ as a function of $N$.
+    \end{minipage}
+
+    \caption{
+        The final case considers three stages of mutation:
+        first from $\ket{0}$ to $\ket{\phi_1}=\cos(\theta)\ket{0}+\sin(\theta)\ket{1}$,
+        then from $\ket{\phi_1}$ to $\ket{\phi_2}=\cos(2\theta)\ket{0}+\sin(2\theta)\ket{1}$,
+        and finally from $\ket{\phi_2}$ to $\ket{\phi_3}=\cos(3\theta)\ket{0}+\sin(3\theta)\ket{1}$,
+        for $\theta \in \{\pi/8,\pi/4,3\pi/8\}$.
+        Panel~(a) compares the optimal reward function values for varying $\theta$ as a function of the sequence length $N$, while panel~(b) shows the absolute difference between the heuristic and the exact solution.
+        When $\theta=\pi/8$, the SDP solver is unable to compute the solution for sequence lengths greater than $5$, and therefore \eqref{prog:ch3_QSD-D'_mQCP} is assigned the value $-1$.
+        The heuristic, however, still produces a solution.
+        Consequently, the large error for $\theta=\pi/8$ in panel~(b) should be interpreted primarily as an indication that the exact computation becomes unsolvable in practice, rather than as a genuine approximation error.
+    }
     \label{fig:ch3_QSD-3CP}
 \end{figure}
 

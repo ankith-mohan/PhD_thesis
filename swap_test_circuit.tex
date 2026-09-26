@@ -1,0 +1,31 @@
+\documentclass[border=3pt]{standalone}
+
+\usepackage{quantikz}
+\usepackage{braket}
+
+\begin{document}
+
+\begin{quantikz}
+    \lstick{$\ket{0}$}
+        & \gate{H}
+        & \ctrl{2}
+        & \gate{H}
+        & \meter{}
+        & \cw
+        \\
+    \lstick{$\ket{\psi}$}
+        & \qw
+        & \swap{1}
+        & \qw
+        & \qw
+        & \qw
+        \\
+    \lstick{$\ket{\phi}$}
+        & \qw
+        & \targX{}
+        & \qw
+        & \qw
+        & \qw
+\end{quantikz}
+
+\end{document}

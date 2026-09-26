@@ -1,6 +1,6 @@
-\chapter{Pretty bad measurement} \label{ch:PBM}
+\chapter{The pretty bad measurement} \label{ch:PBM}
 
- The contents of this chapter is based on my work with Caleb McIrvin and Jamie Sikora in \cite{mcirvin2024quantum}.
+ The contents of this chapter is based on work with Caleb McIrvin and Jamie Sikora in \cite{mcirvin2024quantum}.
 
  The pretty good measurement (PGM) is a way to approximate the best possible measurement for the minimum error state discrimination task.
  This chapter introduces the pretty bad measurement (PBM) as an analogue for the minimum error state exclusion problem.
@@ -20,10 +20,10 @@
  \end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{The pretty good measurement} \label{sec:ch4_PBM-PGM}
+\section{The pretty good measurement (PGM)} \label{sec:ch4_PBM-PGM}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-For an ensemble $\{(p_i, \rho_i)\}_{i=1}^N$, the pretty good measurement (PGM), also known as the square root measurement, introduced by Hausladen and Wootters~\cite{hausladen1994pretty} and further analyzed by Barnum and Knill~\cite{barnum2002reversing}, are the measurements $\{G_1, \dots, G_N\}$, where each operator is defined as  
+For an ensemble $\{(p_i,\rho_i): i \in [N]\}$, the pretty good measurement (PGM), also known as the square root measurement, introduced by Hausladen and Wootters~\cite{hausladen1994pretty} and further analyzed by Barnum and Knill~\cite{barnum2002reversing}, are the measurements $\{G_1, \dots, G_N\}$, where each operator is defined as  
 \begin{equation}
     \label{eq:ch4_PBM-PGM_ops}
     G_i = P^{-1/2} \bigg( p_i \rho_i \bigg) P^{-1/2} \; \text{ where } \; 
@@ -51,14 +51,14 @@ We now present a theorem which compares $\PPGM$ to the blind guessing probabilit
 %To the best of our knowledge, comparing $\PPGM$ to the blind guessing probability, i.e., $1/k$, is not known except in trivial cases. 
 %This brings us to our first main result (which we prove in the appendix). 
 
-\begin{thm}{\cite{renes2017better}} \label{thm:ch4_PBM-PGM}
+\begin{theorem}{\cite{renes2017better}} \label{thm:ch4_PBM-PGM}
 For any set of states $\{ \rho_1, \ldots, \rho_N \}$ and probability distribution $\{ p_1, \ldots, p_N \}$, we have 
 \begin{equation} 
 \PPGM \geq \frac{1}{N} + \frac{(1 - N \Pbest)^2}{N (N - 1)} 
 \end{equation}
 where $1/N$ can be interpreted as the blind guessing probability. 
 Moreover, if $\PPGM = 1/N$, then we have $\rho_i = \rho_j$ and $p_i = p_j = 1/N$ for all $i \neq j$. 
-\end{thm} 
+\end{theorem} 
 
 %We prove a slightly weaker version of this theorem in Section~\ref{sec:ch4_PBM-thm_1_pf} using the concept of \emph{offsets}, discussed in the next section.
 
@@ -193,13 +193,13 @@ Thus, $p_i = 1/N$ for all $i$, as required.
 We now define the counterpart to the PGM which now approximates $\Pworst$ instead. 
 Our approach is quite simple and borrows much of the elegance from the PGM. 
 We define it below and then give some interpretations of it. 
-\begin{defn} 
+\begin{definition} 
 Let $\{G_1, \ldots, G_N\}$ be the pretty good measurement. 
 The pretty bad measurement (PBM) is defined as the POVM $\{B_1, \ldots, B_N\}$ where 
 \begin{equation} 
 B_i = \frac{1}{N-1} \bigg( \id - G_i \bigg).  
 \end{equation} 
-\end{defn} 
+\end{definition} 
 
 One way to interpret the PBM is by viewing it as the PGM with a uniformly random offset. 
 In other words, 
@@ -221,13 +221,13 @@ Since $\alpha_0 = \PPGM$, as this is the no-offset success probability, we have 
 
 By combining with Theorem~\ref{thm:ch4_PBM-PGM}, we have our main result, below, which is the counterpart to the PGM bound, Theorem~\ref{thm:ch4_PBM-PGM}. 
 
-\begin{thm} \label{thm:ch4_PBM-PBM}
+\begin{theorem} \label{thm:ch4_PBM-PBM}
 For any set of states $\{ \rho_1, \ldots, \rho_N \}$ and probability distribution $\{ p_1, \ldots, p_N \}$, we have 
 \begin{equation} 
 \PPBM \leq \frac{1}{N} - \frac{(1 - N \Pbest)^2}{N (N - 1)^2}. 
 \end{equation} 
 Moreover, if $\PPBM = 1/N$, then we have $\rho_i = \rho_j$ and $p_i = p_j = 1/N$ for all $i \neq j$. 
-\end{thm} 
+\end{theorem} 
 
 As a consequence of our discussion so far, we have 
 \begin{equation}
@@ -295,6 +295,8 @@ Consider the three trine states, defined as
     \end{aligned} 
 \end{equation}
 These are shown in Fig.~\ref{fig:ch4_PBM-trine}, along with the five quantities of interest.
+
+\begin{comment}
 \begin{figure}[h]
     \centering
     \includegraphics[scale=0.5]{figs/ch4_PBM/trine_states.pdf}
@@ -303,6 +305,28 @@ These are shown in Fig.~\ref{fig:ch4_PBM-trine}, along with the five quantities 
     The pretty good measurement is given by the POVM $G_i = \frac{2}{3} \kb{\psi_i}$,
     the pretty bad measurement is given by the POVM $B_i = \frac{1}{3} \sum_{j \neq i} \kb{\psi_j}$,
     and the worst measurement is given by $W_i = \frac{2}{3} \kb{\psi_i^{\perp}}$, where $\kb{\psi_i^{\perp}}$ is a $\pi/2$-rotation of $\ket{\psi_i}$.}
+    \label{fig:ch4_PBM-trine}
+\end{figure}
+\end{comment}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[
+        scale=0.5,
+        alt={
+            Diagram illustrating three equally likely trine qubit states, labeled psi one, psi two, and psi three. 
+            The states are symmetrically arranged, with equal angular separation. 
+            The figure also illustrates the measurement directions associated with the pretty good, pretty bad, and worst measurements. 
+            The pretty good measurement is aligned with each corresponding trine state. 
+            The pretty bad measurement outcome associated with a state is formed from the other two trine states. 
+            The worst measurement is aligned with the state orthogonal to each corresponding trine state.
+        }
+    ]{figs/ch4_PBM/trine_states.pdf}
+
+    \caption{
+        If given a trine state, each with equal probability, we have $\Pbest=\PPGM=2/3$, with $\mathcal{P}_{\text{Random}}=1/3$ being the blind-guessing probability, and $\PPBM=1/6$ approximating $\Pworst=0$.
+        The pretty good measurement is given by the POVM $G_i=\frac{2}{3}\kb{\psi_i}$; the pretty bad measurement is given by the POVM $B_i=\frac{1}{3}\sum_{j\neq i}\kb{\psi_j}$; and the worst measurement is given by $W_i=\frac{2}{3}\kb{\psi_i^{\perp}}$, where $\kb{\psi_i^{\perp}}$ is a $\pi/2$ rotation of $\ket{\psi_i}$.
+    }
     \label{fig:ch4_PBM-trine}
 \end{figure}
 
@@ -316,7 +340,7 @@ In this case, the states must have orthogonal supports and we have
 \Pbest = \PPGM = 1 \; \text{ and } \; \PPBM = \Pworst = 0. 
 \end{equation} 
 
-On the other hand, if the set of states is maximally indistinguishable, i.e, $\rho_i = \rho_j$ and $p_i = p_j = 1/N$, for all $i \neq j$, then we have 
+On the other hand, if the set of states is maximally indistinguishable, i.e., $\rho_i = \rho_j$ and $p_i = p_j = 1/N$, for all $i \neq j$, then we have 
 \begin{equation} \label{eq:ch4_PBM-allthesame}
     \Pbest = \PPGM = \frac{1}{N} = \PPBM = \Pworst. 
 \end{equation} 
@@ -324,9 +348,9 @@ What is interesting in the above two examples is that PBM being the worst measur
 This is actually true in general, which we state below% and prove in the appendix
 , however the trine state example shows that the converse is not true. 
 
-\begin{lm}
+\begin{lemma}
 If $\PPBM = \Pworst$, then $\PPGM = \Pbest$.  
-\end{lm} 
+\end{lemma} 
 \begin{proof}
 Suppose $\PPBM = \Pworst$. 
 Consider the \emph{best} measurement $\{ M_1, \ldots, M_N \}$ and its random offset measurement probabilities $\alpha_s$. 
@@ -345,7 +369,7 @@ Thus, we have equality throughout, proving that $\PPGM = \Pbest$.
 \end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Numerical simulations.} \label{sec:ch4_PBM-sim}
+\section{Numerical simulations} \label{sec:ch4_PBM-sim}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 We have discussed how the PGM always performs no worse than blind guessing and consequently proved that the PBM always performs no better than blind guessing.
@@ -357,6 +381,7 @@ To generate random states, we can use the Bloch sphere to define a parameterized
 where $X$, $Y$, and $Z$ are the Pauli operators and ${\theta, \phi \in (0, 2\pi)}$ are real parameters which we randomly generate. 
 We generate $1000$ random qubit instances $\{ \rho_1, \ldots, \rho_N \}$ for $N=2$ in Fig.~\ref{fig:ch4_PBM-pgm_vs_pbm_two_states} and for $N=6$ in Fig.~\ref{fig:ch4_PBM-pgm_vs_pbm_six_states}, each with randomly generated probabilities $(p_1, \ldots, p_N)$. % as well.  
 
+\begin{comment}
 \begin{figure}[h]
     \centering
     \includegraphics[scale=0.3]{figs/ch4_PBM/pgm_vs_pbm_two_states_rand_probs.jpg}
@@ -366,7 +391,27 @@ We generate $1000$ random qubit instances $\{ \rho_1, \ldots, \rho_N \}$ for $N=
     }
     \label{fig:ch4_PBM-pgm_vs_pbm_two_states}
 \end{figure}
+\end{comment}
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[
+        scale=0.3,
+        alt={
+            Plot comparing the success probabilities of the pretty good measurement and the pretty bad measurement for one thousand randomly generated pairs of qubit states with randomly chosen prior probabilities. 
+            Each instance contributes one value for each measurement. 
+            Across all instances, the pretty good measurement has success probability greater than one half, while the pretty bad measurement has success probability less than one half.
+        }
+    ]{figs/ch4_PBM/pgm_vs_pbm_two_states_rand_probs.jpg}
+
+    \caption{
+        Success probabilities of the pretty good measurement and pretty bad measurement for 1000 randomly generated pairs of qubit states with randomly chosen prior probabilities. 
+        The pretty good measurement always achieves a success probability greater than $1/2$, whereas the pretty bad measurement always achieves a success probability less than $1/2$.
+    }
+    \label{fig:ch4_PBM-pgm_vs_pbm_two_states}
+\end{figure}
+
+\begin{comment}
 \begin{figure}[h]
     \centering 
     \includegraphics[scale=0.3]{figs/ch4_PBM/pgm_vs_pbm_six_states_rand_probs.jpg}
@@ -376,17 +421,40 @@ We generate $1000$ random qubit instances $\{ \rho_1, \ldots, \rho_N \}$ for $N=
     } 
     \label{fig:ch4_PBM-pgm_vs_pbm_six_states}
 \end{figure} 
+\end{comment}
+
+\begin{figure}[h]
+    \centering 
+    \includegraphics[
+        scale=0.3,
+        alt={
+            Plot comparing the success probabilities of the pretty good measurement and the pretty bad measurement for one thousand randomly generated ensembles. 
+            Each ensemble contains six qubit states with randomly selected prior probabilities. 
+            The pretty good measurement values cluster near one third, corresponding to two divided by six. 
+            The pretty bad measurement values cluster near two fifteenths, corresponding to four divided by thirty.
+        }
+    ]{figs/ch4_PBM/pgm_vs_pbm_six_states_rand_probs.jpg}
+
+    \caption{
+        Success probabilities of the pretty good measurement and pretty bad measurement for 1000 randomly generated ensembles of six qubit states with randomly selected prior probabilities.
+        For small values of $n$, $\PPGM$ appears to cluster around $\frac{2}{n}$, while $\PPBM$ appears to cluster around $\frac{n-2}{n(n-1)}$. 
+        The case $n=6$ is shown here.
+    } 
+    \label{fig:ch4_PBM-pgm_vs_pbm_six_states}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Application: Quantum anomaly detection/avoidance.} \label{sec:ch4_PBM-anomaly}
+\section{Application: Quantum anomaly detection/avoidance} \label{sec:ch4_PBM-anomaly}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Suppose Alice promises to send Bob $n$ copies of a state $\rho$. 
+Suppose Alice promises to send Bob $N$ copies of a state $\rho$. 
 However, she has a faulty device which is known to produce one copy of an anomaly (read: a \emph{pretty bad state}) $\sigma$ at some point in this sequence. 
-Upon receiving the $n$ states, Bob wants to identify a state \emph{which is not faulty}, i.e., not $\sigma$. 
+Upon receiving the $N$ states, Bob wants to identify a state \emph{which is not faulty}, i.e., not $\sigma$. 
 
-Our approach is to cast this as a discrimination problem with the states $\rho_i = \rho^{\otimes (i-1)}\ \otimes\ \sigma\ \otimes\ \rho^{\otimes (N-i)}$, for $i \in \{ 1, \ldots, N \}$, and to use the pretty bad measurement. 
-Note that $\rho_i$ is simply $k$ copies of $\rho$, but with $\sigma$ in the $i$-th spot. 
+Our approach is to cast this as a discrimination problem with the states 
+$$\rho_i = \rho^{\otimes (i-1)}\ \otimes\ \sigma\ \otimes\ \rho^{\otimes (N-i)},$$
+for $i \in [N]$, and to use the pretty bad measurement. 
+Note that $\rho_i$ is simply $N$ copies of $\rho$, but with $\sigma$ in the $i$-th spot. 
 In the traditional discrimination task, Bob is trying to guess where the anomaly has occurred.
 However, this is overkill if we just want to find a place where it \emph{did not occur}. 
 Thus, taking the perspective of state exclusion makes more sense here. 
@@ -397,6 +465,7 @@ As an example, we consider the case where Alice promises to send to Bob $7$ copi
 Fig.~\ref{fig:ch4_PBM-anomaly_7} illustrates the probabilities $\Pbest$, $\PPGM$, $\PPBM$, $\Pworst$ and the blind guessing probability $1/N$, as a function of $\gamma$, below. 
 For anomaly detection, \cite{llorens2024quantum, skotiniotis2018identification} showed that PGM is indeed the optimal measurement. Moreover they provide a closed-form expression for the optimal success probability. Therefore, using Eq.~\eqref{eq:ch4_PBM-PGM_PBM} we also have an expression for $\PPBM$.
 
+\begin{comment}
 \begin{figure}[h]
     \centering
     \includegraphics[scale=0.75]{figs/ch4_PBM/anomaly_7-1.pdf}
@@ -408,12 +477,34 @@ For anomaly detection, \cite{llorens2024quantum, skotiniotis2018identification} 
     }
     \label{fig:ch4_PBM-anomaly_7}
 \end{figure}
+\end{comment}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[
+        scale=0.75,
+        alt={
+            Plot comparing four discrimination probabilities for an ensemble of seven quantum states as the overlap parameter gamma varies. 
+            Each state contains one anomalous qubit psi at one of seven possible positions, with all other qubits in the zero state. 
+            The pretty good measurement probability coincides with the optimal success probability throughout the plotted range. 
+            The pretty bad measurement probability initially follows the worst success probability but begins to depart from it near gamma equal to zero point four.
+            At gamma equal to one, all four probabilities coincide because the seven states become identical.
+        }
+    ]{figs/ch4_PBM/anomaly_7-1.pdf}
+
+    \caption{
+        Probabilities for the quantum state discrimination task defined by $\ket{\psi_i} = \ket{0}^{\otimes(i-1)} \otimes \ket{\psi} \otimes \ket{0}^{\otimes(7-i)}$, where $\ket{\psi} = \gamma\ket{0} + \sqrt{1-\gamma^2}\ket{1}$ and $i\in\{1,\ldots,7\}$.
+        While $\PPGM=\Pbest$ for all values of $\gamma$, $\PPBM$ begins to depart from the worst success probability near $\gamma=0.4$. All four probabilities coincide at $\gamma=1$, since all the states are identical in this case; see Eq.~\eqref{eq:ch4_PBM-allthesame}.
+    }
+    \label{fig:ch4_PBM-anomaly_7}
+\end{figure}
 
 Recall that in the anomaly avoidance problem, we want to identify a state that did not occur. 
 Since PBM is trying to minimize $\sum_{i=1}^N \frac{1}{N} \inner{M_i}{\rho_i}$, what PBM is approximating in the context of anomaly avoidance is the minimum average error. 
 In this case, the probability of \emph{success} using PBM is $1 - \PPBM$. 
 In Fig.~\ref{fig:ch4_PBM-anomaly_7_success}, we compare this probability to that given by PGM which approximates the best average identification probability.  
 
+\begin{comment}
 \begin{figure}[h]
     \centering
     \includegraphics[scale=0.75]{figs/ch4_PBM/anomaly_7_success-3.pdf}
@@ -425,6 +516,30 @@ In Fig.~\ref{fig:ch4_PBM-anomaly_7_success}, we compare this probability to that
     } 
     \label{fig:ch4_PBM-anomaly_7_success}
 \end{figure} 
+\end{comment}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[
+        scale=0.75,
+        alt={
+            Plot comparing identification and exclusion success probabilities for an ensemble of seven equally likely quantum states containing one anomalous qubit. 
+            The horizontal axis represents gamma, which controls how similar the anomalous state is to the zero state. 
+            The vertical axis represents success probability. 
+            The pretty good measurement identification probability decreases rapidly beginning near gamma equal to zero point two and approaches the blind-guessing probability of one seventh at gamma equal to one. 
+            The pretty bad measurement exclusion success probability, one minus the pretty bad measurement probability, decreases more slowly and approaches the blind-exclusion probability of six sevenths at gamma equal to one. 
+            The exclusion success probability remains substantially greater than the identification success probability.
+        }
+    ]{figs/ch4_PBM/anomaly_7_success-3.pdf}
+
+    \caption{
+        Given one of the equally likely states $\ket{\psi_i} = \ket{0}^{\otimes(i-1)} \otimes \ket{\psi} \otimes \ket{0}^{\otimes(7-i)}$, where $\ket{\psi} = \gamma\ket{0} + \sqrt{1-\gamma^2}\ket{1}$ and $i\in\{1,\ldots,7\}$, we plot the probability of successfully excluding the anomaly $\ket{\psi}$ using the PBM and the probability of successfully identifying $\ket{\psi}$ using the PGM. 
+        The probability $\PPGM$ decreases rapidly beginning near $\gamma=0.2$ and approaches the blind identification probability of $1/7$ at $\gamma=1$. 
+        In contrast, the exclusion success probability $1-\PPBM$ decreases more slowly and approaches the blind exclusion probability of $6/7$ at $\gamma=1$. 
+        As expected, the exclusion success probability is substantially greater than the identification success probability.
+    }
+    \label{fig:ch4_PBM-anomaly_7_success}
+\end{figure}
 
 \begin{comment}
 \medskip 

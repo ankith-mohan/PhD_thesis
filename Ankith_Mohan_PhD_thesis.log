@@ -1,0 +1,3042 @@
+This is LuaHBTeX, Version 1.24.0 (TeX Live 2026)  (format=lualatex 2026.3.22)  18 AUG 2026 10:53
+ restricted system commands enabled.
+**Ankith_Mohan_PhD_thesis.tex
+(./Ankith_Mohan_PhD_thesis.tex
+LaTeX2e <2025-11-01>
+L3 programming layer <2026-01-19>
+Lua module: luaotfload 2024-12-03 v3.29 Lua based OpenType font support
+Lua module: lualibs 2023-07-13 v2.76 ConTeXt Lua standard libraries.
+Lua module: lualibs-extended 2023-07-13 v2.76 ConTeXt Lua libraries -- extended 
+collection.
+luaotfload | conf : Root cache directory is "/Users/ankithmohan/Library/texlive/
+2026/texmf-var/luatex-cache/generic/names".
+luaotfload | init : Loading fontloader "fontloader-2023-12-28.lua" from kpse-res
+olved path "/usr/local/texlive/2026/texmf-dist/tex/luatex/luaotfload/fontloader-
+2023-12-28.lua".
+Lua-only attribute luaotfload@noligature = 1
+luaotfload | init : Context OpenType loader version 3.134
+Inserting `luaotfload.node_processor' in `pre_linebreak_filter'.
+Inserting `luaotfload.node_processor' in `hpack_filter'.
+Inserting `luaotfload.glyph_stream' in `glyph_stream_provider'.
+Inserting `luaotfload.define_font' in `define_font'.
+Lua-only attribute luaotfload_color_attribute = 2
+luaotfload | conf : Root cache directory is "/Users/ankithmohan/Library/texlive/
+2026/texmf-var/luatex-cache/generic/names".
+Inserting `luaotfload.harf.strip_prefix' in `find_opentype_file'.
+Inserting `luaotfload.harf.strip_prefix' in `find_truetype_file'.
+Removing  `luaotfload.glyph_stream' from `glyph_stream_provider'.
+Inserting `luaotfload.harf.glyphstream' in `glyph_stream_provider'.
+Inserting `luaotfload.harf.finalize_vlist' in `post_linebreak_filter'.
+Inserting `luaotfload.harf.finalize_hlist' in `hpack_filter'.
+Inserting `luaotfload.cleanup_files' in `wrapup_run'.
+Inserting `luaotfload.harf.finalize_unicode' in `finish_pdffile'.
+Inserting `luaotfload.glyphinfo' in `glyph_info'.
+Lua-only attribute luaotfload.letterspace_done = 3
+Inserting `luaotfload.aux.set_sscale_dimens' in `luaotfload.patch_font'.
+Inserting `luaotfload.aux.set_font_index' in `luaotfload.patch_font'.
+Inserting `luaotfload.aux.patch_cambria_domh' in `luaotfload.patch_font'.
+Inserting `luaotfload.aux.fixup_fontdata' in `luaotfload.patch_font_unsafe'.
+Inserting `luaotfload.aux.set_capheight' in `luaotfload.patch_font'.
+Inserting `luaotfload.aux.set_xheight' in `luaotfload.patch_font'.
+Inserting `luaotfload.rewrite_fontname' in `luaotfload.patch_font'.
+Inserting `tracingstacklevels' in `input_level_string'.
+(/usr/local/texlive/2026/texmf-dist/tex/latex/latex-lab/documentmetadata-suppor
+t.ltx
+(/usr/local/texlive/2026/texmf-dist/tex/latex/pdfmanagement-testphase/pdfmanage
+ment-testphase.sty
+Package: pdfmanagement-testphase 2026-01-23 v0.96y LaTeX PDF management bundle
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/tagpdf/tagpdf-base.sty
+Package: tagpdf-base 2026-03-19 v0.99z part of tagpdf - provide base, no-op ver
+sions of the user commands 
+\c@g__tag_MCID_abs_int=\count273
+\c@g__tag_struct_abs_int=\count274
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/pdfmanagement-testphase/pdfmanage
+ment.ltx
+File: pdfmanagement.ltx 2026-01-23 v0.96y PDF management code
+\g__pdfmanagement_EmbeddedFiles_int=\count275
+\l__pdfmeta_xmp_indent_int=\count276
+\g_pdffile_embed_pdfa_int=\count277
+\g_pdffile_embed_nonpdfa_int=\count278
+)))
+(/usr/local/texlive/2026/texmf-dist/tex/latex/l3backend/l3backend-luatex.def
+File: l3backend-luatex.def 2025-10-09 L3 backend support: PDF output (LuaTeX)
+\l__color_backend_stack_int=\count279
+Inserting `l3color' in `luaotfload.parse_color'.
+Inserting `l3opacity' in `luaotfload.parse_transparent'.)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/pdfmanagement-testphase/l3backend
+-testphase-luatex.def
+File: l3backend-testphase-luatex.def 2026-01-23 v0.96y LaTeX PDF management bun
+dle backend support:PDFoutput(LuaTeX)
+\l__pdf_backend_tmpa_box=\box53
+\l__pdf_backend_tmpb_box=\box54
+\g__pdf_backend_resourceid_int=\count280
+\g__pdf_backend_name_int=\count281
+\g__pdf_backend_page_int=\count282
+Custom whatsit pdf_link_adjust_level = 1
+Inserting `linksplit' in `pre_shipout_filter'.
+Lua function pdflinkadjustlevel = 31)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/latex-lab/latex-lab-testphase-lat
+est.sty
+Package: latex-lab-testphase-latest 2025-09-13 v0.1d latex-lab modules
+ (/usr/local/texlive/2026/texmf-dist/tex/latex/tagpdf/tagpdf.sty
+Package: tagpdf 2026-03-19 v0.99z  LaTeX kernel code for PDF tagging 
+\l__tag_tmpa_int=\count283
+\l__tag_tmpa_box=\box55
+\l__tag_tmpb_box=\box56
+\l__tag_loglevel_int=\count284
+\g__tag_unique_cnt_int=\count285
+\l__tag_tag_stop_int=\count286
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/tagpdf/tagpdf-luatex.def
+File: tagpdf-luatex.def 2026-03-19 v0.99z tagpdf driver for luatex
+luaotfload | db : Font names database loaded from /Users/ankithmohan/Library/tex
+live/2026/texmf-var/luatex-cache/generic/names/luaotfload-names.luc.gz
+Lua module: tagpdf 2026-03-19 v0.99z tagpdf lua code
+Lua-only attribute g__tag_mc_type_attr = 4
+Lua-only attribute g__tag_mc_cnt_attr = 5
+Lua-only attribute g__tag_structnum_attr = 6
+Lua-only attribute g__tag_interwordspaceOff_attr = 7
+Lua-only attribute g__tag_interwordspace_attr = 8
+Lua-only attribute g__tag_interwordfont_attr = 9
+Lua-only attribute l__tag_softhyphen_attr = 10
+Inserting `tagpdf.rewrite-softhyphen' in `pre_shaping_filter'.
+Inserting `tagpdf.rewrite-softhyphen' in `post_shaping_filter'.
+Inserting `tagpdf' in `linksplit'.)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/tagpdf/tagpdf-mc-code-lua.sty
+Package: tagpdf-mc-code-lua 2026-03-19 v0.99z tagpdf - mc code only for the lua
+mode 
+)
+\g__tag_tree_id_pad_int=\count287
+\c@g__tag_parenttree_obj_int=\count288
+
+Package tagpdf Info: reading namespace definitions tagpdf-ns-pdf.def
+
+
+Package tagpdf Info: reading namespace definitions tagpdf-ns-pdf2.def
+
+
+Package tagpdf Info: reading namespace definitions tagpdf-ns-mathml.def
+
+
+Package tagpdf Info: reading namespace definitions tagpdf-ns-latex-book.def
+
+
+Package tagpdf Info: reading namespace definitions tagpdf-ns-latex.def
+
+
+Package tagpdf Info: reading namespace definitions tagpdf-ns-latex-lab.def
+
+
+Package tagpdf Info: reading namespace definitions tagpdf-ns-pdf.def
+
+
+Package tagpdf Info: reading namespace definitions tagpdf-ns-pdf2.def
+
+\g__tag_struct_AFobj_int=\count289
+\g__tag_para_begin_int=\count290
+\g__tag_para_end_int=\count291
+\g__tag_para_main_begin_int=\count292
+\g__tag_para_main_end_int=\count293
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/latex-lab/latex-lab-testphase-nam
+es.sty
+Package: latex-lab-testphase-names 2025-08-14 v0.8f Code related to the names o
+f tags
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/latex-lab/latex-lab-testphase-new
+-or-2.sty
+Package: latex-lab-testphase-new-or-2 2025-05-10 v0.86d Changes to the output r
+outine
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/latex-lab/latex-lab-footnotes.ltx
+File: latex-lab-footnotes.ltx 2025-07-04 v0.8o changes to the footnote interfac
+es
+\footnotemargin=\dimen147
+\g_fnote_id_int=\count294
+))
+(/usr/local/texlive/2026/texmf-dist/tex/latex/latex-lab/latex-lab-testphase-blo
+ck.sty
+Package: latex-lab-testphase-block 2025-07-26 v0.9k blockenv implementation
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/latex-lab/latex-lab-kernel-change
+s.sty
+Package: latex-lab-kernel-changes 2025-07-09 v0.85i General kernel and class ch
+anges
+ (/usr/local/texlive/2026/texmf-dist/tex/generic/pdftex/glyphtounicode.tex)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/latex-lab/glyphtounicode-cmex.tex
+))
+(/usr/local/texlive/2026/texmf-dist/tex/latex/latex-lab/latex-lab-testphase-con
+text.sty
+Package: latex-lab-testphase-context 2025-10-09 v0.5b Providing context for ins
+tance, etc.
+)
+
+LaTeX template Info: Declaring template type 'blockenv' taking 1 argument(s)
+(template)           on line 96.
+
+
+LaTeX template Info: Declaring template type 'block' taking 1 argument(s) on
+(template)           line 97.
+
+
+LaTeX template Info: Declaring template type 'para' taking 1 argument(s) on
+(template)           line 98.
+
+
+LaTeX template Info: Declaring template type 'list' taking 1 argument(s) on
+(template)           line 99.
+
+
+LaTeX template Info: Declaring template type 'item' taking 1 argument(s) on
+(template)           line 100.
+
+\c@maxblocklevels=\count295
+\l__par_start_skip=\skip49
+\l__block_botsep_skip=\skip50
+\l__block_parbotsep_skip=\skip51
+\l__block_parindent_dim=\dimen148
+\l__block_counter_start_int=\count296
+\l__block_one_label_box=\box57
+\g__block_labels_box=\box58
+\l__block_tmpa_skip=\skip52
+\l__block_topsepadd_skip=\skip53
+\l__block_effective_top_skip=\skip54
+LaTeX Info: Redefining \centering on input line 1476.
+LaTeX Info: Redefining \raggedleft on input line 1477.
+LaTeX Info: Redefining \raggedright on input line 1478.
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/latex-lab/latex-lab-testphase-sec
+.sty
+Package: latex-lab-testphase-sec 2025-10-20 v0.84k Code related to the tagging 
+of sectioning commands
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/latex-lab/latex-lab-testphase-toc
+.sty
+Package: latex-lab-testphase-toc 2025-07-02 v0.85h  Code related to the tagging
+ of toc-like lists
+\g__tag_toc_level_int=\count297
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/latex-lab/latex-lab-testphase-min
+ipage.sty
+Package: latex-lab-testphase-minipage 2025-05-10 v0.81g Code related to the tag
+ging of minipages and parboxes
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/latex-lab/latex-lab-testphase-new
+-or-1.sty
+Package: latex-lab-testphase-new-or-1 2025-05-10 v0.85d Temporary output patche
+s for tagging and better link support -- no longer active
+))
+(/usr/local/texlive/2026/texmf-dist/tex/latex/latex-lab/latex-lab-testphase-gra
+phic.sty
+Package: latex-lab-testphase-graphic 2025-09-25 v0.80i Code related to the tagg
+ing of graphics
+\g__tag_graphic_int=\count298
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/latex-lab/latex-lab-testphase-flo
+at.sty
+Package: latex-lab-testphase-float 2025-10-17 v0.81l Code related to the taggin
+g of floats
+\g__tag_float_int=\count299
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/latex-lab/latex-lab-testphase-bib
+.sty
+Package: latex-lab-testphase-bib 2025-05-09 v0.81c Code related to the tagging 
+of bibliography and cite command
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/latex-lab/latex-lab-testphase-tex
+t.sty
+Package: latex-lab-testphase-text 2025-05-10 v0.85f Code related to the tagging
+ of various small text commands
+LaTeX Info: Redefining \mbox on input line 84.
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/latex-lab/latex-lab-testphase-mar
+ginpar.sty
+Package: latex-lab-testphase-marginpar 2025-07-23 v0.85h Changes related to the
+ tagging of the margin notes
+\g__kernel_marginpar_int=\count300
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/latex-lab/latex-lab-testphase-tit
+le.sty
+Package: latex-lab-testphase-title 2025-03-08 v0.85d Changes related to the tag
+ging of the title
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/latex-lab/latex-lab-testphase-tab
+le.sty
+Package: latex-lab-testphase-table 2025-08-01 v0.85s Code related to the taggin
+g of tables
+ (/usr/local/texlive/2026/texmf-dist/tex/latex/tools/array.sty
+Package: array 2025/09/25 v2.6n Tabular extension package (FMi)
+\col@sep=\dimen149
+\ar@mcellbox=\box59
+\extrarowheight=\dimen150
+\NC@list=\toks17
+\extratabsurround=\skip55
+\backup@length=\skip56
+\ar@cellbox=\box60
+))
+(/usr/local/texlive/2026/texmf-dist/tex/latex/latex-lab/latex-lab-testphase-mat
+h.sty
+Package: latex-lab-testphase-math 2025-03-10 v0.8d code related to the math tag
+ging
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/latex-lab/latex-lab-math.ltx
+File: latex-lab-math.ltx 2025-10-02 v0.6w Grab all the math(s) and tag it (expe
+riments)
+\l__math_tmpa_skip=\skip57
+\g__math_mathml_total_int=\count301
+\g__math_mathml_int=\count302
+\g__math_math_total_int=\count303
+\g__math_mathml_AF_found_int=\count304
+\g__math_mathml_AF_attached_int=\count305
+\l__math_tmpa_box=\box61
+\l__math_mathstyle_int=\count306
+\g__math_mathchoice_int=\count307
+\l__math_grab_env_int=\count308
+\g__math_postdisplaypenalty_int=\count309
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/latex-lab/latex-lab-mathpkg.ltx
+File: latex-lab-mathpkg.ltx 2025-06-20 v0.1c mathpkg adaptions
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/latex-lab/latex-lab-mathintent.lt
+x
+File: latex-lab-mathintent.ltx 2025-08-03 v0.1c MathML intent attributes
+))
+(/usr/local/texlive/2026/texmf-dist/tex/latex/latex-lab/latex-lab-testphase-fir
+staid.sty
+Package: latex-lab-testphase-firstaid 2025-11-03 v2025-11-03 Temporary patches 
+to external packages needed for the tagging project
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/latex-lab/latex-lab-testphase-tik
+z.sty
+Package: latex-lab-testphase-tikz 2025-09-27 v0.80d Code related to the tagging
+ of tikz pictures
+))
+(/usr/local/texlive/2026/texmf-dist/tex/latex/latex-lab/math-latex-lab-testphas
+e.ltx
+File: math-latex-lab-testphase.ltx 2023-07-20 v0.8a latex-lab wrapper math
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/latex-lab/firstaid-latex-lab-test
+phase.ltx
+File: firstaid-latex-lab-testphase.ltx 2025-11-03 v0.85o latex-lab wrapper firs
+taid
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/pdfmanagement-testphase/pdfmanage
+ment-firstaid.sty
+Package: pdfmanagement-firstaid 2026-01-23 v0.96y LaTeX PDF management bundle /
+ firstaid-patches
+
+Package pdfmanagement Info: loading pdfmanagement firstaid code for pgf
+
+)
+Inserting `markspaces' in `pre_linebreak_filter'.
+Inserting `markspaces' in `hpack_filter'. (./VTthesis.cls
+Document Class: VTthesis 2017/05/02 v1.5 Virginia Tech Proposal and Thesis Clas
+s
+(/usr/local/texlive/2026/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2025/10/02 v2.5m e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count310
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/base/report.cls
+Document Class: report 2025/01/22 v1.4n Standard LaTeX document class
+(/usr/local/texlive/2026/texmf-dist/tex/latex/base/size12.clo
+File: size12.clo 2025/01/22 v1.4n Standard LaTeX file (size option)
+)
+\c@part=\count311
+\c@chapter=\count312
+\c@section=\count313
+\c@subsection=\count314
+\c@subsubsection=\count315
+\c@paragraph=\count316
+\c@subparagraph=\count317
+\c@figure=\count318
+\c@table=\count319
+\abovecaptionskip=\skip58
+\belowcaptionskip=\skip59
+\bibindent=\dimen151
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2026-01-29 v7.01p Hypertext links for LaTeX
+
+(/usr/local/texlive/2026/texmf-dist/tex/generic/iftex/iftex.sty
+Package: iftex 2024/12/12 v1.0g TeX engine tests
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
+\KV@toks@=\toks18
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty
+Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
+)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
+Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
+)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pdfescape/pdfescape.sty
+Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
+
+(/usr/local/texlive/2026/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
+Package: ltxcmds 2023-12-04 v1.26 LaTeX kernel commands for general use (HO)
+)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(/usr/local/texlive/2026/texmf-dist/tex/generic/infwarerr/infwarerr.sty
+Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
+)
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+\pdftexcmds@toks=\toks19
+))
+(/usr/local/texlive/2026/texmf-dist/tex/latex/hycolor/hycolor.sty
+Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/hyperref/nameref.sty
+Package: nameref 2026-01-29 v2.58 Cross-referencing by name of section
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/refcount/refcount.sty
+Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
+)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/gettitlestring/gettitlestring.s
+ty
+Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
+ (/usr/local/texlive/2026/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
+))
+\c@section@level=\count320
+)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/stringenc/stringenc.sty
+Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO
+)
+)
+\@linkdim=\dimen152
+\Hy@linkcounter=\count321
+\Hy@pagecounter=\count322
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2026-01-29 v7.01p Hyperref: PDFDocEncoding definition (HO)
+)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/intcalc/intcalc.sty
+Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
+)
+\Hy@SavedSpaceFactor=\count323
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/hyperref/puenc.def
+File: puenc.def 2026-01-29 v7.01p Hyperref: PDF Unicode definition (HO)
+)
+Package hyperref Info: Option `final' set `true' on input line 4072.
+Package hyperref Info: Option `colorlinks' set `true' on input line 4072.
+Package hyperref Info: Hyper figures OFF on input line 4201.
+Package hyperref Info: Link nesting OFF on input line 4206.
+Package hyperref Info: Hyper index ON on input line 4209.
+Package hyperref Info: Plain pages OFF on input line 4216.
+Package hyperref Info: Backreferencing OFF on input line 4221.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4468.
+\c@Hy@tempcnt=\count324
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip17
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 4807.
+\XeTeXLinkMargin=\dimen153
+
+(/usr/local/texlive/2026/texmf-dist/tex/generic/bitset/bitset.sty
+Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
+
+(/usr/local/texlive/2026/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
+Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
+)
+))
+\Fld@menulength=\count325
+\Field@Width=\dimen154
+\Fld@charsize=\dimen155
+Package hyperref Info: Hyper figures OFF on input line 6084.
+Package hyperref Info: Link nesting OFF on input line 6089.
+Package hyperref Info: Hyper index ON on input line 6092.
+Package hyperref Info: backreferencing OFF on input line 6099.
+Package hyperref Info: Link coloring ON on input line 6102.
+Package hyperref Info: Link coloring with OCG OFF on input line 6109.
+Package hyperref Info: PDF/A mode OFF on input line 6114.
+\Hy@abspage=\count326
+\c@Item=\count327
+)
+Package hyperref Info: Driver (custom): hgeneric-testphase.
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/pdfmanagement-testphase/hgeneric-
+testphase.def
+File: hgeneric-testphase.def 2026-01-23 v0.96y generic Hyperref driver for the 
+LaTeX PDF management bundle
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/pdfmanagement-testphase/hyperref-
+colorschemes.def)
+LaTeX Info: Redefining \href on input line 262.
+LaTeX Info: Redefining \url on input line 348.
+\l__hyp_tmpa_box=\box62
+\l__hyp_tmpa_int=\count328
+\l__hyp_dest_box=\box63
+\g__hyp_linknestlevel_int=\count329
+\HyAnn@Count=\count330
+\Fld@listcount=\count331
+\Hy@SectionHShift=\skip60
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2025/07/09 v2.17z AMS math features
+\@mathmargin=\skip61
+
+For additional information on amsmath, use the `?' option.
+(/usr/local/texlive/2026/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2024/11/17 v2.01 AMS text
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks20
+\ex@=\dimen156
+))
+(/usr/local/texlive/2026/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen157
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2022/04/08 v2.04 operator names
+)
+\inf@bad=\count332
+LaTeX Info: Redefining \frac on input line 235.
+\uproot@=\count333
+\leftroot@=\count334
+LaTeX Info: Redefining \overline on input line 398.
+LaTeX Info: Redefining \colon on input line 409.
+\classnum@=\count335
+\DOTSCASE@=\count336
+LaTeX Info: Redefining \ldots on input line 495.
+LaTeX Info: Redefining \dots on input line 498.
+LaTeX Info: Redefining \cdots on input line 619.
+\Mathstrutbox@=\box64
+\strutbox@=\box65
+LaTeX Info: Redefining \big on input line 721.
+LaTeX Info: Redefining \Big on input line 722.
+LaTeX Info: Redefining \bigg on input line 723.
+LaTeX Info: Redefining \Bigg on input line 724.
+\big@size=\dimen158
+LaTeX Font Info:    Redeclaring font encoding OML on input line 742.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 743.
+\macc@depth=\count337
+LaTeX Info: Redefining \bmod on input line 904.
+LaTeX Info: Redefining \pmod on input line 909.
+LaTeX Info: Redefining \smash on input line 939.
+LaTeX Info: Redefining \relbar on input line 969.
+LaTeX Info: Redefining \Relbar on input line 970.
+\c@MaxMatrixCols=\count338
+\dotsspace@=\muskip18
+\c@parentequation=\count339
+\dspbrk@lvl=\count340
+\tag@help=\toks21
+\row@=\count341
+\column@=\count342
+\maxfields@=\count343
+\andhelp@=\toks22
+\eqnshift@=\dimen159
+\alignsep@=\dimen160
+\tagshift@=\dimen161
+\tagwidth@=\dimen162
+\totwidth@=\dimen163
+\lineht@=\dimen164
+\@envbody=\toks23
+\multlinegap=\skip62
+\multlinetaggap=\skip63
+\mathdisplay@stack=\toks24
+LaTeX Info: Redefining \[ on input line 2950.
+LaTeX Info: Redefining \] on input line 2951.
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/latex-lab/latex-lab-amsmath.ltx
+File: latex-lab-amsmath.ltx 2025-09-29 v0.1i amsmath adaptions
+LaTeX Info: Redefining \eqref on input line 57.
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/amscls/amsthm.sty
+Package: amsthm 2020/05/29 v2.20.6
+\thm@style=\toks25
+\thm@bodyfont=\toks26
+\thm@headfont=\toks27
+\thm@notefont=\toks28
+\thm@headpunct=\toks29
+\thm@preskip=\skip64
+\thm@postskip=\skip65
+\thm@headsep=\skip66
+\dth@everypar=\toks30
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+))
+(/usr/local/texlive/2026/texmf-dist/tex/generic/ulem/ulem.sty
+\UL@box=\box66
+\UL@hyphenbox=\box67
+\UL@skip=\skip67
+\UL@hook=\toks31
+\UL@height=\dimen165
+\UL@pe=\count344
+\UL@pixel=\dimen166
+\ULC@box=\box68
+Package: ulem 2019/11/18
+\ULdepth=\dimen167
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/tools/enumerate.sty
+Package: enumerate 2023/07/04 v3.00 enumerate extensions (DPC)
+\@enLab=\toks32
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/natbib/natbib.sty
+Package: natbib 2010/09/13 8.31b (PWD, AO)
+\bibhang=\skip68
+\bibsep=\skip69
+LaTeX Info: Redefining \cite on input line 694.
+\c@NAT@ctr=\count345
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/paralist/paralist.sty
+Package: paralist 2017/01/22 v2.7 Extended list environments
+\pltopsep=\skip70
+\plpartopsep=\skip71
+\plitemsep=\skip72
+\plparsep=\skip73
+\pl@lab=\toks33
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/appendix/appendix.sty
+Package: appendix 2020/02/08 v1.2c extra appendix facilities
+\c@@pps=\count346
+\c@@ppsavesec=\count347
+\c@@ppsaveapp=\count348
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/tocbibind/tocbibind.sty
+Package: tocbibind 2010/10/13 v1.5k extra ToC listings
+Package tocbibind Info: The document has chapter divisions on input line 50.
+
+
+Package tocbibind Note: Using chapter style headings, unless overridden.
+
+) (/usr/local/texlive/2026/texmf-dist/tex/latex/fontspec/fontspec.sty
+(/usr/local/texlive/2026/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
+(/usr/local/texlive/2026/texmf-dist/tex/latex/l3kernel/expl3.sty
+Package: expl3 2026-01-19 L3 programming layer (loader) 
+)
+Package: xparse 2025-10-09 L3 Experimental document command parser
+)
+Package: fontspec 2025/09/29 v2.9g Font selection for XeLaTeX and LuaLaTeX
+Lua module: fontspec 2025/09/29 v2.9g Font selection for XeLaTeX and LuaLaTeX
+(/usr/local/texlive/2026/texmf-dist/tex/latex/fontspec/fontspec-luatex.sty
+Package: fontspec-luatex 2025/09/29 v2.9g Font selection for XeLaTeX and LuaLaT
+eX
+\l__fontspec_script_int=\count349
+\l__fontspec_language_int=\count350
+\l__fontspec_strnum_int=\count351
+\l__fontspec_tmp_int=\count352
+\l__fontspec_tmpa_int=\count353
+\l__fontspec_tmpb_int=\count354
+\l__fontspec_tmpc_int=\count355
+\l__fontspec_em_int=\count356
+\l__fontspec_emdef_int=\count357
+\l__fontspec_strong_int=\count358
+\l__fontspec_strongdef_int=\count359
+\l__fontspec_tmpa_dim=\dimen168
+\l__fontspec_tmpb_dim=\dimen169
+\l__fontspec_tmpc_dim=\dimen170
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2025/07/18 v2.1d Standard LaTeX package
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/fontspec/fontspec.cfg)))
+(/usr/local/texlive/2026/texmf-dist/tex/latex/tools/tabularx.sty
+Package: tabularx 2023/12/11 v2.12a `tabularx' package (DPC)
+\TX@col@width=\dimen171
+\TX@old@table=\dimen172
+\TX@old@col=\dimen173
+\TX@target=\dimen174
+\TX@delta=\dimen175
+\TX@cols=\count360
+\TX@ftn=\toks34
+)
+luaotfload | cache : Lookup cache loaded from /Users/ankithmohan/Library/texlive
+/2026/texmf-var/luatex-cache/generic/names/luaotfload-lookup-cache.luc.
+
+Package fontspec Info: 
+(fontspec)             Font family 'LatinModernRoman(0)' created for font
+(fontspec)             'Latin Modern Roman' with options
+(fontspec)             [Ligatures=TeX,Ligatures={NoCommon,NoRare},SmallCapsFont
+=TeX
+(fontspec)             Gyre Termes,SmallCapsFeatures={Letters=SmallCaps}].
+(fontspec)              
+(fontspec)              This font family consists of the following NFSS
+(fontspec)             series/shapes:
+(fontspec)              
+(fontspec)             - 'normal' (m/n) with NFSS spec.: <->"name:Latin Modern
+(fontspec)             Roman:mode=node;script=latn;language=dflt;+tlig;-liga;-d
+lig;"
+(fontspec)             - 'small caps'  (m/sc) with NFSS spec.: <->"name:TeX
+(fontspec)             Gyre
+(fontspec)             Termes:mode=node;script=latn;language=dflt;+tlig;-liga;-
+dlig;+smcp;"
+(fontspec)             - 'bold' (b/n) with NFSS spec.: <->"name:Latin Modern
+(fontspec)             Roman/B:mode=node;script=latn;language=dflt;+tlig;-liga;
+-dlig;"
+(fontspec)             - 'bold small caps'  (b/sc) with NFSS spec.:
+(fontspec)             <->"name:TeX Gyre
+(fontspec)             Termes:mode=node;script=latn;language=dflt;+tlig;-liga;-
+dlig;+smcp;"
+(fontspec)             - 'italic' (m/it) with NFSS spec.: <->"name:Latin
+(fontspec)             Modern
+(fontspec)             Roman/I:mode=node;script=latn;language=dflt;+tlig;-liga;
+-dlig;"
+(fontspec)             - 'italic small caps'  (m/scit) with NFSS spec.:
+(fontspec)             <->"name:TeX Gyre
+(fontspec)             Termes:mode=node;script=latn;language=dflt;+tlig;-liga;-
+dlig;+smcp;"
+(fontspec)             - 'bold italic' (b/it) with NFSS spec.: <->"name:Latin
+(fontspec)             Modern
+(fontspec)             Roman/BI:mode=node;script=latn;language=dflt;+tlig;-liga
+;-dlig;"
+(fontspec)             - 'bold italic small caps'  (b/scit) with NFSS spec.:
+(fontspec)             <->"name:TeX Gyre
+(fontspec)             Termes:mode=node;script=latn;language=dflt;+tlig;-liga;-
+dlig;+smcp;"
+
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/enumitem/enumitem.sty
+Package: enumitem 2025/02/06 v3.11 Customized lists
+\labelindent=\skip74
+\enit@outerparindent=\dimen176
+\enit@toks=\toks35
+\enit@inbox=\box69
+\enit@count@id=\count361
+\enitdp@description=\count362
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/nomencl/nomencl.sty
+Package: nomencl 2021/11/10 v5.6 Nomenclature package
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+Package: xkeyval 2025/11/04 v2.10 package option processing (HA)
+
+(/usr/local/texlive/2026/texmf-dist/tex/generic/xkeyval/xkeyval.tex
+(/usr/local/texlive/2026/texmf-dist/tex/generic/xkeyval/xkvutils.tex
+\XKV@toks=\toks36
+\XKV@tempa@toks=\toks37
+\XKV@tempb@toks=\toks38
+)
+\XKV@depth=\count363
+File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
+))
+(/usr/local/texlive/2026/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2024/03/16 v1.1e Standard LaTeX ifthen package (DPC)
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/koma-script/tocbasic.sty
+Package: tocbasic 2026/02/02 v3.49.2 KOMA-Script package (handling toc-files)
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/koma-script/scrbase.sty
+Package: scrbase 2026/02/02 v3.49.2 KOMA-Script package (KOMA-Script-independen
+t basics and keyval usage)
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/koma-script/scrlfile.sty
+Package: scrlfile 2026/02/02 v3.49.2 KOMA-Script package (file load hooks)
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/koma-script/scrlfile-hook.sty
+Package: scrlfile-hook 2026/02/02 v3.49.2 KOMA-Script package (using LaTeX hook
+s)
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/koma-script/scrlogo.sty
+Package: scrlogo 2026/02/02 v3.49.2 KOMA-Script package (logo)
+)))
+Applying: [2021/05/01] Usage of raw or classic option list on input line 254.
+Already applied: [0000/00/00] Usage of raw or classic option list on input line
+ 370.
+)
+\scr@dte@tocline@numberwidth=\skip75
+\scr@dte@tocline@numbox=\box70
+)
+Package tocbasic Info: omitting babel extension for `nlo'
+(tocbasic)             because of missing \bbl@set@language on input line 187.
+Package tocbasic Info: omitting babel extension for `nls'
+(tocbasic)             because of missing \bbl@set@language on input line 188.
+\nomlabelwidth=\dimen177
+\nom@tempdim=\dimen178
+\nomitemsep=\skip76
+)
+\@nomenclaturefile=\write3
+
+\openout3 = Ankith_Mohan_PhD_thesis.nlo
+Package nomencl Info: Writing nomenclature file Ankith_Mohan_PhD_thesis.nlo on 
+input line 86.
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/setspace/setspace.sty
+Package: setspace 2022/12/04 v6.7b set line spacing
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2024/12/31 v1.2e Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2024/08/06 v1.4g Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2023/12/02 v1.11 sin cos tan (DPC)
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: luatex.def on input line 106.
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/graphics-def/luatex.def
+File: luatex.def 2025/09/29 v1.2f Graphics/color driver for luatex
+))
+\Gin@req@height=\dimen179
+\Gin@req@width=\dimen180
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/csquotes/csquotes.sty
+Package: csquotes 2024-04-04 v5.2o context-sensitive quotations (JAW)
+\csq@reset=\count364
+\csq@gtype=\count365
+\csq@glevel=\count366
+\csq@qlevel=\count367
+\csq@maxlvl=\count368
+\csq@tshold=\count369
+\csq@ltx@everypar=\toks39
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/csquotes/csquotes.def
+File: csquotes.def 2024-04-04 v5.2o csquotes generic definitions (JAW)
+)
+Package csquotes Info: Trying to load configuration file 'csquotes.cfg'...
+Package csquotes Info: ... configuration file loaded successfully.
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/csquotes/csquotes.cfg
+File: csquotes.cfg 
+))
+(/usr/local/texlive/2026/texmf-dist/tex/latex/listings/listings.sty
+\lst@mode=\count370
+\lst@gtempboxa=\box71
+\lst@token=\toks40
+\lst@length=\count371
+\lst@currlwidth=\dimen181
+\lst@column=\count372
+\lst@pos=\count373
+\lst@lostspace=\dimen182
+\lst@width=\dimen183
+\lst@newlines=\count374
+\lst@lineno=\count375
+\lst@maxwidth=\dimen184
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/listings/lstpatch.sty
+File: lstpatch.sty 2025/11/14 1.11b (Carsten Heinz)
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2025/11/14 1.11b (Carsten Heinz)
+\c@lstnumber=\count376
+\lst@skipnumbers=\count377
+\lst@framebox=\box72
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/listings/listings.cfg
+File: listings.cfg 2025/11/14 1.11b listings configuration
+))
+Package: listings 2025/11/14 1.11b (Carsten Heinz)
+
+==> First Aid for listings.sty no longer applied!
+    Expected:
+        2024/09/23 1.10c (Carsten Heinz)
+    but found:
+        2025/11/14 1.11b (Carsten Heinz)
+    so I'm assuming it got fixed.
+(/usr/local/texlive/2026/texmf-dist/tex/latex/tools/verbatim.sty
+Package: verbatim 2024-01-22 v1.5x LaTeX2e package for verbatim enhancements
+\every@verbatim=\toks41
+\verbatim@line=\toks42
+\verbatim@in@stream=\read2
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/booktabs/booktabs.sty
+Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
+\heavyrulewidth=\dimen185
+\lightrulewidth=\dimen186
+\cmidrulewidth=\dimen187
+\belowrulesep=\dimen188
+\belowbottomsep=\dimen189
+\aboverulesep=\dimen190
+\abovetopsep=\dimen191
+\cmidrulesep=\dimen192
+\cmidrulekern=\dimen193
+\defaultaddspace=\dimen194
+\@cmidla=\count378
+\@cmidlb=\count379
+\@aboverulesep=\dimen195
+\@belowrulesep=\dimen196
+\@thisruleclass=\count380
+\@lastruleclass=\count381
+\@thisrulewidth=\dimen197
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/amsfonts/eucal.sty
+Package: eucal 2009/06/22 v3.00 Euler Script fonts
+LaTeX Font Info:    Overwriting math alphabet `\EuScript' in version `bold'
+(Font)                  U/eus/m/n --> U/eus/b/n on input line 33.
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty
+(/usr/local/texlive/2026/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty
+(/usr/local/texlive/2026/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.te
+x
+\pgfutil@everybye=\toks43
+\pgfutil@tempdima=\dimen198
+\pgfutil@tempdimb=\dimen199
+)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def
+\pgfutil@abb=\box73
+) (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/pgf.revision.tex)
+Package: pgfrcs 2025-08-29 v3.1.11a (3.1.11a)
+))
+Package: pgf 2025-08-29 v3.1.11a (3.1.11a)
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty
+(/usr/local/texlive/2026/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex
+Package: pgfsys 2025-08-29 v3.1.11a (3.1.11a)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
+\pgfkeys@pathtoks=\toks44
+\pgfkeys@temptoks=\toks45
+
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/utilities/pgfkeyslibraryfil
+tered.code.tex
+\pgfkeys@tmptoks=\toks46
+))
+\pgf@x=\dimen256
+\pgf@y=\dimen257
+\pgf@xa=\dimen258
+\pgf@ya=\dimen259
+\pgf@xb=\dimen260
+\pgf@yb=\dimen261
+\pgf@xc=\dimen262
+\pgf@yc=\dimen263
+\pgf@xd=\dimen264
+\pgf@yd=\dimen265
+\w@pgf@writea=\write4
+\r@pgf@reada=\read3
+\c@pgf@counta=\count382
+\c@pgf@countb=\count383
+\c@pgf@countc=\count384
+\c@pgf@countd=\count385
+\t@pgf@toka=\toks47
+\t@pgf@tokb=\toks48
+\t@pgf@tokc=\toks49
+\pgf@sys@id@count=\count386
+
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg
+File: pgf.cfg 2025-08-29 v3.1.11a (3.1.11a)
+)
+Driver file for pgf: pgfsys-luatex.def
+
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-luatex.d
+ef
+File: pgfsys-luatex.def 2025-08-29 v3.1.11a (3.1.11a)
+
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-common-p
+df.def
+File: pgfsys-common-pdf.def 2025-08-29 v3.1.11a (3.1.11a)
+)))
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.
+code.tex
+File: pgfsyssoftpath.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfsyssoftpath@smallbuffer@items=\count387
+\pgfsyssoftpath@bigbuffer@items=\count388
+)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.
+code.tex
+File: pgfsysprotocol.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)) (/usr/local/texlive/2026/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2024/09/29 v3.02 LaTeX color extensions (UK)
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: luatex.def on input line 274.
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/graphics/mathcolor.ltx)
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1349.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1353.
+Package xcolor Info: Model `RGB' extended on input line 1365.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1367.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1368.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1370.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1371.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1372.
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/pdfmanagement-testphase/xcolor-pa
+tches-tmp-ltx.sty
+Package: xcolor-patches-tmp-ltx 2026-01-23 v0.96y patch xcolor for l3color
+)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex
+Package: pgfcore 2025-08-29 v3.1.11a (3.1.11a)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
+\pgfmath@dimen=\dimen266
+\pgfmath@count=\count389
+\pgfmath@box=\box74
+\pgfmath@toks=\toks50
+\pgfmath@stack@operand=\toks51
+\pgfmath@stack@operation=\toks52
+)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.
+tex)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic
+.code.tex)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.trigo
+nometric.code.tex)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.rando
+m.code.tex)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.compa
+rison.code.tex)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.base.
+code.tex)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.round
+.code.tex)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc.
+code.tex)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integ
+erarithmetics.code.tex)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex
+\c@pgfmathroundto@lastzeros=\count390
+)) (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfint.code.tex)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.co
+de.tex
+File: pgfcorepoints.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@picminx=\dimen267
+\pgf@picmaxx=\dimen268
+\pgf@picminy=\dimen269
+\pgf@picmaxy=\dimen270
+\pgf@pathminx=\dimen271
+\pgf@pathmaxx=\dimen272
+\pgf@pathminy=\dimen273
+\pgf@pathmaxy=\dimen274
+\pgf@xx=\dimen275
+\pgf@xy=\dimen276
+\pgf@yx=\dimen277
+\pgf@yy=\dimen278
+\pgf@zx=\dimen279
+\pgf@zy=\dimen280
+)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathconst
+ruct.code.tex
+File: pgfcorepathconstruct.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@path@lastx=\dimen281
+\pgf@path@lasty=\dimen282
+)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathusage
+.code.tex
+File: pgfcorepathusage.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@shorten@end@additional=\dimen283
+\pgf@shorten@start@additional=\dimen284
+)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescopes.co
+de.tex
+File: pgfcorescopes.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfpic=\box75
+\pgf@hbox=\box76
+\pgf@layerbox@main=\box77
+\pgf@picture@serial@count=\count391
+)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicst
+ate.code.tex
+File: pgfcoregraphicstate.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgflinewidth=\dimen285
+)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransform
+ations.code.tex
+File: pgfcoretransformations.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@pt@x=\dimen286
+\pgf@pt@y=\dimen287
+\pgf@pt@temp=\dimen288
+)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/basiclayer/pgfcorequick.cod
+e.tex
+File: pgfcorequick.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreobjects.c
+ode.tex
+File: pgfcoreobjects.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathproce
+ssing.code.tex
+File: pgfcorepathprocessing.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrows.co
+de.tex
+File: pgfcorearrows.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfarrowsep=\dimen289
+)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.cod
+e.tex
+File: pgfcoreshade.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@max=\dimen290
+\pgf@sys@shading@range@num=\count392
+\pgf@shadingcount=\count393
+)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.cod
+e.tex
+File: pgfcoreimage.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal.
+code.tex
+File: pgfcoreexternal.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfexternal@startupbox=\box78
+)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/basiclayer/pgfcorelayers.co
+de.tex
+File: pgfcorelayers.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretranspare
+ncy.code.tex
+File: pgfcoretransparency.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepatterns.
+code.tex
+File: pgfcorepatterns.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/basiclayer/pgfcorerdf.code.
+tex
+File: pgfcorerdf.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)))
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/modules/pgfmoduleshapes.cod
+e.tex
+File: pgfmoduleshapes.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfnodeparttextbox=\box79
+)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/modules/pgfmoduleplot.code.
+tex
+File: pgfmoduleplot.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version
+-0-65.sty
+Package: pgfcomp-version-0-65 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@nodesepstart=\dimen291
+\pgf@nodesepend=\dimen292
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version
+-1-18.sty
+Package: pgfcomp-version-1-18 2025-08-29 v3.1.11a (3.1.11a)
+))
+(/usr/local/texlive/2026/texmf-dist/tex/latex/pgf/utilities/pgffor.sty
+(/usr/local/texlive/2026/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex))
+ (/usr/local/texlive/2026/texmf-dist/tex/latex/pgf/math/pgfmath.sty
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex))
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/utilities/pgffor.code.tex
+Package: pgffor 2025-08-29 v3.1.11a (3.1.11a)
+\pgffor@iter=\dimen293
+\pgffor@skip=\dimen294
+\pgffor@stack=\toks53
+\pgffor@toks=\toks54
+))
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.cod
+e.tex
+Package: tikz 2025-08-29 v3.1.11a (3.1.11a)
+
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothan
+dlers.code.tex
+File: pgflibraryplothandlers.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@plot@mark@count=\count394
+\pgfplotmarksize=\dimen295
+)
+\tikz@lastx=\dimen296
+\tikz@lasty=\dimen297
+\tikz@lastxsaved=\dimen298
+\tikz@lastysaved=\dimen299
+\tikz@lastmovetox=\dimen300
+\tikz@lastmovetoy=\dimen301
+\tikzleveldistance=\dimen302
+\tikzsiblingdistance=\dimen303
+\tikz@figbox=\box80
+\tikz@figbox@bg=\box81
+\tikz@tempbox=\box82
+\tikz@tempbox@bg=\box83
+\tikztreelevel=\count395
+\tikznumberofchildren=\count396
+\tikznumberofcurrentchild=\count397
+\tikz@fig@count=\count398
+
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.cod
+e.tex
+File: pgfmodulematrix.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfmatrixcurrentrow=\count399
+\pgfmatrixcurrentcolumn=\count400
+\pgf@matrix@numberofcolumns=\count401
+)
+\tikz@expandcount=\count402
+
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibrarytopaths.code.tex
+File: tikzlibrarytopaths.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)))
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibraryshapes.code.tex
+File: tikzlibraryshapes.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibraryshapes.geometric.code.tex
+File: tikzlibraryshapes.geometric.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibrary
+shapes.geometric.code.tex
+File: pgflibraryshapes.geometric.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+))
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibraryshapes.misc.code.tex
+File: tikzlibraryshapes.misc.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibrary
+shapes.misc.code.tex
+File: pgflibraryshapes.misc.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+))
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibraryshapes.symbols.code.tex
+File: tikzlibraryshapes.symbols.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibrary
+shapes.symbols.code.tex
+File: pgflibraryshapes.symbols.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+))
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibraryshapes.arrows.code.tex
+File: tikzlibraryshapes.arrows.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibrary
+shapes.arrows.code.tex
+File: pgflibraryshapes.arrows.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+))
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibraryshapes.callouts.code.tex
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibrary
+shapes.callouts.code.tex))
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibraryshapes.multipart.code.tex
+File: tikzlibraryshapes.multipart.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibrary
+shapes.multipart.code.tex
+File: pgflibraryshapes.multipart.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfnodepartlowerbox=\box84
+\pgfnodeparttwobox=\box85
+\pgfnodepartthreebox=\box86
+\pgfnodepartfourbox=\box87
+\pgfnodeparttwentybox=\box88
+\pgfnodepartnineteenbox=\box89
+\pgfnodeparteighteenbox=\box90
+\pgfnodepartseventeenbox=\box91
+\pgfnodepartsixteenbox=\box92
+\pgfnodepartfifteenbox=\box93
+\pgfnodepartfourteenbox=\box94
+\pgfnodepartthirteenbox=\box95
+\pgfnodeparttwelvebox=\box96
+\pgfnodepartelevenbox=\box97
+\pgfnodeparttenbox=\box98
+\pgfnodepartninebox=\box99
+\pgfnodeparteightbox=\box100
+\pgfnodepartsevenbox=\box101
+\pgfnodepartsixbox=\box102
+\pgfnodepartfivebox=\box103
+)))
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibraryarrows.code.tex
+File: tikzlibraryarrows.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.
+code.tex
+File: pgflibraryarrows.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\arrowsize=\dimen304
+))
+(/usr/local/texlive/2026/texmf-dist/tex/latex/todonotes/todonotes.sty
+Package: todonotes 2024/01/05 v1.1.7 Todonotes source and documentation.
+Package: todonotes 2024/01/05
+
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibrarypositioning.code.tex
+File: tikzlibrarypositioning.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/tools/calc.sty
+Package: calc 2025/03/01 v4.3b Infix arithmetic (KKT,FJ)
+\calc@Acount=\count403
+\calc@Bcount=\count404
+\calc@Adimen=\dimen305
+\calc@Bdimen=\dimen306
+\calc@Askip=\skip77
+\calc@Bskip=\skip78
+LaTeX Info: Redefining \setlength on input line 86.
+LaTeX Info: Redefining \addtolength on input line 87.
+\calc@Ccount=\count405
+\calc@Cskip=\skip79
+)
+\c@@todonotes@numberoftodonotes=\count406
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2023/08/05 v3.6o Customizing captions (AR)
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
+\caption@tempdima=\dimen307
+\captionmargin=\dimen308
+\caption@leftmargin=\dimen309
+\caption@rightmargin=\dimen310
+\caption@width=\dimen311
+\caption@indent=\dimen312
+\caption@parindent=\dimen313
+\caption@hangindent=\dimen314
+Package caption Info: Standard document class detected.
+)
+\c@caption@flags=\count407
+\c@continuedfloat=\count408
+Package caption Info: hyperref package is loaded.
+Package caption Info: listings package is loaded.
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/caption/subcaption.sty
+Package: subcaption 2023/07/28 v1.6b Sub-captions (AR)
+Package caption Info: New subtype `subfigure' on input line 238.
+\c@subfigure=\count409
+Package caption Info: New subtype `subtable' on input line 238.
+\c@subtable=\count410
+)
+\c@proposition=\count411
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
+Package: fancyhdr 2025/02/07 v5.2 Extensive control of page headers and footers
+
+\f@nch@headwidth=\skip80
+\f@nch@offset@elh=\skip81
+\f@nch@offset@erh=\skip82
+\f@nch@offset@olh=\skip83
+\f@nch@offset@orh=\skip84
+\f@nch@offset@elf=\skip85
+\f@nch@offset@erf=\skip86
+\f@nch@offset@olf=\skip87
+\f@nch@offset@orf=\skip88
+\f@nch@height=\skip89
+\f@nch@footalignment=\skip90
+\f@nch@widthL=\skip91
+\f@nch@widthC=\skip92
+\f@nch@widthR=\skip93
+\@temptokenb=\toks55
+))
+(/usr/local/texlive/2026/texmf-dist/tex/latex/physics/physics.sty
+Package: physics 
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/bbold/bbold.sty
+Package: bbold 1994/04/06 Bbold symbol package
+LaTeX Font Info:    Redeclaring math alphabet \mathbb on input line 42.
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/comment/comment.sty
+\CommentStream=\write5
+
+Excluding comment 'comment')
+(/usr/local/texlive/2026/texmf-dist/tex/latex/doublestroke/dsfont.sty
+Package: dsfont 1995/08/01 v0.1 Double stroke roman fonts
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/mathtools/mathtools.sty
+Package: mathtools 2024/10/04 v1.31 mathematical typesetting tools
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/mathtools/mhsetup.sty
+Package: mhsetup 2021/03/18 v1.4 programming setup (MH)
+)
+\g_MT_multlinerow_int=\count412
+\l_MT_multwidth_dim=\dimen315
+\origjot=\skip94
+\l_MT_shortvdotswithinadjustabove_dim=\dimen316
+\l_MT_shortvdotswithinadjustbelow_dim=\dimen317
+\l_MT_above_intertext_sep=\dimen318
+\l_MT_below_intertext_sep=\dimen319
+\l_MT_above_shortintertext_sep=\dimen320
+\l_MT_below_shortintertext_sep=\dimen321
+\xmathstrut@box=\box104
+\xmathstrut@dim=\dimen322
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/latex-lab/latex-lab-mathtools.ltx
+File: latex-lab-mathtools.ltx 2024-07-13 v0.1a mathtools adaptions
+) (/usr/local/texlive/2026/texmf-dist/tex/latex/tools/xspace.sty
+Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/algorithms/algorithm.sty
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
+nment
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count413
+\float@exts=\toks56
+\float@box=\box105
+\@float@everytoks=\toks57
+\@floatcapt=\box106
+)
+\@float@every@algorithm=\toks58
+\c@algorithm=\count414
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/algorithmicx/algpseudocode.sty
+Package: algpseudocode 
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/algorithmicx/algorithmicx.sty
+Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
+
+Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
+\c@ALG@line=\count415
+\c@ALG@rem=\count416
+\c@ALG@nested=\count417
+\ALG@tlm=\skip95
+\ALG@thistlm=\skip96
+\c@ALG@Lnr=\count418
+\c@ALG@blocknr=\count419
+\c@ALG@storecount=\count420
+\c@ALG@tmpcounter=\count421
+\ALG@tmplength=\skip97
+)
+Document Style - pseudocode environments for use with the `algorithmicx' style
+) (/usr/local/texlive/2026/texmf-dist/tex/latex/siunitx/siunitx.sty
+Package: siunitx 2025-07-09 v3.4.14 A comprehensive (SI) units package
+\l__siunitx_number_uncert_offset_int=\count422
+\l__siunitx_number_exponent_fixed_int=\count423
+\l__siunitx_number_min_decimal_int=\count424
+\l__siunitx_number_min_integer_int=\count425
+\l__siunitx_number_round_precision_int=\count426
+\l__siunitx_number_lower_threshold_int=\count427
+\l__siunitx_number_upper_threshold_int=\count428
+\l__siunitx_number_group_first_int=\count429
+\l__siunitx_number_group_size_int=\count430
+\l__siunitx_number_group_minimum_int=\count431
+\l__siunitx_angle_tmp_dim=\dimen323
+\l__siunitx_angle_marker_box=\box107
+\l__siunitx_angle_unit_box=\box108
+\l__siunitx_compound_count_int=\count432
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/translations/translations.sty
+Package: translations 2022/02/05 v1.12 internationalization of LaTeX2e packages
+ (CN)
+)
+\l__siunitx_table_tmp_box=\box109
+\l__siunitx_table_tmp_dim=\dimen324
+\l__siunitx_table_column_width_dim=\dimen325
+\l__siunitx_table_integer_box=\box110
+\l__siunitx_table_decimal_box=\box111
+\l__siunitx_table_uncert_box=\box112
+\l__siunitx_table_before_box=\box113
+\l__siunitx_table_after_box=\box114
+\l__siunitx_table_before_dim=\dimen326
+\l__siunitx_table_carry_dim=\dimen327
+\l__siunitx_unit_tmp_int=\count433
+\l__siunitx_unit_position_int=\count434
+\l__siunitx_unit_total_int=\count435
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/contour/contour.sty
+Package: contour 2004/11/18 v2.14 Print contoured text (HH, MH)
+\con@length=\skip98
+
+Loading configuration file `contour.cfg'.
+(/usr/local/texlive/2026/texmf-dist/tex/latex/contour/contour.cfg
+File: contour.cfg 2004/11/18 v2.14 Print contoured text (HH, MH)
+)
+contour: Using driver file `dvips.cnt'.
+(/usr/local/texlive/2026/texmf-dist/tex/latex/contour/dvips.cnt
+File: dvips.cnt 2004/11/18 v2.14 Print contoured text (HH, MH)
+))
+(/usr/local/texlive/2026/texmf-dist/tex/latex/tools/bm.sty
+Package: bm 2025/10/21 v1.2g Bold Symbol Support (DPC/FMi)
+\symboldoperators=\mathgroup6
+\symboldletters=\mathgroup7
+\symboldsymbols=\mathgroup8
+Package bm Info: No bold for \OMX/cmex/m/n, using \pmb.
+Package bm Info: No bold for \U/msa/m/n, using \pmb.
+Package bm Info: No bold for \U/msb/m/n, using \pmb.
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 149.
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/tabto-ltx/tabto.sty
+Package: tabto 2018/12/28  v 1.4  Another tabbing mechanism
+\CurrentLineWidth=\dimen328
+\TabPrevPos=\dimen329
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/cleveref/cleveref.sty
+Package: cleveref 2018/03/27 v0.21.4 Intelligent cross-referencing
+Package cleveref Info: `hyperref' support loaded on input line 2370.
+LaTeX Info: Redefining \cref on input line 2370.
+LaTeX Info: Redefining \Cref on input line 2370.
+LaTeX Info: Redefining \crefrange on input line 2370.
+LaTeX Info: Redefining \Crefrange on input line 2370.
+LaTeX Info: Redefining \cpageref on input line 2370.
+LaTeX Info: Redefining \Cpageref on input line 2370.
+LaTeX Info: Redefining \cpagerefrange on input line 2370.
+LaTeX Info: Redefining \Cpagerefrange on input line 2370.
+LaTeX Info: Redefining \labelcref on input line 2370.
+LaTeX Info: Redefining \labelcpageref on input line 2370.
+Package cleveref Info: `amsthm' support loaded on input line 3026.
+Package cleveref Info: `algorithmicx' support loaded on input line 3120.
+Package cleveref Info: `listings' support loaded on input line 3131.
+)
+==> First Aid for cleveref.sty applied!
+(./commands.tex
+(/usr/local/texlive/2026/texmf-dist/tex/latex/quantikz/tikzlibraryquantikz2.cod
+e.tex (/usr/local/texlive/2026/texmf-dist/tex/latex/xargs/xargs.sty
+Package: xargs 2008/03/22 v1.1  extended macro definitions  (mpg)
+\xargs@max=\count436
+\xargs@toksa=\toks59
+\xargs@toksb=\toks60
+)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/xstring/xstring.sty
+(/usr/local/texlive/2026/texmf-dist/tex/generic/xstring/xstring.tex
+\xs_counta=\count437
+\xs_countb=\count438
+)
+Package: xstring 2023/08/22 v1.86 String manipulations (CT)
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/environ/environ.sty
+Package: environ 2014/05/04 v0.3 A new way to define environments
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/trimspaces/trimspaces.sty
+Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
+))
+(/usr/local/texlive/2026/texmf-dist/tex/generic/tikz-cd/tikzlibrarycd.code.tex
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibrarymatrix.code.tex
+File: tikzlibrarymatrix.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibraryquotes.code.tex
+File: tikzlibraryquotes.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.
+meta.code.tex
+File: pgflibraryarrows.meta.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfarrowinset=\dimen330
+\pgfarrowlength=\dimen331
+\pgfarrowwidth=\dimen332
+\pgfarrowlinewidth=\dimen333
+))
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibrarydecorations.pathreplacing.code.tex
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibrarydecorations.code.tex
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/modules/pgfmoduledecoration
+s.code.tex
+\pgfdecoratedcompleteddistance=\dimen334
+\pgfdecoratedremainingdistance=\dimen335
+\pgfdecoratedinputsegmentcompleteddistance=\dimen336
+\pgfdecoratedinputsegmentremainingdistance=\dimen337
+\pgf@decorate@distancetomove=\dimen338
+\pgf@decorate@repeatstate=\count439
+\pgfdecorationsegmentamplitude=\dimen339
+\pgfdecorationsegmentlength=\dimen340
+)
+\tikz@lib@dec@box=\box115
+)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/libraries/decorations/pgfli
+brarydecorations.pathreplacing.code.tex))
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibrarycalc.code.tex
+File: tikzlibrarycalc.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibraryfit.code.tex
+File: tikzlibraryfit.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibrarydecorations.pathmorphing.code.tex
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/libraries/decorations/pgfli
+brarydecorations.pathmorphing.code.tex))
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibrarydecorations.markings.code.tex
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/libraries/decorations/pgfli
+brarydecorations.markings.code.tex))
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibrarymath.code.tex
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibraryfpu.code.tex
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/libraries/pgflibraryfpu.cod
+e.tex))
+\tikz@math@for@depth=\count440
+\tikz@math@dimen=\dimen341
+\tikz@math@toks=\toks61
+)
+\pgf@layerbox@background=\box116
+\pgf@layerboxsaved@background=\box117
+\pgf@layerbox@quantback=\box118
+\pgf@layerboxsaved@quantback=\box119
+\c@dummy=\count441
+\myl=\skip99
+\myh=\skip100
+\myd=\skip101
+\c@aaa=\count442
+LaTeX Font Info:    Trying to load font information for U+msa on input line 104
+4.
+ (/usr/local/texlive/2026/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 104
+4.
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+
+Package tagpdf Warning: Parent-Child 'pdf:StructTreeRoot' --> 'pdf2:Formula'.
+(tagpdf)                Relation is not allowed! on line 1044
+(tagpdf)                struct 1, StructTreeRoot --> struct 2, Formula
+
+\c@wirenumberpermute=\count443
+)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibraryangles.code.tex
+File: tikzlibraryangles.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibrarybackgrounds.code.tex
+File: tikzlibrarybackgrounds.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+\c@defn=\count444
+\c@thm=\count445
+\c@lm=\count446
+\c@cor=\count447
+\c@ex=\count448
+\c@innercustomthm=\count449
+)
+
+Package tagpdf Warning: The package unicode-math is missing
+(tagpdf)                luamml will not create an MathML file.
+(tagpdf)                To avoid this warning load unicode-math 
+(tagpdf)                or disable luamml with 
+(tagpdf)                \tagpdfsetup {math/mathml/luamml/load=false}
+(tagpdf)                or force luamml with 
+(tagpdf)                \tagpdfsetup {math/mathml/luamml/load=true}
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/bookmark/bookmark.sty
+Package: bookmark 2023-12-10 v1.31 PDF bookmarks (HO)
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/bookmark/bkm-pdftex.def
+File: bkm-pdftex.def 2023-12-10 v1.31 bookmark driver for pdfTeX and luaTeX (HO
+)
+\BKM@id=\count450
+))
+Package csquotes Info: Checking for multilingual support...
+Package csquotes Info: ... none found.
+Package translations Info: No language package found. I am going to use `englis
+h' as default language. on input line 125.
+
+(./Ankith_Mohan_PhD_thesis.aux
+
+LaTeX Warning: Label `eq:ch3_QSD-R_UA_SD' multiply defined.
+
+
+LaTeX Warning: Label `eq:ch3_QSD-R_UA_SD@cref' multiply defined.
+
+
+LaTeX Warning: Label `eq:ch3_QSD-R_ME_SD' multiply defined.
+
+
+LaTeX Warning: Label `eq:ch3_QSD-R_ME_SD@cref' multiply defined.
+
+
+LaTeX Warning: Label `eq:ch3_QSD-R_ME_SD' multiply defined.
+
+
+LaTeX Warning: Label `eq:ch3_QSD-R_ME_SD@cref' multiply defined.
+
+
+LaTeX Warning: Label `eq:ch3_QSD-R_ME_SD' multiply defined.
+
+
+LaTeX Warning: Label `eq:ch3_QSD-R_ME_SD@cref' multiply defined.
+
+)
+\openout1 = Ankith_Mohan_PhD_thesis.aux
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 125.
+LaTeX Font Info:    ... okay on input line 125.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 125.
+LaTeX Font Info:    ... okay on input line 125.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 125.
+LaTeX Font Info:    ... okay on input line 125.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 125.
+LaTeX Font Info:    ... okay on input line 125.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 125.
+LaTeX Font Info:    ... okay on input line 125.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 125.
+LaTeX Font Info:    ... okay on input line 125.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 125.
+LaTeX Font Info:    ... okay on input line 125.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 125.
+LaTeX Font Info:    ... okay on input line 125.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 125.
+LaTeX Font Info:    ... okay on input line 125.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 125.
+LaTeX Font Info:    ... okay on input line 125.
+Inserting `tagpdf' in `pre_shipout_filter'.
+Inserting `tagpdf' in `pre_shipout_filter'.
+Info: mathml file Ankith_Mohan_PhD_thesis-mathml does not exist
+Info: mathml file Ankith_Mohan_PhD_thesis-luamml-mathml does not exist
+Package hyperref Info: Link coloring ON on input line 125.
+
+Package fontspec Info: 
+(fontspec)             Adjusting the maths setup (use [no-math] to avoid
+(fontspec)             this).
+
+\symlegacymaths=\mathgroup9
+LaTeX Font Info:    Overwriting symbol font `legacymaths' in version `bold'
+(Font)                  OT1/cmr/m/n --> OT1/cmr/bx/n on input line 125.
+LaTeX Font Info:    Redeclaring math accent \acute on input line 125.
+LaTeX Font Info:    Redeclaring math accent \grave on input line 125.
+LaTeX Font Info:    Redeclaring math accent \ddot on input line 125.
+LaTeX Font Info:    Redeclaring math accent \tilde on input line 125.
+LaTeX Font Info:    Redeclaring math accent \bar on input line 125.
+LaTeX Font Info:    Redeclaring math accent \breve on input line 125.
+LaTeX Font Info:    Redeclaring math accent \check on input line 125.
+LaTeX Font Info:    Redeclaring math accent \hat on input line 125.
+LaTeX Font Info:    Redeclaring math accent \dot on input line 125.
+LaTeX Font Info:    Redeclaring math accent \mathring on input line 125.
+LaTeX Font Info:    Redeclaring math symbol \Gamma on input line 125.
+LaTeX Font Info:    Redeclaring math symbol \Delta on input line 125.
+LaTeX Font Info:    Redeclaring math symbol \Theta on input line 125.
+LaTeX Font Info:    Redeclaring math symbol \Lambda on input line 125.
+LaTeX Font Info:    Redeclaring math symbol \Xi on input line 125.
+LaTeX Font Info:    Redeclaring math symbol \Pi on input line 125.
+LaTeX Font Info:    Redeclaring math symbol \Sigma on input line 125.
+LaTeX Font Info:    Redeclaring math symbol \Upsilon on input line 125.
+LaTeX Font Info:    Redeclaring math symbol \Phi on input line 125.
+LaTeX Font Info:    Redeclaring math symbol \Psi on input line 125.
+LaTeX Font Info:    Redeclaring math symbol \Omega on input line 125.
+LaTeX Font Info:    Redeclaring math symbol \mathdollar on input line 125.
+LaTeX Font Info:    Redeclaring symbol font `operators' on input line 125.
+LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
+(Font)              `operators' in the math version `normal' on input line 125.
+
+LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
+(Font)                  OT1/cmr/m/n --> TU/LatinModernRoman(0)/m/n on input lin
+e 125.
+LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
+(Font)              `operators' in the math version `bold' on input line 125.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
+(Font)                  OT1/cmr/bx/n --> TU/LatinModernRoman(0)/m/n on input li
+ne 125.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
+(Font)                  TU/LatinModernRoman(0)/m/n --> TU/LatinModernRoman(0)/m
+/n on input line 125.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
+(Font)                  OT1/cmr/m/it --> TU/LatinModernRoman(0)/m/it on input l
+ine 125.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
+(Font)                  OT1/cmr/bx/n --> TU/LatinModernRoman(0)/b/n on input li
+ne 125.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
+(Font)                  OT1/cmss/m/n --> TU/lmss/m/n on input line 125.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
+(Font)                  OT1/cmtt/m/n --> TU/lmtt/m/n on input line 125.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
+(Font)                  TU/LatinModernRoman(0)/m/n --> TU/LatinModernRoman(0)/b
+/n on input line 125.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
+(Font)                  OT1/cmr/bx/it --> TU/LatinModernRoman(0)/b/it on input 
+line 125.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
+(Font)                  OT1/cmss/bx/n --> TU/lmss/b/n on input line 125.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
+(Font)                  OT1/cmtt/m/n --> TU/lmtt/b/n on input line 125.
+(/usr/local/texlive/2026/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count451
+\scratchdimen=\dimen342
+\scratchbox=\box120
+\nofMPsegments=\count452
+\nofMParguments=\count453
+\everyMPshowfont=\toks62
+\MPscratchCnt=\count454
+\MPscratchDim=\dimen343
+\MPnumerator=\count455
+\makeMPintoPDFobject=\count456
+\everyMPtoPDFconversion=\toks63
+) (/usr/local/texlive/2026/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+\c@lstlisting=\count457
+Package tocbasic Info: omitting babel extension for `lol'
+(tocbasic)             because of missing \bbl@set@language on input line 125.
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: float package is loaded.
+Package caption Info: End \AtBeginDocument code.
+
+
+Package siunitx Warning: Detected the "physics" package:
+(siunitx)                omitting definition of \qty.
+(siunitx)                
+(siunitx)                If you want to use \qty with the siunitx definition,
+(siunitx)                add 
+(siunitx)                
+(siunitx)                    \AtBeginDocument{\RenewCommandCopy\qty\SI}
+(siunitx)                
+(siunitx)                to your preamble.
+
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/translations/translations-basic-d
+ictionary-english.trsl
+File: translations-basic-dictionary-english.trsl (english translation file `tra
+nslations-basic-dictionary')
+)
+Package translations Info: loading dictionary `translations-basic-dictionary' f
+or `english'. on input line 125.
+ [0
+
+
+
+{/usr/local/texlive/2026/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] (./cont
+ents/abstract.tex
+Underfull \vbox (badness 1742) has occurred while \output is active []
+
+ [2])
+[3] (./contents/generalabstract.tex [4]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [5])
+[6] [7
+
+] (./contents/acknowledgement.tex
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [8
+
+])
+[9] (./Ankith_Mohan_PhD_thesis.toc
+Underfull \vbox (badness 1902) has occurred while \output is active []
+
+ [10
+
+]
+Underfull \vbox (badness 1642) has occurred while \output is active []
+
+ [11]
+
+Package tagpdf Warning: Parent-Child 'Link' --> 'Link'.
+(tagpdf)                Relation is unknown! on line 65
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [12]
+
+Package tagpdf Warning: Parent-Child 'Link' --> 'Link'.
+(tagpdf)                Relation is unknown! on line 76
+
+
+Package tagpdf Warning: Parent-Child 'Link' --> 'Link'.
+(tagpdf)                Relation is unknown! on line 76
+
+
+Package tagpdf Warning: Parent-Child 'Link' --> 'Link'.
+(tagpdf)                Relation is unknown! on line 80
+
+)
+\tf@toc=\write6
+
+\openout6 = Ankith_Mohan_PhD_thesis.toc
+ [13] (./Ankith_Mohan_PhD_thesis.lof
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [14
+
+]
+
+Package tagpdf Warning: Parent-Child 'Link' --> 'Link'.
+(tagpdf)                Relation is unknown! on line 14
+
+
+Package tagpdf Warning: Parent-Child 'Link' --> 'Link'.
+(tagpdf)                Relation is unknown! on line 14
+
+
+Package tagpdf Warning: Parent-Child 'Link' --> 'Link'.
+(tagpdf)                Relation is unknown! on line 14
+
+
+Package tagpdf Warning: Parent-Child 'Link' --> 'Link'.
+(tagpdf)                Relation is unknown! on line 14
+
+
+Package tagpdf Warning: Parent-Child 'Link' --> 'Link'.
+(tagpdf)                Relation is unknown! on line 14
+
+
+Package tagpdf Warning: Parent-Child 'Link' --> 'Link'.
+(tagpdf)                Relation is unknown! on line 14
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [15]
+
+Package tagpdf Warning: Parent-Child 'Link' --> 'Link'.
+(tagpdf)                Relation is unknown! on line 17
+
+
+Package tagpdf Warning: Parent-Child 'Link' --> 'Link'.
+(tagpdf)                Relation is unknown! on line 17
+
+
+Package tagpdf Warning: Parent-Child 'Link' --> 'Link'.
+(tagpdf)                Relation is unknown! on line 17
+
+
+Package tagpdf Warning: Parent-Child 'Link' --> 'Link'.
+(tagpdf)                Relation is unknown! on line 17
+
+
+Package tagpdf Warning: Parent-Child 'Link' --> 'Link'.
+(tagpdf)                Relation is unknown! on line 18
+
+
+Package tagpdf Warning: Parent-Child 'Link' --> 'Link'.
+(tagpdf)                Relation is unknown! on line 18
+
+
+Package tagpdf Warning: Parent-Child 'Link' --> 'Link'.
+(tagpdf)                Relation is unknown! on line 18
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [16]
+Overfull \hbox (0.75677pt too wide) in paragraph at lines 20--20
+ [][] [][][]\TU/LatinModernRoman(0)/m/n/12 The op-ti-mal error-type clas-si-fi-c
+a-tion prob-a-bil-ity for $[] \OT1/cmr/m/n/12 = [][][] [] + 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [17]
+
+Package tagpdf Warning: Parent-Child 'Link' --> 'Link'.
+(tagpdf)                Relation is unknown! on line 25
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [18])
+\tf@lof=\write7
+
+\openout7 = Ankith_Mohan_PhD_thesis.lof
+
+(./contents/abbreviation.tex) (./Ankith_Mohan_PhD_thesis.nls [19]) [20
+
+]
+(./contents/ch1_intro.tex
+Chapter 1.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [1
+
+
+]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [2]
+Underfull \vbox (badness 1205) has occurred while \output is active []
+
+ [3]
+Excluding 'comment' comment.
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [4]
+Excluding 'comment' comment.
+Floatstructure:815
+<figs/ch4_PBM/qsd_figure.pdf, id=2082, 375.89133pt x 110.31915pt>
+File: figs/ch4_PBM/qsd_figure.pdf Graphic file (type pdf)
+<use figs/ch4_PBM/qsd_figure.pdf>
+Package luatex.def Info: figs/ch4_PBM/qsd_figure.pdf  used on input line 146.
+(luatex.def)             Requested size: 281.91779pt x 82.73914pt.
+[5<./figs/ch4_PBM/qsd_figure.pdf>]
+Overfull \hbox (10.3238pt too wide) in paragraph at lines 162--168
+\TU/LatinModernRoman(0)/m/n/12 work [[]]. In this for-mu-la-tion, Bob con-struct
+s a mea-sure-ment with op-er-a-tors $\OMS/cmsy/m/n/12 f\OML/cmm/m/it/12 M[]; []
+ ; M[]\OMS/cmsy/m/n/12 g$\TU/LatinModernRoman(0)/m/n/12 ,
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [6]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [7]
+Excluding 'comment' comment.
+Floatstructure:962
+<figs/ch4_PBM/qse_figure.pdf, id=2490, 375.89133pt x 110.31915pt>
+File: figs/ch4_PBM/qse_figure.pdf Graphic file (type pdf)
+<use figs/ch4_PBM/qse_figure.pdf>
+Package luatex.def Info: figs/ch4_PBM/qse_figure.pdf  used on input line 234.
+(luatex.def)             Requested size: 281.91779pt x 82.73914pt.
+[8<./figs/ch4_PBM/qse_figure.pdf>]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [9]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [10]
+Excluding 'comment' comment.
+Floatstructure:1026
+<figs/ch5_qseq/global_startegy.png, id=2725, 1677.26625pt x 944.52875pt>
+File: figs/ch5_qseq/global_startegy.png Graphic file (type png)
+<use figs/ch5_qseq/global_startegy.png>
+Package luatex.def Info: figs/ch5_qseq/global_startegy.png  used on input line 
+324.
+(luatex.def)             Requested size: 232.52641pt x 130.936pt.
+<figs/ch5_qseq/greedy_strategy.png, id=2734, 1678.27pt x 944.52875pt>
+File: figs/ch5_qseq/greedy_strategy.png Graphic file (type png)
+<use figs/ch5_qseq/greedy_strategy.png>
+Package luatex.def Info: figs/ch5_qseq/greedy_strategy.png  used on input line 
+340.
+(luatex.def)             Requested size: 232.52641pt x 130.86395pt.
+Excluding 'comment' comment.
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [11<./figs/ch5_qseq/global_startegy.png><./figs/ch5_qseq/greedy_strategy.png>]
+LaTeX Font Info:    Trying to load font information for U+bbold on input line 6
+60.
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/bbold/Ubbold.fd)
+Underfull \vbox (badness 1990) has occurred while \output is active []
+
+ [12]
+Excluding 'comment' comment.
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [13]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [14]
+LaTeX Font Info:    Trying to load font information for U+dsrom on input line 7
+64.
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/doublestroke/Udsrom.fd
+File: Udsrom.fd 1995/08/01 v0.1 Double stroke roman font definitions
+) [15]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [16]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [17]
+Overfull \hbox (7.70421pt too wide) in paragraph at lines 866--870
+[]\TU/LatinModernRoman(0)/m/n/12 Con-sider states $\OMS/cmsy/m/n/12 f\OML/cmm/m
+/it/12 []; [] ; []\OMS/cmsy/m/n/12 g$ \TU/LatinModernRoman(0)/m/n/12 with as-s
+o-ci-ated prob-a-bil-i-ties $\OMS/cmsy/m/n/12 f\OML/cmm/m/it/12 p[]; [] ; p[]\O
+MS/cmsy/m/n/12 g$\TU/LatinModernRoman(0)/m/n/12 . The col-lec-tion $\OMS/cmsy/m
+/n/12 f\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 p[]; []\OT1/cmr/m/n/12 ) :
+ []
+
+[18] Excluding 'comment' comment.
+Floatstructure:1487
+<figs/ch1_intro/swap_test_circuit.pdf, id=3790, 160.03389pt x 65.05203pt>
+File: figs/ch1_intro/swap_test_circuit.pdf Graphic file (type pdf)
+<use figs/ch1_intro/swap_test_circuit.pdf>
+Package luatex.def Info: figs/ch1_intro/swap_test_circuit.pdf  used on input li
+ne 937.
+(luatex.def)             Requested size: 305.33788pt x 124.11728pt.
+Floatstructure:1497
+<figs/ch1_intro/hadamard_test_circuit.pdf, id=3808, 204.68971pt x 61.4034pt>
+File: figs/ch1_intro/hadamard_test_circuit.pdf Graphic file (type pdf)
+<use figs/ch1_intro/hadamard_test_circuit.pdf>
+Package luatex.def Info: figs/ch1_intro/hadamard_test_circuit.pdf  used on inpu
+t line 952.
+(luatex.def)             Requested size: 305.33788pt x 91.5961pt.
+[19<./figs/ch1_intro/swap_test_circuit.pdf>]
+Underfull \vbox (badness 3803) has occurred while \output is active []
+
+ [20<./figs/ch1_intro/hadamard_test_circuit.pdf>]) (./contents/ch2_SEP.tex [21]
+
+Chapter 2.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [22
+
+]
+Overfull \hbox (4.75063pt too wide) in paragraph at lines 20--23
+\TU/LatinModernRoman(0)/m/n/12 states of Hamil-to-ni-ans. We first in-tro-duce 
+a mea-sure of en-tan-gle-ment in the groundspace
+ []
+
+Excluding 'comment' comment.
+Overfull \hbox (3.42325pt too wide) in paragraph at lines 36--36
+[]\TU/LatinModernRoman(0)/b/n/17.28 Semidef-i-nite programming-based al-go-rithm
+s for the
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (15.0pt): 
+(fancyhdr)                Make it at least 26.96204pt, for example:
+(fancyhdr)                \setlength{\headheight}{26.96204pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-11.96204pt}.
+
+[23]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [24]
+
+Package tagpdf Warning: structure with number 0 doesn't exist
+(tagpdf)                parent key ignored
+
+Floatstructure:1659
+Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
+put line 81.
+
+Package fancyhdr Warning: \headheight is too small (15.0pt): 
+(fancyhdr)                Make it at least 26.96204pt, for example:
+(fancyhdr)                \setlength{\headheight}{26.96204pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-11.96204pt}.
+
+[25] [26]
+Overfull \hbox (1.68219pt too wide) in paragraph at lines 136--139
+\TU/LatinModernRoman(0)/m/n/12 and sim-i-larly $\OML/cmm/m/it/12 C[] \OT1/cmr/m
+/n/12 = [][][(\U/dsrom/m/n/12 1 \OMS/cmsy/m/n/12 
+ []\OT1/cmr/m/n/12 )\OML/cmm/m/it/12 C\OT1/cmr/m/n/12 ] = [][] [] \OML/cmm/m/it
+/12 K[]$\TU/LatinModernRoman(0)/m/n/12 . There-fore, the see-saw pre-computation
+
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+Package fancyhdr Warning: \headheight is too small (15.0pt): 
+(fancyhdr)                Make it at least 26.96204pt, for example:
+(fancyhdr)                \setlength{\headheight}{26.96204pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-11.96204pt}.
+
+[27]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [28]
+[29] [30]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [31]
+[32] Excluding 'comment' comment. [33]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [34]
+[35]
+Underfull \vbox (badness 2626) has occurred while \output is active []
+
+ [36]
+Excluding 'comment' comment.
+Floatstructure:2171
+<figs/ch2_SEP/delta_12q-4.pdf, id=5435, 462.528pt x 346.896pt>
+File: figs/ch2_SEP/delta_12q-4.pdf Graphic file (type pdf)
+<use figs/ch2_SEP/delta_12q-4.pdf>
+Package luatex.def Info: figs/ch2_SEP/delta_12q-4.pdf  used on input line 446.
+(luatex.def)             Requested size: 232.52641pt x 174.39505pt.
+<figs/ch2_SEP/delta_14q-4.pdf, id=5444, 462.528pt x 346.896pt>
+File: figs/ch2_SEP/delta_14q-4.pdf Graphic file (type pdf)
+<use figs/ch2_SEP/delta_14q-4.pdf>
+Package luatex.def Info: figs/ch2_SEP/delta_14q-4.pdf  used on input line 462.
+(luatex.def)             Requested size: 232.52641pt x 174.39505pt.
+[37]
+Underfull \vbox (badness 4569) has occurred while \output is active []
+
+ [38<./figs/ch2_SEP/delta_12q-4.pdf><./figs/ch2_SEP/delta_14q-4.pdf>]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [39]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [40]
+Excluding 'comment' comment.
+Floatstructure:2332
+<figs/ch2_SEP/vNa_6qe-3.pdf, id=5900, 462.528pt x 346.896pt>
+File: figs/ch2_SEP/vNa_6qe-3.pdf Graphic file (type pdf)
+<use figs/ch2_SEP/vNa_6qe-3.pdf>
+Package luatex.def Info: figs/ch2_SEP/vNa_6qe-3.pdf  used on input line 591.
+(luatex.def)             Requested size: 346.89514pt x 260.17136pt.
+[41] [42<./figs/ch2_SEP/vNa_6qe-3.pdf>] Excluding 'comment' comment.
+Floatstructure:2384
+<figs/ch2_SEP/NSeS_vs_NSS-7.pdf, id=6057, 462.528pt x 346.896pt>
+File: figs/ch2_SEP/NSeS_vs_NSS-7.pdf Graphic file (type pdf)
+<use figs/ch2_SEP/NSeS_vs_NSS-7.pdf>
+Package luatex.def Info: figs/ch2_SEP/NSeS_vs_NSS-7.pdf  used on input line 640
+.
+(luatex.def)             Requested size: 346.89514pt x 260.17136pt.
+[43] [44<./figs/ch2_SEP/NSeS_vs_NSS-7.pdf>] [45]
+Underfull \vbox (badness 5893) has occurred while \output is active []
+
+ [46]
+[47] Excluding 'comment' comment. Excluding 'comment' comment.)
+(./contents/ch3_QSD.tex [48]
+Chapter 3.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [49
+
+]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+Package fancyhdr Warning: \headheight is too small (15.0pt): 
+(fancyhdr)                Make it at least 26.96204pt, for example:
+(fancyhdr)                \setlength{\headheight}{26.96204pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-11.96204pt}.
+
+[50]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [51]
+Underfull \vbox (badness 1596) has occurred while \output is active []
+
+
+
+Package fancyhdr Warning: \headheight is too small (15.0pt): 
+(fancyhdr)                Make it at least 26.96204pt, for example:
+(fancyhdr)                \setlength{\headheight}{26.96204pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-11.96204pt}.
+
+[52]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [53]
+
+Package fancyhdr Warning: \headheight is too small (15.0pt): 
+(fancyhdr)                Make it at least 26.96204pt, for example:
+(fancyhdr)                \setlength{\headheight}{26.96204pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-11.96204pt}.
+
+[54] [55]
+Underfull \vbox (badness 7649) has occurred while \output is active []
+
+
+
+Package fancyhdr Warning: \headheight is too small (15.0pt): 
+(fancyhdr)                Make it at least 26.96204pt, for example:
+(fancyhdr)                \setlength{\headheight}{26.96204pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-11.96204pt}.
+
+[56] [57]
+Underfull \vbox (badness 3460) has occurred while \output is active []
+
+
+
+Package fancyhdr Warning: \headheight is too small (15.0pt): 
+(fancyhdr)                Make it at least 26.96204pt, for example:
+(fancyhdr)                \setlength{\headheight}{26.96204pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-11.96204pt}.
+
+[58]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [59]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+Package fancyhdr Warning: \headheight is too small (15.0pt): 
+(fancyhdr)                Make it at least 26.96204pt, for example:
+(fancyhdr)                \setlength{\headheight}{26.96204pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-11.96204pt}.
+
+[60] [61]
+
+Package fancyhdr Warning: \headheight is too small (15.0pt): 
+(fancyhdr)                Make it at least 26.96204pt, for example:
+(fancyhdr)                \setlength{\headheight}{26.96204pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-11.96204pt}.
+
+[62]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [63]
+Overfull \hbox (5.0582pt too wide) in paragraph at lines 458--467
+[]\TU/LatinModernRoman(0)/m/n/12 Sup-pose $\OMS/cmsy/m/n/12 f\OML/cmm/m/it/12 W[]; [] ; W[]\OMS/cmsy/m/n/12 g$ \TU/LatinModernRoman(0)/m/n/12 is a fea-si-ble so-lu-tion of the pri-mal SDP in []. If $\OT1/cmr/m/n/12 	 = [][] \OML/cmm/m/it/12 [] []$
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+Package fancyhdr Warning: \headheight is too small (15.0pt): 
+(fancyhdr)                Make it at least 26.96204pt, for example:
+(fancyhdr)                \setlength{\headheight}{26.96204pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-11.96204pt}.
+
+[64] [65]
+Underfull \vbox (badness 1430) has occurred while \output is active []
+
+
+
+Package fancyhdr Warning: \headheight is too small (15.0pt): 
+(fancyhdr)                Make it at least 26.96204pt, for example:
+(fancyhdr)                \setlength{\headheight}{26.96204pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-11.96204pt}.
+
+[66] Excluding 'comment' comment.
+Floatstructure:3132
+[67]
+
+Package fancyhdr Warning: \headheight is too small (15.0pt): 
+(fancyhdr)                Make it at least 26.96204pt, for example:
+(fancyhdr)                \setlength{\headheight}{26.96204pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-11.96204pt}.
+
+[68] Excluding 'comment' comment.
+Floatstructure:3171
+<figs/ch3_QSD/QCPnew.png, id=8010, 957.5775pt x 169.63374pt>
+File: figs/ch3_QSD/QCPnew.png Graphic file (type png)
+<use figs/ch3_QSD/QCPnew.png>
+Package luatex.def Info: figs/ch3_QSD/QCPnew.png  used on input line 671.
+(luatex.def)             Requested size: 469.75499pt x 83.21703pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [69<./figs/ch3_QSD/QCPnew.png>]
+
+Package fancyhdr Warning: \headheight is too small (15.0pt): 
+(fancyhdr)                Make it at least 26.96204pt, for example:
+(fancyhdr)                \setlength{\headheight}{26.96204pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-11.96204pt}.
+
+[70]
+Overfull \hbox (5.71785pt too wide) in paragraph at lines 738--745
+\TU/LatinModernRoman(0)/m/it/12 Proof. []\TU/LatinModernRoman(0)/m/n/12 De-fine $[] \OT1/cmr/m/n/12 = \OML/cmm/m/it/12 e[] []$\TU/LatinModernRoman(0)/m/n/12 , where we choose $\OML/cmm/m/it/12  \OMS/cmsy/m/n/12 2 \U/bbold/m/n/12 R$ \TU/LatinModernRoman(0)/m/n/12 such that $[] \OT1/cmr/m/n/12 = \OMS/cmsy/m/n/12 j [] j$\TU/LatinModernRoman(0)/m/n/12 . From [],
+ []
+
+[71]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+Package fancyhdr Warning: \headheight is too small (15.0pt): 
+(fancyhdr)                Make it at least 26.96204pt, for example:
+(fancyhdr)                \setlength{\headheight}{26.96204pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-11.96204pt}.
+
+[72] Excluding 'comment' comment.
+Floatstructure:3314
+<figs/ch3_QSD/betap_betapp_pi_4_1CP.pdf, id=8343, 462.528pt x 346.896pt>
+File: figs/ch3_QSD/betap_betapp_pi_4_1CP.pdf Graphic file (type pdf)
+<use figs/ch3_QSD/betap_betapp_pi_4_1CP.pdf>
+Package luatex.def Info: figs/ch3_QSD/betap_betapp_pi_4_1CP.pdf  used on input 
+line 860.
+(luatex.def)             Requested size: 232.52641pt x 174.39505pt.
+<figs/ch3_QSD/betap_betapp_time_pi_4_1CP.pdf, id=8356, 462.528pt x 346.896pt>
+File: figs/ch3_QSD/betap_betapp_time_pi_4_1CP.pdf Graphic file (type pdf)
+<use figs/ch3_QSD/betap_betapp_time_pi_4_1CP.pdf>
+Package luatex.def Info: figs/ch3_QSD/betap_betapp_time_pi_4_1CP.pdf  used on i
+nput line 876.
+(luatex.def)             Requested size: 232.52641pt x 174.39505pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [73]
+Excluding 'comment' comment.
+Floatstructure:3365
+<figs/ch3_QSD/betap_betapp_pi_4_1CP_mu.pdf, id=8447, 462.528pt x 346.896pt>
+File: figs/ch3_QSD/betap_betapp_pi_4_1CP_mu.pdf Graphic file (type pdf)
+<use figs/ch3_QSD/betap_betapp_pi_4_1CP_mu.pdf>
+Package luatex.def Info: figs/ch3_QSD/betap_betapp_pi_4_1CP_mu.pdf  used on inp
+ut line 934.
+(luatex.def)             Requested size: 346.89514pt x 260.17136pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+Package fancyhdr Warning: \headheight is too small (15.0pt): 
+(fancyhdr)                Make it at least 26.96204pt, for example:
+(fancyhdr)                \setlength{\headheight}{26.96204pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-11.96204pt}.
+
+[74<./figs/ch3_QSD/betap_betapp_pi_4_1CP.pdf><./figs/ch3_QSD/betap_betapp_time_p
+i_4_1CP.pdf>] [75<./figs/ch3_QSD/betap_betapp_pi_4_1CP_mu.pdf>]
+Excluding 'comment' comment.
+Floatstructure:3392
+<figs/ch3_QSD/rewards_1CP.pdf, id=8683, 462.528pt x 346.896pt>
+File: figs/ch3_QSD/rewards_1CP.pdf Graphic file (type pdf)
+<use figs/ch3_QSD/rewards_1CP.pdf>
+Package luatex.def Info: figs/ch3_QSD/rewards_1CP.pdf  used on input line 995.
+(luatex.def)             Requested size: 232.52641pt x 174.39505pt.
+<figs/ch3_QSD/prob_1CP.pdf, id=8696, 462.528pt x 346.896pt>
+File: figs/ch3_QSD/prob_1CP.pdf Graphic file (type pdf)
+<use figs/ch3_QSD/prob_1CP.pdf>
+Package luatex.def Info: figs/ch3_QSD/prob_1CP.pdf  used on input line 1011.
+(luatex.def)             Requested size: 232.52641pt x 174.39505pt.
+Excluding 'comment' comment.
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+Package fancyhdr Warning: \headheight is too small (15.0pt): 
+(fancyhdr)                Make it at least 26.96204pt, for example:
+(fancyhdr)                \setlength{\headheight}{26.96204pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-11.96204pt}.
+
+[76<./figs/ch3_QSD/rewards_1CP.pdf><./figs/ch3_QSD/prob_1CP.pdf>]
+Excluding 'comment' comment.
+Floatstructure:3451
+<figs/ch3_QSD/ME_compare-2.pdf, id=8899, 462.528pt x 346.896pt>
+File: figs/ch3_QSD/ME_compare-2.pdf Graphic file (type pdf)
+<use figs/ch3_QSD/ME_compare-2.pdf>
+Package luatex.def Info: figs/ch3_QSD/ME_compare-2.pdf  used on input line 1186
+.
+(luatex.def)             Requested size: 277.51894pt x 208.13919pt.
+[77<./figs/ch3_QSD/ME_compare-2.pdf>] Excluding 'comment' comment.
+Floatstructure:3495
+<figs/ch3_QSD/UA_compare-3.pdf, id=9053, 462.528pt x 346.896pt>
+File: figs/ch3_QSD/UA_compare-3.pdf Graphic file (type pdf)
+<use figs/ch3_QSD/UA_compare-3.pdf>
+Package luatex.def Info: figs/ch3_QSD/UA_compare-3.pdf  used on input line 1238
+.
+(luatex.def)             Requested size: 277.51894pt x 208.13919pt.
+Excluding 'comment' comment.
+Floatstructure:3521
+<figs/ch3_QSD/QETC.png, id=9109, 1719.42375pt x 921.4425pt>
+File: figs/ch3_QSD/QETC.png Graphic file (type png)
+<use figs/ch3_QSD/QETC.png>
+Package luatex.def Info: figs/ch3_QSD/QETC.png  used on input line 1278.
+(luatex.def)             Requested size: 469.75499pt x 251.73135pt.
+
+Package fancyhdr Warning: \headheight is too small (15.0pt): 
+(fancyhdr)                Make it at least 26.96204pt, for example:
+(fancyhdr)                \setlength{\headheight}{26.96204pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-11.96204pt}.
+
+[78]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [79<./figs/ch3_QSD/UA_compare-3.pdf>]
+
+Package fancyhdr Warning: \headheight is too small (15.0pt): 
+(fancyhdr)                Make it at least 26.96204pt, for example:
+(fancyhdr)                \setlength{\headheight}{26.96204pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-11.96204pt}.
+
+[80<./figs/ch3_QSD/QETC.png>]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [81]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+Package fancyhdr Warning: \headheight is too small (15.0pt): 
+(fancyhdr)                Make it at least 26.96204pt, for example:
+(fancyhdr)                \setlength{\headheight}{26.96204pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-11.96204pt}.
+
+[82]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [83]
+Excluding 'comment' comment.
+Floatstructure:3667
+<figs/ch3_QSD/theta_qubits_data_301.png, id=9536, 462.528pt x 346.896pt>
+File: figs/ch3_QSD/theta_qubits_data_301.png Graphic file (type png)
+<use figs/ch3_QSD/theta_qubits_data_301.png>
+Package luatex.def Info: figs/ch3_QSD/theta_qubits_data_301.png  used on input 
+line 1428.
+(luatex.def)             Requested size: 352.31624pt x 264.25241pt.
+) (./contents/ch4_PBM.tex
+Overfull \hbox (7.54602pt too wide) in paragraph at lines 1444--1
+[]\TU/LatinModernRoman(0)/m/n/12 For the quan-tum er-ror type iden-ti-fi-ca-tion
+ prob-lem, the SDPs were solved us-ing CVXPY [[],
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (15.0pt): 
+(fancyhdr)                Make it at least 26.96204pt, for example:
+(fancyhdr)                \setlength{\headheight}{26.96204pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-11.96204pt}.
+
+[84] [85<./figs/ch3_QSD/theta_qubits_data_301.png>]
+Chapter 4.
+[86
+
+] [87]
+Underfull \vbox (badness 1776) has occurred while \output is active []
+
+ [88]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [89]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [90]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [91]
+[92] [93] Excluding 'comment' comment.
+Floatstructure:4037
+<figs/ch4_PBM/trine_states.pdf, id=10389, 708.1657pt x 427.19098pt>
+File: figs/ch4_PBM/trine_states.pdf Graphic file (type pdf)
+<use figs/ch4_PBM/trine_states.pdf>
+Package luatex.def Info: figs/ch4_PBM/trine_states.pdf  used on input line 324.
+
+(luatex.def)             Requested size: 354.08199pt x 213.59496pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[94]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [95<./figs/ch4_PBM/trine_states.pdf>] Excluding 'comment' comment.
+Floatstructure:4117
+<figs/ch4_PBM/pgm_vs_pbm_two_states_rand_probs.jpg, id=10607, 1124.2pt x 843.15
+pt>
+File: figs/ch4_PBM/pgm_vs_pbm_two_states_rand_probs.jpg Graphic file (type jpg)
+
+<use figs/ch4_PBM/pgm_vs_pbm_two_states_rand_probs.jpg>
+Package luatex.def Info: figs/ch4_PBM/pgm_vs_pbm_two_states_rand_probs.jpg  use
+d on input line 405.
+(luatex.def)             Requested size: 337.2626pt x 252.94695pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+Excluding 'comment' comment.
+Floatstructure:4126
+<figs/ch4_PBM/pgm_vs_pbm_six_states_rand_probs.jpg, id=10622, 1124.2pt x 843.15
+pt>
+File: figs/ch4_PBM/pgm_vs_pbm_six_states_rand_probs.jpg Graphic file (type jpg)
+
+<use figs/ch4_PBM/pgm_vs_pbm_six_states_rand_probs.jpg>
+Package luatex.def Info: figs/ch4_PBM/pgm_vs_pbm_six_states_rand_probs.jpg  use
+d on input line 436.
+(luatex.def)             Requested size: 337.2626pt x 252.94695pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [96]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [97<./figs/ch4_PBM/pgm_vs_pbm_two_states_rand_probs.jpg>]
+Underfull \vbox (badness 6412) has occurred while \output is active []
+
+ [98<./figs/ch4_PBM/pgm_vs_pbm_six_states_rand_probs.jpg>] Excluding 'comment' 
+comment.
+Floatstructure:4184
+<figs/ch4_PBM/anomaly_7-1.pdf, id=10781, 462.528pt x 346.896pt>
+File: figs/ch4_PBM/anomaly_7-1.pdf Graphic file (type pdf)
+<use figs/ch4_PBM/anomaly_7-1.pdf>
+Package luatex.def Info: figs/ch4_PBM/anomaly_7-1.pdf  used on input line 493.
+(luatex.def)             Requested size: 346.89514pt x 260.17136pt.
+Excluding 'comment' comment.
+Floatstructure:4206
+<figs/ch4_PBM/anomaly_7_success-3.pdf, id=10828, 462.528pt x 346.896pt>
+File: figs/ch4_PBM/anomaly_7_success-3.pdf Graphic file (type pdf)
+<use figs/ch4_PBM/anomaly_7_success-3.pdf>
+Package luatex.def Info: figs/ch4_PBM/anomaly_7_success-3.pdf  used on input li
+ne 533.
+(luatex.def)             Requested size: 346.89514pt x 260.17136pt.
+Excluding 'comment' comment.) (./contents/ch5_qseq.tex [99<./figs/ch4_PBM/anomal
+y_7-1.pdf>] [100<./figs/ch4_PBM/anomaly_7_success-3.pdf>]
+Chapter 5.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [101
+
+]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+Package fancyhdr Warning: \headheight is too small (15.0pt): 
+(fancyhdr)                Make it at least 27.10603pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.10603pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-12.10603pt}.
+
+[102] [103]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+Package fancyhdr Warning: \headheight is too small (15.0pt): 
+(fancyhdr)                Make it at least 27.10603pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.10603pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-12.10603pt}.
+
+[104]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [105]
+Overfull \hbox (2.64046pt too wide) in paragraph at lines 106--111
+\TU/LatinModernRoman(0)/m/n/12 mea-sure-ment (PGM) [[]] for dis-crim-i-nat-ing 
+the Boolean en-sem-ble $\OMS/cmsy/m/n/12 E \OT1/cmr/m/n/12 = \OMS/cmsy/m/n/12 f\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 p[]; []\OT1/cmr/m/n/12 )\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 (\OML/cmm/m/it/12 p[]; []\OT1/cmr/m/n/12 )\OMS/cmsy/m/n/12 g$\TU/LatinModernRoman(0)/m/n/12 .
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (15.0pt): 
+(fancyhdr)                Make it at least 27.10603pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.10603pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-12.10603pt}.
+
+[106] [107]
+Overfull \hbox (26.94301pt too wide) in paragraph at lines 175--179
+\TU/LatinModernRoman(0)/m/n/12 Let $\OMS/cmsy/m/n/12 M \OT1/cmr/m/n/12 = \OMS/c
+msy/m/n/12 f\OML/cmm/m/it/12 M[]; M[]\OMS/cmsy/m/n/12 g$ \TU/LatinModernRoman(0
+)/m/n/12 be an op-ti-mal POVM for dis-crim-i-nat-ing the en-sem-ble $[]$
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+Package fancyhdr Warning: \headheight is too small (15.0pt): 
+(fancyhdr)                Make it at least 27.10603pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.10603pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-12.10603pt}.
+
+[108]
+tagpdf: Info: some Link annotation(s) are not in Link or Reference structure ele
+ments
+tagpdf:       moved into a container at the end of the structure tree
+[109]
+
+Package fancyhdr Warning: \headheight is too small (15.0pt): 
+(fancyhdr)                Make it at least 27.10603pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.10603pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-12.10603pt}.
+
+[110] [111]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+Package fancyhdr Warning: \headheight is too small (15.0pt): 
+(fancyhdr)                Make it at least 27.10603pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.10603pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-12.10603pt}.
+
+[112]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [113]
+Overfull \hbox (0.99538pt too wide) in paragraph at lines 373--373
+[]\TU/LatinModernRoman(0)/b/n/17.28 Proof of The-o-rem [][]5.4[][]: Only affine func-tions achieve
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (15.0pt): 
+(fancyhdr)                Make it at least 27.10603pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.10603pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-12.10603pt}.
+
+[114] [115]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+Package fancyhdr Warning: \headheight is too small (15.0pt): 
+(fancyhdr)                Make it at least 27.10603pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.10603pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-12.10603pt}.
+
+[116] [117]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+Package fancyhdr Warning: \headheight is too small (15.0pt): 
+(fancyhdr)                Make it at least 27.10603pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.10603pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-12.10603pt}.
+
+[118] [119] Excluding 'comment' comment.
+
+Package fancyhdr Warning: \headheight is too small (15.0pt): 
+(fancyhdr)                Make it at least 27.10603pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.10603pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-12.10603pt}.
+
+[120] [121]
+
+Package fancyhdr Warning: \headheight is too small (15.0pt): 
+(fancyhdr)                Make it at least 27.10603pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.10603pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-12.10603pt}.
+
+[122] [123]
+
+Package fancyhdr Warning: \headheight is too small (15.0pt): 
+(fancyhdr)                Make it at least 27.10603pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.10603pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-12.10603pt}.
+
+[124] [125]
+Underfull \vbox (badness 1708) has occurred while \output is active []
+
+
+
+Package fancyhdr Warning: \headheight is too small (15.0pt): 
+(fancyhdr)                Make it at least 27.10603pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.10603pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-12.10603pt}.
+
+[126]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [127]
+Excluding 'comment' comment.
+Overfull \hbox (10.95108pt too wide) in paragraph at lines 975--977
+\TU/LatinModernRoman(0)/m/n/12 The struc-ture of Boolean func-tions is in-ti-mat
+ely con-nected to the ge-om-e-try of the $\OML/cmm/m/it/12 n$\TU/LatinModernRom
+an(0)/m/n/12 -dimensional
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (15.0pt): 
+(fancyhdr)                Make it at least 27.10603pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.10603pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-12.10603pt}.
+
+[128] Excluding 'comment' comment.
+Floatstructure:5332
+[129]
+
+Package fancyhdr Warning: \headheight is too small (15.0pt): 
+(fancyhdr)                Make it at least 27.10603pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.10603pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-12.10603pt}.
+
+[130]
+Overfull \hbox (0.19875pt too wide) in paragraph at lines 1183--1189
+[]\TU/LatinModernRoman(0)/m/n/12 The ver-tex set of the two-dimensional hy-per-c
+ube is $\OML/cmm/m/it/12 V\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 Q[]\OT1/cmr/m/n/12 
+) = \OMS/cmsy/m/n/12 f\OT1/cmr/m/n/12 00\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 01\O
+ML/cmm/m/it/12 ; \OT1/cmr/m/n/12 10\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 11\OMS/cm
+sy/m/n/12 g$\TU/LatinModernRoman(0)/m/n/12 . By Lemma [][]5.14[][],
+ []
+
+[131]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+Package fancyhdr Warning: \headheight is too small (15.0pt): 
+(fancyhdr)                Make it at least 27.10603pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.10603pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-12.10603pt}.
+
+[132] [133] Excluding 'comment' comment.
+Floatstructure:5598
+<figs/ch5_qseq/greedy_vs_global_AND.pdf, id=14386, 505.89pt x 361.35pt>
+File: figs/ch5_qseq/greedy_vs_global_AND.pdf Graphic file (type pdf)
+<use figs/ch5_qseq/greedy_vs_global_AND.pdf>
+Package luatex.def Info: figs/ch5_qseq/greedy_vs_global_AND.pdf  used on input 
+line 1301.
+(luatex.def)             Requested size: 375.80542pt x 268.4369pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+Package fancyhdr Warning: \headheight is too small (15.0pt): 
+(fancyhdr)                Make it at least 27.10603pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.10603pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-12.10603pt}.
+
+[134<./figs/ch5_qseq/greedy_vs_global_AND.pdf>] [135]
+
+Package fancyhdr Warning: \headheight is too small (15.0pt): 
+(fancyhdr)                Make it at least 27.10603pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.10603pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-12.10603pt}.
+
+[136] Excluding 'comment' comment.
+Floatstructure:5726
+<figs/ch5_qseq/greedy_vs_global_MAJ_separate.pdf, id=14740, 722.7pt x 578.16pt>
+
+File: figs/ch5_qseq/greedy_vs_global_MAJ_separate.pdf Graphic file (type pdf)
+<use figs/ch5_qseq/greedy_vs_global_MAJ_separate.pdf>
+Package luatex.def Info: figs/ch5_qseq/greedy_vs_global_MAJ_separate.pdf  used 
+on input line 1407.
+(luatex.def)             Requested size: 375.80542pt x 300.64493pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [137]
+
+Package fancyhdr Warning: \headheight is too small (15.0pt): 
+(fancyhdr)                Make it at least 27.10603pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.10603pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-12.10603pt}.
+
+[138<./figs/ch5_qseq/greedy_vs_global_MAJ_separate.pdf>] [139])
+(./contents/ch6_conclusion.tex
+Overfull \hbox (3.75726pt too wide) in paragraph at lines 1452--1
+[]\TU/LatinModernRoman(0)/m/n/12 These ex-am-ples con-firm that our char-ac-ter-
+i-za-tion the-o-rem cap-tures a fun-da-men-tal di-chotomy:
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (15.0pt): 
+(fancyhdr)                Make it at least 27.10603pt, for example:
+(fancyhdr)                \setlength{\headheight}{27.10603pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-12.10603pt}.
+
+[140]
+Chapter 6.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [141
+
+])
+(./Ankith_Mohan_PhD_thesis.bbl [142] [143
+
+]
+Underfull \hbox (badness 2961) in paragraph at lines 89--94
+[]\TU/LatinModernRoman(0)/m/n/12 Fer-nando GSL Brandão, Matthias Chri-s-tandl, and Jon Yard.  A
+ []
+
+[144]
+Underfull \hbox (badness 2150) in paragraph at lines 134--138
+[]\TU/LatinModernRoman(0)/m/n/12 Somshubhro Bandy-opad-hyay, Rahul Jain, Jonatha
+n Op-pen-heim, and
+ []
+
+[145]
+Underfull \hbox (badness 1205) in paragraph at lines 168--171
+\TU/LatinModernRoman(0)/m/n/12 ap-proach to the quan-tum sep-a-ra-bil-ity prob-l
+em.  \TU/LatinModernRoman(0)/m/it/12 Phys-i-cal Re-view A\TU/LatinModernRoman(0
+)/m/n/12 ,
+ []
+
+[146] [147] [148] [149] [150]
+Underfull \hbox (badness 2644) in paragraph at lines 405--409
+[]\TU/LatinModernRoman(0)/m/n/12 Ryszard Horodecki, Paweł Horodecki, Michał Ho
+rodecki, and Karol
+ []
+
+
+Underfull \hbox (badness 2573) in paragraph at lines 405--409
+\TU/LatinModernRoman(0)/m/n/12 Horodecki.  Quan-tum en-tan-gle-ment.  \TU/Latin
+ModernRoman(0)/m/it/12 Re-views of Mod-ern Physics\TU/LatinModernRoman(0)/m/n/1
+2 ,
+ []
+
+[151] [152] [153] [154]
+Underfull \hbox (badness 1728) in paragraph at lines 615--618
+\TU/LatinModernRoman(0)/m/n/12 ing of en-tan-gle-ment close to a quan-tum phase tran-si-tion.  \TU/LatinModernRoman(0)/m/it/12 Na-ture\TU/LatinModernRoman(0)/m/n/12 ,
+ []
+
+[155] [156] [157] [158])
+
+Package caption Warning: Unused \captionsetup[sub] on input line 60.
+See the caption package documentation for explanation.
+
+[159]<<latex-list-css.html>><<latex-align-css.html>>
+(./Ankith_Mohan_PhD_thesis.aux)
+ ***********
+LaTeX2e <2025-11-01>
+L3 programming layer <2026-01-19>
+ ***********
+
+
+LaTeX Warning: There were multiply-defined labels.
+
+
+Package tagpdf Info: Finalizing the tagging structure:
+(tagpdf)             Writing out ~6540 structure objects
+(tagpdf)             with ~9052 'MC' leaf nodes.
+(tagpdf)             Be patient if there are lots of objects!
+
+Package tagpdf Info: writing ParentTree
+Package tagpdf Info: writing IDTree
+Package tagpdf Info: writing RoleMap
+Package tagpdf Info: writing ClassMap
+Package tagpdf Info: writing NameSpaces
+Package tagpdf Info: writing StructElems
+
+Package tagpdf Warning: Destination 'figure.caption.15' has no related
+(tagpdf)                structure.
+(tagpdf)                /Ref not updated.
+
+
+Package tagpdf Warning: Destination 'figure.caption.16' has no related
+(tagpdf)                structure.
+(tagpdf)                /Ref not updated.
+
+
+Package tagpdf Warning: Destination 'figure.caption.23' has no related
+(tagpdf)                structure.
+(tagpdf)                /Ref not updated.
+
+
+Package tagpdf Warning: Destination 'figure.caption.54' has no related
+(tagpdf)                structure.
+(tagpdf)                /Ref not updated.
+
+
+Package tagpdf Warning: Destination 'figure.caption.75' has no related
+(tagpdf)                structure.
+(tagpdf)                /Ref not updated.
+
+
+Package tagpdf Warning: Destination 'figure.caption.81' has no related
+(tagpdf)                structure.
+(tagpdf)                /Ref not updated.
+
+
+Package tagpdf Warning: Destination 'figure.caption.84' has no related
+(tagpdf)                structure.
+(tagpdf)                /Ref not updated.
+
+
+Package tagpdf Warning: Destination 'figure.caption.86' has no related
+(tagpdf)                structure.
+(tagpdf)                /Ref not updated.
+
+
+Package tagpdf Warning: Destination 'figure.caption.87' has no related
+(tagpdf)                structure.
+(tagpdf)                /Ref not updated.
+
+
+Package tagpdf Warning: Destination 'figure.caption.97' has no related
+(tagpdf)                structure.
+(tagpdf)                /Ref not updated.
+
+
+Package tagpdf Warning: Destination 'figure.caption.98' has no related
+(tagpdf)                structure.
+(tagpdf)                /Ref not updated.
+
+
+Package tagpdf Warning: Destination 'figure.caption.100' has no related
+(tagpdf)                structure.
+(tagpdf)                /Ref not updated.
+
+
+Package tagpdf Warning: Destination 'figure.caption.101' has no related
+(tagpdf)                structure.
+(tagpdf)                /Ref not updated.
+
+
+Package tagpdf Warning: Destination 'figure.caption.115' has no related
+(tagpdf)                structure.
+(tagpdf)                /Ref not updated.
+
+
+Package tagpdf Warning: Destination 'figure.caption.126' has no related
+(tagpdf)                structure.
+(tagpdf)                /Ref not updated.
+
+
+Package tagpdf Warning: Destination 'figure.caption.133' has no related
+(tagpdf)                structure.
+(tagpdf)                /Ref not updated.
+
+Package tagpdf Info: writing Root
+)
+
+Here is how much of LuaTeX's memory you used:
+ 72197 strings out of 476076
+ 100000,4921788 words of node,token memory allocated
+ 6342 words of node memory still in use:
+   7 hlist, 2 vlist, 2 rule, 14 glue, 4 kern, 2 glyph, 2265 attribute, 72 glue_s
+pec, 576 attribute_list, 1 write nodes
+   avail lists: 1:2,2:5630,3:998,4:181,5:443,6:72,7:6861,8:102,9:1599,10:26,11:5
+41
+ 91235 multiletter control sequences out of 65536+600000
+ 138 fonts using 10665175 bytes
+ 125i,17n,128p,1939b,1569s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2026/texmf-dist/fonts/opentype/public/lm/lmmono12-regular.ot
+f></usr/local/texlive/2026/texmf-dist/fonts/opentype/public/lm/lmroman10-regular
+.otf></usr/local/texlive/2026/texmf-dist/fonts/opentype/public/lm/lmroman7-regul
+ar.otf></usr/local/texlive/2026/texmf-dist/fonts/opentype/public/tex-gyre/texgyr
+etermes-regular.otf></usr/local/texlive/2026/texmf-dist/fonts/opentype/public/lm
+/lmroman8-regular.otf></usr/local/texlive/2026/texmf-dist/fonts/opentype/public/
+lm/lmroman12-italic.otf></usr/local/texlive/2026/texmf-dist/fonts/opentype/publi
+c/lm/lmroman12-bold.otf></usr/local/texlive/2026/texmf-dist/fonts/opentype/publi
+c/lm/lmroman12-regular.otf></usr/local/texlive/2026/texmf-dist/fonts/opentype/pu
+blic/lm/lmroman17-regular.otf></usr/local/texlive/2026/texmf-dist/fonts/type1/pu
+blic/bbold-type1/bbold10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmex10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/publi
+c/amsfonts/cmextra/cmex8.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmmi6.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmmi8.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmr10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmr12.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmr6.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7
+.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb
+></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><
+/usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></us
+r/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/l
+ocal/texlive/2026/texmf-dist/fonts/type1/public/doublestroke/dsrom12.pfb></usr/l
+ocal/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></us
+r/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on Ankith_Mohan_PhD_thesis.pdf (179 pages, 5462232 bytes).
+
+PDF statistics: 16718 PDF objects out of 18468 (max. 8388607)
+ 13445 compressed objects within 135 object streams
+ 966 named destinations out of 1000 (max. 1048576)
+ 60742 words of extra memory for PDF output out of 74501 (max. 100000000)
+

@@ -1,23 +1,25 @@
 \chapter{Conclusion}
 
-In this thesis, we have investigated several fundamental problems in quantum information theory, primarily focusing on the interplay between semidefinite programming and dimensionality reduction. 
-By exploiting the inherent structure of the problem, we have developed algorithms and theoretical frameworks that address the computational bottlenecks associated with the high-dimensional spaces.
+In this dissertation, we have investigated several fundamental problems in quantum information theory, primarily focusing on computing or approximating the value of large optimization problems.
+By exploiting the inherent structure of these problems, we have developed algorithms and theoretical frameworks that address the computational bottlenecks associated with their high-dimensional spaces.
 
 The first part of this work addressed the separability problem. 
 By introducing a hybrid quantum-classical heuristic, we demonstrated that the effective dimension of the optimization problem can be significantly reduced while maintaining feasibility guarantees. 
 Our results for the one-dimensional Ising Hamiltonian on up to 28 qubits illustrate that this approach can effectively approximate the separable ground energy, providing a scalable tool for characterizing entanglement in many-body systems.
 
 In the second part, we extended the concept of dimension reduction to quantum state discrimination. 
-We showed that the search for optimal measurements can be reduced from a problem scaling with the dimension $d$ of the space to one scaling with the number of candidate states $N$. 
-This $N L$ reduction framework is remarkably general, accommodating various figures of merit including minimum-error, unambiguous discrimination, and the state exclusion problem. 
-We first characterize the optimal identifications for quantum changepoint problems under several reward structures, including multiple-changepoint settings that were previously computationally inaccessible. 
-Second, we consider a quantum error classification problem and show how our reduction makes it tractable for systems of hundreds
+We showed that the search for optimal measurements for state discrimination problems can be reduced from a problem scaling with the dimension $d$ of the space to one scaling with the number of candidate states $N$. 
+This $N L$ reduction framework is general, accommodating various figures of merit including minimum-error discrimination, unambiguous discrimination, and the state exclusion problem. 
+We first characterized the optimal identification probabilities for quantum changepoint problems under several reward structures whose associated discrimination problems were previously computationally inaccessible. 
+Second, we considered a quantum error classification problem and showed how our reduction makes it tractable for systems of hundreds
 of qubits.
 
-Finally, we explored structural measurement strategies for the state exclusion problem. 
-We introduced the pretty bad measurement (PBM) as a natural analogue to the pretty good measurement, proving its efficacy relative to blind guessing. 
-Furthermore, our characterization of Boolean property learning from quantum sequences established the global optimality of memoryless ``greedy'' strategies for affine functions. 
+Finally, we explored structural measurement strategies %for the state exclusion problem. 
+with provable performance guarantees.
+We introduced the pretty bad measurement as a natural analogue to the pretty good measurement, proving %its efficacy relative to blind guessing. 
+proving that it and the pretty good measurement each perform at least as well as blind guessing at their respective tasks.
+Furthermore, our characterization of Boolean property learning from quantum sequences established the global optimality of memoryless ``greedy'' strategies for precisely the affine Boolean functions. 
 This provides a clear boundary for when local measurements suffice and when joint measurements are fundamentally required to extract coarse-grained information from quantum data.
 
 In summary, the results presented here suggest that many ``hard'' problems in quantum information possess a hidden structure that can be exploited for efficient computation. 
-As quantum hardware continues to evolve, the hybrid workflows and dimension-reduction techniques developed in this thesis will likely play a crucial role in bridging the gap between theoretical protocols and practical implementation on near-term devices.
+As quantum hardware continues to evolve, the hybrid workflows and dimension-reduction techniques developed in this thesis could play a role in bridging the gap between theoretical protocols and practical implementation on near-term devices.

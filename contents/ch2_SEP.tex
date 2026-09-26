@@ -1,8 +1,8 @@
 \chapter{Quantum heuristics for optimizing large separable operators}\label{ch:Sep}
 
-The contents of this chapter is based on my work with Tobias Haug, Kishor Bharti and Jamie Sikora in \cite{mohan2025quantum}.
+The contents of this chapter is based on work with Tobias Haug, Kishor Bharti and Jamie Sikora in \cite{mohan2025quantum}.
 
-In this chapter, we develop a dimension-reduction framework for optimizing over separable operators that preserves feasibility while extending the size of problem being considered. 
+In this chapter, we develop a dimension-reduction framework for optimizing over separable operators that preserves feasibility.
 The central idea is to restrict the search to carefully chosen low-dimensional ansatz subspaces, solve a reduced separable optimization problem, and then lift the resulting solution back to the original space. 
 This produces an inner approximation of the original problem and therefore guarantees valid separable solutions. 
 To construct the reduced problem in regimes where the full operator cannot be explicitly represented, we leverage a quantum co-processor to estimate the data required for the reduction.
@@ -14,14 +14,14 @@ Numerical experiments illustrate both the accuracy of the proposed heuristic and
 This chapter is organized as follows.
 \begin{itemize}
     \item Section~\ref{sec:ch2_SEP-small_SEP}: We study optimization-based algorithms for solving (small) separability problems and examine numerically how well they perform.
-    \item Section~\ref{sec:ch2_SEP-big_sep}: We now shift our focus to large separability problems whose classical descriptions could involve exponentially large vectors and matrices.
+    \item Section~\ref{sec:ch2_SEP-big_sep}: We focus on large separability problems whose classical descriptions could involve exponentially large vectors and matrices.
     To combat this curse of dimensionality, we introduce our quantum heuristics for reducing the dimension to optimize over both separable operators and separable states.
     We also discuss how a quantum co-processor is used to compute the data for the reduced optimization problem.
     \item Section~\ref{sec:ch2_SEP-Hammy_intro}: As a concrete application, we apply the heuristic to find separable ground states of Hamiltonians.
-    We first introduce a measure of entanglement in the groundspace of the Hamiltonian and then discuss how the ansatz states are chosen and evaluate the performance of our heuristic as we modify this number.
+    We first introduce a measure of entanglement in the groundspace of a Hamiltonian and then discuss how the ansatz states are chosen and evaluate the performance of our heuristic as we modify this number.
     For the Ising Hamiltonian, we compare the ground energy, separable ground energy, and their approximations.
     \item Section~\ref{sec:ch2_SEP-SEP_related}: We discuss related work that deals with optimizing over separable states and those specific to Hamiltonians. 
-    This is followed with a brief discussion of how our algorithms compare to these works.
+    This is followed by a brief discussion of how our algorithms compare to these works.
 \end{itemize}
 \begin{comment}
 Sections~\ref{sec:ch2_SEP-SEP_related} and~\ref{sec:ch2_sep-Hammy_related} discuss related work for optimizing over separable states and those specific to Hamiltonians.
@@ -36,7 +36,7 @@ Lastly, we study the computational limits of our methods in general.
 \section{Semidefinite programming-based algorithms for the separability problem, a quick discussion}\label{sec:ch2_SEP-small_SEP} 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-For a density operator acting on the bipartite space $\A \otimes \B$, we wish to decide whether it belongs to the set of separable states, defined as 
+For a density operator in the bipartite space $\A \otimes \B$, we wish to decide whether it belongs to the set of separable states, defined as 
 \begin{equation} 
 \SepD(\A: \B) = \mathrm{conv} \; \{ \rho \otimes \sigma \} 
 \label{eq:ch2_SEP-SepIntro}
@@ -266,7 +266,7 @@ To verify this, we can see that:
 \end{itemize} 
 
 Let us summarize what we have accomplished so far. 
-We have taken the optimization over separable states given in Eq.~\eqref{eq:ch2_SEP-first} defined by the matrix $C \in \SepD(\A : \B)$ and replaced it with a reduced version which is itself an optimization over separable states given in Eq.~\eqref{eq:ch2_SEP-ultra_reduced_SepD_intro} defined by the matrix $\tilde{D} \in \SepD(\Cspace^L : \Cspace^M)$.  
+We have taken the optimization over separable states given in Eq.~\eqref{eq:ch2_SEP-first} defined by the matrix $C \in \Herm(\A \otimes \B)$ and replaced it with a reduced version which is itself an optimization over separable states given in Eq.~\eqref{eq:ch2_SEP-ultra_reduced_SepD_intro} defined by the matrix $\tilde{D} \in \Herm(\Cspace^L \otimes \Cspace^M)$.  
 This can be a considerably smaller optimization over separable states and, again, given a feasible solution to the reduced problem we can find a feasible solution to the original problem. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -325,7 +325,7 @@ Then, each entry of the matrix $D$ can be expressed as
 D_{i,j,k,l} = \bra{\psi} \bra{\phi} \left( \sum_{m} (P^A_i \otimes P^B_k) P_m (P^A_j \otimes P^B_l) \right) \ket{\psi} \ket{\phi} = \bra{\psi} \bra{\phi} P \ket{\psi} \ket{\phi}, 
 \end{equation} 
 where $P$ is simply a sum of Pauli strings (with $\{\pm 1, \pm i\}$ coefficients). 
-So calculating $D_{i,j,k,l}$ is equivalent to computing the expectation value of a Pauli string with respect to the state $\ket{\psi}\ket{\phi}$, which can be done efficiently as long as $\ket{\psi}\ket{\phi}$ are efficiently preparable as discussed above and we have access to Pauli gates.
+So calculating $D_{i,j,k,l}$ is equivalent to computing the expectation value of a Pauli string with respect to the state $\ket{\psi}\ket{\phi}$, which can be done efficiently as long as $\ket{\psi}\ket{\phi}$ is efficiently preparable as discussed above and we have access to Pauli gates.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -334,7 +334,7 @@ So calculating $D_{i,j,k,l}$ is equivalent to computing the expectation value of
 We note that when $C$ can be expressed as $C = \sum_m K_m \otimes L_m$, we can rewrite the reduced problem~(\ref{eq:ch2_SEP-ultra_reduced_SepD_intro}) as
 \begin{equation}
     \label{eq:ch2_SEP-ultra_reduced_SepD_KL_intro}
-    \text{maximize} \left\{ \left\langle Z, \sum_{m=1}^N \tilde{K}_m \otimes \tilde{L}_m \right\rangle : Z \in \SepD(\Cspace^L : \Cspace^M) \right\},
+    \text{maximize} \left\{ \left\langle Z, \sum_{m=1} \tilde{K}_m \otimes \tilde{L}_m \right\rangle : Z \in \SepD(\Cspace^L : \Cspace^M) \right\},
 \end{equation}
 where 
 $\tilde{K}_m = G_{\A}^{-1/2} \Psi^*\ K_m\ \Psi G_{\A}^{-1/2}$
@@ -367,7 +367,6 @@ The separable ground energy of a Hamiltonian $H$ is the optimal value of the fol
 \begin{equation} \label{eq:ch2_SEP-ThanosSnapHammy}
     \alpha = \text{maximize } \Big\{ \inner{\tau}{H} : \tau \in \SepD(\A:\B) \Big\}. 
 \end{equation} 
- 
 \end{definition} 
 
 Since we cannot always efficiently compute the exact value of $\alpha$, due to the intrinsic difficulty of optimizing over separable states, we typically rely on approximations of $\alpha$, denoted $\hat{\alpha}$.  
@@ -377,7 +376,7 @@ Roughly speaking, we define a measure of how close a separable state is to the g
  
 \begin{definition}[Ground space entanglement measure, and an approximation]
 \label{def:ch2_SEP-groundspace_ent}
-For a non-zero Hamiltonian $H$, we define a measure of ground space entanglement as 
+For a Hamiltonian $H$ satisfying $\lambda_\mathrm{max} > \lambda_\mathrm{min}$, we define a measure of ground space entanglement as 
 \begin{equation}
     \delta = \frac{\lambda_{\mathrm{max}} - \alpha}{\lambda_{\mathrm{max}} - \lambda_{\mathrm{min}}} \in [0,1].
 \end{equation}  
@@ -409,7 +408,7 @@ We consider the one-dimensional Ising model of $N$ qubits with transverse field 
 \begin{equation}
     H_{\mathrm{Ising}} = H_{\mathrm{z}} + H_{\mathrm{x}} = - \sum_{n=1}^N [J \sigma_n^z \sigma_{n+1}^z + g \sigma_n^z + h \sigma_n ^x]
 \end{equation}
-where $H_z = - \sum_n [J \sigma_n^z \sigma_{n+1}^z + g \sigma_n^z]$ and $H_x = -\sum_n h \sigma_n^x$, and $\sigma^z$ and $\sigma^x$ denote the Pauli $Z$ and $X$ matrices, respectively.
+with periodic boundary conditions $\sigma_{N+1} \equiv \sigma_1$, where $H_z = - \sum_n [J \sigma_n^z \sigma_{n+1}^z + g \sigma_n^z]$ and $H_x = -\sum_n h \sigma_n^x$, and $\sigma^z$ and $\sigma^x$ denote the Pauli $Z$ and $X$ matrices, respectively.
 The shorthand notation $\sigma_n^z$ indicates that in the sequence of $N$ qubits, the Pauli $Z$ matrix is affecting the $n$th qubit while the remaining qubits are left alone.
 For example, $\sigma_3^z := \id_1 \otimes \id_2 \otimes \sigma^z \otimes \id_4 \otimes \cdots \otimes \id_N$. 
 
@@ -417,6 +416,7 @@ For this Hamiltonian with parameters $J$, $g$, and $h$, we first want to know at
 To answer this, we set $J = 1$, $g = 0$, and vary the value of $h$ in the range $[0, 5]$. 
 Figure~\ref{fig:ch2_SEP-delta_vs_h_intro} illustrates our entanglement measure for $12$ and $14$ qubits. 
 
+\begin{comment}
 \begin{figure}[htpb]
     \centering
     \subfloat[\centering $12$ qubits total]{{\includegraphics[scale=0.5]{figs/ch2_SEP/delta_12q-4.pdf} }}%
@@ -425,6 +425,50 @@ Figure~\ref{fig:ch2_SEP-delta_vs_h_intro} illustrates our entanglement measure f
         A depiction of the approximate ground space entanglement measure as a function of the transverse field $h$, for $H_{\mathrm{Ising}}$ with $12$ qubits (left) and $14$ qubits (right) setting $J = 1$ and $g = 0$. 
         Here we set $\A$ to be the first half of the qubits and $\B$ to be the second half of the qubits. 
         Note that we are able to compute $\lambda_{\max}$ and $\lambda_{\min}$ for these graphs. 
+    }
+    \label{fig:ch2_SEP-delta_vs_h_intro}
+\end{figure}
+\end{comment}
+
+\begin{figure}[htbp]
+    \centering
+
+    \begin{minipage}[b]{0.495\textwidth}
+        \centering
+        \includegraphics[
+            width=\linewidth,
+            alt={
+                Plot of the approximate ground-space entanglement measure as a function of the transverse field h for a twelve-qubit Ising Hamiltonian. 
+                The horizontal axis represents h and the vertical axis represents the approximate entanglement measure. 
+                The coupling parameters are J equal to one and g equal to zero.
+                Subsystem A contains the first six qubits and subsystem B contains the remaining six qubits.
+            }
+        ]{figs/ch2_SEP/delta_12q-4.pdf}
+
+        \smallskip
+        \textbf{(a) 12 qubits total.}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.495\textwidth}
+        \centering
+        \includegraphics[
+            width=\linewidth,
+            alt={
+                Plot of the approximate ground-space entanglement measure as a function of the transverse field h for a fourteen-qubit Ising Hamiltonian. 
+                The horizontal axis represents h and the vertical axis represents the approximate entanglement measure. 
+                The coupling parameters are J equal to one and g equal to zero.
+                Subsystem A contains the first seven qubits and subsystem B contains the remaining seven qubits.
+            }
+        ]{figs/ch2_SEP/delta_14q-4.pdf}
+
+        \smallskip
+        \textbf{(b) 14 qubits total.}
+    \end{minipage}
+
+    \caption{
+        Approximate ground-space entanglement measure as a function of the transverse field $h$ for $H_{\mathrm{Ising}}$ with 12 qubits in panel~(a) and 14 qubits in panel~(b), with $J=1$ and $g=0$. 
+        In each case, $\A$ consists of the first half of the qubits and $\B$ consists of the second half.
+        Both $\lambda_{\max}$ and $\lambda_{\min}$ can be computed for these graphs.
     }
     \label{fig:ch2_SEP-delta_vs_h_intro}
 \end{figure}
@@ -476,8 +520,8 @@ Then
     \begin{aligned}
         -\sum_{n=1}^N J &\sigma_n^z \sigma_{n+1}^z = \\
         & \sqrt{J} H_\A^{zz} \otimes \sqrt{J} \id_\B +
-        \sqrt{J} \id_\A \otimes \sqrt{J} H_\B^{zz} + 
-        \sqrt{J} \sigma_{N_\A}^z \otimes \sqrt{J} \sigma_{{N_\A}+1}^z + 
+        \sqrt{J} \id_\A \otimes \sqrt{J} H_\B^{zz} - 
+        \sqrt{J} \sigma_{N_\A}^z \otimes \sqrt{J} \sigma_{{N_\A}+1}^z - 
         \sqrt{J} \sigma_1^z \otimes \sqrt{J} \sigma_N^z,
     \end{aligned}
 \end{equation}
@@ -523,6 +567,7 @@ We compute the lower bound, denoted $\hat{\alpha}_{L,i}$, for the $i$th choice o
 We denote the mean of these $10$ values as $\tilde{\alpha}_L$ and its maximum by $\hat{\alpha}_L$. 
 Figure~\ref{fig:ch2_SEP-vNa_6qe_intro} describes the difference between $\hat{\alpha}$ and these values, for each value of $L$. 
 
+\begin{comment}
 \begin{figure}[htpb]
     \centering
     \includegraphics[scale=0.75]{figs/ch2_SEP/vNa_6qe-3.pdf}
@@ -531,7 +576,26 @@ Figure~\ref{fig:ch2_SEP-vNa_6qe_intro} describes the difference between $\hat{\a
         Here $\hat{\alpha}_L$ and $\tilde{\alpha}_L$ denote the maximum and the mean of the $\hat{\alpha}_{L,i}$ values, respectively, computed using $10$ randomly chosen reference states. 
     }
     \label{fig:ch2_SEP-vNa_6qe_intro}
-\end{figure} 
+\end{figure}
+\end{comment} 
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[
+        scale=0.75,
+        alt={
+            Plot showing the error produced by the heuristic as the number of ansatz states increases for a twelve-qubit Ising Hamiltonian with J equal to one, g equal to zero, and h equal to one point three. 
+            The horizontal axis gives the number of ansatz states, and the vertical axis gives the heuristic error. 
+            The plot compares two error quantities: hat alpha sub L, defined as the maximum of the values obtained from ten randomly selected reference states, and tilde alpha sub L, defined as their mean.
+        }
+    ]{figs/ch2_SEP/vNa_6qe-3.pdf}
+
+    \caption{
+        The error generated by our heuristic as the number of ansatz states is varied for the Ising Hamiltonian on 12 qubits (with $J=1$, $g=0$, and $h=1.3$). 
+        Here, $\hat{\alpha}_L$ and $\tilde{\alpha}_L$ denote, respectively, the maximum and mean of the $\hat{\alpha}_{L,i}$ values computed using 10 randomly selected reference states.
+    }
+    \label{fig:ch2_SEP-vNa_6qe_intro}
+\end{figure}
 
 This gives an illustration of how many ansatz states one could choose to use. 
 We observe that the error decreases to near $0$ as the number of ansatz states increases. 
@@ -552,6 +616,7 @@ First, we compute the separable ground energy approximation $\hat{\alpha}$, when
 
 The values are shown in Figure~\ref{fig:ch2_SEP-NSeS_vs_NSS_intro}. 
 
+\begin{comment}
 \begin{figure}[htpb]
     \centering
     \includegraphics[scale=0.75]{figs/ch2_SEP/NSeS_vs_NSS-7.pdf}
@@ -559,9 +624,28 @@ The values are shown in Figure~\ref{fig:ch2_SEP-NSeS_vs_NSS_intro}.
         Comparing the calculations (when possible) and approximations to the ground energy and separable ground energy for the Ising Hamiltonian ($J = 1, g = 0, h = 1.4$) for up to $28$ qubits. 
     }
     \label{fig:ch2_SEP-NSeS_vs_NSS_intro}
-\end{figure} 
+\end{figure}
+\end{comment}
 
-We note there are are several points of interest in the above figure. 
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[
+        scale=0.75,
+        alt={
+            Plot comparing calculated and approximate values of the ground-state energy and separable ground-state energy for Ising Hamiltonians with different numbers of qubits, up to twenty-eight qubits. 
+            The horizontal axis represents the number of qubits, and the vertical axis represents energy.
+            Separate data series show the ground-state energy and the separable ground-state energy, including exact calculations where available and approximations for larger system sizes.
+            The Hamiltonian parameters are J equal to one, g equal to zero, and h equal to one point four.
+        }
+    ]{figs/ch2_SEP/NSeS_vs_NSS-7.pdf}
+
+    \caption{
+        Comparison of calculated values (where available) and approximations of the ground energy and separable ground energy for the Ising Hamiltonian ($J=1$, $g=0$, and $h=1.4$) for systems of up to 28 qubits.
+    }
+    \label{fig:ch2_SEP-NSeS_vs_NSS_intro}
+\end{figure}
+
+We note there are several points of interest in the above figure. 
 First, at $N = 7$ we observe that there is a gap between $\hat{\lambda}_{\max}$ and $\lambda_{\max}$ noting that this is also a heuristic-based approach to computing eigenvalues. 
 After this value of $N$, we stopped computing this heuristic as it became too expensive.  
 
@@ -611,7 +695,7 @@ We do note that these algorithms, as well as others, can be combined with our di
 Our approach has some similarities to \cite{shi2015epsilon}. 
 We look at general $C$ matrices as well as those that can be decomposed as a sum of tensor products. 
 While their approach uses MMW, we use dimension-reduction techniques to get the size of the problem smaller, then generalized eigensolvers, see Section~\ref{sec:ch2_SEP-small_SEP}. 
-Thus, the approaches are complimentary in this setting. 
+Thus, the approaches are complementary in this setting. 
 We do note that since our approach is heuristics-based, it can be used in general settings, sometimes even when the size of $C$ is exponentially large, as discussed in Section~\ref{sec:ch2_SEP-big_sep}. 
 
 Comparing to the previously-mentioned variational algorithms, our algorithm promises to give feasible solutions whereas this is not always the case in  variational algorithms. 
